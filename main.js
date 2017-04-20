@@ -114,7 +114,7 @@ var NewEffort = function(){
 var Task = function(){
 	return {
 		view: function(ctrl){
-			return m("div",[
+			return m(".page",[
 				model.tasks.map(function(task, tcount){
 					return m(".task",[
 						//m("span.number", task.id),
@@ -168,5 +168,7 @@ var NewTask = function(){
 };
 
 load().then(function(){
-	m.mount(document.body, Page);
+	setTimeout(function(){
+		m.mount(document.body, Page);
+	},500);
 });
