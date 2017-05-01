@@ -2,9 +2,21 @@ var Program = function(){
 
 	var content = [];
 
-	model.get("domain", {}, function(data){
-		content = data;
-	});
+	function getContent(){
+		model.get("domain", {}, function(data){
+			content = data;
+		});
+	}
+
+	function newItem(name){
+		model.post("program", {
+			name: name
+		}, function(){
+			getContent();
+		});
+	}
+
+	getContent();
 
 	return {
 		view: function(vnode){
@@ -16,7 +28,8 @@ var Program = function(){
 					console.log("click");
 					vnode.attrs.onselect(id);
 					shiftViewer(0);
-				}
+				},
+				onadd: newItem
 			});
 		}
 	};

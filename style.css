@@ -5,6 +5,7 @@
 
 * {
 	animation: fade-in 0.5s;
+	transition: background-color 0.2s;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 18pt;
 }
@@ -73,7 +74,7 @@ nav {
 	margin: -10px;
 	margin-bottom: 60px;
 	margin-right: 0px;
-	height: 80px;
+
 }
 
 .listItem:hover {
@@ -84,21 +85,56 @@ nav {
 	background-color: #cccccc;
 }
 
+.listItem.add{
+	background-color: transparent;
+	border: 1px solid #a3a3a3;
+	cursor: default;
+}
+
 .listItem .number {
 	width: 60px;
 	height: 60px;
 	background-color: #c65a4f;
 	margin-right: 40px;
-	float: left;
 	line-height: 60px;
 	text-align: center;
+	display: inline-block;
+	vertical-align: top;
 }
 
 .listItem .content {
 	width: 70%;
-	display: block;
+	display: inline-block;
 	white-space: normal;
-	float: left;
+}
+
+.listItem .number.add {
+	background-color: #db8b83;
+}
+
+.listItem .form {
+	display: inline-block;
+	width: 70%;
+}
+
+.listItem .input {
+	background: white;
+
+	padding: 5px;
+	outline: none;
+	box-sizing: border-box;
+	resize: vertical;
+	width: 100%;
+	cursor: default;
+}
+
+.listItem .button {
+	display: block;
+	border: 1px solid #d3d3d3;
+	padding: 5px;
+	outline: none;
+	box-sizing: border-box;
+	cursor: pointer;
 }
 
 .back {

@@ -3,6 +3,13 @@ var model = {
 	get: function(adress,data,callback){
 		m.request({
 			method: "GET",
+			url: api+adress
+		}).then(callback);
+	},
+
+	post: function(adress,data,callback){
+		m.request({
+			method: "POST",
 			url: api+adress,
 			data: data
 		}).then(callback);
