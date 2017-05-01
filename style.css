@@ -5,48 +5,122 @@
 
 * {
 	animation: fade-in 0.5s;
-	font-family: 'Nunito';
-	font-size: 13pt;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 18pt;
 }
 
-body {
+html, body {
 	margin: 0px;
 	background: #f8f8f8;
 	overflow-x: hidden;
+	height: 100%;
 }
 
-
-@keyframes loading {
-	0% { transform: scale(1,1); }
-	50% { transform: scale(1.2,1.2); }
-	100% { transform: scale(1,1); }
-}
-
-#loading {
-	background: #c65a4f;
-	width: 40px;
-	height: 40px;
-	animation: loading 1s infinite;
+nav {
+	height: 70px;
+	padding-left: 50px;
+	padding-top: 30px;
+	background: #dddddd;
+	z-index: 10;
 	position: absolute;
-	left: 50%;
-	top: 50%;
-	margin-left: -20px;
-	margin-top: -20px;
-	border-radius: 20px;
+	width: 100%;
 }
 
-#loadmessage {
-	color: #c65a4f;
+.page {
+	/*overflow: hidden;*/
+	display: block;
+	width: 100%;
+	height: 100%;
+	white-space: nowrap;
+	overflow-x: scroll;
+	overflow-y: hidden;
+	padding: 0px;
+	margin: 0px;
+}
+
+.half {
+	position: relative;
+	display: inline-block;
+	width: 50%;
+	height: 100%;
+	max-height: 100%;
+	padding-top: 120px;
+	padding-left: 50px;
+	border-left: 1px solid grey;
+	box-sizing: border-box;
+}
+
+.list {
+	overflow-y: scroll;
+	overflow-x: hidden;
 	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: 80px;
-	height: 40px;
+	top: 190px;
+	bottom: 0px;
+	left: 40px;
+	right: 0px;
+	padding: 10px;
+}
+
+.name {
+	margin-bottom: 40px;
+	font-size: 23pt;
+}
+
+.listItem {
+	display: block;
+	cursor: pointer;
+	padding: 10px;
+	margin: -10px;
+	margin-bottom: 60px;
+	margin-right: 0px;
+	height: 80px;
+}
+
+.listItem:hover {
+	background-color: #dddddd;
+}
+
+.listItem .number {
+	width: 60px;
+	height: 60px;
+	background-color: #c65a4f;
+	margin-right: 40px;
+	float: left;
+	line-height: 60px;
 	text-align: center;
-	margin-left: -40px;
-	margin-top: +30px;
-
 }
+
+.listItem .content {
+	width: 70%;
+	display: block;
+	white-space: normal;
+	float: left;
+}
+
+.back {
+	border-right: 1px solid grey;
+	background: #f8f8f8;
+
+	width: 5px;
+	height: 100%;
+
+	position: fixed;
+	top: 0px;
+	left: 0px;
+
+	transition: width 0.2s ease;
+	z-index: 50;
+
+	cursor: pointer;
+}
+
+.back:hover {
+	width: 50px;
+}
+
+
+
+/*
 
 .page {
 	position: relative;
@@ -59,7 +133,7 @@ body {
 	position: relative;
 	width: 350px;
 	margin: 50px;
-	margin-left: 70px;
+	margin-left: 25px;
 	margin-right: 0px;
 	padding: 30px;
 	border: 1px solid #d3d3d3;
@@ -179,3 +253,4 @@ nav > .layer > .type {
 nav > .layer > .title {
 	font-weight: 600;
 }
+*/
