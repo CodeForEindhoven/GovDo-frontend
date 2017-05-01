@@ -7,7 +7,7 @@
 	animation: fade-in 0.5s;
 	transition: background-color 0.2s;
 	font-family: 'Source Sans Pro', sans-serif;
-	font-size: 18pt;
+	font-size: 16pt;
 }
 
 html, body {
@@ -47,8 +47,14 @@ nav {
 	max-height: 100%;
 	padding-top: 120px;
 	padding-left: 50px;
-	border-left: 1px solid grey;
+	border-right: 1px solid grey;
 	box-sizing: border-box;
+}
+
+@media (min-width: 1440px) {
+	.half {
+		width: 33.3%;
+	}
 }
 
 .list {
@@ -75,7 +81,7 @@ nav {
 	margin: -10px;
 	margin-bottom: 60px;
 	margin-right: 0px;
-
+	min-height: 100px;
 }
 
 .listItem:hover {
@@ -96,6 +102,7 @@ nav {
 	width: 60px;
 	height: 60px;
 	background-color: #c65a4f;
+	color: #ffffff;
 	margin-right: 40px;
 	line-height: 60px;
 	text-align: center;
@@ -105,7 +112,7 @@ nav {
 
 .listItem .content {
 	font-weight: 300;
-	width: 70%;
+	width: 60%;
 	display: inline-block;
 	white-space: normal;
 }
@@ -121,7 +128,7 @@ nav {
 
 .listItem .input {
 	background: white;
-
+	border: 1px solid grey;
 	padding: 5px;
 	outline: none;
 	box-sizing: border-box;
@@ -132,8 +139,10 @@ nav {
 
 .listItem .button {
 	display: block;
-	border: 1px solid #d3d3d3;
-	padding: 5px;
+	border: 0px;
+	margin-top: 10px;
+	background: #84c17f;
+	padding: 10px;
 	outline: none;
 	box-sizing: border-box;
 	cursor: pointer;
@@ -163,7 +172,30 @@ nav {
 	color: black;
 }
 
+.select {
+	width: 60%;
+}
 
+.what {
+	font-weight: 400;
+}
+
+.info {
+	display: inline-block;
+	font-weight: 300;
+	cursor: pointer;
+}
+
+.edit {
+	margin-left: 50px;
+	font-size: 12pt;
+	display: none;
+	cursor: pointer;
+}
+
+.info:hover .edit {
+	display: inline-block;
+}
 
 /*
 

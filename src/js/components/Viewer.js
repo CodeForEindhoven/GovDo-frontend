@@ -7,13 +7,11 @@ var Viewer = function(){
 
 	var currentTask = -1;
 	function updateTask(p){
-		console.log(p);
 		currentTask = p;
 	}
 
 	var currentEffort = -1;
 	function updateEffort(p){
-		console.log(p);
 		currentEffort = p;
 	}
 

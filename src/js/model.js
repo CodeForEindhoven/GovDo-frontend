@@ -1,30 +1,51 @@
 var model = {
-	team: "",
-	tasks: []
+	get: function(adress,data,callback){
+		m.request({
+			method: "GET",
+			url: config.api_endpoint+adress
+		}).then(callback);
+	},
+
+	post: function(adress,data,callback){
+		m.request({
+			method: "POST",
+			url: config.api_endpoint+adress,
+			data: data
+		}).then(callback);
+	}
+};
+
+/*
+
+var model = {};
+model.group = {
+	name: "",
+	Tasks: [],
+	People: []
 };
 
 var api = "http://127.0.0.1:8000/";
 
-var load = function(){
+var getGroup = function(){
 	return m.request({
 		method: "GET",
-		url: api+"team",
+		url: api+"group/3",
 	}).then(function(result) {
-		model = result;
+		model.group = result[0];
 		console.log(model);
 	});
 };
 
-function addTask(title){
+function addTask(name){
 	m.request({
 		method: "POST",
 		url: api+"task",
 		data: {
-			title: title
+			name: name,
+			group: model.group.id
 		}
-	}).then(function(result) {
-		model = result;
-		console.log(model);
+	}).then(function() {
+		getGroup();
 	});
 }
 
@@ -56,3 +77,4 @@ function addEffortPerson(task, effort, person){
 		console.log(model);
 	});
 }
+*/

@@ -1,0 +1,21 @@
+{
+  "name": "GovDo-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for GovDo",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeForEindhoven/GovDo-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.9.0"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/http-server ./src"
+  }
+}

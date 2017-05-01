@@ -66,7 +66,7 @@ var AddItem = function(){
 							state = false;
 						}
 					}, [
-						m("input.input[placeholder=Titel][autofocus=true]", {
+						m("textarea.input[placeholder=Titel][autofocus=true]", {
 							oninput: m.withAttr("value", function(v) {value = v;}),
 							value: value
 						}),
