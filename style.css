@@ -80,6 +80,10 @@ nav {
 	background-color: #dddddd;
 }
 
+.listItem.selected {
+	background-color: #cccccc;
+}
+
 .listItem .number {
 	width: 60px;
 	height: 60px;

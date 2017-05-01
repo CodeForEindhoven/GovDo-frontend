@@ -3,10 +3,13 @@ var List = function(){
 		view: function(vnode){
 			return m(".half",[
 				m(".name", vnode.attrs.title),
-				m(".list", vnode.attrs.content.map(function(element, count){
-					return m(ListItem, {count: count+1, content: element, level: vnode.attrs.count});
+				m(".list", vnode.attrs.content.map(function(element){
+					return m(ListItem, {
+						content: element,
+						onclick: vnode.attrs.onclick,
+						selected: (vnode.attrs.selected === element.id)
+					});
 				}))
-
 			]);
 		}
 	};
@@ -15,13 +18,14 @@ var List = function(){
 var ListItem = function(){
 	return {
 		view: function(vnode){
-			return m(".listItem", {
-				onclick: function(e){
-					shiftViewer(vnode.attrs.level);
+			console.log(vnode.attrs.selected);
+			return m(".listItem"+(vnode.attrs.selected?".selected":""), {
+				onclick: function(){
+					vnode.attrs.onclick(vnode.attrs.content.id);
 				}
 			}, [
-				m(".number", vnode.attrs.count),
-				m(".content", vnode.attrs.content)
+				m(".number", vnode.attrs.content.id),
+				m(".content", vnode.attrs.content.name)
 			]);
 		}
 	};

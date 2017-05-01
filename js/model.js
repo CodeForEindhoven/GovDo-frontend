@@ -1,3 +1,16 @@
+var api = "http://127.0.0.1:8000/";
+var model = {
+	get: function(adress,data,callback){
+		m.request({
+			method: "GET",
+			url: api+adress,
+			data: data
+		}).then(callback);
+	}
+};
+
+/*
+
 var model = {};
 model.group = {
 	name: "",
@@ -58,3 +71,4 @@ function addEffortPerson(task, effort, person){
 		console.log(model);
 	});
 }
+*/
