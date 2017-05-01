@@ -64,7 +64,8 @@ nav {
 
 .name {
 	margin-bottom: 40px;
-	font-size: 23pt;
+	font-size: 22pt;
+	font-weight: 600;
 }
 
 .listItem {
@@ -103,6 +104,7 @@ nav {
 }
 
 .listItem .content {
+	font-weight: 300;
 	width: 70%;
 	display: inline-block;
 	white-space: normal;
@@ -140,22 +142,25 @@ nav {
 .back {
 	border-right: 1px solid grey;
 	background: #f8f8f8;
-
+	color: transparent;
 	width: 5px;
 	height: 100%;
+	padding-top: 25%;
+	text-align: center;
 
 	position: fixed;
 	top: 0px;
 	left: 0px;
 
 	transition: width 0.2s ease;
-	z-index: 50;
+	z-index: 15;
 
 	cursor: pointer;
 }
 
 .back:hover {
 	width: 50px;
+	color: black;
 }
 
 

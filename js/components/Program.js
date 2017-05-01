@@ -25,7 +25,6 @@ var Program = function(){
 				selected: vnode.attrs.selected,
 				content: content,
 				onclick: function(id){
-					console.log("click");
 					vnode.attrs.onselect(id);
 					shiftViewer(0);
 				},

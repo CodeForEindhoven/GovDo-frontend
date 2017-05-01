@@ -1,11 +1,11 @@
-var Task = function(){
+var Effort = function(){
 
 	var currentView = -1;
 	var content = [];
 
 	function getContent(){
-		model.get("task/"+currentView, {}, function(data){
-			content = data[0].Tasks;
+		model.get("effort/"+currentView, {}, function(data){
+			content = data[0].Efforts;
 		});
 	}
 
@@ -17,7 +17,7 @@ var Task = function(){
 	}
 
 	function newItem(name){
-		model.post("task/"+currentView, {
+		model.post("effort/"+currentView, {
 			name: name
 		}, function(){
 			getContent();
@@ -29,12 +29,12 @@ var Task = function(){
 			updateContent(vnode.attrs.view);
 			if(currentView>0){
 				return m(List, {
-					title:"Opgaven ",
-					selected: vnode.attrs.selected,
+					title:"Inspanningen",
 					content: content,
+					selected: vnode.attrs.selected,
 					onclick: function(id){
 						vnode.attrs.onselect(id);
-						shiftViewer(1);
+						shiftViewer(2);
 					},
 					onadd: newItem
 				});
