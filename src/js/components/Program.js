@@ -1,6 +1,7 @@
 var Program = function(){
 
 	var content = [];
+	var onclick;
 
 	function getContent(){
 		model.get("domain", {}, function(data){
@@ -11,23 +12,29 @@ var Program = function(){
 	function newItem(name){
 		model.post("program", {
 			name: name
-		}, function(){
+		}, function(data){
 			getContent();
+			onclick(data.id);
 		});
 	}
+
+
 
 	getContent();
 
 	return {
+		oninit: function(vnode){
+			onclick = function(id){
+				vnode.attrs.onselect(id);
+				shiftViewer(0);
+			};
+		},
 		view: function(vnode){
 			return m(List, {
 				title:"Programma's",
 				selected: vnode.attrs.selected,
 				content: content,
-				onclick: function(id){
-					vnode.attrs.onselect(id);
-					shiftViewer(0);
-				},
+				onclick: onclick,
 				onadd: newItem
 			});
 		}

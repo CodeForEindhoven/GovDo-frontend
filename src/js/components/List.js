@@ -66,9 +66,14 @@ var AddItem = function(){
 							state = false;
 						}
 					}, [
-						m("textarea.input[placeholder=Titel][autofocus=true]", {
+						m("textarea.input[placeholder=Titel][autofocus=true][wrap=hard]", {
 							oninput: m.withAttr("value", function(v) {value = v;}),
-							value: value
+							value: value,
+							oncreate: function(vnode){
+								setTimeout(function () {
+									vnode.dom.focus();
+								}, 10);
+							}
 						}),
 						m("button.button[type=submit]", "Toevoegen")
 					])

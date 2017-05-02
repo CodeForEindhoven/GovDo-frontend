@@ -40,9 +40,11 @@ var EffortDetails = function(){
 
 
 	function updateContent(program){
-		if(program>0 && (program!==currentView)){
+		if(program!==currentView){
 			currentView = program;
-			getContent();
+			if(program>0){
+				getContent();
+			}
 		}
 	}
 
@@ -61,10 +63,15 @@ var EffortDetails = function(){
 						m(PersonSelector, {
 							people: content.People,
 							onadd: setPerson,
-							onremove: removePerson,
+							onremovePerson: removePerson,
 							effort: currentView
 						})
 					])
+				]);
+			} else if(vnode.attrs.display){
+				return m(".half",[
+					m(".name", "Details"),
+					m(".list",[])
 				]);
 			}
 		}
@@ -145,8 +152,6 @@ var PersonSelector = function(){
 				value = "";
 			}
 
-
-
 			if(!state){
 				if(vnode.attrs.people.length === 0){
 					return [
@@ -172,7 +177,8 @@ var PersonSelector = function(){
 								m("span.n", person.name),
 								m("span.edit", {
 									onclick: function(){
-										vnode.attrs.onremove(person.name);
+										console.log("click remove");
+										vnode.attrs.onremovePerson(person.name);
 									}
 								},"verwijder")
 							]);

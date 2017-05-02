@@ -1,16 +1,22 @@
 var Viewer = function(){
 
 	var currentProgram = -1;
+	var currentTask = -1;
+	var currentEffort = -1;
+
 	function updateProgram(p){
 		currentProgram = p;
+		currentTask = -1;
+		currentEffort = -1;
 	}
 
-	var currentTask = -1;
+
 	function updateTask(p){
 		currentTask = p;
+		currentEffort = -1;
 	}
 
-	var currentEffort = -1;
+
 	function updateEffort(p){
 		currentEffort = p;
 	}
@@ -24,9 +30,9 @@ var Viewer = function(){
 					}
 				}, "<"),
 				m(Program, 			{selected: currentProgram, 	onselect: updateProgram 							}),
-				m(Task,    			{selected: currentTask, 	onselect: updateTask, 		view: currentProgram, 	}),
+				m(Task,    			{selected: currentTask, 	onselect: updateTask, 		view: currentProgram 	}),
 				m(Effort,  			{selected: currentEffort, 	onselect: updateEffort,		view: currentTask		}),
-				m(EffortDetails,  	{							onselect: updateEffort,		view: currentEffort		}),
+				m(EffortDetails,  	{							onselect: updateEffort,		view: currentEffort		,display: (currentTask>0)}),
 			]);
 		}
 	};

@@ -2,6 +2,7 @@ var Effort = function(){
 
 	var currentView = -1;
 	var content = [];
+	var onclick;
 
 	function getContent(){
 		model.get("effort/"+currentView, {}, function(data){
@@ -10,21 +11,30 @@ var Effort = function(){
 	}
 
 	function updateContent(program){
-		if(program>0 && (program!==currentView)){
+		if(program!==currentView){
 			currentView = program;
-			getContent();
+			if(program>0){
+				getContent();
+			}
 		}
 	}
 
 	function newItem(name){
 		model.post("effort/"+currentView, {
 			name: name
-		}, function(){
+		}, function(data){
 			getContent();
+			onclick(data.id);
 		});
 	}
 
 	return {
+		oninit: function(vnode){
+			onclick = function(id){
+				vnode.attrs.onselect(id);
+				shiftViewer(2);
+			};
+		},
 		view: function(vnode){
 			updateContent(vnode.attrs.view);
 			if(currentView>0){
@@ -32,10 +42,7 @@ var Effort = function(){
 					title:"Inspanningen",
 					content: content,
 					selected: vnode.attrs.selected,
-					onclick: function(id){
-						vnode.attrs.onselect(id);
-						shiftViewer(2);
-					},
+					onclick: onclick,
 					onadd: newItem
 				});
 			}

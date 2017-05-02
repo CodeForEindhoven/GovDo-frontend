@@ -2,6 +2,7 @@ var Task = function(){
 
 	var currentView = -1;
 	var content = [];
+	var onclick;
 
 	function getContent(){
 		model.get("task/"+currentView, {}, function(data){
@@ -10,21 +11,30 @@ var Task = function(){
 	}
 
 	function updateContent(program){
-		if(program>0 && (program!==currentView)){
+		if(program!==currentView){
 			currentView = program;
-			getContent();
+			if(program>0){
+				getContent();
+			}
 		}
 	}
 
 	function newItem(name){
 		model.post("task/"+currentView, {
 			name: name
-		}, function(){
+		}, function(data){
 			getContent();
+			onclick(data.id);
 		});
 	}
 
 	return {
+		oninit: function(vnode){
+			onclick = function(id){
+				vnode.attrs.onselect(id);
+				shiftViewer(1);
+			};
+		},
 		view: function(vnode){
 			updateContent(vnode.attrs.view);
 			if(currentView>0){
@@ -32,10 +42,7 @@ var Task = function(){
 					title:"Opgaven ",
 					selected: vnode.attrs.selected,
 					content: content,
-					onclick: function(id){
-						vnode.attrs.onselect(id);
-						shiftViewer(1);
-					},
+					onclick: onclick,
 					onadd: newItem
 				});
 			}

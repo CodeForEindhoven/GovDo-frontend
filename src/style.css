@@ -134,6 +134,7 @@ nav {
 	box-sizing: border-box;
 	resize: vertical;
 	width: 100%;
+	height: 160px;
 	cursor: default;
 }
 
