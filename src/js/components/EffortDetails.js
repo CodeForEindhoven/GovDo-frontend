@@ -130,6 +130,10 @@ var PersonSelector = function(){
 		});
 	}
 
+	function openEditor(){
+		state = true;
+		getPeople();
+	}
 
 	getPeople();
 
@@ -147,12 +151,12 @@ var PersonSelector = function(){
 				if(vnode.attrs.people.length === 0){
 					return [
 						m(".what", "Mensen"),
-						m(".info", {onclick: function(){state=true;}}, m(".person", "voeg mensen toe...")),
+						m(".info", {onclick: openEditor}, m(".person", "voeg mensen toe...")),
 					];
 				} else {
 					return [
 						m(".what", "Mensen"),
-						m(".info", {onclick: function(){state=true;}} , [
+						m(".info", {onclick: openEditor} , [
 							vnode.attrs.people.map(function(person){
 								return m(".person", person.name);
 							}),
