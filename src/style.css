@@ -173,7 +173,7 @@ nav {
 }
 
 .select {
-	width: 60%;
+	width: 100%;
 }
 
 .what {
@@ -184,16 +184,45 @@ nav {
 	display: inline-block;
 	font-weight: 300;
 	cursor: pointer;
+	margin-bottom: 50px;
+	width: 60%;
+}
+
+.info .person {
+	font-style: italic;
+	width:100%;
+	position: relative;
+}
+
+.info:hover {
+	background-color: #dddddd;
+}
+
+.info.mode:hover {
+	background-color: transparent;
+}
+
+.info.mode .person:hover {
+	background-color: #dddddd;
+}
+.info .person .n {
+	text-align: left;
+}
+
+.info .input {
+	width: 90%;
 }
 
 .edit {
-	margin-left: 50px;
+	position: absolute;
+	right: 10px;
 	font-size: 12pt;
 	display: none;
 	cursor: pointer;
+	text-align: right;
 }
 
-.info:hover .edit {
+.person:hover .edit {
 	display: inline-block;
 }
 

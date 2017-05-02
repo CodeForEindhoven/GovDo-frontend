@@ -1,7 +1,10 @@
 var EffortDetails = function(){
 
 	var currentView = -1;
-	var content = {};
+	var content = {
+		type: -1,
+		People: []
+	};
 
 	function getContent(){
 		model.get("details/"+currentView, {}, function(data){
@@ -12,6 +15,24 @@ var EffortDetails = function(){
 	function setType(type){
 		model.post("details/"+currentView+"/type", {
 			type: type
+		}, function(){
+			getContent();
+		});
+	}
+
+	function setPerson(person){
+		console.log(person);
+		model.post("details/"+currentView+"/person", {
+			person: person
+		}, function(){
+			getContent();
+		});
+	}
+
+	function removePerson(person){
+		console.log(person);
+		model.post("details/"+currentView+"/removeperson", {
+			person: person
 		}, function(){
 			getContent();
 		});
@@ -36,6 +57,12 @@ var EffortDetails = function(){
 							effort: currentView,
 							type: content.type,
 							onset: setType
+						}),
+						m(PersonSelector, {
+							people: content.People,
+							onadd: setPerson,
+							onremove: removePerson,
+							effort: currentView
 						})
 					])
 				]);
@@ -48,13 +75,13 @@ var TypeSelector = function(){
 	var types = [
 		"Project",
 		"Programma",
-		"Routine"
+		"Routine",
+		"Proces",
+		"Improvisatie",
+		"Klusje"
 	];
 
 	var state = false;
-
-
-
 	return {
 		view: function(vnode){
 			if(!state){
@@ -71,17 +98,98 @@ var TypeSelector = function(){
 			} else {
 				return [
 					m(".what", "Type"),
-					m("select.select", {
-						onchange: function(event){
-							vnode.attrs.onset(parseInt(event.target.value-1));
-							state = false;
-						}
-					}, [
-						m("option", {disabled: true, selected: true}, "kies type..."),
-						types.map(function(t, c){
-							return m("option", {value: c+1}, t);
-						})
+					m(".info",[
+						m("select.select", {
+							onchange: function(event){
+								vnode.attrs.onset(parseInt(event.target.value-1));
+								state = false;
+							}
+						}, [
+							m("option", {disabled: true, selected: true}, "kies type..."),
+							types.map(function(t, c){
+								return m("option", {value: c+1}, t);
+							})
+						])
 					])
+				];
+			}
+
+		}
+	};
+};
+
+var PersonSelector = function(){
+	var rnd = -1;
+	var state = false;
+	var value = "";
+	var peopleList = [];
+
+	function getPeople(){
+		model.get("people", {}, function(data){
+			peopleList = data;
+		});
+	}
+
+
+	getPeople();
+
+	return {
+		view: function(vnode){
+			if(rnd!==vnode.attrs.effort){
+				rnd = vnode.attrs.effort;
+				state = false;
+				value = "";
+			}
+
+
+
+			if(!state){
+				if(vnode.attrs.people.length === 0){
+					return [
+						m(".what", "Mensen"),
+						m(".info", {onclick: function(){state=true;}}, m(".person", "voeg mensen toe...")),
+					];
+				} else {
+					return [
+						m(".what", "Mensen"),
+						m(".info", {onclick: function(){state=true;}} , [
+							vnode.attrs.people.map(function(person){
+								return m(".person", person.name);
+							}),
+						]),
+					];
+				}
+			} else {
+				return [
+					m(".what", "Mensen"),
+					m(".info.mode", [
+						vnode.attrs.people.map(function(person){
+							return m(".person", [
+								m("span.n", person.name),
+								m("span.edit", {
+									onclick: function(){
+										vnode.attrs.onremove(person.name);
+									}
+								},"verwijder")
+							]);
+						}),
+						m("datalist#people",peopleList.map(function(p){
+							return m("option", {value: p.name});
+						})),
+						m("input.input", {
+							list: "people",
+							placeholder: "Voornaam Achternaam",
+							oninput: m.withAttr("value", function(v) {value = v;}),
+							onchange: m.withAttr("value", function(v) {value = v;}),
+							value: value
+						}),
+						m("button", {onclick: function(){
+							if(value!==""){
+								vnode.attrs.onadd(value);
+							}
+							value = "";
+						}},"+")
+					]),
 				];
 			}
 

@@ -1,3 +1,3 @@
 m.route(document.body, "/", {
-    "/": Page,
+	"/": Page,
 });
