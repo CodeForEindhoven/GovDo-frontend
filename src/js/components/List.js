@@ -1,4 +1,10 @@
 var List = function(){
+	var addstate = false;
+	function setAddState(v){
+		if(v!==undefined){addstate=v;}
+		return addstate;
+	}
+
 	return {
 		view: function(vnode){
 			return m(".half",[
@@ -8,14 +14,21 @@ var List = function(){
 						return m(ListItem, {
 							content: element,
 							count: count,
-							onclick: vnode.attrs.onclick,
+							onclick: function(id){
+								setAddState(false);
+								vnode.attrs.onclick(id);
+							},
 							selected: (vnode.attrs.selected === element.id)
 						});
 					}),
 					m(AddItem, {
 						onadd: vnode.attrs.onadd,
 						rnd: vnode.attrs.content,
-						number: vnode.attrs.content.length+1
+						number: vnode.attrs.content.length+1,
+						state: setAddState,
+						onswitch: function(){
+							vnode.attrs.onclick(-1);
+						}
 					})
 				])
 			]);
@@ -39,7 +52,6 @@ var ListItem = function(){
 };
 
 var AddItem = function(){
-	var state = false;
 	var value = "";
 	var id = 0;
 
@@ -50,9 +62,12 @@ var AddItem = function(){
 				value = "";
 				id = vnode.attrs.rnd;
 			}
-			if(!state){
+			if(!vnode.attrs.state()){
 				return m(".listItem", {
-					onclick: function(){state = true;}
+					onclick: function(){
+						vnode.attrs.state(true);
+						vnode.attrs.onswitch();
+					}
 				}, m(".number.add", "+"));
 			} else {
 				return m(".listItem.add", [
@@ -63,7 +78,7 @@ var AddItem = function(){
 							console.log(value);
 							vnode.attrs.onadd(value);
 							value = "";
-							state = false;
+							vnode.attrs.state(false);
 						}
 					}, [
 						m("textarea.input[placeholder=Titel][autofocus=true][wrap=hard]", {
