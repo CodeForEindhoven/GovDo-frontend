@@ -1,3 +1,3 @@
 var config = {
-	api_endpoint: "http://apiplanlab.wolkenmachine.nl/"
+	api_endpoint: "http://localhost:8000/"
 };
