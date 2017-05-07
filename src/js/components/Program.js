@@ -7,7 +7,12 @@ var Program = function(){
 			return m(List, {
 				title:"Programma's",
 				selected: viewModels.Hierarchy.getProgram(),
-				content: Models.Program.getContent(),
+				content: Models.Program.getContent().map(function(c){
+					c.subcontent = [
+						m(".mission", c.mission),
+					];
+					return c;
+				}),
 				onclick: function(id){
 					viewModels.Hierarchy.updateProgram(id);
 					shiftViewer(0);

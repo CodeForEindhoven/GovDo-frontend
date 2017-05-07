@@ -21,15 +21,15 @@ var List = function(){
 							selected: (vnode.attrs.selected === element.id)
 						});
 					}),
-					m(AddItem, {
-						onadd: vnode.attrs.onadd,
-						rnd: vnode.attrs.content,
-						number: vnode.attrs.content.length+1,
-						state: setAddState,
-						onswitch: function(){
-							vnode.attrs.onclick(-1);
-						}
-					})
+					//m(AddItem, {
+					//	onadd: vnode.attrs.onadd,
+					//	rnd: vnode.attrs.content,
+					//	number: vnode.attrs.content.length+1,
+					//	state: setAddState,
+					//	onswitch: function(){
+					//		vnode.attrs.onclick(-1);
+					//	}
+					//})
 				])
 			]);
 		}
@@ -44,8 +44,14 @@ var ListItem = function(){
 					vnode.attrs.onclick(vnode.attrs.content.id);
 				}
 			}, [
-				m(".number", vnode.attrs.count+1),
-				m(".content", vnode.attrs.content.name)
+				m(".left",[
+					m(".number", vnode.attrs.count+1),
+					m(".edit", "edit"),
+				]),
+				m(".right",[
+					m(".content", vnode.attrs.content.name),
+					m(".subcontent", vnode.attrs.content.subcontent)
+				])
 			]);
 		}
 	};
