@@ -7,7 +7,7 @@ var List = function(){
 
 	return {
 		view: function(vnode){
-			return m(".half",[
+			return m("",[
 				m(".name", vnode.attrs.title),
 				m(".addbutton", {onclick: vnode.attrs.onadd},"+"),
 				m(".list", [

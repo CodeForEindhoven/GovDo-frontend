@@ -9,10 +9,7 @@ var Viewer = function(){
 //				}, "<"),
 				m(Program),
 				m(Task),
-				m(Effort),
-				//m(Task,    			{selected: currentTask, 	onselect: updateTask, 		view: currentProgram 	}),
-				//m(Effort,  			{selected: currentEffort, 	onselect: updateEffort,		view: currentTask		}),
-				//m(EffortDetails,  	{							onselect: updateEffort,		view: currentEffort		,display: (currentTask>0)}),
+				m(Effort)
 			]);
 		}
 	};

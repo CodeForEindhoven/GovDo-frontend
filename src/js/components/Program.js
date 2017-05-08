@@ -1,13 +1,13 @@
 var Program = function(){
 
 	Models.Program.loadContent();
-	var propsEditor = {};
 	var openEditor;
 
 	return {
 		view: function(vnode){
-			return [
+			return m(".half",[
 				m(Editor, {
+					title: "Programma",
 					open: function(openfunction){
 						openEditor = openfunction;
 					},
@@ -23,12 +23,7 @@ var Program = function(){
 								shiftViewer(0);
 							});
 						}
-
-					},
-					onhide: function(){
-						showEditor = false;
-					},
-					properties: propsEditor
+					}
 				}),
 				m(List, {
 					title:"Programma's",
@@ -50,7 +45,7 @@ var Program = function(){
 						openEditor();
 					}
 				})
-			];
+			]);
 		}
 	};
 };

@@ -37,8 +37,18 @@ Models.Task = (function(){
 		});
 	}
 
+	function updateItem(id, name, callback){
+		model.post("task/"+id, {
+			name: name
+		}, function(data){
+			loadContent();
+			callback(data.id);
+		});
+	}
+
 	return {
 		newItem: newItem,
+		updateItem: updateItem,
 		loadContent: loadContent,
 		getContent: getContent,
 		getName: getName,
