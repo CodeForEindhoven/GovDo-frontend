@@ -19,6 +19,9 @@ var Effort = function(){
 						open: function(openfunction){
 							openEditor = openfunction;
 						},
+						updateProperties: function(updatefunction){
+							updateEditor = updatefunction;
+						},
 						onsetType: function(id, type){
 							Models.Effort.setType(id, type);
 						},

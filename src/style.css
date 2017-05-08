@@ -102,6 +102,18 @@ nav > .name {
 	white-space: normal;
 }
 
+.editor.wide {
+	width: 66%;
+	height: 400px;
+}
+
+.editor.wide .column {
+	width: 50%;
+	float: left;
+	padding-right: 30px;
+	box-sizing: border-box;
+}
+
 .editor .textarea {
 	background: white;
 	border: 1px solid grey;
@@ -344,7 +356,7 @@ nav > .name {
 	font-weight: 300;
 	cursor: pointer;
 	margin-bottom: 50px;
-	width: 60%;
+	width: 100%;
 }
 
 .info .person {
@@ -372,8 +384,8 @@ nav > .name {
 	width: 90%;
 }
 
-/*
-.edit {
+
+.person .remove {
 	position: absolute;
 	right: 10px;
 	font-size: 12pt;
@@ -381,8 +393,8 @@ nav > .name {
 	cursor: pointer;
 	text-align: right;
 }
-*/
-.person:hover .edit {
+
+.person:hover .remove {
 	display: inline-block;
 }
 

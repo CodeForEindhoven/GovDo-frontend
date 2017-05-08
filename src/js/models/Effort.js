@@ -54,11 +54,32 @@ Models.Effort = (function(){
 		});
 	}
 
+	function setPerson(id, person){
+		console.log(person);
+		model.post("details/"+id+"/person", {
+			person: person
+		}, function(){
+			loadContent();
+		});
+	}
+
+	function removePerson(id, person){
+		console.log(person);
+		model.post("details/"+id+"/removeperson", {
+			person: person
+		}, function(){
+			loadContent();
+		});
+	}
+
 	return {
 		newItem: newItem,
 		updateItem: updateItem,
 
 		setType: setType,
+
+		setPerson: setPerson,
+		removePerson: removePerson,
 
 		loadContent: loadContent,
 		getContent: getContent,
