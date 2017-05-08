@@ -7,9 +7,20 @@ Models.Program = (function(){
 		});
 	}
 
-	function newItem(name, callback){
+	function newItem(name, mission, callback){
 		model.post("program", {
-			name: name
+			name: name,
+			mission: mission,
+		}, function(data){
+			loadContent();
+			callback(data.id);
+		});
+	}
+
+	function updateItem(id, name, mission, callback){
+		model.post("program/"+id, {
+			name: name,
+			mission: mission,
 		}, function(data){
 			loadContent();
 			callback(data.id);
@@ -22,6 +33,7 @@ Models.Program = (function(){
 
 	return {
 		newItem: newItem,
+		updateItem: updateItem,
 		loadContent: loadContent,
 		getContent: getContent,
 	};
