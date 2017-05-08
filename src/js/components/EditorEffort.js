@@ -44,6 +44,8 @@ var EditorEffort = function(){
 								vnode.attrs.onsave(id, title);
 								id = -1;
 								title = "";
+								type = -1;
+								people = [];
 								opened = false;
 							}
 						}, [
