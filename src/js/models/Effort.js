@@ -37,8 +37,29 @@ Models.Effort = (function(){
 		});
 	}
 
+	function updateItem(id, name, callback){
+		model.post("effort/"+id, {
+			name: name
+		}, function(data){
+			loadContent();
+			callback(data.id);
+		});
+	}
+
+	function setType(id, type){
+		model.post("details/"+id+"/type", {
+			type: type
+		}, function(){
+			loadContent();
+		});
+	}
+
 	return {
 		newItem: newItem,
+		updateItem: updateItem,
+
+		setType: setType,
+
 		loadContent: loadContent,
 		getContent: getContent,
 		getName: getName,

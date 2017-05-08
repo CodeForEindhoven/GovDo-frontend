@@ -1,4 +1,5 @@
 var Effort = function(){
+	var openEditor;
 
 	var types = [
 		"Project",
@@ -13,6 +14,28 @@ var Effort = function(){
 		view: function(vnode){
 			if(viewModels.Hierarchy.getTask()>0){
 				return m(".half",[
+					m(EditorEffort,{
+						title: "Inspanning",
+						open: function(openfunction){
+							openEditor = openfunction;
+						},
+						onsetType: function(id, type){
+							Models.Effort.setType(id, type);
+						},
+						onsave: function(id, name, mission){
+							if(id===-1){
+								Models.Effort.newItem(name, function(id){
+									viewModels.Hierarchy.updateEffort(id);
+									shiftViewer(2);
+								});
+							} else {
+								Models.Effort.updateItem(id, name, function(id){
+									viewModels.Hierarchy.updateEffort(id);
+									shiftViewer(2);
+								});
+							}
+						}
+					}),
 					m(List, {
 						title:"Inspanningen",
 						selected: viewModels.Hierarchy.getEffort(),
@@ -21,8 +44,6 @@ var Effort = function(){
 							if(e.type>-1){
 								type = types[e.type];
 							}
-
-
 							e.subcontent = [
 								m(".header", "type"),
 								m("", type),
@@ -37,14 +58,14 @@ var Effort = function(){
 							viewModels.Hierarchy.updateEffort(id);
 							shiftViewer(2);
 						},
-						onadd: function(name){
-							Models.Effort.newItem(name, function(id){
-								viewModels.Hierarchy.updateEffort(id);
-								shiftViewer(2);
-							});
+						onadd: function(){
+							openEditor();
+						},
+						onedit: function(properties){
+							openEditor(properties);
 						}
 					})
-				])
+				]);
 			}
 		}
 	};
