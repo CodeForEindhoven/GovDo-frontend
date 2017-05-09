@@ -25,15 +25,32 @@ var Effort = function(){
 						onsetType: function(id, type){
 							Models.Effort.setType(id, type);
 						},
-						onsave: function(id, name, mission){
+						onsave: function(id, name, type, peopleupdates){
+							function updatePeople(ids){
+								for(var i=0; i<peopleupdates.length; i++){
+									var update = peopleupdates[i];
+									if(update.addremove==="add"){
+										console.log(i);
+										console.log(update);
+										Models.Effort.setPerson(ids, update.person);
+									} else if(update.addremove==="remove"){
+										console.log(i);
+										console.log(update);
+										Models.Effort.removePerson(ids, update.person);
+									}
+								}
+							}
+
 							if(id===-1){
-								Models.Effort.newItem(name, function(id){
+								Models.Effort.newItem(name, type, function(id){
 									viewModels.Hierarchy.updateEffort(id);
+									updatePeople(id);
 									shiftViewer(2);
 								});
 							} else {
-								Models.Effort.updateItem(id, name, function(id){
+								Models.Effort.updateItem(id, name, type, function(id){
 									viewModels.Hierarchy.updateEffort(id);
+									updatePeople(id);
 									shiftViewer(2);
 								});
 							}

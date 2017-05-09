@@ -27,19 +27,21 @@ Models.Effort = (function(){
 		}
 	}
 
-	function newItem(name,callback){
+	function newItem(name, type, callback){
 		model.post("effort", {
 			task: currentView,
-			name: name
+			name: name,
+			type: type,
 		}, function(data){
 			loadContent();
 			callback(data.id);
 		});
 	}
 
-	function updateItem(id, name, callback){
+	function updateItem(id, name, type, callback){
 		model.post("effort/"+id, {
-			name: name
+			name: name,
+			type: type,
 		}, function(data){
 			loadContent();
 			callback(data.id);

@@ -68,48 +68,50 @@ nav > .name {
 	white-space: nowrap;
 	overflow-x: scroll;
 	overflow-y: hidden;
-	padding: 20px;
 	padding-top: 100px;
 	margin: 0px;
 }
 
 .grey {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: rgba(100,100,100,0.5);
+	z-index: 100000;
+}
+
+.fullscreen {
 	width: 100%;
 	height: 100%;
 	position: fixed;
 	left: 0;
 	top: 0;
-	background-color: rgba(100,100,100,0.5);
-	z-index: 10000;
+	z-index: 1000;
 }
 
 .editor {
-	width: 33%;
-	height: 300px;
-	position: fixed;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: auto;
-	margin-bottom: auto;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
+	position: relative;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	width: 25%;
+
 	background-color: #ffffff;
-	z-index: 1000000;
+	z-index: 10000000;
 	box-shadow: 0px 0px 15px #111111;
 	padding: 15px;
 	white-space: normal;
 }
 
 .editor.wide {
-	width: 66%;
-	height: 400px;
+	width: 50%;
 }
 
 .editor.wide .column {
 	width: 50%;
-	float: left;
+	display: inline-block;
 	padding-right: 30px;
 	box-sizing: border-box;
 }
@@ -122,8 +124,9 @@ nav > .name {
 	box-sizing: border-box;
 	resize: none;
 	width: 100%;
-	height: 130px;
+	height: 160px;
 	cursor: default;
+	margin-bottom: 30px;
 }
 
 .editor .input {
@@ -135,19 +138,19 @@ nav > .name {
 	resize: vertical;
 	width: 100%;
 	cursor: default;
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 }
 
 .editor .button {
 	display: block;
 	border: 0px;
 	margin-top: 10px;
-	float: right;
-	background: #84c17f;
+	background: #ffc400;
 	padding: 10px;
 	outline: none;
 	box-sizing: border-box;
 	cursor: pointer;
+	font-weight: 600;
 }
 
 .half {
@@ -158,8 +161,8 @@ nav > .name {
 	max-height: 100%;
 
 	padding-top: 20px;
-	padding-left: 20px;
-	margin-right: 10px;
+	padding-left: 10px;
+	margin-left: 10px;
 
 	box-sizing: border-box;
 	background: #ffffff;
@@ -174,7 +177,7 @@ nav > .name {
 
 @media (min-width: 1440px) {
 	.half {
-		width: 32%;
+		width: 32.5%;
 	}
 }
 
@@ -190,15 +193,19 @@ nav > .name {
 }
 
 .name {
-	margin-bottom: 40px;
 	font-weight: 600;
 	color: #000000;
+	margin-bottom: 10px;
+}
+
+.name.top{
+	margin-bottom: 30px;
 }
 
 .addbutton {
 	width: 40px;
 	height: 40px;
-	background-color: #db8b83;
+	background-color: #ffc400;
 	color: #000000;
 	line-height: 40px;
 	text-align: center;
@@ -249,12 +256,15 @@ nav > .name {
 	line-height: 30px;
 	text-align: center;
 
+	margin-top: 5px;
+
 	color: transparent;
 	font-size: 10pt;
 }
 
 .listItem:hover .edit {
-	color: #db8b83;
+	background-color: #ffc400;
+	color: #000000;
 }
 
 
@@ -291,7 +301,7 @@ nav > .name {
 .listItem .subcontent {
 	font-weight: 300;
 	margin-top: 10px;
-	font-size: 10pt;
+	font-size: 14pt;
 	display: none;
 	white-space: normal;
 	margin-right: 10px;
@@ -300,16 +310,11 @@ nav > .name {
 .listItem .subcontent .header {
 	font-weight: 600;
 	margin-top: 10px;
-	font-size: 12pt;
+	font-size: 14pt;
 }
-
 
 .listItem.selected .subcontent {
 	display: block;
-}
-
-.listItem .number.add {
-	background-color: #db8b83;
 }
 
 .listItem .form {

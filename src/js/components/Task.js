@@ -34,10 +34,6 @@ var Task = function(){
 						},
 						onadd: function(){
 							openEditor();
-							//Models.Task.newItem(name, function(id){
-							//	viewModels.Hierarchy.updateTask(id);
-							//	shiftViewer(1);
-							//});
 						},
 						onedit: function(properties){
 							openEditor(properties);

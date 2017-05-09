@@ -20,37 +20,41 @@ var Editor = function(){
 		view: function(vnode){
 			if(opened===true){
 				return [
-					m(".grey",{
-						onclick: function(){
-							opened = false;
-						}
-					},[]),
-					m(".editor",[
-						m(".name", vnode.attrs.title),
-						m("form.form", {
-							onsubmit: function(e) {
-								e.preventDefault();
-								vnode.attrs.onsave(id, title, mission);
-								id = -1;
-								title = "";
-								mission = "";
+					m(".fullscreen",[
+						m(".grey",{
+							onclick: function(){
 								opened = false;
 							}
-						}, [
-							m("input.input[placeholder=Titel][autofocus=true][wrap=hard]", {
-								oninput: m.withAttr("value", function(v) {title = v;}),
-								value: title,
-								oncreate: function(vnode){
-									setTimeout(function () {
-										vnode.dom.focus();
-									}, 10);
+						}),
+						m(".editor",[
+							m(".name.top", vnode.attrs.title),
+							m("form.form", {
+								onsubmit: function(e) {
+									e.preventDefault();
+									vnode.attrs.onsave(id, title, mission);
+									id = -1;
+									title = "";
+									mission = "";
+									opened = false;
 								}
-							}),
-							m("textarea.textarea[placeholder=Missie][autofocus=true][wrap=hard]", {
-								oninput: m.withAttr("value", function(v) {mission = v;}),
-								value: mission
-							}),
-							m("button.button[type=submit]", "Opslaan")
+							}, [
+								m(".name", "Titel"),
+								m("input.input[placeholder=Titel][autofocus=true][wrap=hard]", {
+									oninput: m.withAttr("value", function(v) {title = v;}),
+									value: title,
+									oncreate: function(vnode){
+										setTimeout(function () {
+											vnode.dom.focus();
+										}, 10);
+									}
+								}),
+								m(".name", "Missie"),
+								m("textarea.textarea[placeholder=Missie][autofocus=true][wrap=hard]", {
+									oninput: m.withAttr("value", function(v) {mission = v;}),
+									value: mission
+								}),
+								m("button.button[type=submit]", "Opslaan")
+							])
 						])
 					])
 				];
