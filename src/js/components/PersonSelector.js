@@ -7,22 +7,22 @@ var PersonSelector = function(){
 
 	return {
 		view: function(vnode){
-			return m(".personSelector",[
+			return m(".PersonSelector",[
 				m("input.input", {
 					placeholder: "Voornaam Achternaam",
 					oninput: m.withAttr("value", function(v) {value = v;}),
 					onchange: m.withAttr("value", function(v) {value = v;}),
 					value: value
 				}),
-				Models.Person.getContent().filter(function(p){
+				m(".PersonList", Models.Person.getContent().filter(function(p){
 					return (p.name.indexOf(value)>-1);
 				}).map(function(p){
 					return m(".person",{
 						onclick: function(){
-							vnode.attrs.onadd(p.id);
+							vnode.attrs.onadd(p);
 						}
 					}, p.name);
-				})
+				}))
 			]);
 			//if(rnd!==vnode.attrs.effort){
 			//	rnd = vnode.attrs.effort;

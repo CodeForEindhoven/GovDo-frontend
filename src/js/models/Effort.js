@@ -27,61 +27,32 @@ Models.Effort = (function(){
 		}
 	}
 
-	function newItem(name, type, callback){
+	function newItem(name, type, people, callback){
 		model.post("effort", {
 			task: currentView,
 			name: name,
 			type: type,
+			people: people,
 		}, function(data){
 			loadContent();
 			callback(data.id);
 		});
 	}
 
-	function updateItem(id, name, type, callback){
+	function updateItem(id, name, type, people, callback){
 		model.post("effort/"+id, {
 			name: name,
 			type: type,
+			people: people,
 		}, function(data){
 			loadContent();
 			callback(data.id);
-		});
-	}
-
-	function setType(id, type){
-		model.post("details/"+id+"/type", {
-			type: type
-		}, function(){
-			loadContent();
-		});
-	}
-
-	function setPerson(id, person){
-		console.log(person);
-		model.post("details/"+id+"/person", {
-			person: person
-		}, function(){
-			loadContent();
-		});
-	}
-
-	function removePerson(id, person){
-		console.log(person);
-		model.post("details/"+id+"/removeperson", {
-			person: person
-		}, function(){
-			loadContent();
 		});
 	}
 
 	return {
 		newItem: newItem,
 		updateItem: updateItem,
-
-		setType: setType,
-
-		setPerson: setPerson,
-		removePerson: removePerson,
 
 		loadContent: loadContent,
 		getContent: getContent,

@@ -5,7 +5,6 @@ var EditorEffort = function(){
 	var id = -1;
 	var type = -1;
 	var people = [];
-	var peopleupdates = [];
 
 	return {
 		oninit: function(vnode){
@@ -34,26 +33,26 @@ var EditorEffort = function(){
 							m("form.form", {
 								onsubmit: function(e) {
 									e.preventDefault();
-									vnode.attrs.onsave(id, title, type, peopleupdates);
+									vnode.attrs.onsave(id, title, type, people);
 									id = -1;
 									title = "";
 									type = -1;
 									people = [];
-									peopleupdates = [];
 									opened = false;
 								}
 							}, [
+								m(".name", "Naam"),
+								m("input.input[placeholder=Inspanning][autofocus=true][wrap=hard]", {
+									oninput: m.withAttr("value", function(v) {title = v;}),
+									value: title,
+									oncreate: function(vnode){
+										setTimeout(function () {
+											vnode.dom.focus();
+										}, 10);
+									}
+								}),
 								m(".column",[
-									m(".name", "Naam"),
-									m("input.input[placeholder=Inspanning][autofocus=true][wrap=hard]", {
-										oninput: m.withAttr("value", function(v) {title = v;}),
-										value: title,
-										oncreate: function(vnode){
-											setTimeout(function () {
-												vnode.dom.focus();
-											}, 10);
-										}
-									}),
+									m(".name", "Type"),
 									m(TypeSelector, {
 										type: type,
 										onset: function(t){
@@ -62,25 +61,15 @@ var EditorEffort = function(){
 									})
 								]),
 								m(".column",[
-									m(PersonSelector, {
+									m(".name", "Mensen"),
+									m(PersonList, {
 										people: people,
-										onadd: function(name){
-
-											peopleupdates.push({
-												addremove: "add",
-												person: name
-											});
-											people.push({
-												name: name
-											});
+										onadd: function(person){
+											people.push(person);
 										},
-										onremovePerson: function(name){
-											peopleupdates.push({
-												addremove: "remove",
-												person: name
-											});
+										onremovePerson: function(person){
 											for(var i = people.length - 1; i >= 0; i--) {
-												if(people[i].name === name) {
+												if(people[i].id === person.id) {
 													people.splice(i, 1);
 												}
 											}
@@ -88,6 +77,7 @@ var EditorEffort = function(){
 										effort: id
 									}),
 								]),
+								m(".spacer", {style: "clear: both"}),
 								m("button.button[type=submit]", "Opslaan")
 							])
 						])
@@ -114,7 +104,6 @@ var TypeSelector = function(){
 	return {
 		view: function(vnode){
 			return [
-				m(".name", "Type"),
 				m(".info.mode", [
 					types.map(function(t, count){
 						if(count === vnode.attrs.type){
@@ -127,19 +116,30 @@ var TypeSelector = function(){
 
 					})
 				])
-				//m("select.select", {
-				//	value: vnode.attrs.type+1,
-				//	onchange: function(event){
-				//		//vnode.attrs.onsetType(id, parseInt(event.target.value-1));
-				//		vnode.attrs.onset(parseInt(event.target.value-1));
-				//	}
-				//}, [
-				//	m("option", {value: -1, disabled: true, selected: true}, "kies type..."),
-				//	types.map(function(t, c){
-				//		return m("option", {value: c+1}, t);
-				//	})
-				//])
 			];
+		}
+	};
+};
+
+var PersonList = function(){
+
+	var mode = false;
+
+	return {
+		view: function(vnode){
+			return m(".PersonList", [
+				m("div", { onclick: function(){
+					mode = !mode;
+				}} , "+"),
+				vnode.attrs.people.map(function(p){
+					return m(".person", {onclick: function(){
+						vnode.attrs.onremovePerson(p);
+					}}, p.name);
+				}),
+				mode ? m(PersonSelector, {
+					onadd: vnode.attrs.onadd
+				}) : m("")
+			]);
 		}
 	};
 };
