@@ -1,0 +1,19 @@
+nav {
+	height: 70px;
+	padding-left: 50px;
+	padding-top: 30px;
+	z-index: 10;
+	position: absolute;
+	width: 100%;
+}
+
+nav > .arrow {
+	float: left;
+	margin-right: 40px;
+	margin-top: 10px;
+}
+
+nav > .name {
+	float: left;
+	margin-right: 40px;
+}

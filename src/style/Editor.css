@@ -1,0 +1,126 @@
+.grey {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: rgba(100,100,100,0.5);
+	z-index: 100000;
+}
+
+.fullscreen {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1000;
+}
+
+.editor {
+	position: relative;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	width: 25%;
+
+	background-color: #ffffff;
+	z-index: 10000000;
+	box-shadow: 0px 0px 15px #111111;
+	padding: 15px;
+	white-space: normal;
+}
+
+.editor.wide {
+	width: 50%;
+}
+
+.editor.wide .column {
+	width: 50%;
+	display: inline-block;
+	padding-right: 30px;
+	box-sizing: border-box;
+}
+
+.editor .textarea {
+	background: white;
+	border: 1px solid grey;
+	padding: 5px;
+	outline: none;
+	box-sizing: border-box;
+	resize: none;
+	width: 100%;
+	height: 160px;
+	cursor: default;
+	margin-bottom: 30px;
+}
+
+.editor .input {
+	background: white;
+	border: 1px solid grey;
+	padding: 5px;
+	outline: none;
+	box-sizing: border-box;
+	resize: vertical;
+	width: 100%;
+	cursor: default;
+	margin-bottom: 30px;
+}
+
+.editor .button {
+	display: block;
+	border: 0px;
+	margin-top: 10px;
+	background: #ffc400;
+	padding: 10px;
+	outline: none;
+	box-sizing: border-box;
+	cursor: pointer;
+	font-weight: 600;
+}
+
+.info {
+	display: inline-block;
+	font-weight: 300;
+	cursor: pointer;
+	margin-bottom: 50px;
+	width: 100%;
+}
+
+.info .person {
+	font-style: italic;
+	width:100%;
+	position: relative;
+}
+
+.info:hover {
+	background-color: #dddddd;
+}
+
+.info.mode:hover {
+	background-color: transparent;
+}
+
+.info.mode .person:hover {
+	background-color: #dddddd;
+}
+.info .person .n {
+	text-align: left;
+}
+
+.info .input {
+	width: 90%;
+}
+
+.person .remove {
+	position: absolute;
+	right: 10px;
+	font-size: 12pt;
+	display: none;
+	cursor: pointer;
+	text-align: right;
+}
+
+.person:hover .remove {
+	display: inline-block;
+}

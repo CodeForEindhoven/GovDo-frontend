@@ -1,0 +1,164 @@
+.half {
+	position: relative;
+	display: inline-block;
+	width: 45%;
+	height: 100%;
+	max-height: 100%;
+
+	padding-top: 20px;
+	padding-left: 10px;
+	margin-left: 10px;
+
+	box-sizing: border-box;
+	background: #ffffff;
+	padding: 15px;
+}
+
+@media (min-width: 1440px) {
+	.half {
+		width: 32.5%;
+	}
+}
+
+.list {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	position: absolute;
+	top: 80px;
+	bottom: 0px;
+	left: 10px;
+	right: 0px;
+	padding: 10px;
+}
+
+.list .name {
+	font-weight: 600;
+	color: #000000;
+	margin-bottom: 10px;
+}
+
+.name.top{
+	margin-bottom: 30px;
+}
+
+.addbutton {
+	width: 40px;
+	height: 40px;
+	background-color: #ffc400;
+	color: #000000;
+	line-height: 40px;
+	text-align: center;
+	display: block;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.list .subtitle {
+	margin-bottom: 30px;
+}
+
+.listItem {
+	display: block;
+	cursor: pointer;
+	padding: 10px;
+	margin: -10px;
+	margin-bottom: 30px;
+	margin-right: 0px;
+	/*min-height: 100px;*/
+}
+
+.listItem:hover {
+	background-color: #dcd8ff;
+}
+
+
+
+.listItem.add{
+	background-color: transparent;
+	border: 1px solid #a3a3a3;
+	cursor: default;
+}
+
+.listItem .number {
+	width: 60px;
+	height: 60px;
+	background-color: #e5e5e5;
+	margin-right: 40px;
+	line-height: 60px;
+	text-align: center;
+	display: block;
+
+}
+
+.listItem .edit {
+	width: 60px;
+	height: 30px;
+
+	line-height: 30px;
+	text-align: center;
+
+	margin-top: 5px;
+
+	color: transparent;
+	font-size: 10pt;
+}
+
+.listItem:hover .edit {
+	background-color: #ffc400;
+	color: #000000;
+}
+
+
+.listItem:hover .number {
+	background-color: #ffffff;
+}
+
+.listItem.selected .number {
+	background-color: #b6affe;
+}
+
+.listItem.selected {
+	color: #000000;
+}
+
+.listItem .left {
+	width: 80px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.listItem .right {
+	display: inline-block;
+	width: 70%;
+}
+
+.listItem .content {
+	font-weight: 300;
+	/*width: 60%;*/
+	display: inline-block;
+	white-space: normal;
+}
+
+.listItem .subcontent {
+	font-weight: 300;
+	margin-top: 10px;
+	display: none;
+	white-space: normal;
+	margin-right: 10px;
+}
+
+.listItem .subcontent .header {
+	font-weight: 600;
+	margin-top: 10px;
+}
+
+.listItem.selected .subcontent {
+	display: block;
+}
+
+.listItem .form {
+	display: inline-block;
+	width: 70%;
+}
