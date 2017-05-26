@@ -28,6 +28,17 @@ Models.Program = (function(){
 	}
 
 	function getContent(){
+		var list = [];
+		for(var i in content){
+			list.push({
+				type: "subtitle",
+				name: content[i].name
+			});
+			for(var j in content[i].Programs){
+				list.push(content[i].Programs[j]);
+			}
+		}
+		//return list;
 		return content;
 	}
 

@@ -216,6 +216,10 @@ nav > .name {
 	cursor: pointer;
 }
 
+.list .subtitle {
+	margin-bottom: 30px;
+}
+
 .listItem {
 	display: block;
 	cursor: pointer;
@@ -301,7 +305,6 @@ nav > .name {
 .listItem .subcontent {
 	font-weight: 300;
 	margin-top: 10px;
-	font-size: 14pt;
 	display: none;
 	white-space: normal;
 	margin-right: 10px;
@@ -310,7 +313,6 @@ nav > .name {
 .listItem .subcontent .header {
 	font-weight: 600;
 	margin-top: 10px;
-	font-size: 14pt;
 }
 
 .listItem.selected .subcontent {
