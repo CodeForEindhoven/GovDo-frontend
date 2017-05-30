@@ -1,6 +1,5 @@
 var List = function(){
 
-
 	return {
 		view: function(vnode){
 			return m("",[
@@ -24,7 +23,8 @@ var List = function(){
 							});
 						}
 					}),
-				])
+				]),
+				//(vnode.attrs.content.length === 0)? m(".message", "nothing here!") : m("")
 			]);
 		}
 	};
@@ -35,12 +35,11 @@ var ListItem = function(){
 		view: function(vnode){
 			return m(".listItem"+(vnode.attrs.selected?".selected":""), {
 				onclick: function(){
-					console.log("open");
 					vnode.attrs.onclick(vnode.attrs.content.id);
 				}
 			}, [
 				m(".left",[
-					m(".number", vnode.attrs.content.id),
+					m(".number", vnode.attrs.count),
 					m(".edit", {
 						onclick: function(e) {
 							e.preventDefault();

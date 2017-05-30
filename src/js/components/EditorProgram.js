@@ -1,4 +1,4 @@
-var Editor = function(){
+var EditorProgram = function(){
 	var opened = false;
 
 	var title = "";

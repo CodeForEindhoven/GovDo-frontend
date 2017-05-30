@@ -6,7 +6,7 @@ var Program = function(){
 	return {
 		view: function(vnode){
 			return m(".half",[
-				m(Editor, {
+				m(EditorProgram, {
 					title: "Programma",
 					open: function(openfunction){
 						openEditor = openfunction;
