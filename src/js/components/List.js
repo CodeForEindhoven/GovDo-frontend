@@ -5,7 +5,7 @@ var List = function(){
 		view: function(vnode){
 			return m("",[
 				m(".name", vnode.attrs.title),
-				m(".addbutton", {onclick: vnode.attrs.onadd},"+"),
+				vnode.attrs.addbutton?m(".addbutton", {onclick: vnode.attrs.onadd},"+"):m(""),
 				m(".list", [
 					vnode.attrs.content.map(function(element, count){
 						if(element.type === "subtitle") {
@@ -23,7 +23,8 @@ var List = function(){
 								selected: (vnode.attrs.selected === element.id)
 							});
 						}
-					}),				])
+					}),
+				])
 			]);
 		}
 	};

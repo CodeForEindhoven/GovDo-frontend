@@ -35,6 +35,7 @@ var Effort = function(){
 					}),
 					m(List, {
 						title:"Inspanningen",
+						addbutton: true,
 						selected: viewModels.Hierarchy.getEffort(),
 						content: Models.Effort.getContent().map(function(e){
 							var type = "geen";

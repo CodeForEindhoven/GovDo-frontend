@@ -39,7 +39,8 @@ Models.Program = (function(){
 			}
 		}
 		//return list;
-		return content;
+		console.log(list);
+		return list;
 	}
 
 	return {

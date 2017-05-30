@@ -26,6 +26,7 @@ var Task = function(){
 					}),
 					m(List, {
 						title:"Opgaven ",
+						addbutton: true,
 						selected: viewModels.Hierarchy.getTask(),
 						content: Models.Task.getContent(),
 						onclick: function(id){

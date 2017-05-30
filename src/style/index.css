@@ -15,12 +15,12 @@ html, body {
 	overflow-x: hidden;
 	height: 100%;
 	font-family: 'Fira Sans', sans-serif;
-	font-size: 16pt;
+	font-size: 13pt;
 }
 
 input, textarea, select {
 	font-family: 'Fira Sans', sans-serif;
-	font-size: 16pt;
+	font-size: 13pt;
 }
 
 ::-webkit-scrollbar
