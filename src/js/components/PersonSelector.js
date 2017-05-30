@@ -5,6 +5,12 @@ var PersonSelector = function(){
 
 	Models.Person.loadContent();
 
+	function getFilterdContent(){
+		return Models.Person.getContent().filter(function(p){
+			return (p.name.indexOf(value)>-1);
+		});
+	}
+
 	return {
 		view: function(vnode){
 			return m(".PersonSelector",[
@@ -14,15 +20,30 @@ var PersonSelector = function(){
 					onchange: m.withAttr("value", function(v) {value = v;}),
 					value: value
 				}),
-				m(".PersonList", Models.Person.getContent().filter(function(p){
-					return (p.name.indexOf(value)>-1);
-				}).map(function(p){
-					return m(".person",{
-						onclick: function(){
-							vnode.attrs.onadd(p);
-						}
-					}, p.name);
-				}))
+				(function(){
+					var filterlist = getFilterdContent();
+					if(filterlist.length > 0){
+						return m(".PersonList", filterlist.map(function(p){
+							return m(".person",{
+								onclick: function(){
+									vnode.attrs.onadd(p);
+								}
+							}, p.name);
+						}));
+					} else {
+						return m(".PersonList", [
+							m(".personAdd", {
+								onclick: function(){
+									Models.Person.newItem(value, function(p){
+										Models.Person.loadContent();
+										vnode.attrs.onadd(p);
+									});
+								}
+							}, "voeg '"+value+"' toe aan personen")
+						]);
+					}
+				})(),
+
 			]);
 			//if(rnd!==vnode.attrs.effort){
 			//	rnd = vnode.attrs.effort;

@@ -52,14 +52,14 @@ var Effort = function(){
 							];
 							return e;
 						}),
-						onclick: function(id){
+						onclick: function(id) {
 							viewModels.Hierarchy.updateEffort(id);
 							shiftViewer(2);
 						},
-						onadd: function(){
+						onadd: function() {
 							openEditor();
 						},
-						onedit: function(properties){
+						onedit: function(properties) {
 							openEditor(properties);
 						}
 					})

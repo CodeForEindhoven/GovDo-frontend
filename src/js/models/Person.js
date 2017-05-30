@@ -11,8 +11,18 @@ Models.Person = (function(){
 		return content;
 	}
 
+	function newItem(name, callback){
+		model.post("person", {
+			name: name,
+		}, function(data){
+			loadContent();
+			callback(data);
+		});
+	}
+
 	return {
 		loadContent: loadContent,
 		getContent: getContent,
+		newItem: newItem
 	};
 })();

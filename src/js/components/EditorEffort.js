@@ -14,7 +14,7 @@ var EditorEffort = function(){
 				if(properties){
 					title = properties.name;
 					id = properties.id;
-					people = properties.People;
+					people = [].concat(properties.People); //copy the array
 					type = properties.type;
 				}
 			});
@@ -64,9 +64,6 @@ var EditorEffort = function(){
 									m(".name", "Mensen"),
 									m(PersonList, {
 										people: people,
-										onadd: function(person){
-											people.push(person);
-										},
 										onremovePerson: function(person){
 											for(var i = people.length - 1; i >= 0; i--) {
 												if(people[i].id === person.id) {
@@ -76,6 +73,18 @@ var EditorEffort = function(){
 										},
 										effort: id
 									}),
+								]),
+								m(".column",[
+									m(PersonSelector, {
+										onadd: function(person){
+											for(var i = people.length - 1; i >= 0; i--) {
+												if(people[i].id === person.id) {
+													return;
+												}
+											}
+											people.push(person);
+										},
+									})
 								]),
 								m(".spacer", {style: "clear: both"}),
 								m("button.button[type=submit]", "Opslaan")
@@ -123,22 +132,14 @@ var TypeSelector = function(){
 
 var PersonList = function(){
 
-	var mode = false;
-
 	return {
 		view: function(vnode){
 			return m(".PersonList", [
-				m("div", { onclick: function(){
-					mode = !mode;
-				}} , "+"),
 				vnode.attrs.people.map(function(p){
 					return m(".person", {onclick: function(){
 						vnode.attrs.onremovePerson(p);
 					}}, p.name);
-				}),
-				mode ? m(PersonSelector, {
-					onadd: vnode.attrs.onadd
-				}) : m("")
+				})
 			]);
 		}
 	};
