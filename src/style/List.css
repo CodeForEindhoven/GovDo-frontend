@@ -14,31 +14,21 @@
 	padding: 15px;
 }
 
-@media (min-width: 1440px) {
-	.half {
-		width: 32.5%;
-	}
-}
-
 .list {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	position: absolute;
-	top: 80px;
+	top: 70px;
 	bottom: 0px;
 	left: 10px;
 	right: 0px;
 	padding: 10px;
 }
 
-.list .name {
+.half .header {
 	font-weight: 600;
 	color: #000000;
 	margin-bottom: 10px;
-}
-
-.name.top{
-	margin-bottom: 30px;
 }
 
 .addbutton {
@@ -55,10 +45,6 @@
 	cursor: pointer;
 }
 
-.list .subtitle {
-	margin-bottom: 30px;
-}
-
 .listItem {
 	display: block;
 	cursor: pointer;
@@ -70,12 +56,6 @@
 
 .listItem:hover {
 	background-color: #dcd8ff;
-}
-
-.listItem.add{
-	background-color: transparent;
-	border: 1px solid #a3a3a3;
-	cursor: default;
 }
 
 .listItem .number {
@@ -90,10 +70,10 @@
 }
 
 .listItem .edit {
-	width: 50px;
-	height: 30px;
+	width: 40px;
+	height: 25px;
 
-	line-height: 30px;
+	line-height: 25px;
 	text-align: center;
 
 	margin-top: 5px;
@@ -107,17 +87,12 @@
 	color: #000000;
 }
 
-
 .listItem:hover .number {
 	background-color: #ffffff;
 }
 
 .listItem.selected .number {
 	background-color: #b6affe;
-}
-
-.listItem.selected {
-	color: #000000;
 }
 
 .listItem .left {
@@ -132,30 +107,6 @@
 }
 
 .listItem .content {
-	font-weight: 300;
-	/*width: 60%;*/
 	display: inline-block;
 	white-space: normal;
-}
-
-.listItem .subcontent {
-	font-weight: 300;
-	margin-top: 10px;
-	display: none;
-	white-space: normal;
-	margin-right: 10px;
-}
-
-.listItem .subcontent .header {
-	font-weight: 600;
-	margin-top: 10px;
-}
-
-.listItem.selected .subcontent {
-	display: block;
-}
-
-.listItem .form {
-	display: inline-block;
-	width: 70%;
 }

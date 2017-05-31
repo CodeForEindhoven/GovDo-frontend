@@ -5,6 +5,7 @@ var Program = function(){
 
 	return {
 		view: function(vnode){
+			var count = 1;
 			return m(".half",[
 				m(EditorProgram, {
 					title: "Programma",
@@ -25,24 +26,33 @@ var Program = function(){
 						}
 					}
 				}),
+
 				m(List, {
 					title:"Programma's",
-					selected: viewModels.Hierarchy.getProgram(),
-					content: Models.Program.getContent().map(function(c){
-						if(c.mission){
-							c.subcontent = [
-								m(".mission", c.mission),
-							];
-						}
-						return c;
+					content: Models.Program.getContent().map(function(domain){
+						return m(".domain",[
+							m(".title", domain.name),
+							domain.Programs.map(function(program){
+								return m(ListItem, {
+									content: m(".program",[
+										m(".name", program.name),
+										m(".mission", program.mission),
+									]),
+									number: count++,
+									onclick: function(){
+										console.log(program.id);
+										viewModels.Hierarchy.updateProgram(program.id);
+									},
+									onedit: function(){
+										openEditor(program);
+									},
+									selected: function(){
+										return (viewModels.Hierarchy.getProgram() === program.id);
+									}
+								});
+							})
+						]);
 					}),
-					onclick: function(id){
-						viewModels.Hierarchy.updateProgram(id);
-						shiftViewer(0);
-					},
-					onedit: function(properties){
-						openEditor(properties);
-					},
 					onadd: function(){
 						openEditor();
 					}

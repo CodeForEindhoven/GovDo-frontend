@@ -24,20 +24,30 @@ var Task = function(){
 							}
 						}
 					}),
+
+
 					m(List, {
 						title:"Opgaven ",
 						addbutton: true,
-						selected: viewModels.Hierarchy.getTask(),
-						content: Models.Task.getContent(),
-						onclick: function(id){
-							viewModels.Hierarchy.updateTask(id);
-							shiftViewer(1);
-						},
+						content: Models.Task.getContent().map(function(task, count){
+							return m(ListItem, {
+								content: m(".task",[
+									m(".name", task.name)
+								]),
+								number: count+1,
+								onclick: function(){
+									viewModels.Hierarchy.updateTask(task.id);
+								},
+								onedit: function(){
+									openEditor(task);
+								},
+								selected: function(){
+									return (viewModels.Hierarchy.getTask() === task.id);
+								}
+							});
+						}),
 						onadd: function(){
 							openEditor();
-						},
-						onedit: function(properties){
-							openEditor(properties);
 						}
 					})
 				]);

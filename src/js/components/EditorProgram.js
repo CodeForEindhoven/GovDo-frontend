@@ -14,6 +14,10 @@ var EditorProgram = function(){
 					title = properties.name;
 					mission = properties.mission;
 					id = properties.id;
+				} else {
+					title = "";
+					mission = "";
+					id = -1;
 				}
 			});
 		},

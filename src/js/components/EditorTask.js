@@ -8,10 +8,12 @@ var EditorTask = function(){
 		oninit: function(vnode){
 			vnode.attrs.open(function(properties){
 				opened = true;
-				console.log(properties);
 				if(properties){
 					title = properties.name;
 					id = properties.id;
+				} else {
+					title = "";
+					id = -1;
 				}
 			});
 		},

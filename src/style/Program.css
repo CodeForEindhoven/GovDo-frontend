@@ -1,0 +1,11 @@
+.domain .title {
+	margin-bottom: 30px;
+}
+
+.mission {
+	display: none;
+}
+
+.selected .mission {
+	display: block;
+}

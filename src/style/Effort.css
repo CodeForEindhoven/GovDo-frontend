@@ -1,0 +1,11 @@
+.effort .label {
+	font-weight: 600;
+}
+
+.effort .info {
+	display: none;
+}
+
+.selected .effort .info {
+	display: block;
+}
