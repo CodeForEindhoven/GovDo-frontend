@@ -9,3 +9,34 @@
 	height: 300px;
 	overflow: scroll;
 }
+
+.PersonSelector .person {
+	cursor: pointer;
+}
+
+.PersonSelector .person:hover {
+	background: #EEEEEE;
+}
+
+.PersonSelector .personAdd {
+	text-decoration: underline;
+	font-style: italic;
+	cursor: pointer;
+	color: #888888;
+}
+
+.PersonSelector .personAdd:hover {
+	color: #000000;
+}
+
+.PersonList .person {
+	cursor: pointer;
+}
+
+.PersonList .person .remove{
+	float: right;
+}
+
+.PersonList .person:hover {
+	background: #EEEEEE;
+}

@@ -16,6 +16,11 @@ var EditorEffort = function(){
 					id = properties.id;
 					people = [].concat(properties.People); //copy the array
 					type = properties.type;
+				} else {
+					title = "";
+					id = -1;
+					people = []; //copy the array
+					type = -1;
 				}
 			});
 		},
@@ -136,9 +141,12 @@ var PersonList = function(){
 		view: function(vnode){
 			return m(".PersonList", [
 				vnode.attrs.people.map(function(p){
-					return m(".person", {onclick: function(){
-						vnode.attrs.onremovePerson(p);
-					}}, p.name);
+					return m(".person", [
+						m("span", p.name),
+						m("span.remove", {onclick: function(){
+							vnode.attrs.onremovePerson(p);
+						}}, "-"),
+					]);
 				})
 			]);
 		}

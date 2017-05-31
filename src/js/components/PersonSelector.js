@@ -7,7 +7,7 @@ var PersonSelector = function(){
 
 	function getFilterdContent(){
 		return Models.Person.getContent().filter(function(p){
-			return (p.name.indexOf(value)>-1);
+			return (p.name.toLowerCase().indexOf(value.toLowerCase())>-1);
 		});
 	}
 
@@ -27,6 +27,7 @@ var PersonSelector = function(){
 							return m(".person",{
 								onclick: function(){
 									vnode.attrs.onadd(p);
+									value = "";
 								}
 							}, p.name);
 						}));
@@ -36,7 +37,11 @@ var PersonSelector = function(){
 								onclick: function(){
 									Models.Person.newItem(value, function(p){
 										Models.Person.loadContent();
-										vnode.attrs.onadd(p);
+										vnode.attrs.onadd({
+											id: p.id,
+											name: p.name
+										});
+										value = "";
 									});
 								}
 							}, "voeg '"+value+"' toe aan personen")
