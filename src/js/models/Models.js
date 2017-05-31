@@ -16,10 +16,3 @@ var model = {
 		}).then(callback);
 	}
 };
-
-model.get("",{},function(response){
-	if(response.version !== config.api_version){
-		console.log("out of sync!");
-		location.reload(true);
-	}
-});

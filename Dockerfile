@@ -6,7 +6,6 @@ WORKDIR /app
 
 # Variables
 ENV API_ENDPOINT http://127.0.0.1:8000/
-ENV API_VERSION 0.0.5
 
 # Install
 COPY . /app
