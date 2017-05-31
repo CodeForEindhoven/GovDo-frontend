@@ -14,13 +14,13 @@ html, body {
 	background: #dddddd;
 	overflow-x: hidden;
 	height: 100%;
-	font-family: 'Fira Sans', sans-serif;
-	font-size: 13pt;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
 }
 
 input, textarea, select {
-	font-family: 'Fira Sans', sans-serif;
-	font-size: 13pt;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0.9em;
 }
 
 ::-webkit-scrollbar
