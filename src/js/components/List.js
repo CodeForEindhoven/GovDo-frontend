@@ -12,7 +12,7 @@ var List = function(){
 						} else {
 							return m(ListItem, {
 								content: element,
-								count: count,
+								count: count+1,
 								onclick: function(id){
 									vnode.attrs.onclick(id);
 								},

@@ -118,14 +118,16 @@ var TypeSelector = function(){
 	return {
 		view: function(vnode){
 			return [
-				m(".info.mode", [
+				m(".TypeSelector", [
 					types.map(function(t, count){
 						if(count === vnode.attrs.type){
-							return m(".type", "[x] "+ t);
+							return m(".type.selected",{ onclick: function(){
+								vnode.attrs.onset(-1);
+							}}, t);
 						} else {
 							return m(".type", { onclick: function(){
 								vnode.attrs.onset(count);
-							}},"[ ] "+ t);
+							}}, t);
 						}
 
 					})
