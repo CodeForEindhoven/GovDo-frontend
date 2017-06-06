@@ -8,6 +8,8 @@
 .PersonSelector .PersonList {
 	height: 300px;
 	overflow: scroll;
+	border: 1px solid grey;
+	padding: 10px;
 }
 
 .PersonSelector .person {
