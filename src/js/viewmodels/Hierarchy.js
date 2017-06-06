@@ -2,6 +2,7 @@ viewModels.Hierarchy = (function(){
 	var currentProgram = -1;
 	var currentTask = -1;
 	var currentEffort = -1;
+	var currentPerson = -1;
 
 	function updateProgram(p){
 		currentProgram = p;
@@ -42,7 +43,17 @@ viewModels.Hierarchy = (function(){
 		return currentEffort;
 	}
 
+	function updatePerson(p){
+		console.log(p);
+		currentPerson = p;
+	}
+
+	function getPerson(){
+		return currentPerson;
+	}
+
 	return {
+		updatePerson: updatePerson,
 		updateProgram: updateProgram,
 		updateTask: updateTask,
 		updateEffort: updateEffort,

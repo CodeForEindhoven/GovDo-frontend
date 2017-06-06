@@ -4,6 +4,7 @@ var NavBar = function(){
 		view: function(vnode){
 			return m("nav",[
 				m(".name", "Planlab Sociaal Domein"),
+				m(SearchBar)
 			]);
 		}
 	};
