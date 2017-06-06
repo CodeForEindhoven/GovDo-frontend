@@ -3,6 +3,7 @@ var EditorTask = function(){
 
 	var title = "";
 	var id = -1;
+	var caret = 0;
 
 	return {
 		oninit: function(vnode){
@@ -38,13 +39,21 @@ var EditorTask = function(){
 								}
 							}, [
 								m(".name", "Beschrijving"),
-								m("textarea.textarea[placeholder=Opgave][autofocus=true][wrap=hard]", {
+								m("textarea.textarea[placeholder=Opgave][wrap=hard]", {
 									oninput: m.withAttr("value", function(v) {title = v;}),
 									value: title,
 									oncreate: function(vnode){
 										setTimeout(function () {
 											vnode.dom.focus();
 										}, 10);
+									},
+									//stupid ie textarea caret
+									onbeforeupdate: function(vnode, old){
+										caret = old.dom.selectionStart;
+									},
+									onupdate: function(vnode){
+										vnode.dom.selectionStart = caret;
+										vnode.dom.selectionEnd = caret;
 									}
 								}),
 								m("button.button[type=submit]", "Opslaan")

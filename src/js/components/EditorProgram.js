@@ -5,6 +5,8 @@ var EditorProgram = function(){
 	var mission = "";
 	var id = -1;
 
+	var caret;
+
 	return {
 		oninit: function(vnode){
 			vnode.attrs.open(function(properties){
@@ -53,9 +55,17 @@ var EditorProgram = function(){
 									}
 								}),
 								m(".name", "Missie"),
-								m("textarea.textarea[placeholder=Missie][autofocus=true][wrap=hard]", {
+								m("textarea.textarea[placeholder=Missie][wrap=hard]", {
 									oninput: m.withAttr("value", function(v) {mission = v;}),
-									value: mission
+									value: mission,
+									//stupid ie textarea caret
+									onbeforeupdate: function(vnode, old){
+										caret = old.dom.selectionStart;
+									},
+									onupdate: function(vnode){
+										vnode.dom.selectionStart = caret;
+										vnode.dom.selectionEnd = caret;
+									}
 								}),
 								m("button.button[type=submit]", "Opslaan")
 							])
