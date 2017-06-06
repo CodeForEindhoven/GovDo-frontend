@@ -14,12 +14,10 @@ var Task = function(){
 							if(id===-1){
 								Models.Task.newItem(name, function(id){
 									viewModels.Hierarchy.updateTask(id);
-									shiftViewer(1);
 								});
 							} else {
 								Models.Task.updateItem(id, name, function(id){
 									viewModels.Hierarchy.updateTask(id);
-									shiftViewer(1);
 								});
 							}
 						}

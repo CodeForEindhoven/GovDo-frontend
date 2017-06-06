@@ -31,6 +31,10 @@
 	white-space: normal;
 }
 
+.editor .name {
+	font-weight: 600;
+}
+
 .editor.wide {
 	width: 70%;
 }

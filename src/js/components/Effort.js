@@ -32,12 +32,10 @@ var Effort = function(){
 							if(id===-1){
 								Models.Effort.newItem(name, type, people, function(id){
 									viewModels.Hierarchy.updateEffort(id);
-									shiftViewer(2);
 								});
 							} else {
 								Models.Effort.updateItem(id, name, type, people, function(id){
 									viewModels.Hierarchy.updateEffort(id);
-									shiftViewer(2);
 								});
 							}
 						}

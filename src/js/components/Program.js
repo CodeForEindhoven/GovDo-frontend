@@ -16,12 +16,10 @@ var Program = function(){
 						if(id===-1){
 							Models.Program.newItem(name, mission, function(id){
 								viewModels.Hierarchy.updateProgram(id);
-								shiftViewer(0);
 							});
 						} else {
 							Models.Program.updateItem(id, name, mission, function(id){
 								viewModels.Hierarchy.updateProgram(id);
-								shiftViewer(0);
 							});
 						}
 					}

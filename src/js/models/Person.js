@@ -1,28 +1,43 @@
 Models.Person = (function(){
-	var content = [];
+	var people = [];
+	var teams = [];
 
-	function loadContent(){
+	function loadPeople(){
 		model.get("people", {}, function(data){
-			content = data;
+			people = data;
 		});
 	}
 
-	function getContent(){
-		return content;
+	function getPeople(){
+		return people;
+	}
+
+	function loadTeams(){
+		model.get("teams", {}, function(data){
+			teams = data;
+		});
+	}
+
+	function getTeams(){
+		return teams;
 	}
 
 	function newItem(name, callback){
 		model.post("person", {
 			name: name,
 		}, function(data){
-			loadContent();
+			loadPeople();
 			callback(data);
 		});
 	}
 
 	return {
-		loadContent: loadContent,
-		getContent: getContent,
+		loadPeople: loadPeople,
+		getPeople: getPeople,
+
+		loadTeams: loadTeams,
+		getTeams: getTeams,
+
 		newItem: newItem
 	};
 })();

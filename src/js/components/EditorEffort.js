@@ -147,7 +147,7 @@ var PersonList = function(){
 						m("span", p.name),
 						m("span.remove", {onclick: function(){
 							vnode.attrs.onremovePerson(p);
-						}}, "-"),
+						}}, "X"),
 					]);
 				})
 			]);
