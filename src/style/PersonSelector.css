@@ -8,6 +8,8 @@
 .PersonSelector .PersonList {
 	height: 300px;
 	overflow: scroll;
+	border: 1px solid grey;
+	padding: 10px;
 }
 
 .PersonSelector .person {
@@ -27,14 +29,6 @@
 
 .PersonSelector .personAdd:hover {
 	color: #000000;
-}
-
-.PersonList .team {
-	margin-bottom: 30px;
-}
-
-.PersonList .team .name {
-	font-weight: 600;
 }
 
 .PersonList .person {

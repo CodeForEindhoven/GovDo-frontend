@@ -10,13 +10,13 @@ var Task = function(){
 						open: function(openfunction){
 							openEditor = openfunction;
 						},
-						onsave: function(id, name, mission){
+						onsave: function(id, name, means){
 							if(id===-1){
-								Models.Task.newItem(name, function(id){
+								Models.Task.newItem(name, means, function(id){
 									viewModels.Hierarchy.updateTask(id);
 								});
 							} else {
-								Models.Task.updateItem(id, name, function(id){
+								Models.Task.updateItem(id, name, means, function(id){
 									viewModels.Hierarchy.updateTask(id);
 								});
 							}
@@ -30,7 +30,11 @@ var Task = function(){
 						content: Models.Task.getContent().map(function(task, count){
 							return m(ListItem, {
 								content: m(".task",[
-									m(".name", task.name)
+									m("span.name", task.name),
+									(task.means? m("span.means",[
+										m("span.door", " door "),
+										m("span", task.means)
+									]):[])
 								]),
 								number: count+1,
 								onclick: function(){
