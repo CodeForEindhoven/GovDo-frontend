@@ -1,31 +1,46 @@
 var SearchBar = function(){
 
 	var opened = false;
+	var value = "";
 
 	return {
 		view: function(vnode){
-			return m(".search",[
+			return [
 				(function(){
 					if(opened){
-						return m(".popup", [
-							m(PersonSelector, {
-								onadd: function(person){
-									opened = false;
-									viewModels.Hierarchy.updatePerson(person.id);
-								},
-							})
-						]);
-					} else {
-						return m("div",
-							m("span",{
+						return m(".fullscreen", m(".grey",{
+							onclick: function(){
+								opened = false;
+							}
+						}));
+					}
+				}()),
+
+				m(".search"+(opened?".active":""), [
+					(function(){
+						if(opened){
+							return m(".popup",[
+								m(".column", "column"),
+								m(".column", [
+									m(TeamList)
+								]),
+								m(".column", "column"),
+							]);
+						}
+					})(),
+
+					m("div",
+						m("input",{
+							placeholder: "Zoeken naar ...",
+							value: value,
+							onchange: m.withAttr("value", function(v) {value = v;}),
 							onclick: function(){
 								opened = true;
 							}
-						}, "search"));
-					}
-				})()
-
-			]);
+						})
+					),
+				])
+			];
 		}
 	};
 };

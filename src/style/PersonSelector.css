@@ -31,14 +31,6 @@
 	color: #000000;
 }
 
-.PersonList .team {
-	margin-bottom: 30px;
-}
-
-.PersonList .team .name {
-	font-weight: 600;
-}
-
 .PersonList .person {
 	cursor: pointer;
 }
