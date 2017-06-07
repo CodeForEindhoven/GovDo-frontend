@@ -52,6 +52,12 @@ viewModels.Hierarchy = (function(){
 		return currentPerson;
 	}
 
+	function jumpTo(p,t,e){
+		updateProgram(p);
+		updateTask(t);
+		updateEffort(e);
+	}
+
 	return {
 		updatePerson: updatePerson,
 		updateProgram: updateProgram,
@@ -62,6 +68,8 @@ viewModels.Hierarchy = (function(){
 		getTask: getTask,
 		getEffort: getEffort,
 
-		getProgramName: getProgramName
+		getProgramName: getProgramName,
+
+		jumpTo: jumpTo
 	};
 })();

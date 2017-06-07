@@ -1,6 +1,12 @@
 .ChangesList .change {
 	margin-bottom: 25px;
+	cursor: pointer;
 }
+
+.ChangesList .change:hover {
+	background: #eeeeee;
+}
+
 
 .ChangesList .new {
 	font-size: 8pt;

@@ -1,0 +1,16 @@
+.SearchList .result {
+	margin-bottom: 25px;
+	cursor: pointer;
+}
+
+.SearchList .result:hover {
+	background: #eeeeee;
+}
+
+.SearchList .program {
+	font-weight: 600;
+}
+
+.SearchList .effort {
+	font-size: 10pt;
+}
