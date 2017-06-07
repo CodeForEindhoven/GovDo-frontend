@@ -1,0 +1,19 @@
+.ChangesList .change {
+	margin-bottom: 25px;
+}
+
+.ChangesList .new {
+	font-size: 8pt;
+	float: left;
+}
+
+.ChangesList .date {
+	font-size: 8pt;
+	float: right;
+}
+
+.ChangesList .program {
+	clear: both;
+	font-weight: 600;
+	font-size: 12pt;
+}

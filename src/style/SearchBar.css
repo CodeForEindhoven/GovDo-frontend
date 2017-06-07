@@ -55,3 +55,8 @@
 	overflow: scroll;
 	height: 100%;
 }
+
+.search .header {
+	font-weight: 600;
+	margin-bottom: 20px;
+}

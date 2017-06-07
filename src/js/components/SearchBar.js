@@ -20,11 +20,17 @@ var SearchBar = function(){
 					(function(){
 						if(opened){
 							return m(".popup",[
-								m(".column", "column"),
 								m(".column", [
+									m(".header","Inspanningen"),
+								]),
+								m(".column", [
+									m(".header","Personeel"),
 									m(TeamList)
 								]),
-								m(".column", "column"),
+								m(".column",[
+									m(".header","Recente Veranderingen"),
+									m(ChangesList)
+								]),
 							]);
 						}
 					})(),

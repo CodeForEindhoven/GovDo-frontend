@@ -1,4 +1,4 @@
-var API_VERSION = "0.0.6";
+var API_VERSION = "0.0.7";
 
 //check for major updates
 model.get("",{},function(response){
