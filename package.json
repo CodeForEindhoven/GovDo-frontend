@@ -6,7 +6,8 @@
   "scripts": {
     "start": "./node_modules/.bin/http-server ./src",
     "build": "node build.js",
-	"watch": "./node_modules/.bin/nodemon --config nodemon.json build.js"
+	"less": "./node_modules/.bin/lessc ./src/style/main.less ./src/style/main.css",
+    "watch": "./node_modules/.bin/nodemon --config nodemon.json build.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,8 @@
   "license": "ISC",
   "dependencies": {
     "http-server": "^0.9.0",
+    "less": "^2.7.2",
+    "node-minify": "^2.1.1",
     "nodemon": "^1.11.0"
   }
 }

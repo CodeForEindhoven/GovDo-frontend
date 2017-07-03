@@ -3,7 +3,7 @@ var Page = function(){
 		view: function(vnode){
 			return [
 				m(NavBar),
-				m(Viewer),
+				//m(Viewer),
 			];
 		}
 	};
