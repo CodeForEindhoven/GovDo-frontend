@@ -25,7 +25,7 @@ var ProgramBar = function(){
 							},[
 								m(".programbar-program-number.button-number", shortname(program.name)),
 								m(".programbar-program-title", program.name),
-								m(".programbar-program-mission", (selected(program.id))?program.mission:"")
+								m(".programbar-program-mission", program.mission)
 							]);
 						})
 					]);
