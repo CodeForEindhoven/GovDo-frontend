@@ -1,28 +1,47 @@
+.debugborders {
+  border: 1px dashed grey;
+}
 html,
 body {
   margin: 0px;
   padding: 0px;
-  height: 100%;
   width: 100%;
 }
-nav {
-  height: 60px;
-  padding: 10px;
-  line-height: 60px;
-  z-index: 10;
-  position: absolute;
-  width: 100%;
+.layout-nav-top {
+  border: 1px dashed grey;
+  height: 40px;
+  margin: 10px;
+  line-height: 40px;
+  width: calc(100% - 20px);
+}
+.layout-nav-left {
+  border: 1px dashed grey;
+  width: 40px;
+  margin-left: 10px;
+  float: left;
+}
+.layout-workspace {
+  border: 1px dashed grey;
+  position: relative;
+  z-index: -1;
+  float: left;
+  margin-left: 10px;
+  width: calc(100% - 70px);
+  min-height: calc(100% - 60px);
 }
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
-  background: #dddddd;
+  background: #DDDDDD;
 }
 input,
 textarea,
 select {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9em;
+}
+div {
+  border-radius: 2px;
 }
 @keyframes loading {
   0% {
@@ -58,6 +77,37 @@ select {
   margin-left: -40px;
   margin-top: 30px;
 }
+.programbar {
+  background: #FFFFFF;
+  width: 40px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  transition: width 0.2s;
+}
+.programbar-program {
+  margin-bottom: 10px;
+}
+.programbar-program-number {
+  display: inline-block;
+}
+.programbar-program-title {
+  margin-left: 10px;
+  display: inline-block;
+}
+.programbar-domain {
+  margin-top: 4px;
+  margin-left: 4px;
+}
+.programbar-domain + .programbar-domain {
+  margin-top: 25px;
+}
+.programbar:hover {
+  width: 250px;
+  z-index: 1000;
+}
+nav {
+  z-index: 10;
+}
 .nav-dashbutton {
   background: #FFFFFF;
   padding: 4px;
@@ -65,7 +115,20 @@ select {
   height: 30px;
 }
 .nav-dashbutton-icon {
-  background: #000000;
+  background: #AAAAAA;
   width: 30px;
   height: 30px;
+}
+.button-number {
+  cursor: pointer;
+  background-color: #AAAAAA;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  text-align: center;
+}
+.button-number:hover {
+  background-color: #3333FF;
+  color: #FFFFFF;
 }

@@ -1,0 +1,43 @@
+@import "variables/colors.less";
+
+.programbar {
+	background: @color-white;
+	width: 40px;
+	overflow-x: hidden;
+	white-space: nowrap;
+	transition: width 0.2s;
+}
+
+.programbar-program {
+	margin-bottom: 10px;
+}
+
+.programbar-program-number {
+	display: inline-block;
+}
+
+.programbar-program-title {
+	margin-left: 10px;
+	display: inline-block;
+	//opacity: 0;
+	//transition: opacity 0.1s;
+}
+
+.programbar-domain{
+	margin-top: 4px;
+	margin-left: 4px;
+}
+
+.programbar-domain + .programbar-domain {
+	margin-top: 25px;
+}
+
+//hover
+.programbar:hover {
+	width: 250px;
+	z-index: 1000;
+}
+
+.programbar:hover .programbar-program-title {
+	//opacity: 1;
+}

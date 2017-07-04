@@ -2,7 +2,7 @@ var compressor = require('node-minify');
 var less = require('less');
 var fs = require('fs');
 
-console.log("building...");
+console.log("building js...");
 compressor.minify({
 	compressor: 'uglifyjs',
 	input: [
@@ -20,7 +20,9 @@ compressor.minify({
 		"./src/js/viewmodels/Hierarchy.js",
 
 		"./src/js/gui/*.js",
-		"./src/js/gui/**/*.js",
+		"./src/js/gui/components/*.js",
+		"./src/js/gui/layout/*.js",
+		"./src/js/gui/reusalbe/*.js",
 
 		'./src/js/main.js'
 	],
@@ -32,13 +34,16 @@ compressor.minify({
 });
 
 fs.readFile('./src/style/main.less',function(error,data){
+	console.log("building css...");
 	data = data.toString();
 		less.render(data, {
 			paths: ['./src/style/'],  // Specify search paths for @import directives
 			filename: 'main.less',
+			strictMath: true
 		}, function (e, css) {
+			if(e) console.log(e);
 			fs.writeFile('./src/style/main.css', css.css, function(err){
-				if(err) return console.log(err);
+				if(err) console.log(err);
 				console.log('export main.css');
 			});
 	});
