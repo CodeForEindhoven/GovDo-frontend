@@ -5,6 +5,10 @@ var ProgramBar = function(){
 		return (viewModels.Hierarchy.getProgram() === id);
 	}
 
+	function shortname(str){
+		return str.replace(/ en /g, ' & ').replace(/[a-z ]/g, '');
+	}
+
 	return {
 		view: function(vnode){
 			var count = 0;
@@ -19,7 +23,7 @@ var ProgramBar = function(){
 									viewModels.Hierarchy.updateProgram(program.id, program.name);
 								}
 							},[
-								m(".programbar-program-number.button-number", count),
+								m(".programbar-program-number.button-number", shortname(program.name)),
 								m(".programbar-program-title", program.name),
 								m(".programbar-program-mission", (selected(program.id))?program.mission:"")
 							]);
