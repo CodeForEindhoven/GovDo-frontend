@@ -6,8 +6,7 @@ var Page = function(){
 				m(".layout-nav-left", m(ProgramBar)),
 				m(".layout-workspace", [
 					m(".layout-column", m(TaskSelector)),
-					m(".layout-column", "asdf"),
-					m(".layout-column", "asdf")
+					m(".layout-column", m(TaskSelector))
 				])
 				//m(Viewer),
 			];
