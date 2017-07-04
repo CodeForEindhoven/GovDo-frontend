@@ -29,6 +29,17 @@ body {
   width: calc(100% - 70px);
   min-height: calc(100% - 60px);
 }
+.layout-column {
+  border: 1px dashed grey;
+  float: left;
+  position: relative;
+  margin: 0px;
+  width: calc(33% - 6px);
+  min-height: calc(100% - 60px);
+}
+.layout-column + .layout-column {
+  margin-left: 10px;
+}
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
@@ -85,6 +96,7 @@ div {
   transition: width 0.2s;
 }
 .programbar-program {
+  cursor: pointer;
   margin-bottom: 10px;
 }
 .programbar-program-number {
@@ -93,6 +105,15 @@ div {
 .programbar-program-title {
   margin-left: 10px;
   display: inline-block;
+}
+.programbar-program-mission {
+  margin-left: 40px;
+  display: block;
+  width: 200px;
+  white-space: normal;
+  max-height: 0;
+  overflow-y: hidden;
+  transition: max-height 0.4s;
 }
 .programbar-domain {
   margin-top: 4px;
@@ -104,6 +125,15 @@ div {
 .programbar:hover {
   width: 250px;
   z-index: 1000;
+  box-shadow: 0px 0px 5px #555555;
+}
+:hover > .programbar-program-title,
+.state-selected > .programbar-program-title {
+  color: #3333FF;
+}
+.programbar:hover .state-selected > .programbar-program-mission {
+  max-height: 200px;
+  transition: max-height 0.4s;
 }
 nav {
   z-index: 10;
@@ -128,7 +158,8 @@ nav {
   border-radius: 50%;
   text-align: center;
 }
-.button-number:hover {
+:hover > .button-number,
+.state-selected > .button-number {
   background-color: #3333FF;
   color: #FFFFFF;
 }

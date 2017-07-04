@@ -4,7 +4,11 @@ var Page = function(){
 			return [
 				m(".layout-nav-top", m(NavBar)),
 				m(".layout-nav-left", m(ProgramBar)),
-				m(".layout-workspace", "sadf")
+				m(".layout-workspace", [
+					m(".layout-column", m(TaskSelector)),
+					m(".layout-column", "asdf"),
+					m(".layout-column", "asdf")
+				])
 				//m(Viewer),
 			];
 		}

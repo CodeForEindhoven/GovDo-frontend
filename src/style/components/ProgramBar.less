@@ -9,6 +9,7 @@
 }
 
 .programbar-program {
+	cursor: pointer;
 	margin-bottom: 10px;
 }
 
@@ -19,8 +20,16 @@
 .programbar-program-title {
 	margin-left: 10px;
 	display: inline-block;
-	//opacity: 0;
-	//transition: opacity 0.1s;
+}
+
+.programbar-program-mission {
+	margin-left: 40px;
+	display: block;
+	width: 200px;
+	white-space: normal;
+	max-height: 0;
+	overflow-y: hidden;
+	transition: max-height 0.4s;
 }
 
 .programbar-domain{
@@ -36,8 +45,18 @@
 .programbar:hover {
 	width: 250px;
 	z-index: 1000;
+	box-shadow: @shadow;
 }
 
 .programbar:hover .programbar-program-title {
 	//opacity: 1;
+}
+
+:hover > .programbar-program-title, .state-selected > .programbar-program-title{
+	color: @color-selected;
+}
+
+.programbar:hover .state-selected > .programbar-program-mission {
+	max-height: 200px;
+	transition: max-height 0.4s;
 }

@@ -1,14 +1,15 @@
 viewModels.Hierarchy = (function(){
 	var currentProgram = -1;
+	var currentProgramName = "";
 	var currentTask = -1;
 	var currentEffort = -1;
 	var currentPerson = -1;
 
-	function updateProgram(p){
+	function updateProgram(p, name){
 		currentProgram = p;
 		currentTask = -1;
 		currentEffort = -1;
-
+		currentProgramName = name;
 		Models.Task.updateContent(currentProgram);
 	}
 
@@ -17,11 +18,12 @@ viewModels.Hierarchy = (function(){
 	}
 
 	function getProgramName(){
-		var content = Models.Program.getContent();
-		if(content.length>0 && currentProgram>0){
-			return content[currentProgram].name;
-		}
-		return "";
+		//var content = Models.Program.getContent();
+		//if(content.length>0 && currentProgram>0){
+		//	return content[currentProgram].name;
+		//}
+		//return "";
+		return currentProgramName;
 	}
 
 	function updateTask(p){
