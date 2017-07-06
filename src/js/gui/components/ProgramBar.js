@@ -17,7 +17,7 @@ var ProgramBar = function(){
 					return m(".programbar-domain",[
 						domain.Programs.map(function(program){
 							count++;
-							return m(".programbar-program", {
+							return m(".state-selectable.programbar-program", {
 								class: (selected(program.id))?"state-selected":"",
 								onclick: function(){
 									viewModels.Hierarchy.updateProgram(program.id, program.name);

@@ -12,13 +12,16 @@ var TaskSelector = function(){
 						viewModels.Hierarchy.getProgramName()
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Task.getContent().map(function(task, count){
-						return m(".selectorlist-item", {
+						return m(".state-selectable.selectorlist-item", {
 							class: (selected(task.id))?"state-selected":"",
 							onclick: function(){
 								viewModels.Hierarchy.updateTask(task.id);
 							}
 						},[
-							m(".selectorlist-item-number.button-number", count+1),
+							m(".selectorlist-item-number", [
+								m(".button-number", count+1),
+								m(".selectorlist-item-edit.button-edit", "Bewerken")
+							]),
 							m(".selectorlist-item-content", [
 								m(".taskselector-title", [
 									m("span.taskselector-title-name", task.name),

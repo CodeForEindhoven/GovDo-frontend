@@ -10,7 +10,17 @@
 	text-align: center;
 }
 
-:hover > .button-number, .state-selected > .button-number {
+.state-selectable:hover .button-number, .state-selected .button-number {
 	background-color: @color-selected;
 	color: @color-white;
+}
+
+.button-edit {
+	cursor: pointer;
+	font-size: 0.6em;
+	background-color: @color-button;
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
 }

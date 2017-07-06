@@ -1,4 +1,9 @@
 var EffortSelector = function(){
+
+	function selected(id){
+		return (viewModels.Hierarchy.getEffort() === id);
+	}
+
 	return {
 		view: function(vnode){
 			if(viewModels.Hierarchy.getTask()>0){
@@ -8,12 +13,16 @@ var EffortSelector = function(){
 					//	viewModels.Hierarchy.getProgramName()
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
-						return m(".selectorlist-item", {
+						return m(".state-selectable.selectorlist-item", {
+							class: (selected(effort.id))?"state-selected":"",
 							onclick: function(){
 								viewModels.Hierarchy.updateEffort(effort.id);
 							}
 						},[
-							m(".selectorlist-item-number.button-number", count+1),
+							m(".selectorlist-item-number", [
+								m(".button-number", count+1),
+								m(".selectorlist-item-edit.button-edit", "Bewerken")
+							]),
 							m(".selectorlist-item-content", [
 								m(".effortselector-title", effort.name),
 								m(".effortselector-subheader", "type"),
