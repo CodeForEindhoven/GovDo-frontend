@@ -11,7 +11,7 @@ var TaskSelector = function(){
 					m(".selector-header", [
 						viewModels.Hierarchy.getProgramName()
 					]),
-					m(".selectorlist", Models.Task.getContent().map(function(task, count){
+					m(".selectorlist", m(".selectorlist-back", Models.Task.getContent().map(function(task, count){
 						return m(".selectorlist-item", {
 							class: (selected(task.id))?"state-selected":"",
 							onclick: function(){
@@ -30,7 +30,7 @@ var TaskSelector = function(){
 								]),
 							]),
 						]);
-					})),
+					}))),
 				]);
 			} else {
 				return m(".message", "no content");

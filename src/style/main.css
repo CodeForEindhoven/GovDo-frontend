@@ -83,15 +83,26 @@ div {
 }
 .selector {
   height: 100%;
+  width: 100%;
+  position: relative;
 }
 .selector-header {
   font-size: 2em;
 }
 .selectorlist {
+  position: absolute;
+  top: 40px;
+  bottom: 0px;
+  width: 100%;
+  overflow-y: scroll;
+}
+.selectorlist-back {
   margin-left: 50px;
+  min-height: 100%;
+  box-sizing: border-box;
   background-color: #FFFFFF;
   padding-top: 20px;
-  height: calc(100% - 50px);
+  padding-bottom: 20px;
 }
 .selectorlist-item {
   cursor: pointer;

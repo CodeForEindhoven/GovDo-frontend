@@ -7,7 +7,7 @@ var EffortSelector = function(){
 						"Inspanningen"
 					//	viewModels.Hierarchy.getProgramName()
 					]),
-					m(".selectorlist", Models.Effort.getContent().map(function(effort, count){
+					m(".selectorlist", m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
 						return m(".selectorlist-item", {
 							onclick: function(){
 								viewModels.Hierarchy.updateEffort(effort.id);
@@ -24,7 +24,7 @@ var EffortSelector = function(){
 								})),
 							]),
 						]);
-					})),
+					}))),
 				]);
 			} else {
 				return m(".message", "no content");
