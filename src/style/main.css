@@ -1,3 +1,7 @@
+.debugborders {
+  background-color: rgba(0, 50, 255, 0.1);
+  box-shadow: 0px 0px 1px grey;
+}
 html,
 body {
   margin: 0px;
@@ -7,16 +11,22 @@ body {
   overflow: hidden;
 }
 .layout-nav-top {
+  background-color: rgba(0, 50, 255, 0.1);
+  box-shadow: 0px 0px 1px grey;
   height: 40px;
   margin: 10px;
   line-height: 40px;
   width: calc(100% - 20px);
 }
 .layout-nav-left {
+  background-color: rgba(0, 50, 255, 0.1);
+  box-shadow: 0px 0px 1px grey;
   margin-left: 10px;
   float: left;
 }
 .layout-workspace {
+  background-color: rgba(0, 50, 255, 0.1);
+  box-shadow: 0px 0px 1px grey;
   position: relative;
   float: left;
   margin-left: 10px;
@@ -24,6 +34,8 @@ body {
   height: calc(100% - 60px);
 }
 .layout-column {
+  background-color: rgba(0, 50, 255, 0.1);
+  box-shadow: 0px 0px 1px grey;
   float: left;
   position: relative;
   margin: 0px;
@@ -129,7 +141,6 @@ div {
   opacity: 1;
 }
 .button-number {
-  cursor: pointer;
   background-color: #AAAAAA;
   width: 40px;
   height: 40px;
@@ -216,4 +227,13 @@ nav {
 }
 .effortselector-subheader {
   font-weight: bold;
+}
+.effortselector-hidden {
+  opacity: 0;
+  display: none;
+  transition: opacity 0.4s;
+}
+.state-selected .effortselector-hidden {
+  opacity: 1;
+  display: block;
 }

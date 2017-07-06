@@ -6,8 +6,9 @@ var Page = function(){
 				m(".layout-nav-left", m(ProgramBar)),
 				m(".layout-workspace", [
 					m(".layout-column", m(TaskSelector)),
-					m(".layout-column", m(EffortSelector))
-				])
+					m(".layout-column", m(EffortSelector)),
+					m(".layout-column", "editor")
+				]),
 				//m(Viewer),
 			];
 		}

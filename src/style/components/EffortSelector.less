@@ -1,3 +1,14 @@
 .effortselector-subheader{
 	font-weight: bold;
 }
+
+.effortselector-hidden {
+	opacity: 0;
+	display: none;
+	transition: opacity 0.4s;
+}
+
+.state-selected .effortselector-hidden {
+	opacity: 1;
+	display: block;
+}
