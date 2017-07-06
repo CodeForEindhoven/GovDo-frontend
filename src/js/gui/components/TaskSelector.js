@@ -8,7 +8,7 @@ var TaskSelector = function(){
 		view: function(vnode){
 			if(viewModels.Hierarchy.getProgram()>0){
 				return m(".selector",[
-					m(".program-title", [
+					m(".selector-header", [
 						viewModels.Hierarchy.getProgramName()
 					]),
 					m(".selectorlist", Models.Task.getContent().map(function(task, count){

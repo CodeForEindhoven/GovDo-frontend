@@ -3,7 +3,7 @@ var EffortSelector = function(){
 		view: function(vnode){
 			if(viewModels.Hierarchy.getTask()>0){
 				return m(".selector",[
-					m(".program-title", [
+					m(".selector-header", [
 						"Inspanningen"
 					//	viewModels.Hierarchy.getProgramName()
 					]),
@@ -15,9 +15,13 @@ var EffortSelector = function(){
 						},[
 							m(".selectorlist-item-number.button-number", count+1),
 							m(".selectorlist-item-content", [
-								m(".effortselector-title", [
-									m("span.effortselector-title-name", effort.name),
-								]),
+								m(".effortselector-title", effort.name),
+								m(".effortselector-subheader", "type"),
+								m(".effortselector-type", effort.description),
+								m(".effortselector-subheader", "mensen"),
+								m(".effortselector-peoplelist", effort.People.map(function(person){
+									return m(".effortselector-peoplelist", person.name);
+								})),
 							]),
 						]);
 					})),

@@ -84,6 +84,9 @@ div {
 .selector {
   height: 100%;
 }
+.selector-header {
+  font-size: 2em;
+}
 .selectorlist {
   margin-left: 40px;
   background-color: #FFFFFF;
