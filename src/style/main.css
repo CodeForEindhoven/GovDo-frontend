@@ -21,7 +21,7 @@ body {
   float: left;
   margin-left: 10px;
   width: calc(66% - 70px);
-  height: calc(100% - 70px);
+  height: calc(100% - 60px);
 }
 .layout-column {
   float: left;
@@ -134,6 +134,20 @@ div {
   background-color: #3333FF;
   color: #FFFFFF;
 }
+nav {
+  z-index: 10;
+}
+.nav-dashbutton {
+  background: #FFFFFF;
+  padding: 4px;
+  width: 30px;
+  height: 30px;
+}
+.nav-dashbutton-icon {
+  background: #AAAAAA;
+  width: 30px;
+  height: 30px;
+}
 .programbar {
   background: #FFFFFF;
   width: 50px;
@@ -180,20 +194,9 @@ div {
   max-height: 200px;
   transition: max-height 0.4s;
 }
-nav {
-  z-index: 10;
-}
-.nav-dashbutton {
-  background: #FFFFFF;
-  padding: 4px;
-  width: 30px;
-  height: 30px;
-}
-.nav-dashbutton-icon {
-  background: #AAAAAA;
-  width: 30px;
-  height: 30px;
-}
 .taskselector-title-means-label {
+  font-weight: bold;
+}
+.effortselector-subheader {
   font-weight: bold;
 }
