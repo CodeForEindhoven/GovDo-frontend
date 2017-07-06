@@ -3,6 +3,8 @@ body {
   margin: 0px;
   padding: 0px;
   width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 .layout-nav-top {
   height: 40px;
@@ -16,18 +18,17 @@ body {
 }
 .layout-workspace {
   position: relative;
-  z-index: -1;
   float: left;
   margin-left: 10px;
   width: calc(66% - 70px);
-  min-height: calc(100% - 60px);
+  height: calc(100% - 70px);
 }
 .layout-column {
   float: left;
   position: relative;
   margin: 0px;
   width: calc(50% - 6px);
-  min-height: calc(100% - 60px);
+  height: 100%;
 }
 .layout-column + .layout-column {
   margin-left: 10px;
@@ -80,6 +81,31 @@ div {
   margin-left: -40px;
   margin-top: 30px;
 }
+.selector {
+  height: 100%;
+}
+.selectorlist {
+  margin-left: 40px;
+  background-color: #FFFFFF;
+  padding-top: 20px;
+  height: 100%;
+}
+.selectorlist-item {
+  cursor: pointer;
+}
+.selectorlist-item + .selectorlist-item {
+  margin-top: 30px;
+}
+.selectorlist-item-number {
+  vertical-align: top;
+  margin-left: -40px;
+  display: inline-block;
+}
+.selectorlist-item-content {
+  vertical-align: top;
+  margin-left: 20px;
+  display: inline-block;
+}
 .button-number {
   cursor: pointer;
   background-color: #AAAAAA;
@@ -131,7 +157,6 @@ div {
 .programbar:hover {
   width: 250px;
   z-index: 1000;
-  box-shadow: 0px 0px 5px #555555;
 }
 :hover > .programbar-program-title,
 .state-selected > .programbar-program-title {
@@ -155,24 +180,6 @@ nav {
   width: 30px;
   height: 30px;
 }
-.tasklist {
-  margin-left: 40px;
-  background-color: #FFFFFF;
-  padding-top: 20px;
-}
-.tasklist-task + .tasklist-task {
-  margin-top: 30px;
-}
-.tasklist-task-number {
-  vertical-align: top;
-  margin-left: -40px;
-  display: inline-block;
-}
-.tasklist-task-title {
-  vertical-align: top;
-  margin-left: 20px;
-  display: inline-block;
-}
-.tasklist-task-title-means-label {
+.taskselector-title-means-label {
   font-weight: bold;
 }

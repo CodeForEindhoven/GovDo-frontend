@@ -1,27 +1,34 @@
 var TaskSelector = function(){
+
+	function selected(id){
+		return (viewModels.Hierarchy.getTask() === id);
+	}
+
 	return {
 		view: function(vnode){
 			if(viewModels.Hierarchy.getProgram()>0){
-				return m(".taskselector",[
+				return m(".selector",[
 					m(".program-title", [
 						viewModels.Hierarchy.getProgramName()
 					]),
-					m(".tasklist", Models.Task.getContent().map(function(task, count){
-						return m(".tasklist-task", {
+					m(".selectorlist", Models.Task.getContent().map(function(task, count){
+						return m(".selectorlist-item", {
+							class: (selected(task.id))?"state-selected":"",
 							onclick: function(){
 								viewModels.Hierarchy.updateTask(task.id);
 							}
 						},[
-							m(".tasklist-task-number.button-number", count+1),
-							m(".tasklist-task-title", [
-								m("span.tasklist-task-title-name", task.name),
-								(task.means)?[
-									m("span.tasklist-task-title-means-label", " door "),
-									m("span.tasklist-task-title-means", task.means)
-								]:[]
+							m(".selectorlist-item-number.button-number", count+1),
+							m(".selectorlist-item-content", [
+								m(".taskselector-title", [
+									m("span.taskselector-title-name", task.name),
+									(task.means)?[
+										m("span.taskselector-title-means-label", " door "),
+										m("span.taskselector-title-means", task.means)
+									]:[]
 
+								]),
 							]),
-
 						]);
 					})),
 				]);
