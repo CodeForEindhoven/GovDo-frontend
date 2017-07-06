@@ -88,10 +88,10 @@ div {
   font-size: 2em;
 }
 .selectorlist {
-  margin-left: 40px;
+  margin-left: 50px;
   background-color: #FFFFFF;
   padding-top: 20px;
-  height: 100%;
+  height: calc(100% - 50px);
 }
 .selectorlist-item {
   cursor: pointer;
@@ -101,7 +101,7 @@ div {
 }
 .selectorlist-item-number {
   vertical-align: top;
-  margin-left: -40px;
+  margin-left: -50px;
   display: inline-block;
 }
 .selectorlist-item-content {
@@ -112,9 +112,9 @@ div {
 .button-number {
   cursor: pointer;
   background-color: #AAAAAA;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
   border-radius: 50%;
   text-align: center;
 }
@@ -125,7 +125,7 @@ div {
 }
 .programbar {
   background: #FFFFFF;
-  width: 40px;
+  width: 50px;
   overflow-x: hidden;
   white-space: nowrap;
   transition: width 0.2s;
