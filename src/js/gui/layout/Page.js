@@ -7,8 +7,8 @@ var Page = function(){
 				m(".layout-workspace", [
 					m(".layout-column", m(TaskSelector)),
 					m(".layout-column", m(EffortSelector)),
-					m(".layout-column", "editor")
 				]),
+				m(".layout-editor", m(Editor))
 				//m(Viewer),
 			];
 		}

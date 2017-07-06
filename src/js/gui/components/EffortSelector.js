@@ -21,7 +21,11 @@ var EffortSelector = function(){
 						},[
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
-								m(".selectorlist-item-edit.button-edit", "Bewerken")
+								m(".selectorlist-item-edit.button-edit",{
+									onclick: function(){
+										viewModels.editMode.set("effort", effort.id);
+									}
+								},"Bewerken")
 							]),
 							m(".selectorlist-item-content", [
 								m(".effortselector-title", effort.name),

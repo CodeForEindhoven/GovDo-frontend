@@ -19,6 +19,7 @@ compressor.minify({
 		"./src/js/viewmodels/viewModels.js",
 		"./src/js/viewmodels/Hierarchy.js",
 		"./src/js/viewmodels/typeName.js",
+		"./src/js/viewmodels/editMode.js",
 
 		"./src/js/gui/*.js",
 		"./src/js/gui/components/*.js",

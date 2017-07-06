@@ -1,7 +1,3 @@
-.debugborders {
-  background-color: rgba(0, 50, 255, 0.1);
-  box-shadow: 0px 0px 1px grey;
-}
 html,
 body {
   margin: 0px;
@@ -11,22 +7,16 @@ body {
   overflow: hidden;
 }
 .layout-nav-top {
-  background-color: rgba(0, 50, 255, 0.1);
-  box-shadow: 0px 0px 1px grey;
   height: 40px;
   margin: 10px;
   line-height: 40px;
   width: calc(100% - 20px);
 }
 .layout-nav-left {
-  background-color: rgba(0, 50, 255, 0.1);
-  box-shadow: 0px 0px 1px grey;
   margin-left: 10px;
   float: left;
 }
 .layout-workspace {
-  background-color: rgba(0, 50, 255, 0.1);
-  box-shadow: 0px 0px 1px grey;
   position: relative;
   float: left;
   margin-left: 10px;
@@ -34,8 +24,6 @@ body {
   height: calc(100% - 60px);
 }
 .layout-column {
-  background-color: rgba(0, 50, 255, 0.1);
-  box-shadow: 0px 0px 1px grey;
   float: left;
   position: relative;
   margin: 0px;
@@ -44,6 +32,12 @@ body {
 }
 .layout-column + .layout-column {
   margin-left: 10px;
+}
+.layout-editor {
+  position: absolute;
+  right: 0px;
+  width: 33%;
+  height: calc(100% - 60px);
 }
 body {
   font-family: 'Open Sans', sans-serif;
@@ -236,4 +230,16 @@ nav {
 .state-selected .effortselector-hidden {
   opacity: 1;
   display: block;
+}
+.editor {
+  background-color: #EEEEEE;
+  width: 100%;
+  height: 100%;
+  transition: margin-left 1s;
+}
+.editor.state-hidden {
+  margin-left: 100%;
+}
+.editor.state-edit {
+  margin-left: 0%;
 }
