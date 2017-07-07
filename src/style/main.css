@@ -154,14 +154,52 @@ div {
   background-color: #3333FF;
   color: #FFFFFF;
 }
-.button-edit {
+.button {
+  display: inline-block;
+  margin-right: 10px;
   cursor: pointer;
-  font-size: 0.6em;
+  background-color: #CCCCCC;
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+}
+.button-edit {
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #CCCCCC;
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #FFFF00;
+}
+.button-right {
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #CCCCCC;
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  float: right;
+}
+.button-edit-small {
+  display: inline-block;
+  margin-right: 10px;
+  cursor: pointer;
+  background-color: #CCCCCC;
+  text-align: center;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
   background-color: #FFFF00;
   width: 40px;
   height: 20px;
   line-height: 20px;
-  text-align: center;
+  font-size: 0.6em;
 }
 .textarea {
   background-color: #ECF0F1;
@@ -170,6 +208,26 @@ div {
   height: 200px;
   resize: vertical;
   border-radius: 4px;
+}
+.input {
+  background-color: #DDDDDD;
+  border: 1px solid #0000FF;
+  border-radius: 4px;
+  padding: 5px;
+}
+.datepicker-day,
+.datepicker-month {
+  width: 2em;
+  display: inline-block;
+}
+.datepicker-dash {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.datepicker-year {
+  width: 4em;
+  display: inline-block;
 }
 nav {
   z-index: 10;
@@ -273,12 +331,27 @@ nav {
 .editor {
   width: 100%;
   height: 100%;
-  transition: margin-left 1s;
+  transition: margin-left 0.4s;
   overflow-y: scroll;
+}
+.editor-buttons {
+  margin-bottom: 10px;
 }
 .editor.state-hidden {
   margin-left: 100%;
 }
 .editor.state-edit {
   margin-left: 0%;
+}
+.editor-typeselect-type {
+  padding: 10px;
+  border: 1px solid #0000FF;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.editor-typeselect-type-timespan {
+  display: none;
+}
+.editor-typeselect-type-timespan.state-visible {
+  display: block;
 }

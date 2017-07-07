@@ -27,10 +27,11 @@ Models.Effort = (function(){
 		}
 	}
 
-	function newItem(name, type, people, callback){
+	function newItem(name, description, type, people, callback){
 		model.post("effort", {
 			task: currentView,
 			name: name,
+			description: description,
 			type: type,
 			people: people,
 		}, function(data){
@@ -39,9 +40,10 @@ Models.Effort = (function(){
 		});
 	}
 
-	function updateItem(id, name, type, people, callback){
+	function updateItem(id, name, description, type, people, callback){
 		model.post("effort/"+id, {
 			name: name,
+			description: description,
 			type: type,
 			people: people,
 		}, function(data){

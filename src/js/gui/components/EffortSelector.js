@@ -8,6 +8,13 @@ var EffortSelector = function(){
 		return (!viewModels.editMode.state() && selected(id));
 	}
 
+	function editing(id){
+		if(viewModels.editMode.state()){
+			return (viewModels.editMode.content().id === id);
+		}
+		return false;
+	}
+
 	return {
 		view: function(vnode){
 			if(viewModels.Hierarchy.getTask()>0){
@@ -18,14 +25,14 @@ var EffortSelector = function(){
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
 						return m(".state-selectable.selectorlist-item", {
-							class: (selected(effort.id))?"state-selected":"",
+							class: ((selected(effort.id))?"state-selected":"") +" "+((editing(effort.id))?"state-editing":""),
 							onclick: function(){
 								viewModels.Hierarchy.updateEffort(effort.id);
 							}
 						},[
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
-								m(".selectorlist-item-edit.button-edit",{
+								m(".selectorlist-item-edit.button-edit-small",{
 									class: (editable(effort.id))?"state-editable":"",
 									onclick: function(){
 										viewModels.editMode.set("effort", effort);
@@ -35,6 +42,7 @@ var EffortSelector = function(){
 							m(".selectorlist-item-content", [
 								m(".effortselector-title", effort.name),
 								m(".effortselector-hidden",[
+									m(".effortselector-description", effort.description),
 									m(".effortselector-subheader", "type"),
 									m(".effortselector-type", viewModels.typeNames[effort.type]),
 									m(".effortselector-subheader", "mensen"),
@@ -47,7 +55,7 @@ var EffortSelector = function(){
 					}))),
 				]);
 			} else {
-				return m(".message", "no content");
+				return [];
 			}
 		}
 	};
