@@ -1,8 +1,11 @@
 @import "variables/colors.less";
+@import "variables/fonts.less";
+@import "templates/Buttons.less";
+@programbarWidth: 54px;
 
 .programbar {
 	background: @color-white;
-	width: 50px;
+	width: @programbarWidth;
 	overflow-x: hidden;
 	white-space: nowrap;
 	transition: width 0.2s;
@@ -18,6 +21,7 @@
 }
 
 .programbar-program-title {
+	font-size: @main-text;
 	margin-left: 10px;
 	display: inline-block;
 }
@@ -33,8 +37,8 @@
 }
 
 .programbar-domain{
-	margin-top: 4px;
-	margin-left: 4px;
+	margin-top: ((@programbarWidth - @width-circle) / 2);
+	margin-left: ((@programbarWidth - @width-circle) / 2);
 }
 
 .programbar-domain + .programbar-domain {

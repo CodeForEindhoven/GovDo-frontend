@@ -1,3 +1,5 @@
+@import "Buttons.less";
+
 .selector {
 	height: 100%;
 	width: 100%;
@@ -5,7 +7,9 @@
 }
 
 .selector-header {
-	font-size: 2em;
+	font-size: @size-selected;
+	font-weight: @semibold;
+	margin-left: (@width-circle + @width-circle / 2);
 }
 
 .selectorlist {
@@ -21,12 +25,16 @@
 	min-height: 100%;
 	box-sizing: border-box;
 	background-color: @color-white;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: (@width-circle / 4);
+	padding-bottom: (@width-circle / 4);
 }
 
 .selectorlist-item {
 	cursor: pointer;
+}
+
+.state-selected .selectorlist-item-content {
+	margin-bottom: 65px;
 }
 
 .selectorlist-item + .selectorlist-item {
@@ -41,7 +49,7 @@
 
 .selectorlist-item-content {
 	vertical-align: top;
-	margin-left: 20px;
+	margin-left: (@width-circle / 2);
 	display: inline-block;
 }
 

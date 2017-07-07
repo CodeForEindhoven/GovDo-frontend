@@ -41,8 +41,8 @@ body {
 }
 body {
   font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
-  background: #DDDDDD;
+  font-size: 16px;
+  background: #ECF0F1;
 }
 input,
 textarea,
@@ -93,7 +93,9 @@ div {
   position: relative;
 }
 .selector-header {
-  font-size: 2em;
+  font-size: 19.8px;
+  font-weight: 600;
+  margin-left: 66px;
 }
 .selectorlist {
   position: absolute;
@@ -107,11 +109,14 @@ div {
   min-height: 100%;
   box-sizing: border-box;
   background-color: #FFFFFF;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 11px;
+  padding-bottom: 11px;
 }
 .selectorlist-item {
   cursor: pointer;
+}
+.state-selected .selectorlist-item-content {
+  margin-bottom: 65px;
 }
 .selectorlist-item + .selectorlist-item {
   margin-top: 30px;
@@ -123,7 +128,7 @@ div {
 }
 .selectorlist-item-content {
   vertical-align: top;
-  margin-left: 20px;
+  margin-left: 22px;
   display: inline-block;
 }
 .selectorlist-item-edit {
@@ -136,11 +141,13 @@ div {
 }
 .button-number {
   background-color: #AAAAAA;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
   border-radius: 50%;
   text-align: center;
+  font-size: 13.3px;
+  font-weight: 600;
 }
 .state-selectable:hover .button-number,
 .state-selected .button-number {
@@ -157,7 +164,7 @@ div {
   text-align: center;
 }
 .textarea {
-  background-color: #DDDDDD;
+  background-color: #ECF0F1;
   border: 1px solid #0000FF;
   width: calc(100% - 60px);
   height: 200px;
@@ -180,7 +187,7 @@ nav {
 }
 .programbar {
   background: #FFFFFF;
-  width: 50px;
+  width: 54px;
   overflow-x: hidden;
   white-space: nowrap;
   transition: width 0.2s;
@@ -193,6 +200,7 @@ nav {
   display: inline-block;
 }
 .programbar-program-title {
+  font-size: 14px;
   margin-left: 10px;
   display: inline-block;
 }
@@ -206,8 +214,8 @@ nav {
   transition: max-height 0.4s;
 }
 .programbar-domain {
-  margin-top: 4px;
-  margin-left: 4px;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 .programbar-domain + .programbar-domain {
   margin-top: 25px;
@@ -226,6 +234,29 @@ nav {
 }
 .taskselector-title-means-label {
   font-weight: bold;
+}
+.taskselector-title,
+.effortselector-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #000000;
+}
+/* when title is selected the size increase */
+.state-selected .taskselector-title,
+.state-selected .effortselector-title {
+  font-size: 19.8px;
+}
+/* description inspanningen-effort */
+.effortselector-hidden {
+  font-size: 14px;
+  font-weight: 300;
+}
+.effortselector-title + .effortselector-hidden {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.effortselector-type {
+  font-weight: 600;
 }
 .effortselector-subheader {
   font-weight: bold;

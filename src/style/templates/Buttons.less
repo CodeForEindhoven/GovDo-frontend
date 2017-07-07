@@ -1,12 +1,16 @@
 @import "variables/colors.less";
+@import "variables/fonts.less";
+@width-circle: 44px;
 
 .button-number {
 	background-color: @color-unselected;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
+	width: @width-circle;
+	height: @width-circle;
+	line-height: @width-circle;
 	border-radius: 50%;
 	text-align: center;
+	font-size: (@main-text * 0.95);
+	font-weight: @semibold;
 }
 
 .state-selectable:hover .button-number, .state-selected .button-number {

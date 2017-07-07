@@ -1,9 +1,33 @@
 @import "variables/colors.less";
+@import "variables/fonts.less";
 
-.taskselector-title {
-	
-}
 
 .taskselector-title-means-label {
 	font-weight: bold;
+}
+
+.taskselector-title, .effortselector-title {
+	font-size: @main-text;
+	font-weight: @semibold;
+	color: #000000;
+}
+
+/* when title is selected the size increase */
+.state-selected .taskselector-title, .state-selected .effortselector-title {
+	font-size: @size-selected;
+}
+
+/* description inspanningen-effort */
+.effortselector-hidden {
+	font-size: @main-text;
+	font-weight: @light;
+}
+
+.effortselector-title + .effortselector-hidden {
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+.effortselector-type {
+	font-weight: @semibold;
 }
