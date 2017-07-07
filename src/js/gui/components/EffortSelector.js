@@ -4,6 +4,10 @@ var EffortSelector = function(){
 		return (viewModels.Hierarchy.getEffort() === id);
 	}
 
+	function editable(id){
+		return (!viewModels.editMode.state() && selected(id));
+	}
+
 	return {
 		view: function(vnode){
 			if(viewModels.Hierarchy.getTask()>0){
@@ -22,8 +26,9 @@ var EffortSelector = function(){
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
 								m(".selectorlist-item-edit.button-edit",{
+									class: (editable(effort.id))?"state-editable":"",
 									onclick: function(){
-										viewModels.editMode.set("effort", effort.id);
+										viewModels.editMode.set("effort", effort);
 									}
 								},"Bewerken")
 							]),
@@ -31,7 +36,7 @@ var EffortSelector = function(){
 								m(".effortselector-title", effort.name),
 								m(".effortselector-hidden",[
 									m(".effortselector-subheader", "type"),
-									m(".effortselector-type", viewModels.typeName(effort.type)),
+									m(".effortselector-type", viewModels.typeNames[effort.type]),
 									m(".effortselector-subheader", "mensen"),
 									m(".effortselector-peoplelist", effort.People.map(function(person){
 										return m(".effortselector-peoplelist", person.name);

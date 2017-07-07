@@ -23,6 +23,7 @@ compressor.minify({
 
 		"./src/js/gui/*.js",
 		"./src/js/gui/components/*.js",
+		"./src/js/gui/reusable/*.js",
 		"./src/js/gui/layout/*.js",
 		"./src/js/gui/reusalbe/*.js",
 

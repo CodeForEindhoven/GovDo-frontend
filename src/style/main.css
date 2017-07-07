@@ -131,7 +131,7 @@ div {
   opacity: 0;
   transition: opacity 0.3s;
 }
-.selectorlist-item.state-selected .selectorlist-item-edit {
+.selectorlist-item-edit.state-editable {
   opacity: 1;
 }
 .button-number {
@@ -155,6 +155,14 @@ div {
   height: 20px;
   line-height: 20px;
   text-align: center;
+}
+.textarea {
+  background-color: #DDDDDD;
+  border: 1px solid #0000FF;
+  width: calc(100% - 60px);
+  height: 200px;
+  resize: vertical;
+  border-radius: 4px;
 }
 nav {
   z-index: 10;
@@ -232,10 +240,10 @@ nav {
   display: block;
 }
 .editor {
-  background-color: #EEEEEE;
   width: 100%;
   height: 100%;
   transition: margin-left 1s;
+  overflow-y: scroll;
 }
 .editor.state-hidden {
   margin-left: 100%;

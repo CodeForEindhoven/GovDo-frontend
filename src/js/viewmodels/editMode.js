@@ -1,15 +1,29 @@
 viewModels.editMode = (function(){
-	var mode = false;
+	var state = false;
+	var type = "";
+	var content = {};
 
 	return {
-		get: function(){
-			return mode;
+		state: function(){return state;},
+		isType: function(t){return (type === t);},
+		content: function(){return content;},
+
+		setContent: function(key, value){
+			content[key] = value;
 		},
-		set: function(type, source){
-			mode = true;
+
+		set: function(t, c){
+			state = true;
+			type = t;
+			if(c){
+				//DEEP COPY CONTENT
+				content = JSON.parse(JSON.stringify(c));
+			}
 		},
 		close: function(){
-			mode = false;
+			state = false;
+			type = "";
+			content = {};
 		}
 	};
 })();
