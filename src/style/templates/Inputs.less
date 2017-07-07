@@ -1,0 +1,33 @@
+@import "variables/colors.less";
+
+.textarea {
+	background-color: @color-background;
+	border: 1px solid @color-editable;
+	width: calc(100% - 60px);
+	height: 200px;
+	resize: vertical;
+	border-radius: 4px;
+}
+
+.input {
+	background-color: @color-background;
+	border: 1px solid @color-editable;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+.datepicker-day, .datepicker-month {
+	width: 2em;
+	display: inline-block;
+}
+
+.datepicker-dash {
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.datepicker-year {
+	width: 4em;
+	display: inline-block;
+}

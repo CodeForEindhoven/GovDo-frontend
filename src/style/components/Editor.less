@@ -1,3 +1,5 @@
+@import "variables/colors.less";
+
 .editor {
 	width: 100%;
 	height: 100%;
@@ -15,4 +17,19 @@
 
 .editor.state-edit {
 	margin-left: 0%;
+}
+
+.editor-typeselect-type {
+	padding: 10px;
+	border: 1px solid @color-editable;
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+.editor-typeselect-type-timespan {
+	display: none;
+}
+
+.editor-typeselect-type-timespan.state-visible  {
+	display: block;
 }

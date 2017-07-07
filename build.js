@@ -8,6 +8,8 @@ compressor.minify({
 	input: [
 		'./src/js/config.js',
 
+		"./src/js/polyfills/leftpad.js",
+
 		"./src/js/models/Models.js",
 		"./src/js/models/Program.js",
 		"./src/js/models/Task.js",

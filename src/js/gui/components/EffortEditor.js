@@ -30,9 +30,17 @@ var EffortEditor = function(){
 
 				m(".editor-subtitle", "Type"),
 				m(TypeEditor, {
-					value: viewModels.editMode.content().type,
+					type: viewModels.editMode.content().type,
+					startdate: viewModels.editMode.content().startdate,
+					enddate: viewModels.editMode.content().enddate,
 					onchange: function(v){
 						viewModels.editMode.setContent("type", v);
+					},
+					onchangeStartDate: function(v){
+						viewModels.editMode.setContent("startdate", v);
+					},
+					onchangeEndDate: function(v){
+						viewModels.editMode.setContent("enddate", v);
 					}
 				}),
 			]);
@@ -71,11 +79,31 @@ var TypeEditor = function(){
 			return m(".editor-typeselect", [
 				viewModels.typeNames.map(function(t, count){
 					return m(".editor-typeselect-type",{
-						class: (vnode.attrs.value === count)? ".state-selected": "",
+						class: (vnode.attrs.type === count)? "state-selected": "",
 						onclick: function(){
 							vnode.attrs.onchange(count);
 						}
-					}, t);
+					}, [
+						m(".editor-typeselect-type-name", t),
+						m(".editor-typeselect-type-timespan", {
+							class: (vnode.attrs.type === count && count<2)? "state-visible": "",
+						},[
+							m(".editor-typeselect-type-timespan-subtitle","van"),
+							m(".editor-typeselect-type-timespan-timebox",
+								m(DatePicker, {
+									value: vnode.attrs.startdate,
+									onchange: vnode.attrs.onchangeStartDate
+								})
+							),
+							m(".editor-typeselect-type-timespan-subtitle","t/m"),
+							m(".editor-typeselect-type-timespan-timebox",
+								m(DatePicker, {
+									value:  vnode.attrs.enddate,
+									onchange: vnode.attrs.onchangeEndDate
+								})
+							),
+						]),
+					]);
 				})
 			]);
 		}

@@ -205,6 +205,26 @@ div {
   resize: vertical;
   border-radius: 4px;
 }
+.input {
+  background-color: #DDDDDD;
+  border: 1px solid #0000FF;
+  border-radius: 4px;
+  padding: 5px;
+}
+.datepicker-day,
+.datepicker-month {
+  width: 2em;
+  display: inline-block;
+}
+.datepicker-dash {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.datepicker-year {
+  width: 4em;
+  display: inline-block;
+}
 nav {
   z-index: 10;
 }
@@ -294,4 +314,16 @@ nav {
 }
 .editor.state-edit {
   margin-left: 0%;
+}
+.editor-typeselect-type {
+  padding: 10px;
+  border: 1px solid #0000FF;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.editor-typeselect-type-timespan {
+  display: none;
+}
+.editor-typeselect-type-timespan.state-visible {
+  display: block;
 }
