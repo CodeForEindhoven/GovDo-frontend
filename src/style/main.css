@@ -286,6 +286,9 @@ nav {
   transition: margin-left 0.4s;
   overflow-y: scroll;
 }
+.editor-buttons {
+  margin-bottom: 10px;
+}
 .editor.state-hidden {
   margin-left: 100%;
 }

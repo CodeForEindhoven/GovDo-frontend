@@ -42,6 +42,7 @@ var EffortSelector = function(){
 							m(".selectorlist-item-content", [
 								m(".effortselector-title", effort.name),
 								m(".effortselector-hidden",[
+									m(".effortselector-description", effort.description),
 									m(".effortselector-subheader", "type"),
 									m(".effortselector-type", viewModels.typeNames[effort.type]),
 									m(".effortselector-subheader", "mensen"),

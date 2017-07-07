@@ -32,13 +32,13 @@ viewModels.editMode = (function(){
 				console.log("effort");
 				if(content.id===-1){
 					console.log("new");
-					Models.Effort.newItem(content.name, content.type, content.People, function(id){
+					Models.Effort.newItem(content.name, content.description, content.type, content.People, function(id){
 						viewModels.Hierarchy.updateEffort(content.id);
 						viewModels.editMode.close();
 					});
 				} else {
 					console.log("update");
-					Models.Effort.updateItem(content.id, content.name, content.type, content.People, function(id){
+					Models.Effort.updateItem(content.id, content.name, content.description, content.type, content.People, function(id){
 						viewModels.Hierarchy.updateEffort(content.id);
 						viewModels.editMode.close();
 					});
