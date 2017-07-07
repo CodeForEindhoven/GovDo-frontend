@@ -14,12 +14,32 @@
 	color: @color-white;
 }
 
-.button-edit {
+.button {
+	display: inline-block;
+	margin-right: 10px;
 	cursor: pointer;
-	font-size: 0.6em;
 	background-color: @color-button;
+	text-align: center;
+
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.button-edit {
+	.button();
+	background-color: @color-button-edit;
+}
+
+.button-right {
+	.button();
+	float: right;
+}
+
+.button-edit-small {
+	.button-edit();
 	width: 40px;
 	height: 20px;
 	line-height: 20px;
-	text-align: center;
+	font-size: 0.6em;
 }

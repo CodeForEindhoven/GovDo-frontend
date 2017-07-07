@@ -20,7 +20,7 @@ var TaskSelector = function(){
 						},[
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
-								m(".selectorlist-item-edit.button-edit", "Bewerken")
+								m(".selectorlist-item-edit.button-edit-small", "Bewerken")
 							]),
 							m(".selectorlist-item-content", [
 								m(".taskselector-title", [
@@ -36,7 +36,7 @@ var TaskSelector = function(){
 					}))),
 				]);
 			} else {
-				return m(".message", "no content");
+				return [];
 			}
 		}
 	};
