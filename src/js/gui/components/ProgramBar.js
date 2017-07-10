@@ -15,6 +15,7 @@ var ProgramBar = function(){
 			return m(".programbar",[
 				Models.Program.getContent().map(function(domain){
 					return m(".programbar-domain",[
+						m(".programbar-domain-name", domain.name),
 						domain.Programs.map(function(program){
 							count++;
 							return m(".state-selectable.programbar-program", {
