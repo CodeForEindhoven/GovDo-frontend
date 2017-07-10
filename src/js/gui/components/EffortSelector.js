@@ -44,7 +44,6 @@ var EffortSelector = function(){
 								m(".effortselector-title", effort.name),
 								m(".effortselector-hidden",[
 									m(".effortselector-description", effort.description),
-									m(".effortselector-subheader", "type"),
 									m(".effortselector-type", viewModels.typeNames[effort.type]),
 									m(".effortselector-subheader", "mensen"),
 									m(".effortselector-peoplelist", effort.People.map(function(person){
