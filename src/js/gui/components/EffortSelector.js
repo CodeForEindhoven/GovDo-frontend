@@ -38,7 +38,7 @@ var EffortSelector = function(){
 									onclick: function(){
 										viewModels.editMode.set("effort", effort);
 									}
-								},"Bewerken")
+								}, m("i.material-icons","build"))
 							]),
 							m(".selectorlist-item-content", [
 								m(".effortselector-title", effort.name),

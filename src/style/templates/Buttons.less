@@ -13,6 +13,13 @@
 	font-weight: @semibold;
 }
 
+.button-number + .selectorlist-item-edit {
+	margin-top: 12px;
+	background-color: @color-background;
+	text-align: center;
+	font-size: @main-text;
+}
+
 .state-selectable:hover .button-number, .state-selected .button-number {
 	background-color: @color-selected;
 	color: @color-white;
@@ -20,7 +27,7 @@
 
 .button {
 	display: inline-block;
-	margin-right: 10px;
+	margin-right: 9px;
 	cursor: pointer;
 	background-color: @color-button;
 	text-align: center;
@@ -33,7 +40,6 @@
 .button-edit {
 	.button();
 	background-color: @color-button-edit;
-	margin-left: -10px;
 }
 
 .button-right {
@@ -43,8 +49,16 @@
 
 .button-edit-small {
 	.button-edit();
-	width: 47px;
+	width: @width-circle;
 	height: 20px;
 	line-height: 20px;
 	font-size: 0.6em;
+	
+	background-color: none
+}
+
+.material-icons {
+	vertical-align: top;
+	font-size: @icon-size;
+	text-align: center;
 }

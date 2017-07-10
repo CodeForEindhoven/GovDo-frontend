@@ -1,16 +1,17 @@
 @import "variables/colors.less";
+@margin-bottom-editor-items: 75px;
 
 .editor {
 	width: 100%;
-	height: 90%;
+	height: 100%;
 	transition: margin-left 0.4s;
 	overflow-y: scroll;
 	font-size: @main-text;
 }
 
 .editor-buttons {
-	margin-top: 30px;
-	margin-bottom: 20px;
+	margin-top: 35px;
+	margin-bottom: 30px;
 }
 
 .editor.state-hidden {
@@ -25,7 +26,7 @@
 
 .efforteditor .textarea {
 	float: right;
-	margin-bottom: 40px;
+	margin-bottom: @margin-bottom-editor-items;
 }
 
 .editor-typeselect-type {
@@ -74,7 +75,7 @@
 
 // List people
 .editor-peoplelist {
-	margin-bottom: 40px;
+	margin-bottom: @margin-bottom-editor-items;
 }
 
 .editor-peoplelist-person {
@@ -84,9 +85,4 @@
 .editor-peoplelist-person-remove {
 	float: right;
 	cursor: pointer;
-}
-
-.layout-editor .material-icons {
-	line-height: 0;
-	font-size: @icon-size;
 }
