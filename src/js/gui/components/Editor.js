@@ -24,7 +24,7 @@ var Editor = function(){
 					},"Annuleer"),
 					m(".button-right", {
 						onclick: function(){
-
+							viewModels.editMode.delete();
 						}
 					},"Verwijder"),
 				])

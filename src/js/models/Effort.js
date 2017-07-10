@@ -52,9 +52,17 @@ Models.Effort = (function(){
 		});
 	}
 
+	function deleteItem(id, callback) {
+		model.delete("effort/"+id, {}, function(data){
+			loadContent();
+			callback(data);
+		});
+	}
+
 	return {
 		newItem: newItem,
 		updateItem: updateItem,
+		deleteItem: deleteItem,
 
 		loadContent: loadContent,
 		getContent: getContent,

@@ -44,6 +44,22 @@ viewModels.editMode = (function(){
 					});
 				}
 			}
+		},
+
+		delete: function(){
+			console.log("delete");
+			if (window.confirm("Weet u zeker dat u dit wilt verwijderen?") === true) {
+				if(type==="effort"){
+					console.log("effort");
+					if(content.id===-1){
+						viewModels.editMode.close();
+					} else {
+						Models.Effort.deleteItem(content.id,function(){
+							viewModels.editMode.close();
+						});
+					}
+				}
+			}
 		}
 	};
 })();

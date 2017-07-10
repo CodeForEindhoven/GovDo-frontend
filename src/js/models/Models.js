@@ -14,5 +14,13 @@ var model = {
 			url: config.api_endpoint+adress,
 			data: data
 		}).then(callback);
+	},
+
+	delete: function(adress,data,callback){
+		m.request({
+			method: "DELETE",
+			url: config.api_endpoint+adress,
+			data: data
+		}).then(callback);
 	}
 };
