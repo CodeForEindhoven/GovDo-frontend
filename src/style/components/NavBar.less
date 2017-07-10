@@ -1,4 +1,5 @@
 @import "variables/colors.less";
+@import "templates/Buttons.less";
 
 nav {
 	z-index: 10;
@@ -6,13 +7,12 @@ nav {
 
 .nav-dashbutton {
 	background: @color-white;
-	padding: 4px;
-	width: 30px;
-	height: 30px;
+	width: @programbarWidth;
+	height: @programbarWidth;
 }
 
 .nav-dashbutton-icon {
 	background: @color-unselected;
-	width: 30px;
-	height: 30px;
+	width: (@programbarWidth / 2);
+	height: (@programbarWidth / 2);
 }

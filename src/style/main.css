@@ -15,11 +15,12 @@ body {
 .layout-nav-left {
   margin-left: 10px;
   float: left;
+  height: calc(100% - 60px);
 }
 .layout-workspace {
   position: relative;
   float: left;
-  margin-left: 10px;
+  padding-left: 10px;
   width: calc(66% - 70px);
   height: calc(100% - 60px);
 }
@@ -38,6 +39,7 @@ body {
   right: 0px;
   width: 33%;
   height: calc(100% - 60px);
+  top: 110px;
 }
 body {
   font-family: 'Open Sans', sans-serif;
@@ -95,11 +97,11 @@ div {
 .selector-header {
   font-size: 19.8px;
   font-weight: 600;
-  margin-left: 66px;
+  margin-left: 57px;
 }
 .selectorlist {
   position: absolute;
-  top: 40px;
+  top: 60px;
   bottom: 0px;
   width: 100%;
   overflow-y: scroll;
@@ -109,11 +111,15 @@ div {
   min-height: 100%;
   box-sizing: border-box;
   background-color: #FFFFFF;
-  padding-top: 11px;
-  padding-bottom: 11px;
+  padding-top: 9.5px;
+  padding-bottom: 9.5px;
 }
 .selectorlist-item {
   cursor: pointer;
+}
+.selectorlist-item.state-editing,
+.selectorlist-item.effortselector-title {
+  color: #0000FF;
 }
 .state-selected .selectorlist-item-content {
   margin-bottom: 65px;
@@ -123,12 +129,11 @@ div {
 }
 .selectorlist-item-number {
   vertical-align: top;
-  margin-left: -50px;
+  margin-left: -47px;
   display: inline-block;
 }
 .selectorlist-item-content {
   vertical-align: top;
-  margin-left: 22px;
   display: inline-block;
 }
 .selectorlist-item-edit {
@@ -140,10 +145,10 @@ div {
   opacity: 1;
 }
 .button-number {
-  background-color: #AAAAAA;
-  width: 44px;
-  height: 44px;
-  line-height: 44px;
+  background-color: #D2D7D3;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
   border-radius: 50%;
   text-align: center;
   font-size: 13.3px;
@@ -151,7 +156,7 @@ div {
 }
 .state-selectable:hover .button-number,
 .state-selected .button-number {
-  background-color: #3333FF;
+  background-color: #0000FF;
   color: #FFFFFF;
 }
 .button {
@@ -174,6 +179,7 @@ div {
   height: 30px;
   line-height: 30px;
   background-color: #FFFF00;
+  margin-left: -10px;
 }
 .button-right {
   display: inline-block;
@@ -196,22 +202,24 @@ div {
   height: 30px;
   line-height: 30px;
   background-color: #FFFF00;
-  width: 40px;
+  margin-left: -10px;
+  width: 47px;
   height: 20px;
   line-height: 20px;
   font-size: 0.6em;
 }
 .textarea {
   background-color: #ECF0F1;
-  border: 1px solid #0000FF;
-  width: calc(100% - 60px);
+  border: 0.3px solid #0000FF;
+  width: calc(85% - 5px);
   height: 200px;
   resize: vertical;
-  border-radius: 4px;
+  border-radius: 2px;
+  padding: 5px;
 }
 .input {
-  background-color: #DDDDDD;
-  border: 1px solid #0000FF;
+  background-color: #ECF0F1;
+  border: 0.3px solid #0000FF;
   border-radius: 4px;
   padding: 5px;
 }
@@ -234,14 +242,13 @@ nav {
 }
 .nav-dashbutton {
   background: #FFFFFF;
-  padding: 4px;
-  width: 30px;
-  height: 30px;
+  width: 54px;
+  height: 54px;
 }
 .nav-dashbutton-icon {
-  background: #AAAAAA;
-  width: 30px;
-  height: 30px;
+  background: #D2D7D3;
+  width: 27px;
+  height: 27px;
 }
 .programbar {
   background: #FFFFFF;
@@ -249,6 +256,7 @@ nav {
   overflow-x: hidden;
   white-space: nowrap;
   transition: width 0.2s;
+  margin-top: 10px;
 }
 .programbar-program {
   cursor: pointer;
@@ -272,19 +280,22 @@ nav {
   transition: max-height 0.4s;
 }
 .programbar-domain {
-  margin-top: 5px;
-  margin-left: 5px;
+  margin-top: 8px;
+  margin-left: 8px;
 }
 .programbar-domain + .programbar-domain {
-  margin-top: 25px;
+  margin-top: 40px;
 }
 .programbar:hover {
-  width: 250px;
+  width: auto;
   z-index: 1000;
+  padding-right: 15px;
+  overflow-y: scroll;
+  height: 100%;
 }
 :hover > .programbar-program-title,
 .state-selected > .programbar-program-title {
-  color: #3333FF;
+  color: #0000FF;
 }
 .programbar:hover .state-selected > .programbar-program-mission {
   max-height: 200px;
@@ -297,7 +308,7 @@ nav {
 .effortselector-title {
   font-size: 14px;
   font-weight: 600;
-  color: #000000;
+  margin-left: 10px;
 }
 /* when title is selected the size increase */
 .state-selected .taskselector-title,
@@ -330,28 +341,73 @@ nav {
 }
 .editor {
   width: 100%;
-  height: 100%;
+  height: 90%;
   transition: margin-left 0.4s;
   overflow-y: scroll;
+  font-size: 14px;
 }
 .editor-buttons {
-  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 .editor.state-hidden {
   margin-left: 100%;
 }
-.editor.state-edit {
-  margin-left: 0%;
+.efforteditor {
+  float: right;
+  width: 100%;
+  margin-right: 10px;
+}
+.efforteditor .textarea {
+  float: right;
+  margin-bottom: 40px;
 }
 .editor-typeselect-type {
   padding: 10px;
-  border: 1px solid #0000FF;
-  margin-bottom: 10px;
+  border: 0.3px solid #0000FF;
+  margin-bottom: 8px;
   cursor: pointer;
+}
+.state-selected .editor-typeselect {
+  background-color: #0000FF;
+}
+.state-selected .editor-typeselect-type {
+  background-color: #0000FF;
+}
+.state-selected .editor-typeselect-type-name {
+  color: #FFFFFF;
 }
 .editor-typeselect-type-timespan {
   display: none;
 }
+.editor-typeselect-type-timespan-subtitle {
+  margin-bottom: 3px;
+}
 .editor-typeselect-type-timespan.state-visible {
   display: block;
+}
+.editor-subtitle,
+.editor-peoplelist,
+.editor-typeselect,
+.editor-buttons {
+  width: calc(85% + 5px);
+  float: right;
+}
+.editor-subtitle {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.editor-peoplelist {
+  margin-bottom: 40px;
+}
+.editor-peoplelist-person {
+  margin-bottom: 8px;
+}
+.editor-peoplelist-person-remove {
+  float: right;
+  cursor: pointer;
+}
+.layout-editor .material-icons {
+  line-height: 0;
+  font-size: 18px;
 }

@@ -20,7 +20,7 @@ var TaskSelector = function(){
 						},[
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
-								m(".selectorlist-item-edit.button-edit-small", "Bewerken")
+								m(".selectorlist-item-edit.button-edit-small", m("i.material-icons","create"))
 							]),
 							m(".selectorlist-item-content", [
 								m(".taskselector-title", [

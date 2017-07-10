@@ -2,34 +2,91 @@
 
 .editor {
 	width: 100%;
-	height: 100%;
+	height: 90%;
 	transition: margin-left 0.4s;
 	overflow-y: scroll;
+	font-size: @main-text;
 }
 
 .editor-buttons {
-	margin-bottom: 10px;
+	margin-top: 30px;
+	margin-bottom: 20px;
 }
 
 .editor.state-hidden {
 	margin-left: 100%;
 }
 
-.editor.state-edit {
-	margin-left: 0%;
+.efforteditor {
+	float: right;
+	width: 100%;
+	margin-right: 10px;
+}
+
+.efforteditor .textarea {
+	float: right;
+	margin-bottom: 40px;
 }
 
 .editor-typeselect-type {
 	padding: 10px;
-	border: 1px solid @color-editable;
-	margin-bottom: 10px;
+	border: 0.3px solid @color-editable;
+	margin-bottom: 8px;
 	cursor: pointer;
+}
+
+// Typology
+// When typology is selected
+.state-selected .editor-typeselect {
+	background-color: @color-selected;	
+}
+
+.state-selected .editor-typeselect-type {
+	background-color: @color-selected;
+}
+
+.state-selected .editor-typeselect-type-name {
+	color: @color-white;
 }
 
 .editor-typeselect-type-timespan {
 	display: none;
 }
 
+.editor-typeselect-type-timespan-subtitle {
+	margin-bottom: 3px;
+}
+
 .editor-typeselect-type-timespan.state-visible  {
 	display: block;
+}
+
+.editor-subtitle, .editor-peoplelist, .editor-typeselect, .editor-buttons {
+	width: calc(85% + 5px);
+	//width: 85%;
+	float: right;
+}
+
+.editor-subtitle {
+	font-weight: @semibold;
+	margin-bottom: 8px;
+}
+
+// List people
+.editor-peoplelist {
+	margin-bottom: 40px;
+}
+
+.editor-peoplelist-person {
+	margin-bottom: 8px;
+}
+
+.editor-peoplelist-person-remove {
+	float: right;
+	cursor: pointer;
+}
+
+.layout-editor .material-icons {
+	line-height: 0;
+	font-size: @icon-size;
 }

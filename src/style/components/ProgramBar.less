@@ -9,6 +9,7 @@
 	overflow-x: hidden;
 	white-space: nowrap;
 	transition: width 0.2s;
+	margin-top: 10px;
 }
 
 .programbar-program {
@@ -42,13 +43,16 @@
 }
 
 .programbar-domain + .programbar-domain {
-	margin-top: 25px;
+	margin-top: 40px;
 }
 
 //hover
 .programbar:hover {
-	width: 250px;
+	width: auto;
 	z-index: 1000;
+	padding-right: 15px;
+	overflow-y: scroll;
+	height: 100%;
 }
 
 :hover > .programbar-program-title, .state-selected > .programbar-program-title{
