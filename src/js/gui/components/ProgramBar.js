@@ -20,7 +20,7 @@ var ProgramBar = function(){
 							return m(".state-selectable.programbar-program", {
 								class: (selected(program.id))?"state-selected":"",
 								onclick: function(){
-									viewModels.Hierarchy.updateProgram(program.id, program.name);
+									viewModels.Hierarchy.updateProgram(program.id, program);
 								}
 							},[
 								m(".programbar-program-number.button-number", shortname(program.name)),
