@@ -24,7 +24,7 @@ var FilteredPeopleList = function(){
 				return m(".PersonList", [
 					m(".personAdd", {
 						onclick: function(){
-							vnode.attrs.onnew(p);
+							vnode.attrs.onnew(vnode.attrs.value);
 						}
 					}, "voeg '"+vnode.attrs.value+"' toe aan personen")
 				]);
