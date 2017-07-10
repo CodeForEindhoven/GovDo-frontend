@@ -20,8 +20,9 @@ var EffortSelector = function(){
 			if(viewModels.Hierarchy.getTask()>0){
 				return m(".selector",[
 					m(".selector-header", [
-						"Inspanningen"
-					//	viewModels.Hierarchy.getProgramName()
+						m("span", "Inspanningen"),
+						m("i", {class:"material-icons"}, "pan_tool"),
+						m("i", {class:"material-icons"}, "pan_tool")
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
 						return m(".state-selectable.selectorlist-item", {

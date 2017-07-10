@@ -9,7 +9,9 @@ var TaskSelector = function(){
 			if(viewModels.Hierarchy.getProgram()>0){
 				return m(".selector",[
 					m(".selector-header", [
-						"Opgaven"
+						m("span", "Opgaven"),
+						m("i", {class:"material-icons"}, "pan_tool"),
+						m("i", {class:"material-icons"}, "pan_tool")
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Task.getContent().map(function(task, count){
 						return m(".state-selectable.selectorlist-item", {
