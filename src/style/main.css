@@ -94,10 +94,14 @@ div {
   width: 100%;
   position: relative;
 }
-.selector-header {
+.selector-header,
+.programdetails-title {
   font-size: 19.8px;
   font-weight: 600;
-  margin-left: 57px;
+}
+.selector .selector-header,
+.programdetails {
+  margin-left: 47px;
 }
 .selectorlist {
   position: absolute;
@@ -143,6 +147,17 @@ div {
 }
 .selectorlist-item-edit.state-editable {
   opacity: 1;
+}
+.state-hidden {
+  display: none;
+}
+.programdetails {
+  margin-bottom: 40px;
+}
+.programdetails-mission {
+  font-size: 14px;
+  line-height: 20px;
+  margin-top: 15px;
 }
 .button-number {
   background-color: #D2D7D3;
@@ -217,6 +232,12 @@ div {
   vertical-align: top;
   font-size: 18px;
   text-align: center;
+}
+.programdetails .material-icons {
+  float: right;
+  margin-top: -24px;
+  margin-right: 15px;
+  cursor: pointer;
 }
 .textarea {
   background-color: #ECF0F1;
@@ -312,11 +333,12 @@ nav {
   transition: max-height 0.4s;
 }
 .taskselector-title-means-label {
-  font-weight: bold;
+  font-weight: 600;
 }
 .taskselector-title,
 .effortselector-title {
   font-size: 14px;
+  line-height: 20px;
   font-weight: 600;
   margin-left: 10px;
 }

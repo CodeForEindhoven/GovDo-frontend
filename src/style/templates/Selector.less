@@ -6,10 +6,13 @@
 	position: relative;
 }
 
-.selector-header {
+.selector-header, .programdetails-title {
 	font-size: @size-selected;
 	font-weight: @semibold;
-	margin-left: (@width-circle + @width-circle / 2);
+}
+
+.selector .selector-header, .programdetails{
+	margin-left: (@width-circle + 9px);
 }
 
 .selectorlist {
@@ -64,4 +67,19 @@
 
 .selectorlist-item-edit.state-editable {
 	opacity: 1;
+}
+
+// Program Mission
+.state-hidden {
+	display: none;
+}
+
+.programdetails {
+	margin-bottom: 40px;
+}
+
+.programdetails-mission {
+	font-size: @main-text;
+	line-height: @line-height-main-text;
+	margin-top: 15px;
 }
