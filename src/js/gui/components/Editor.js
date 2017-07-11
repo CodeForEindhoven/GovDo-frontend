@@ -7,6 +7,8 @@ var Editor = function(){
 				(function(){
 					if(viewModels.editMode.isType("effort")){
 						return m(EffortEditor);
+					} else if(viewModels.editMode.isType("task")){
+						return m(TaskEditor);
 					}
 				})(),
 				m(".editor-buttons",[

@@ -43,6 +43,21 @@ viewModels.editMode = (function(){
 						viewModels.editMode.close();
 					});
 				}
+			} else if(type==="task"){
+				console.log("task");
+				if(content.id===-1){
+					console.log("new");
+					Models.Task.newItem(content.name, content.means, function(id){
+						viewModels.Hierarchy.updateTask(content.id);
+						viewModels.editMode.close();
+					});
+				} else {
+					console.log("update");
+					Models.Task.updateItem(content.id, content.name, content.means, function(id){
+						viewModels.Hierarchy.updateTask(content.id);
+						viewModels.editMode.close();
+					});
+				}
 			}
 		},
 
