@@ -20,6 +20,27 @@ viewModels.editMode = (function(){
 			}
 		},
 
+		new: function(t){
+			state = true;
+			type = t;
+			if(type === 'effort'){
+				content = {
+					id: -1,
+					name: "",
+					description: "",
+					type: -1,
+					People:[]
+				};
+			}
+			if(type === 'task'){
+				content = {
+					id: -1,
+					name: "",
+					means: "",
+				};
+			}
+		},
+
 		close: function(){
 			state = false;
 			type = "";
