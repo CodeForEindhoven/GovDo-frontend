@@ -35,7 +35,7 @@ var EffortSelector = function(){
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
 								m(".selectorlist-item-edit.button-edit-small",{
-									class: (editable(effort.id))?"state-editable":"",
+									class: (editable(effort.id))?"":"state-hidden",
 									onclick: function(){
 										viewModels.editMode.set("effort", effort);
 									}
