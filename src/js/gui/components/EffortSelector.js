@@ -21,14 +21,16 @@ var EffortSelector = function(){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Inspanningen"),
-						m("i.material-icons", {}, "info_outline"),
-						m("i.material-icons", {}, "import_export"),
-						m("i.material-icons", {
-							class: !viewModels.editMode.state()?"":"state-hidden",
-							onclick: function(){
-								viewModels.editMode.new("effort");
-							}
-						}, "add")
+							m(".icons-header", [					
+								m("i.material-icons", {
+									class: !viewModels.editMode.state()?"":"state-hidden",
+									onclick: function(){
+										viewModels.editMode.new("effort");
+									}
+								}, "add"),
+								m("i.material-icons", {}, "import_export"),
+								m("i.material-icons", {}, "info_outline")
+							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
 						return m(".state-selectable.selectorlist-item", {

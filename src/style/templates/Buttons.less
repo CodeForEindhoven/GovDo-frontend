@@ -46,9 +46,18 @@
 	margin-right: 9px;
 }
 
-.button-right {
+.button-delete {
 	.button();
-	float: right;
+	float: left;
+	background-color: red;
+}
+
+.save-button {
+	font-weight: @light;
+	color: @color-selected;
+	text-transform: none;
+	cursor: pointer;
+	float: left;
 }
 
 .button-edit-small {
@@ -62,6 +71,12 @@
 }
 
 // All Icons
+// Icon container headers
+.icons-header {
+	float: right;
+	vertical-align: top;
+}
+
 .material-icons {
 	vertical-align: top;
 	font-size: @icon-size;
@@ -77,17 +92,23 @@
 // To review the size
 }
 
-// Opgaven and Inspanningen Header Icons
+// Headers Icons
 .selector-header .material-icons {
-	float: right;
 	cursor: pointer;
 	background-color: white;
 	border-radius: 25px;
 	padding: 2px;
 }
 
-.selector-header .material-icons + .material-icons {
- 	margin-right: 10px;
+.editor-header .material-icons {
+	cursor: pointer;
+	color: @color-selected;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.selector-header .material-icons + .material-icons, .editor-header .material-icons + .material-icons, .editor-header .save-button + .material-icons {
+ 	margin-left: 10px;
 }
  
  // To hide info

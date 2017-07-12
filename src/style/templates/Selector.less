@@ -12,22 +12,27 @@
 	font-weight: @semibold;
 }
 
-.selector-header {
+.selector-header, .editor-header {
 	// font-size: @size-selected;
 	font-weight: @semibold;
 	
 	// All uppercase
 	font-size: @main-text;
 	text-transform: @uppercase;
+	
+	.editor-header {
+		margin-bottom: 20px;
+	}
+	
 }
 
-.selector .selector-header, .programdetails{
+.selector .selector-header, .programdetails, .editor-header {
 	margin-left: (@width-circle + 9px);
 }
 
 .selectorlist {
 	position: absolute;
-	top: 60px;
+	top: 40px;
 	bottom: 0px;
 	width: 100%;
 	overflow-y: scroll;

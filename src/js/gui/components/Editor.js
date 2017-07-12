@@ -4,32 +4,40 @@ var Editor = function(){
 			return m(".editor",{
 				class: viewModels.editMode.state() ? "state-edit": "state-hidden"
 			}, [
-				(function(){
-					if(viewModels.editMode.isType("effort")){
-						return m(EffortEditor);
-					} else if(viewModels.editMode.isType("task")){
-						return m(TaskEditor);
-					}
-				})(),
-				m(".editor-buttons",[
-					//save
-					m(".button-edit", {
-						onclick: function(){
-							viewModels.editMode.save();
+				
+				m(".editor-header",[
+					m("span", "Editor"),
+						m(".icons-header", [
+						m(".save-button", {
+							onclick: function(){
+								viewModels.editMode.save();
+							}
+						},"Opslaan"),
+						m("i.material-icons", {
+							onclick: function(){
+								viewModels.editMode.close();
+							}
+						},"close"),
+					]),
+				]),
+				
+				m(".editor-content",[
+					(function(){
+						if(viewModels.editMode.isType("effort")){
+							return m(EffortEditor);
+						} else if(viewModels.editMode.isType("task")){
+							return m(TaskEditor);
 						}
-					},"Opslaan"),
-					//
-					m(".button", {
-						onclick: function(){
-							viewModels.editMode.close();
-						}
-					},"Annuleer"),
-					m(".button-right", {
-						onclick: function(){
-							viewModels.editMode.delete();
-						}
-					},"Verwijder"),
-				])
+					})(),
+				
+					m(".editor-buttons",[
+						m(".button-delete", {
+							onclick: function(){
+								viewModels.editMode.delete();
+							}
+						},"Verwijder"),
+					]),
+				]),
 			]);
 		}
 	};
