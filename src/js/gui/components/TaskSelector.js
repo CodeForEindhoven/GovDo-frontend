@@ -23,7 +23,12 @@ var TaskSelector = function(){
 						m("span", "Opgaven"),
 						m("i.material-icons", {}, "info_outline"),
 						m("i.material-icons", {}, "import_export"),
-						m("i.material-icons", {}, "add")
+						m("i.material-icons", {
+							class: !viewModels.editMode.state()?"":"state-hidden",
+							onclick: function(){
+								viewModels.editMode.new("task");
+							}
+						}, "add")
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Task.getContent().map(function(task, count){
 						return m(".state-selectable.selectorlist-item", {
