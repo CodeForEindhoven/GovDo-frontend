@@ -10,14 +10,8 @@ var ProgramDetails = function(){
 						onclick: function(){
 							state = !state;
 						},
-						class: state?"state-hidden":""
-					}, "arrow_drop_down"),
-					m("i.material-icons", {
-						onclick: function(){
-							state = !state;
-						},
-						class: state?"":"state-hidden"
-					}, "arrow_drop_up"),
+					}, state?"arrow_drop_up":"arrow_drop_down"),
+					
 					m(".programdetails-mission",{
 						class: state?"":"state-hidden"
 					},viewModels.Hierarchy.getProgramDetails().mission),

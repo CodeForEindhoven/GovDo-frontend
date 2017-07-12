@@ -163,17 +163,20 @@ div {
   opacity: 1;
   transition: opacity 0.3s;
 }
-.state-hidden {
-  display: none;
-}
 .programdetails {
   margin-bottom: 37px;
+}
+.programdetails-mission.state-hidden {
+  max-height: 0;
 }
 .programdetails-mission {
   font-size: 14px;
   line-height: 20px;
   font-weight: 300;
   margin-top: 15px;
+  max-height: 300px;
+  transition: max-height 0.3s;
+  overflow: hidden;
 }
 .selectorlist-item:last-child {
   padding-bottom: 19px;
