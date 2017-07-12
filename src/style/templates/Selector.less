@@ -1,4 +1,5 @@
 @import "Buttons.less";
+@import "variables/fonts.less";
 
 .selector {
 	height: 100%;
@@ -17,7 +18,7 @@
 	
 	// All uppercase
 	font-size: @main-text;
-	text-transform: uppercase;
+	text-transform: @uppercase;
 }
 
 .selector .selector-header, .programdetails{
@@ -78,21 +79,22 @@
 }
 
 // Program Mission
-.state-hidden {
-	display: none;
-}
-
 .programdetails {
 	margin-bottom: 37px;
+}
+
+.programdetails-mission.state-hidden {
+	max-height: 0;
 }
 
 .programdetails-mission {
 	font-size: @main-text;
 	line-height: @line-height-main-text;
 	font-weight: @light;
-	margin-top: 15px;
-
-	// to add transition
+	margin-top: 15px;	
+	max-height: 300px;
+	transition: max-height 0.3s;
+	overflow: hidden;
 }
 
 .selectorlist-item:last-child {
