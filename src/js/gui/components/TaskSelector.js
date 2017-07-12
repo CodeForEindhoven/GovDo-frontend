@@ -21,9 +21,9 @@ var TaskSelector = function(){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Opgaven"),
-						m("i", {class:"material-icons hide-icon"}, "info_outline"),
-						m("i", {class:"material-icons"}, "import_export"),
-						m("i", {class:"material-icons"}, "add")
+						m("i.material-icons", {}, "info_outline"),
+						m("i.material-icons", {}, "import_export"),
+						m("i.material-icons", {}, "add")
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Task.getContent().map(function(task, count){
 						return m(".state-selectable.selectorlist-item", {
@@ -35,7 +35,7 @@ var TaskSelector = function(){
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
 								m(".selectorlist-item-edit.button-edit-small",{
-									class: (editable(task.id))?"state-editable":"",
+									class: (editable(task.id))?"":"state-hidden",
 									onclick: function(){
 										viewModels.editMode.set("task", task);
 									}
