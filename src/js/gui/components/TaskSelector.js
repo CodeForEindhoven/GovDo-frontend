@@ -21,8 +21,9 @@ var TaskSelector = function(){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Opgaven"),
-						m("i", {class:"material-icons"}, "pan_tool"),
-						m("i", {class:"material-icons"}, "pan_tool")
+						m("i", {class:"material-icons hide-icon"}, "info_outline"),
+						m("i", {class:"material-icons"}, "import_export"),
+						m("i", {class:"material-icons"}, "add")
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Task.getContent().map(function(task, count){
 						return m(".state-selectable.selectorlist-item", {

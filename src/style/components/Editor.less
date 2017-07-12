@@ -12,6 +12,7 @@
 .editor-buttons {
 	margin-top: 35px;
 	margin-bottom: 30px;
+	margin-right: 10px;
 }
 
 .editor.state-hidden {
@@ -26,7 +27,10 @@
 
 .efforteditor .textarea {
 	float: right;
-	margin-bottom: @margin-bottom-editor-items;
+}
+
+.efforteditor .textarea + .editor-subtitle {
+	margin-top: @margin-bottom-editor-items;
 }
 
 .editor-typeselect-type {
@@ -36,30 +40,38 @@
 	cursor: pointer;
 }
 
-// Typology
-// When typology is selected
-.state-selected .editor-typeselect {
-	background-color: @color-selected;	
-}
-
-.state-selected .editor-typeselect-type {
-	background-color: @color-selected;
-}
-
-.state-selected .editor-typeselect-type-name {
+.editor-typeselect-type:hover {
+	background-color: @color-editable;
 	color: @color-white;
 }
 
+.editor-typeselect-type .state-selected {
+	background-color: #0000FF;
+}
+
+// Typology
+// When typology is selected
 .editor-typeselect-type-timespan {
 	display: none;
 }
 
+.editor-typeselect-type-name {
+	font-weight: @semibold;
+}
+
 .editor-typeselect-type-timespan-subtitle {
+	margin-top: 6px;
 	margin-bottom: 3px;
 }
 
 .editor-typeselect-type-timespan.state-visible  {
 	display: block;
+}
+
+.editor-typeselect-type .material-icons {
+	float: right;
+	cursor: pointer;
+	margin-top: -19px;
 }
 
 .editor-subtitle, .editor-peoplelist, .editor-typeselect, .editor-buttons {
@@ -71,6 +83,16 @@
 .editor-subtitle {
 	font-weight: @semibold;
 	margin-bottom: 8px;
+}
+
+.opg-door {
+	text-align: center;
+	margin-bottom: 16px;
+}
+
+.efforteditor .textarea + .opg-door {
+	margin-top: 16px;
+	margin-bottom: 16px;
 }
 
 // List people

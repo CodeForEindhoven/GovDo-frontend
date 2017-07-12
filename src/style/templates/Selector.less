@@ -6,9 +6,18 @@
 	position: relative;
 }
 
-.selector-header, .programdetails-title {
+.programdetails-title {
 	font-size: @size-selected;
 	font-weight: @semibold;
+}
+
+.selector-header {
+	// font-size: @size-selected;
+	font-weight: @semibold;
+	
+	// All uppercase
+	font-size: @main-text;
+	text-transform: uppercase;
 }
 
 .selector .selector-header, .programdetails{
@@ -58,15 +67,14 @@
 	vertical-align: top;
 	display: inline-block;
 }
-
 .selectorlist-item-edit {
-	margin-top: 5px;
 	opacity: 0;
-	transition: opacity 0.3s;
 }
 
-.selectorlist-item-edit.state-editable {
+.state-selected .selectorlist-item-edit {
+	margin-top: 5px;
 	opacity: 1;
+	transition: opacity 0.3s;
 }
 
 // Program Mission
@@ -75,11 +83,18 @@
 }
 
 .programdetails {
-	margin-bottom: 40px;
+	margin-bottom: 37px;
 }
 
 .programdetails-mission {
 	font-size: @main-text;
 	line-height: @line-height-main-text;
+	font-weight: @light;
 	margin-top: 15px;
+
+	// to add transition
+}
+
+.selectorlist-item:last-child {
+	padding-bottom: (@width-circle / 2);
 }

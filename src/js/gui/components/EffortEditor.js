@@ -20,7 +20,7 @@ var EffortEditor = function(){
 					}
 				}),
 
-				m(".editor-subtitle", "Team"),
+				m(".editor-subtitle", "Mensen"),
 				m(PeopleListEditor, {
 					value: viewModels.editMode.content().People,
 					onchange: function(v){
@@ -85,6 +85,7 @@ var TypeEditor = function(){
 						}
 					}, [
 						m(".editor-typeselect-type-name", t),
+						m("i", {class:"material-icons hide-icon"}, "info_outline"),
 						m(".editor-typeselect-type-timespan", {
 							class: (vnode.attrs.type === count && count<2)? "state-visible": "",
 						},[

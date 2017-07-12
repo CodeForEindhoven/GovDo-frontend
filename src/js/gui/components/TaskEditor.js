@@ -11,7 +11,7 @@ var TaskEditor = function(){
 					}
 				}),
 
-				m(".editor-subtitle", "door"),
+				m(".editor-subtitle opg-door", "door"),
 				m(TextArea, {
 					value: viewModels.editMode.content().means,
 					placeholder: "door",

@@ -1,10 +1,18 @@
 @import "variables/colors.less";
 @import "variables/fonts.less";
 
+::selection { 
+	background-color: @selection; 
+}
+
+::-moz-selection { 
+	background-color: @selection; 
+}
 
 body {
 	font-family: @font-base;
 	font-size: @font-size;
+	font-variant-ligatures: common-ligatures;
 	background: @color-background;
 }
 

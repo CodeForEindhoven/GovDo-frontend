@@ -9,7 +9,7 @@ var Page = function(){
 						m(ProgramDetails),
 						 m(TaskSelector)
 					]),
-					m(".layout-column", m(EffortSelector)),
+					m(".layout-column effort", m(EffortSelector)),
 				]),
 				m(".layout-editor", m(Editor))
 				//m(Viewer),

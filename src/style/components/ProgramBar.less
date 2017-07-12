@@ -23,6 +23,7 @@
 
 .programbar-program-title {
 	font-size: @main-text;
+	line-height: @line-height-main-text;
 	margin-left: 10px;
 	display: inline-block;
 }
@@ -43,7 +44,11 @@
 }
 
 .programbar-domain + .programbar-domain {
-	margin-top: 40px;
+	margin-top: 50px;
+}
+
+:hover > .programbar-domain:last-child {
+	padding-bottom: @width-circle;
 }
 
 //hover
@@ -52,6 +57,8 @@
 	z-index: 1000;
 	padding-right: 15px;
 	overflow-y: scroll;
+	// not possible to add padding-bottom
+	// height: 95%;
 	height: 100%;
 }
 
@@ -62,4 +69,23 @@
 .programbar:hover .state-selected > .programbar-program-mission {
 	max-height: 200px;
 	transition: max-height 0.4s;
+}
+
+// Program bar Names
+.programbar-domain .programbar-domain-name {
+	opacity: 0;
+	height: 0;
+
+	font-size: @main-text;
+	line-height: @line-height-main-text;
+	font-weight: @semibold;
+	text-transform: uppercase;
+	margin-left: (@width-circle + 10px);
+	transition: opacity 0.35s;
+	transition: height 0.35s;
+}
+
+:hover > .programbar-domain .programbar-domain-name {
+	opacity: 1;
+	height: 30px;
 }

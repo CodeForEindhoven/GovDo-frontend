@@ -21,8 +21,9 @@ var EffortSelector = function(){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Inspanningen"),
-						m("i", {class:"material-icons"}, "pan_tool"),
-						m("i", {class:"material-icons"}, "pan_tool")
+						m("i", {class:"material-icons hide-icon"}, "info_outline"),
+						m("i", {class:"material-icons"}, "import_export"),
+						m("i", {class:"material-icons"}, "add")
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
 						return m(".state-selectable.selectorlist-item", {
@@ -45,7 +46,7 @@ var EffortSelector = function(){
 								m(".effortselector-hidden",[
 									m(".effortselector-type", viewModels.typeNames[effort.type]),
 									m(".effortselector-description", effort.description),
-									m(".effortselector-subheader", "mensen"),
+									m(".effortselector-subheader", "Mensen"),
 									m(".effortselector-peoplelist", effort.People.map(function(person){
 										return m(".effortselector-peoplelist", person.name);
 									})),

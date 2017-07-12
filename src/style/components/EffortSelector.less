@@ -1,11 +1,29 @@
+@import "variables/colors.less";
+@import "variables/fonts.less";
+@import "templates/Buttons.less";
+
+// Inspanningen
+
 .effortselector-subheader{
-	font-weight: bold;
+	font-weight: @semibold;
 }
 
 .effortselector-hidden {
 	opacity: 0;
 	display: none;
 	transition: opacity 0.4s;
+}
+
+.effortselector-description {
+	font-size: @main-text;
+	line-height: @line-height-main-text;
+	font-weight: @light;
+	padding-right: 13px;
+}
+
+// Description div is visible also without text
+.effortselector-type + .effortselector-description, .effortselector-description + .effortselector-subheader {
+	margin-top: 20px;
 }
 
 .state-selected .effortselector-hidden {
