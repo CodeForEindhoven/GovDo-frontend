@@ -154,9 +154,13 @@ div {
 .selectorlist-item-content {
   vertical-align: top;
   display: inline-block;
+  margin-left: 20px;
 }
 .selectorlist-item-edit {
   opacity: 0;
+}
+.selectorlist-item-edit.state-hidden {
+  display: none;
 }
 .state-selected .selectorlist-item-edit {
   margin-top: 5px;
@@ -164,7 +168,7 @@ div {
   transition: opacity 0.3s;
 }
 .programdetails {
-  margin-bottom: 37px;
+  margin-bottom: 22px;
 }
 .programdetails-mission.state-hidden {
   max-height: 0;
@@ -204,7 +208,6 @@ div {
 }
 .button {
   display: inline-block;
-  margin-right: 9px;
   cursor: pointer;
   background-color: #CCCCCC;
   text-align: center;
@@ -214,7 +217,6 @@ div {
 }
 .button-edit {
   display: inline-block;
-  margin-right: 9px;
   cursor: pointer;
   background-color: #CCCCCC;
   text-align: center;
@@ -223,9 +225,11 @@ div {
   line-height: 30px;
   background-color: #FFFF00;
 }
+.editor-buttons .button-edit {
+  margin-right: 9px;
+}
 .button-right {
   display: inline-block;
-  margin-right: 9px;
   cursor: pointer;
   background-color: #CCCCCC;
   text-align: center;
@@ -236,7 +240,6 @@ div {
 }
 .button-edit-small {
   display: inline-block;
-  margin-right: 9px;
   cursor: pointer;
   background-color: #CCCCCC;
   text-align: center;
@@ -393,14 +396,12 @@ nav {
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
-  margin-left: 10px;
 }
 /* when title is selected the size increase */
 .state-selected .taskselector-title,
 .state-selected .effortselector-title {
   font-size: 19.8px;
   line-height: 26px;
-  padding-right: 13px;
 }
 /* description inspanningen-effort */
 .effortselector-hidden {

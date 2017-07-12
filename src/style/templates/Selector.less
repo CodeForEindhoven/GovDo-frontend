@@ -44,6 +44,7 @@
 
 .selectorlist-item {
 	cursor: pointer;
+	//margin-left: 9px;
 }
 
 .selectorlist-item.state-editing, .selectorlist-item.effortselector-title {
@@ -67,9 +68,15 @@
 .selectorlist-item-content {
 	vertical-align: top;
 	display: inline-block;
+	margin-left: 20px;
 }
+
 .selectorlist-item-edit {
 	opacity: 0;
+}
+
+.selectorlist-item-edit.state-hidden {
+	display: none;
 }
 
 .state-selected .selectorlist-item-edit {
@@ -80,7 +87,7 @@
 
 // Program Mission
 .programdetails {
-	margin-bottom: 37px;
+	margin-bottom: 22px;
 }
 
 .programdetails-mission.state-hidden {
