@@ -49,6 +49,38 @@ var EffortEditor = function(){
 };
 
 var PeopleListEditor = function(){
+	var state = false;
+	var value = "";
+
+	var onadd = function(p, vnode){
+		var people = vnode.attrs.value;
+		people.push(p);
+		state = false;
+		vnode.attrs.onchange(people);
+	};
+
+	var onnew = function(vnode){
+		Models.Person.newItem(value, function(p){
+			Models.Person.loadTeams();
+			Models.Person.loadPeople();
+			onadd({
+				id: p.id,
+				name: p.name
+			}, vnode);
+			value = "";
+		});
+	};
+
+	var onremove = function(person, vnode){
+		var people = vnode.attrs.value;
+		for(var i = people.length - 1; i >= 0; i--) {
+			if(people[i].id === person.id) {
+				people.splice(i, 1);
+			}
+		}
+		vnode.attrs.onchange(people);
+	};
+
 	return {
 		view: function(vnode){
 			return m(".editor-peoplelist", [
@@ -56,18 +88,38 @@ var PeopleListEditor = function(){
 					return m(".editor-peoplelist-person", [
 						m("span", person.name),
 						m("span.editor-peoplelist-person-remove", {
-							onclick: function(){
-								var people = vnode.attrs.value;
-								for(var i = people.length - 1; i >= 0; i--) {
-									if(people[i].id === person.id) {
-										people.splice(i, 1);
-									}
-								}
-								vnode.attrs.onchange(people);
-							}
+							onclick: function(){onremove(person, vnode);}
 						}, m("i", {class:"material-icons"}, "close")),
 					]);
-				})
+				}),
+
+				m(".editor-peoplelist-finder", {
+					class: state ? "":"state-hidden"
+				},[
+					m(".editor-peopelist-add",[
+						m(".editor-peopelist-add-button", {
+							onclick: function(e){
+								state = true;
+							}
+						},"+ Toevoegen")
+					]),
+					m("input.input.editor-peoplelist-searchbar", {
+						placeholder: "Voornaam Achternaam",
+						oninput: m.withAttr("value", function(v) {value = v;}),
+						onchange: m.withAttr("value", function(v) {value = v;}),
+						value: value
+					}),
+					(value.length > 0)?
+						m(FilteredPeopleList, {
+							value: value,
+							onadd: function(p){onadd(p, vnode);},
+							onnew: function(){onnew(vnode);}
+						})
+					:
+						m(TeamList, {
+							onadd: function(p){onadd(p, vnode);}
+						})
+				])
 			]);
 		}
 	};

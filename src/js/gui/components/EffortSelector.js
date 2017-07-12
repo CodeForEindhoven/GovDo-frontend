@@ -9,7 +9,7 @@ var EffortSelector = function(){
 	}
 
 	function editing(id){
-		if(viewModels.editMode.state()){
+		if(viewModels.editMode.state() && viewModels.editMode.isType("effort")){
 			return (viewModels.editMode.content().id === id);
 		}
 		return false;

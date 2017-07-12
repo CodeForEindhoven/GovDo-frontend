@@ -12,8 +12,8 @@ var FilteredPeopleList = function(){
 			var filterlist = getFilterdContent(vnode.attrs.value);
 			if(filterlist.length > 0){
 				//show found people
-				return m(".PersonList", filterlist.map(function(p){
-					return m(".person",{
+				return m(".personlist", filterlist.map(function(p){
+					return m(".personlist-person",{
 						onclick: function(){
 							vnode.attrs.onadd(p);
 						}
@@ -21,10 +21,10 @@ var FilteredPeopleList = function(){
 				}));
 			} else {
 				//show new person list
-				return m(".PersonList", [
-					m(".personAdd", {
+				return m(".personlist", [
+					m(".personlist-person-new", {
 						onclick: function(){
-							vnode.attrs.onnew(p);
+							vnode.attrs.onnew();
 						}
 					}, "voeg '"+vnode.attrs.value+"' toe aan personen")
 				]);
