@@ -34,7 +34,7 @@ var EffortSelector = function(){
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
 						return m(".state-selectable.selectorlist-item", {
-							class: ((selected(effort.id))?"state-selected":"") +" "+((editing(effort.id))?"state-editing":""),
+							class: ((selected(effort.id))?"state-selected":"") +" "+((editing(effort.id))?"state-editing":"")+" "+(effort.mode?"mode-sketch":""),
 							onclick: function(){
 								viewModels.Hierarchy.updateEffort(effort.id);
 							}
@@ -42,7 +42,6 @@ var EffortSelector = function(){
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
 								m(".selectorlist-item-edit.button-edit-small",{
-									//class: (editable(effort.id))?"":"state-hidden",
 									onclick: function(){
 										viewModels.editMode.set("effort", effort);
 									}

@@ -16,15 +16,15 @@
 .selector-header, .editor-header {
 	// font-size: @size-selected;
 	font-weight: @semibold;
-	
+
 	// All uppercase
 	font-size: @main-text;
 	text-transform: @uppercase;
-	
+
 	.editor-header {
 		margin-bottom: 20px;
 	}
-	
+
 }
 
 .selector .selector-header, .programdetails, .editor-header {
@@ -55,6 +55,10 @@
 
 .selectorlist-item.state-editing, .selectorlist-item.effortselector-title {
 	color: @color-editable;
+}
+
+.selectorlist-item.mode-sketch {
+	color: #999999;
 }
 
 .state-selected .selectorlist-item-content {
@@ -108,7 +112,7 @@
 	font-size: @main-text;
 	line-height: @line-height-main-text;
 	font-weight: @light;
-	margin-top: 15px;	
+	margin-top: 15px;
 	max-height: 300px;
 	transition: max-height 0.3s;
 	overflow: hidden;
