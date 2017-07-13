@@ -1,8 +1,9 @@
 @import "variables/colors.less";
+@border-box: 1px;
 
 .textarea {
 	background-color: @color-background;
-	border: 0.3px solid @color-editable;
+	border: @border-box solid @color-editable;
 	//width: 85%;
 	width: calc(85% - 5px);
 	//width: calc(100% - 60px);
@@ -14,9 +15,20 @@
 
 .input {
 	background-color: @color-background;
-	border: 0.3px solid @color-editable;
+	border: @border-box solid @color-editable;
 	border-radius: 4px;
 	padding: 5px;
+}
+
+.editor-peoplelist-finder .input {
+	background-color: @color-background;
+//	border: @border-box solid @color-editable;
+	border: none;
+	border-bottom: 	@border-box solid grey;
+	padding: 5px;
+	border-radius: 0;
+	margin-left: 5px;
+	margin-bottom: 20px;
 }
 
 .datepicker-day, .datepicker-month {

@@ -1,4 +1,5 @@
 @import "variables/colors.less";
+@import "templates/Inputs.less";
 @margin-bottom-editor-items: 75px;
 
 .editor {
@@ -9,7 +10,7 @@
 }
 
 .editor-header {
-	margin-right: 10px;
+	margin-right: 28px;
 	padding-bottom: 20px;
 	span {
 		color: @color-selected;
@@ -19,6 +20,9 @@
 .editor-subtitle-header {
 	width: 100%;
 	margin-top: @margin-bottom-editor-items;
+}
+.editor-subtitle-header .material-icons {
+	cursor: pointer;
 }
 
 .editor-subtitle-header span.editor-subtitle {
@@ -60,7 +64,7 @@
 
 .editor-typeselect-type {
 	padding: 10px;
-	border: 0.3px solid @color-editable;
+	border: @border-box solid @color-editable;
 	margin-bottom: 8px;
 	cursor: pointer;
 }
@@ -70,8 +74,9 @@
 	color: @color-white;
 }
 
-.editor-typeselect-type .state-selected {
+.editor-typeselect-type.state-selected {
 	background-color: #0000FF;
+	color: @color-white;
 }
 
 // Typology

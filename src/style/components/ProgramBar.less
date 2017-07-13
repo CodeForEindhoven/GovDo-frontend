@@ -44,11 +44,11 @@
 }
 
 .programbar-domain + .programbar-domain {
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
 :hover > .programbar-domain:last-child {
-	padding-bottom: @width-circle;
+	padding-bottom: (@width-circle / 2.5);
 }
 
 //hover
@@ -83,9 +83,18 @@
 	margin-left: (@width-circle + 10px);
 	transition: opacity 0.35s;
 	transition: height 0.35s;
+	
+	padding-bottom: 30px;
+}
+
+.programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
+	padding-bottom: 0;
+}
+
+:hover > .programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
+	padding-bottom: 30px;
 }
 
 :hover > .programbar-domain .programbar-domain-name {
 	opacity: 1;
-	height: 30px;
 }
