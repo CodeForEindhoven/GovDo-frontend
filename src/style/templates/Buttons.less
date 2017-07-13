@@ -85,12 +85,20 @@
 
 // Program Mission
 .programdetails .material-icons {
-	float: right;
 	margin-top: -24px;
 	// margin-right: 10px;
 	cursor: pointer;
 // To review the size
 }
+
+.programdetails .edit-button.state-hidden {
+	display: none;
+}
+
+.programdetails .material-icons.edit-button:hover {
+	color: @color-selected;
+}
+
 
 // Headers Icons
 .selector-header .material-icons {
@@ -105,6 +113,10 @@
 	color: @color-selected;
 	padding-left: 4px;
 	padding-right: 4px;
+}
+
+div.icons-header .material-icons + .material-icons {
+ 	margin-left: 10px;
 }
 
 .selector-header .material-icons + .material-icons, .editor-header .material-icons + .material-icons, .editor-header .save-button + .material-icons {

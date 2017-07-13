@@ -20,6 +20,7 @@
 }
 
 .editor-peoplelist-person {
+	font-weight: @light;
 	margin-bottom: 8px;
 }
 
@@ -30,13 +31,22 @@
 
 // Add People to the list
 // Add People container
-.editor-peoplelist-finder {
+div.editor-peoplelist-finder {
+	border: @border-box solid @color-editable;
+	border-radius: 4px;
 	margin-top: 30px;
+	width: 100%;
+	// width: calc(100% + 16px);
+	float: right;
+	// margin-right: -16px;
+	padding-right: 1px;
+	padding-bottom: 1px;
+	margin-bottom: 5px;
 }
 
 // header
 .editor-peoplelist-add{
-	background-color: red;
+//	background-color: red;
 }
 
 .editor-peopelist-add-button {
@@ -44,7 +54,7 @@
 }
 
 .editor-peoplelist-searchbar {
-	width: calc(85% + 5px);
+	width: calc(90% + 5px);
 }
 
 .editor-peoplelist-searchbar + .personlist {
@@ -57,11 +67,13 @@
 	max-height: 300px;
 	overflow-y: scroll;
 	transition: max-height 0.4s;
+	color: @color-selected;
 }
 
 // Team name
 .personlist-team {
 	margin-bottom: 50px;
+	padding-right: 5px;
 }
 
 .personlist-teamname {
@@ -70,12 +82,17 @@
 
 .personlist-teamname, .personlist-person {
 	margin-bottom: 8px;
+	padding-left: 10px;
 }
 
 // Single person in the box list
+.personlist-person {
+	font-weight: @light;
+}
+
 .personlist-person:hover {
 //	background-color: @color-selected;
-	color: @color-selected;
+	color: #000000;
 	cursor: pointer;
 }
 
@@ -83,6 +100,7 @@
 	float: right;
 	display: none;
 	color: @color-selected;
+	margin-right: 16px;
 }
 
 .personlist-person:hover  > .person-list-add-button {

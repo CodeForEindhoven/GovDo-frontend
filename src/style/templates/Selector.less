@@ -1,5 +1,6 @@
 @import "Buttons.less";
 @import "variables/fonts.less";
+@import "variables/colors.less";
 
 .selector {
 	height: 100%;
@@ -78,6 +79,10 @@
 
 .selectorlist-item-edit {
 	opacity: 0;
+}
+
+.selectorlist-item-edit i.material-icons:hover {
+	color: @color-selected;
 }
 
 .selectorlist-item-edit.state-hidden {
