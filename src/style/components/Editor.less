@@ -18,7 +18,6 @@
 }
 
 .editor-subtitle-header {
-	width: 100%;
 	margin-top: @margin-bottom-editor-items;
 }
 .editor-subtitle-header .material-icons {
@@ -26,7 +25,6 @@
 }
 
 .editor-subtitle-header span.editor-subtitle {
-	float: left;
 }
 
 .editor-subtitle-header + .editor-peoplelist {
@@ -36,12 +34,16 @@
 .editor-content {
 	overflow-y: scroll;
 	height: calc(100% - 40px);
+	width: 90%;
+	margin-left: 10%;
+	padding-bottom: 40px;
+	box-sizing: border-box;
 }
 
 .editor-buttons {
-	margin-top: 35px;
+	margin-top: 70px;
 	margin-bottom: 30px;
-	margin-right: 10px;
+	margin-right: 16px;
 }
 
 .editor.state-hidden {
@@ -49,13 +51,14 @@
 }
 
 .efforteditor {
-	float: right;
-	width: 100%;
-	margin-right: 16px;
+	//float: right;
+	//width: 100%;
+	//margin-right: 16px;
+	padding-right: 20px;
 }
 
 .efforteditor .textarea {
-	float: right;
+	//float: right;
 }
 
 .efforteditor .textarea + .editor-subtitle {
@@ -105,9 +108,9 @@
 }
 
 .editor-subtitle, .editor-peoplelist, .editor-typeselect, .editor-buttons, .editor-subtitle-header {
-	width: calc(85% + 5px);
+	//width: calc(85% + 5px);
 	//width: 85%;
-	float: right;
+	//float: right;
 }
 
 .editor-subtitle {
