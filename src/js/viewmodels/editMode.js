@@ -38,7 +38,8 @@ viewModels.editMode = (function(){
 					name: "",
 					description: "",
 					type: -1,
-					People:[]
+					People:[],
+					mode: -1,
 				});
 			}
 			if(type === 'task'){
@@ -46,6 +47,7 @@ viewModels.editMode = (function(){
 					id: -1,
 					name: "",
 					means: "",
+					mode: -1,
 				});
 			}
 		},
@@ -66,14 +68,12 @@ viewModels.editMode = (function(){
 					console.log("new");
 					Models.Effort.newItem(content, function(id){
 						viewModels.Hierarchy.updateEffort(content.id);
-						//viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				} else {
 					console.log("update");
 					Models.Effort.updateItem(content, function(id){
 						viewModels.Hierarchy.updateEffort(content.id);
-						///.editMode.close();
 						if(callback){callback();}
 					});
 				}
@@ -83,14 +83,12 @@ viewModels.editMode = (function(){
 					console.log("new");
 					Models.Task.newItem(content, function(id){
 						viewModels.Hierarchy.updateTask(content.id);
-						//viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				} else {
 					console.log("update");
 					Models.Task.updateItem(content, function(id){
 						viewModels.Hierarchy.updateTask(content.id);
-						//viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				}

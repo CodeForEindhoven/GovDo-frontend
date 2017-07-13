@@ -35,7 +35,8 @@ Models.Task = (function(){
 		});
 	}
 
-	function updateItem(item, callback){
+	function updateItem(i, callback){
+		var item = JSON.parse(JSON.stringify(i));
 		var id = item.id;
 		delete item.id;
 		model.post("task/"+id, item, function(data){
