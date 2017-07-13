@@ -1,4 +1,5 @@
 var EffortEditor = function(){
+	var state = false;
 	return {
 		view: function(vnode){
 			return m(".efforteditor",[
@@ -20,10 +21,10 @@ var EffortEditor = function(){
 					}
 				}),
 
-				
+
 				m(".editor-subtitle-header",[
 					m("span.editor-subtitle", "Mensen"),
-					m(".icons-header", [					
+					m(".icons-header", [
 						m("i.material-icons", {
 							onclick: function(e){
 								state = true;
@@ -31,12 +32,14 @@ var EffortEditor = function(){
 						},"add")
 					]),
 				]),
-				
+
 				m(PeopleListEditor, {
 					value: viewModels.editMode.content().People,
 					onchange: function(v){
 						viewModels.editMode.setContent("People", v);
-					}
+						state = false;
+					},
+					state: state
 				}),
 
 				m(".editor-subtitle", "Type"),
@@ -60,13 +63,18 @@ var EffortEditor = function(){
 };
 
 var PeopleListEditor = function(){
-	var state = false;
+	//var state = false;
 	var value = "";
 
-	var onadd = function(p, vnode){
+	var onadd = function(person, vnode){
 		var people = vnode.attrs.value;
-		people.push(p);
-		state = false;
+		for(var i = people.length - 1; i >= 0; i--) {
+			if(people[i].id === person.id) {
+				return;
+			}
+		}
+		people.push(person);
+		//state = false;
 		vnode.attrs.onchange(people);
 	};
 
@@ -105,15 +113,15 @@ var PeopleListEditor = function(){
 				}),
 
 				m(".editor-peoplelist-finder", {
-					class: state ? "":"state-hidden"
+					class: vnode.attrs.state ? "":"state-hidden"
 				},[
-					m(".editor-peoplelist-add",[
-						m("i.material-icons", {
-							onclick: function(e){
-								state = true;
-							}
-						},"add")
-					]),
+					//m(".editor-peoplelist-add",[
+					//	m("i.material-icons", {
+					//		onclick: function(e){
+					//			state = true;
+					//		}
+					//	},"add")
+					//]),
 					m("input.input.editor-peoplelist-searchbar", {
 						placeholder: "Voornaam Achternaam",
 						oninput: m.withAttr("value", function(v) {value = v;}),
