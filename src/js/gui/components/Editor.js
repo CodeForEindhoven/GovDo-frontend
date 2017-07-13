@@ -4,7 +4,7 @@ var Editor = function(){
 			return m(".editor",{
 				class: viewModels.editMode.state() ? "state-edit": "state-hidden"
 			}, [
-				
+
 				m(".editor-header",[
 					m("span", "Editor"),
 						m(".icons-header", [
@@ -20,24 +20,34 @@ var Editor = function(){
 						},"close"),
 					]),
 				]),
-				
-				m(".editor-content",[
-					(function(){
-						if(viewModels.editMode.isType("effort")){
-							return m(EffortEditor);
-						} else if(viewModels.editMode.isType("task")){
-							return m(TaskEditor);
-						}
-					})(),
-				
-					m(".editor-buttons",[
-						m(".button-delete", {
-							onclick: function(){
-								viewModels.editMode.delete();
+				(function(){
+					if(viewModels.editMode.state()) {
+						return m(".editor-content",{
+							onbeforeremove: function(){
+								return new Promise(function(resolve) {
+									setTimeout(resolve, 400);
+								});
 							}
-						},"Verwijder"),
-					]),
-				]),
+						},[
+							(function(){
+								if(viewModels.editMode.isType("effort")){
+									return m(EffortEditor);
+								} else if(viewModels.editMode.isType("task")){
+									return m(TaskEditor);
+								}
+							})(),
+
+							m(".editor-buttons",[
+								m(".button-delete", {
+									onclick: function(){
+										viewModels.editMode.delete();
+									}
+								},"Verwijder"),
+							]),
+						]);
+					}
+					return [];
+				})(),
 			]);
 		}
 	};
