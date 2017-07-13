@@ -3,15 +3,18 @@ var Page = function(){
 		view: function(vnode){
 			return [
 				m(".layout-nav-top", m(NavBar)),
-				m(".layout-nav-left", m(ProgramBar)),
 				m(".layout-workspace", [
+					m(".layout-column .layout-nav-left", m(ProgramBar)),
 					m(".layout-column", [
-						m(ProgramDetails),
-						 m(TaskSelector)
+						m(".layout-vertical", [
+							m(".layout-vertical-row", m(ProgramDetails)),
+							m(".layout-vertical-stretch", m(TaskSelector))
+						]),
 					]),
-					m(".layout-column effort", m(EffortSelector)),
+					m(".layout-column .layout-vertical-offset", m(EffortSelector)),
+					m(".layout-column .layout-vertical-offset", m(Editor))
 				]),
-				m(".layout-editor", m(Editor))
+
 				//m(Viewer),
 			];
 		}

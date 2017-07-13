@@ -17,51 +17,60 @@ html, body {
 
 .layout-nav-top {
 	.debugborders();
-	height: 40px;
+	//box-sizing: border-box;
+	height: 55px;
 	margin: 10px;
 	line-height: 40px;
 	width: calc(100% - 20px);
 }
 
-.layout-nav-left {
-	.debugborders();
-	margin-left: 10px;
-	float: left;
-	height: calc(100% - 60px);
-}
-
 .layout-workspace {
 	.debugborders();
 	position: relative;
-	float: left;
-	padding-left: 10px;
-	width: calc(66% - 70px);
-	height: calc(100% - 135px);
-	top: 10px;	
+	margin: 10px;
+	width: calc(100% - 10px);
+	height: calc(100% - 75px);
+
+	white-space: nowrap;
+	overflow: hidden;
+	vertical-align: top;
 }
 
 .layout-column {
 	.debugborders();
-	float: left;
-	position: relative;
-	margin: 0px;
-	width: calc(50% - 6px;);
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 10px;
+	white-space: normal;
+	width: calc(33% - 24px;);
+	height: 100%;
+
+}
+
+.layout-nav-left {
+	.debugborders();
+	width: auto;
+}
+
+.layout-vertical {
+	.debugborders();
+	display: table;
 	height: 100%;
 }
 
-.effort {
-	top: (@programbarWidth + 11px);
-}
-
-.layout-column + .layout-column{
-	margin-left: 10px;
-}
-
-.layout-editor {
+.layout-vertical-row {
 	.debugborders();
-	position: absolute;
-	right: 0px;
-	width: 33%;
-	height: calc(100% - 130px);
-	top:135px;
+	display: table-row;
+	height: 0;
+}
+
+.layout-vertical-stretch {
+	.debugborders();
+	display: table-row;
+	height: auto;
+}
+
+.layout-vertical-offset {
+	.debugborders();
+	margin-top: (@programbarWidth + 11px);
 }
