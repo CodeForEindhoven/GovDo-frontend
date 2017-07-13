@@ -1,3 +1,5 @@
 node_modules
 /src/js/main.min.js
 /src/style/main.css
+*.bbprojectsettings
+*.bbprojectdata
