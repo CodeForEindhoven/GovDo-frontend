@@ -34,7 +34,7 @@ var TaskSelector = function(){
 					]),
 					m(".selectorlist", m(".selectorlist-back", Models.Task.getContent().map(function(task, count){
 						return m(".state-selectable.selectorlist-item", {
-							class: ((selected(task.id))?"state-selected":"") +" "+((editing(task.id))?"state-editing":""),
+							class: ((selected(task.id))?"state-selected":"") +" "+((editing(task.id))?"state-editing":"")+" "+(effort.mode?"mode-sketch":""),
 							onclick: function(){
 								viewModels.Hierarchy.updateTask(task.id);
 							}

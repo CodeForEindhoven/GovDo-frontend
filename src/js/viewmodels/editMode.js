@@ -64,14 +64,14 @@ viewModels.editMode = (function(){
 				console.log("effort");
 				if(content.id===-1){
 					console.log("new");
-					Models.Effort.newItem(content.name, content.description, content.type, content.People, function(id){
+					Models.Effort.newItem(content, function(id){
 						viewModels.Hierarchy.updateEffort(content.id);
 						//viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				} else {
 					console.log("update");
-					Models.Effort.updateItem(content.id, content.name, content.description, content.type, content.People, function(id){
+					Models.Effort.updateItem(content, function(id){
 						viewModels.Hierarchy.updateEffort(content.id);
 						///.editMode.close();
 						if(callback){callback();}
@@ -81,14 +81,14 @@ viewModels.editMode = (function(){
 				console.log("task");
 				if(content.id===-1){
 					console.log("new");
-					Models.Task.newItem(content.name, content.means, function(id){
+					Models.Task.newItem(content, function(id){
 						viewModels.Hierarchy.updateTask(content.id);
 						//viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				} else {
 					console.log("update");
-					Models.Task.updateItem(content.id, content.name, content.means, function(id){
+					Models.Task.updateItem(content, function(id){
 						viewModels.Hierarchy.updateTask(content.id);
 						//viewModels.editMode.close();
 						if(callback){callback();}

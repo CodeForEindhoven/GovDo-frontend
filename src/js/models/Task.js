@@ -27,22 +27,18 @@ Models.Task = (function(){
 		}
 	}
 
-	function newItem(name, means, callback){
-		model.post("task", {
-			program: currentView,
-			name: name,
-			means: means
-		}, function(data){
+	function newItem(item, callback){
+		item.program = currentView;
+		model.post("task", item, function(data){
 			loadContent();
 			callback(data.id);
 		});
 	}
 
-	function updateItem(id, name, means, callback){
-		model.post("task/"+id, {
-			name: name,
-			means: means
-		}, function(data){
+	function updateItem(item, callback){
+		var id = item.id;
+		delete item.id;
+		model.post("task/"+id, item, function(data){
 			loadContent();
 			callback(data.id);
 		});
