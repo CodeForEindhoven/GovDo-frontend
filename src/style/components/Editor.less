@@ -16,6 +16,19 @@
 	}
 }
 
+.editor-subtitle-header {
+	width: 100%;
+	margin-top: @margin-bottom-editor-items;
+}
+
+.editor-subtitle-header span.editor-subtitle {
+	float: left;
+}
+
+.editor-subtitle-header + .editor-peoplelist {
+	margin-top: (@margin-bottom-editor-items / 7);
+}
+
 .editor-content {
 	overflow-y: scroll;
 	height: calc(100% - 50px);
@@ -86,7 +99,7 @@
 	margin-top: -19px;
 }
 
-.editor-subtitle, .editor-peoplelist, .editor-typeselect, .editor-buttons {
+.editor-subtitle, .editor-peoplelist, .editor-typeselect, .editor-buttons, .editor-subtitle-header {
 	width: calc(85% + 5px);
 	//width: 85%;
 	float: right;
@@ -105,18 +118,4 @@
 .efforteditor .textarea + .opg-door {
 	margin-top: 16px;
 	margin-bottom: 16px;
-}
-
-// List people
-.editor-peoplelist {
-	margin-bottom: @margin-bottom-editor-items;
-}
-
-.editor-peoplelist-person {
-	margin-bottom: 8px;
-}
-
-.editor-peoplelist-person-remove {
-	float: right;
-	cursor: pointer;
 }

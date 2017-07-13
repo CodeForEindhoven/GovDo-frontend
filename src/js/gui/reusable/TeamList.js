@@ -18,7 +18,11 @@ var TeamList = function(){
 							onclick: function(){
 								vnode.attrs.onadd(p);
 							}
-						}, p.name);
+						}, [
+							p.name,
+							m("i.material-icons .person-list-add-button", "add"),
+						]);
+						
 					})
 				]);
 			}));

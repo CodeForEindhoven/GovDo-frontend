@@ -1,15 +1,8 @@
-.personlist {
-	max-height: 300px;
-	overflow-y: scroll;
-	transition: max-height 0.4s;
-}
+@import "variables/colors.less";
+@import "variables/fonts.less";
 
 .state-hidden .personlist {
 	max-height: 0px;
-}
-
-.personlist-teamname {
-	font-weight: bold;
 }
 
 .state-hidden .editor-peoplelist-searchbar {
@@ -20,6 +13,78 @@
 	display: block;
 }
 
-.editor-peopelist-add {
+
+// List people
+.editor-peoplelist {
+	margin-bottom: @margin-bottom-editor-items;
+}
+
+.editor-peoplelist-person {
+	margin-bottom: 8px;
+}
+
+.editor-peoplelist-person-remove {
+	float: right;
+	cursor: pointer;
+}
+
+// Add People to the list
+// Add People container
+.editor-peoplelist-finder {
+	margin-top: 30px;
+}
+
+// header
+.editor-peoplelist-add{
+	background-color: red;
+}
+
+.editor-peopelist-add-button {
+	
+}
+
+.editor-peoplelist-searchbar {
+	width: calc(85% + 5px);
+}
+
+.editor-peoplelist-searchbar + .personlist {
+	margin-top: 10px;
+}
+
+// Box list
+.personlist {
+	width: 100%;
+	max-height: 300px;
+	overflow-y: scroll;
+	transition: max-height 0.4s;
+}
+
+// Team name
+.personlist-team {
+	margin-bottom: 50px;
+}
+
+.personlist-teamname {
+	font-weight: @semibold;
+}
+
+.personlist-teamname, .personlist-person {
+	margin-bottom: 8px;
+}
+
+// Single person in the box list
+.personlist-person:hover {
+//	background-color: @color-selected;
+	color: @color-selected;
+	cursor: pointer;
+}
+
+.person-list-add-button {
+	float: right;
 	display: none;
+	color: @color-selected;
+}
+
+.personlist-person:hover  > .person-list-add-button {
+	display: block;
 }

@@ -20,7 +20,18 @@ var EffortEditor = function(){
 					}
 				}),
 
-				m(".editor-subtitle", "Mensen"),
+				
+				m(".editor-subtitle-header",[
+					m("span.editor-subtitle", "Mensen"),
+					m(".icons-header", [					
+						m("i.material-icons", {
+							onclick: function(e){
+								state = true;
+							}
+						},"add")
+					]),
+				]),
+				
 				m(PeopleListEditor, {
 					value: viewModels.editMode.content().People,
 					onchange: function(v){
@@ -96,12 +107,12 @@ var PeopleListEditor = function(){
 				m(".editor-peoplelist-finder", {
 					class: state ? "":"state-hidden"
 				},[
-					m(".editor-peopelist-add",[
-						m(".editor-peopelist-add-button", {
+					m(".editor-peoplelist-add",[
+						m("i.material-icons", {
 							onclick: function(e){
 								state = true;
 							}
-						},"+ Toevoegen")
+						},"add")
 					]),
 					m("input.input.editor-peoplelist-searchbar", {
 						placeholder: "Voornaam Achternaam",
