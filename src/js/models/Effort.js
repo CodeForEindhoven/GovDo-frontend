@@ -27,26 +27,23 @@ Models.Effort = (function(){
 		}
 	}
 
-	function newItem(name, description, type, people, callback){
-		model.post("effort", {
-			task: currentView,
-			name: name,
-			description: description,
-			type: type,
-			people: people,
-		}, function(data){
+	function newItem(item, callback){
+		item.task = currentView;
+		model.post("effort", item, function(data){
 			loadContent();
 			callback(data.id);
 		});
 	}
 
-	function updateItem(id, name, description, type, people, callback){
-		model.post("effort/"+id, {
-			name: name,
-			description: description,
-			type: type,
-			people: people,
-		}, function(data){
+	function updateItem(i, callback){
+		//copy file =
+		var item = JSON.parse(JSON.stringify(i));
+		var id = item.id;
+		delete item.id;
+
+		item.people = item.People;
+		delete item.People;
+		model.post("effort/"+id, item, function(data){
 			loadContent();
 			callback(data.id);
 		});

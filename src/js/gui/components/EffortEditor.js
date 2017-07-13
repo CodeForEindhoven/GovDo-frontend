@@ -3,10 +3,19 @@ var EffortEditor = function(){
 	return {
 		view: function(vnode){
 			return m(".efforteditor",[
+				m(Toggle, {
+					value: viewModels.editMode.content().mode,
+					label: "schets",
+					onchange: function(){
+						var v = viewModels.editMode.content().mode;
+						if(v===0){v=-1;}else{v=0;}
+						viewModels.editMode.setContent("mode", v);
+					}
+				}),
+
 				m(".editor-subtitle", "Inspanning titel"),
 				m(TextArea, {
 					value: viewModels.editMode.content().name,
-					placeholder: "title",
 					onchange: function(v){
 						viewModels.editMode.setContent("name", v);
 					}
@@ -15,7 +24,6 @@ var EffortEditor = function(){
 				m(".editor-subtitle", "Inspanning beschrijving"),
 				m(TextArea, {
 					value: viewModels.editMode.content().description,
-					placeholder: "beschrijving",
 					onchange: function(v){
 						viewModels.editMode.setContent("description", v);
 					}
