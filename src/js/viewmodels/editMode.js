@@ -13,41 +13,52 @@ viewModels.editMode = (function(){
 		},
 
 		set: function(t, c){
-			state = true;
-			type = t;
-			if(c){
-				content = JSON.parse(JSON.stringify(c)); //DEEP COPY CONTENT
+			function open(){
+				state = true;
+				type = t;
+				if(c){
+					content = JSON.parse(JSON.stringify(c)); //DEEP COPY CONTENT
+				}
+				m.redraw();
 			}
+
+			if(state){
+				viewModels.editMode.close();
+				setTimeout(open, 400);
+			} else {
+				open();
+			}
+
 		},
 
-		new: function(t){
-			state = true;
-			type = t;
+		new: function(type){
 			if(type === 'effort'){
-				content = {
+				viewModels.editMode.set(type,{
 					id: -1,
 					name: "",
 					description: "",
 					type: -1,
 					People:[]
-				};
+				});
 			}
 			if(type === 'task'){
-				content = {
+				viewModels.editMode.set(type,{
 					id: -1,
 					name: "",
 					means: "",
-				};
+				});
 			}
 		},
 
 		close: function(){
-			state = false;
-			type = "";
-			content = {};
+			viewModels.editMode.save(function(){
+				state = false;
+				type = "";
+				content = {};
+			});
 		},
 
-		save: function(){
+		save: function(callback){
 			console.log("save");
 			if(type==="effort"){
 				console.log("effort");
@@ -55,13 +66,15 @@ viewModels.editMode = (function(){
 					console.log("new");
 					Models.Effort.newItem(content.name, content.description, content.type, content.People, function(id){
 						viewModels.Hierarchy.updateEffort(content.id);
-						viewModels.editMode.close();
+						//viewModels.editMode.close();
+						if(callback){callback();}
 					});
 				} else {
 					console.log("update");
 					Models.Effort.updateItem(content.id, content.name, content.description, content.type, content.People, function(id){
 						viewModels.Hierarchy.updateEffort(content.id);
-						viewModels.editMode.close();
+						///.editMode.close();
+						if(callback){callback();}
 					});
 				}
 			} else if(type==="task"){
@@ -70,13 +83,15 @@ viewModels.editMode = (function(){
 					console.log("new");
 					Models.Task.newItem(content.name, content.means, function(id){
 						viewModels.Hierarchy.updateTask(content.id);
-						viewModels.editMode.close();
+						//viewModels.editMode.close();
+						if(callback){callback();}
 					});
 				} else {
 					console.log("update");
 					Models.Task.updateItem(content.id, content.name, content.means, function(id){
 						viewModels.Hierarchy.updateTask(content.id);
-						viewModels.editMode.close();
+						//viewModels.editMode.close();
+						if(callback){callback();}
 					});
 				}
 			}

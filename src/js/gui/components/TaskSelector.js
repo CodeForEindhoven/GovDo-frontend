@@ -21,11 +21,11 @@ var TaskSelector = function(){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Opgaven"),
-							m(".icons-header", [					
+							m(".icons-header", [
 								m("i.material-icons", {
 									class: !viewModels.editMode.state()?"":"state-hidden",
 									onclick: function(){
-										viewModels.editMode.new("effort");
+										viewModels.editMode.new("task");
 									}
 								}, "add"),
 								m("i.material-icons", {}, "import_export"),
@@ -42,7 +42,7 @@ var TaskSelector = function(){
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
 								m(".selectorlist-item-edit.button-edit-small",{
-									class: (editable(task.id))?"":"state-hidden",
+									//class: (editable(task.id))?"":"state-hidden",
 									onclick: function(){
 										viewModels.editMode.set("task", task);
 									}

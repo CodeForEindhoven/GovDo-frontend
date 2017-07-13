@@ -21,7 +21,7 @@ var EffortSelector = function(){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Inspanningen"),
-							m(".icons-header", [					
+							m(".icons-header", [
 								m("i.material-icons", {
 									class: !viewModels.editMode.state()?"":"state-hidden",
 									onclick: function(){
@@ -42,7 +42,7 @@ var EffortSelector = function(){
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
 								m(".selectorlist-item-edit.button-edit-small",{
-									class: (editable(effort.id))?"":"state-hidden",
+									//class: (editable(effort.id))?"":"state-hidden",
 									onclick: function(){
 										viewModels.editMode.set("effort", effort);
 									}
