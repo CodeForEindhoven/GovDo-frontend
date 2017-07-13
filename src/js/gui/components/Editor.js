@@ -4,7 +4,7 @@ var Editor = function(){
 			return m(".editor",{
 				class: viewModels.editMode.state() ? "state-edit": "state-hidden"
 			}, [
-				
+
 				m(".editor-header",[
 					m("span", "Editor"),
 						m(".icons-header", [
@@ -20,7 +20,7 @@ var Editor = function(){
 						},"close"),
 					]),
 				]),
-				
+
 				m(".editor-content",[
 					(function(){
 						if(viewModels.editMode.isType("effort")){
@@ -29,7 +29,7 @@ var Editor = function(){
 							return m(TaskEditor);
 						}
 					})(),
-				
+
 					m(".editor-buttons",[
 						m(".button-delete", {
 							onclick: function(){
