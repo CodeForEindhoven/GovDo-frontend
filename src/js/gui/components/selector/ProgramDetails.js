@@ -5,12 +5,12 @@ var ProgramDetails = function(){
 			if(viewModels.Hierarchy.getProgram()>0){
 				return m(".programdetails",[
 					m(".programdetails-title",
-					viewModels.Hierarchy.getProgramDetails().name),
+					Models.Task.getParent().name),
 					m(".icons-header", [
 						m("i.material-icons.edit-button", {
 							class: state?"":"state-hidden",
 							onclick: function(){
-								viewModels.editMode.set("program", viewModels.Hierarchy.getProgramDetails());
+								viewModels.editMode.set("program", Models.Task.getParent());
 							}
 						}, "build"),
 						m("i.material-icons", {
@@ -21,7 +21,7 @@ var ProgramDetails = function(){
 					]),
 					m(".programdetails-mission",{
 						class: state?"":"state-hidden"
-					},viewModels.Hierarchy.getProgramDetails().mission),
+					},Models.Task.getParent().mission),
 				]);
 			}
 		}

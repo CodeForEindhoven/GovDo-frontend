@@ -7,7 +7,7 @@ var SearchList = function(){
 						return m(".searchlist-result", {
 							onclick: function(){
 								vnode.attrs.onfind();
-								viewModels.Hierarchy.jumpTo(c.program.id, c.program, c.task.id, c.id);
+								viewModels.Hierarchy.jumpTo(c.program.id, c.task.id, c.id);
 							}
 						},[
 								m(".searchlist-result-program", c.program.name), // Programma
@@ -17,7 +17,7 @@ var SearchList = function(){
 						return m(".searchlist-result", {
 							onclick: function(){
 								vnode.attrs.onfind();
-								viewModels.Hierarchy.jumpTo(c.program.id, c.program, c.id);
+								viewModels.Hierarchy.jumpTo(c.program.id, c.id);
 							}
 						},[
 								m(".searchlist-result-program", c.program.name), // Programma

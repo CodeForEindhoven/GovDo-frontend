@@ -101,14 +101,14 @@ viewModels.editMode = (function(){
 				if(content.id===-1){
 					Models.Program.newItem(content, function(id){
 						savingState = false;
-						viewModels.Hierarchy.updateProgram(content.id, content);
+						viewModels.Hierarchy.updateProgram(content.id);
 						viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				} else {
 					Models.Program.updateItem(content, function(id){
 						savingState = false;
-						viewModels.Hierarchy.updateProgram(content.id, content);
+						viewModels.Hierarchy.updateProgram(content.id);
 						viewModels.editMode.close();
 						if(callback){callback();}
 					});
