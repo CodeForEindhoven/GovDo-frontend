@@ -2,23 +2,30 @@
 @import "variables/fonts.less";
 @import "templates/Buttons.less";
 
+@searchbar-height: 50px;
 @popup-width: 100%;
 
 .searchbar {
-	width: 100%;
 	display: inline-block;
-	margin-left: (@programbarWidth + 10px);
+	margin-left: 10px;
 	position: relative;
 	display: inline-block;
-	top: ((@programbarWidth - @programbarWidth) - (@programbarWidth - 8px));
+	//margin-top: ((@programbarWidth - @programbarWidth) - 54); //-34px
+	z-index: 1000000;
 }
 
 .searchbar.state-active {
 	z-index: 10000000;
+	width: @popup-width;
 }
 
 .searchbar input {
-	width: 40%;
+	background-color: @color-background;
+	border: none;
+	//border-bottom: 1px solid grey;
+	border-radius: 0;
+	padding-left: 10px;
+	color: @color-editable;
 }
 
 .overlay-fullscreen {
@@ -27,36 +34,21 @@
 	height: 100%;
 	left: 0;
 	top: 0;
-	background-color: rgba(0, 0, 255, 0.2);
-	z-index: 100000;
+	background-color: rgba(0, 0, 255, 0.03);
+	z-index: 1000000;
 }
 
-/*.searchbar-popup:before {
-	background: #FFFFFF;
-	display: block;
-	content: ".";
-	font-size: 0;
-	width: 300px;
-	height: 8px;
-	position: absolute;
-	left: 0px;
-	top: -8px;
-}*/
-
 .searchbar-popup {
-	position: absolute;
-
-	top: (@programbarWidth - 11px);
-	left: 0px;
-
-	//padding: 5px;
-
-	width: (@popup-width - 45%); //55%
-	height: 500px;
-
-	background: @color-white;
-
-	border-radius: 2px;
+	//position: absolute;
+	//top: 0px;
+	//left: 0px;
+	margin-top: -30px;
+	//width: (@popup-width - 45%); //55%
+	height: (500px + @searchbar-height);
+	background-color: @color-background;
+	padding-top: @searchbar-height;
+	border: 1px solid @color-editable;
+	border-radius: 4px;
 	z-index: 10000000;
 }
 
@@ -68,21 +60,20 @@
 	overflow-x: hidden;
 	height: 100%;
 	max-height: 100%;
-	
-	padding-left: 20px;
+	padding-left: 15px;
 	padding-right: 20px;
 	padding-top: -10px;
 }
 
 .searchbar-popup-header {
 	font-weight: @semibold;
-	//margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
 // FIRST COLUMN
 // Recent changes
-.changeslist-change {
-	line-height: 18px;
+.changeslist-change, .searchlist-result {
+	line-height: 21px;
 }
 
 .changeslist-change:hover {
@@ -90,30 +81,30 @@
 	cursor: pointer;
 }
 
-.changeslist-change-first-line, .changeslist-change-second-line {
+.changeslist-change-first-line, .changeslist-change-second-line, .searchlist-result /*.searchlist-results-first-line, .searchlist-results-second-line*/ {
 	display: block;
 }
 
-.changeslist-change + .changeslist-change {
+.changeslist-change + .changeslist-change, .searchlist-result + .searchlist-result {
 	margin-top: 20px;
 }
 
 // First row
-.changeslist-change .changeslist-change-program {
+.changeslist-change-program, .searchlist-result-program {
 	font-weight: @semibold;
 }
 
-.changeslist-change .changeslist-change-program, .changeslist .changeslist-change-name {
+.changeslist-change-program, .changeslist-change-name, .searchlist-result-program, .searchlist-result-task, .searchlist-result-effort {
 	display: inline;
 }
 
-.changeslist-change-program:after {
+.changeslist-change-program:after, .searchlist-result-program:after {
 	content: ', ';
 	margin-right: 2px;
 }
 
 // Second row
-.changeslist-change .changeslist-change-date, .changeslist .changeslist-change-type {
+.changeslist-change-date, .changeslist-change-type {
 	display: inline-block;
 	color: @color-unselected;
 }
@@ -122,15 +113,6 @@
 	content: ' – ';
 	margin-right: 2px;
 }
-
-//.changeslist-change:hover {
-//	background-color: @color-selected;
-//	color: @color-white;
-//	cursor: pointer;
-//}
-
-// Opgaven/Inspannigen
-
 
 
 
@@ -147,16 +129,14 @@
 	color: @color-black;
 	margin-bottom: 0px;
 	padding-left: 0px;
-	line-height: 30px;
+	line-height: 25px;
 }
 
 .searchbar-popup-column .personlist-person + .personlist-teamname {
 	margin-top: 20px;
 }
 
-.searchbar-popup-column .personlist-person:hover {
-	width: 100%;
-	border-radius: 2px;
+.searchbar-popup-column .personlist-person:hover, .searchlist-result:hover {
 	color: @color-selected;
 	cursor: pointer;
 }
@@ -164,3 +144,5 @@
 .searchbar-popup-column .personlist-person:hover > .person-list-add-button {
 	display: none;
 }
+
+// RESULTS

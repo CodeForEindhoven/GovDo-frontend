@@ -17,21 +17,19 @@ var SearchBar = function(){
 				}()),
 
 				m(".searchbar"+(opened?".state-active":""), [
-					m("div",
-						m("input",{
-							placeholder: "Zoeken naar ...",
-							value: value,
-							oninput: m.withAttr("value", function(v) {
-								value = v;
-								if(value.length > 0){
-									Models.Search.loadContent(value);
-								}
-							}),
-							onclick: function(){
-								opened = true;
+					m("input",{
+						placeholder: "Zoeken naar ...",
+						value: value,
+						oninput: m.withAttr("value", function(v) {
+							value = v;
+							if(value.length > 0){
+								Models.Search.loadContent(value);
 							}
-						})
-					),
+						}),
+						onclick: function(){
+							opened = true;
+						}
+					}),
 					(function(){
 						if(opened){
 							return m(".searchbar-popup",[
