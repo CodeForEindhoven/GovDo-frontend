@@ -6,15 +6,15 @@ var SearchBar = function(){
 	return {
 		view: function(vnode){
 			return [
-				//(function(){
-				//	if(opened){
-				//		return m(".fullscreen", m(".grey",{
-				//			onclick: function(){
-				//				opened = false;
-				//			}
-				//		}));
-				//	}
-				//}()),
+				(function(){
+					if(opened){
+						return m(".overlay-fullscreen", m(".overlay-color",{
+							onclick: function(){
+								opened = false;
+							}
+						}));
+					}
+				}()),
 
 				m(".searchbar"+(opened?".state-active":""), [
 					m("div",
@@ -28,40 +28,40 @@ var SearchBar = function(){
 							}
 						})
 					),
-					//(function(){
-					//	if(opened){
-					//		return m(".popup",[
-					//			m(".column", [
-					//				m(".header","Inspanningen"),
-					//				m(SearchList,{
-					//					value: value,
-					//					onfind: function(){
-					//						opened = false;
-					//					}
-					//				})
-					//			]),
-					//			m(".column", [
-					//				m(".header","Personeel"),
-					//				(function(){
-					//					if(value.length>0){
-					//						return m(FilteredPeopleList, {value: value});
-					//					} else {
-					//						return m(TeamList);
-					//					}
-					//				})()
+					(function(){
+						if(opened){
+							return m(".searchbar-popup",[
+								m(".searchbar-popup-column", [
+									m(".searchbar-popup-header","Inspanningen"),
+									m(SearchList,{
+										value: value,
+										onfind: function(){
+											opened = false;
+										}
+									})
+								]),
+								m(".searchbar-popup-column", [
+									m(".searchbar-popup-header","Personeel"),
+									(function(){
+										if(value.length>0){
+											return m(FilteredPeopleList, {value: value});
+										} else {
+											return m(TeamList);
+										}
+									})()
 
-					//			]),
-					//			m(".column",[
-					//				m(".header","Recente Veranderingen"),
-					//				m(ChangesList,{
-					//					onfind: function(){
-					//						opened = false;
-					//					}
-					//				})
-					//			]),
-					//		]);
-					//	}
-					//})(),
+								]),
+								m(".searchbar-popup-column",[
+									m(".searchbar-popup-header","Recente Veranderingen"),
+									m(ChangesList,{
+										onfind: function(){
+											opened = false;
+										}
+									})
+								]),
+							]);
+						}
+					})(),
 				])
 			];
 		}

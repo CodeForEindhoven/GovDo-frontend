@@ -10,17 +10,17 @@ var SearchList = function(){
 
 	return {
 		view: function(vnode){
-			return m(".SearchList", [
+			return m(".searchlist", [
 				getFilterdContent(vnode.attrs.value).map(function(c){
-					return m(".result", {
+					return m(".searchlist-result", {
 						onclick: function(){
 							vnode.attrs.onfind();
 							viewModels.Hierarchy.jumpTo(c.Tasks[0].Programs[0].id, c.Tasks[0].id, c.id);
 						}
 					},[
-						m(".program", c.program),
-						m(".task", c.task),
-						m(".effort", c.name)
+						m(".searchlist-result-program", c.program),
+						m(".searchlist-result-task", c.task),
+						m(".searchlist-result-effort", c.name)
 					]);
 				})
 			]);
