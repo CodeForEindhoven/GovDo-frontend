@@ -21,8 +21,13 @@ Models.Effort = (function(){
 		}
 	}
 
-	function newItem(item, callback){
+	function newItem(i, callback){
+		var item = JSON.parse(JSON.stringify(i));
 		item.task = currentView;
+		item.people = item.People;
+		delete item.People;
+		delete item.id;
+
 		model.post("effort", item, function(data){
 			loadContent();
 			callback(data.id);

@@ -3,8 +3,11 @@ viewModels.editMode = (function(){
 	var type = "";
 	var content = {};
 
+	var savingState = false;
+
 	return {
 		state: function(){return state;},
+		savingState: function(){return savingState;},
 		isType: function(t){return (type === t);},
 		content: function(){return content;},
 
@@ -23,8 +26,10 @@ viewModels.editMode = (function(){
 			}
 
 			if(state){
-				viewModels.editMode.close();
-				setTimeout(open, 400);
+				viewModels.editMode.save(function(){
+					setTimeout(open, 400);
+				});
+
 			} else {
 				open();
 			}
@@ -52,43 +57,43 @@ viewModels.editMode = (function(){
 			}
 		},
 
-		close: function(){
-			viewModels.editMode.save(function(){
-				state = false;
-				type = "";
-				content = {};
-			});
+		close: function(callback){
+			state = false;
+			type = "";
+			content = {};
 		},
 
 		save: function(callback){
-			console.log("save");
+			savingState = true;
 			if(type==="effort"){
-				console.log("effort");
 				if(content.id===-1){
-					console.log("new");
 					Models.Effort.newItem(content, function(id){
-						viewModels.Hierarchy.updateEffort(content.id);
+						savingState = false;
+						//viewModels.Hierarchy.updateEffort(content.id);
+						viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				} else {
-					console.log("update");
 					Models.Effort.updateItem(content, function(id){
-						viewModels.Hierarchy.updateEffort(content.id);
+						savingState = false;
+						//viewModels.Hierarchy.updateEffort(content.id);
+						viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				}
 			} else if(type==="task"){
-				console.log("task");
 				if(content.id===-1){
-					console.log("new");
 					Models.Task.newItem(content, function(id){
-						viewModels.Hierarchy.updateTask(content.id);
+						savingState = false;
+						//viewModels.Hierarchy.updateTask(content.id);
+						viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				} else {
-					console.log("update");
 					Models.Task.updateItem(content, function(id){
-						viewModels.Hierarchy.updateTask(content.id);
+						savingState = false;
+						//viewModels.Hierarchy.updateTask(content.id);
+						viewModels.editMode.close();
 						if(callback){callback();}
 					});
 				}

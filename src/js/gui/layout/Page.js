@@ -8,13 +8,12 @@ var Page = function(){
 					m(".layout-column", [
 						m(".layout-vertical", [
 							m(".layout-vertical-row", m(ProgramDetails)),
-							m(".layout-vertical-stretch", m(TaskSelector))
+							m(".layout-vertical-bottom", m(TaskSelector))
 						]),
 					]),
 					m(".layout-column .layout-vertical-offset", m(EffortSelector)),
 					m(".layout-column .layout-vertical-offset", m(Editor))
 				]),
-
 				//m(Viewer),
 			];
 		}

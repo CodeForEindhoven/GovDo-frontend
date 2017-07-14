@@ -23,7 +23,6 @@ var TaskSelector = function(){
 						m("span", "Opgaven"),
 							m(".icons-header", [
 								m("i.material-icons", {
-									class: !viewModels.editMode.state()?"":"state-hidden",
 									onclick: function(){
 										viewModels.editMode.new("task");
 									}

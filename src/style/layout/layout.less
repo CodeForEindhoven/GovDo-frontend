@@ -54,21 +54,18 @@ html, body {
 
 .layout-vertical {
 	.debugborders();
-	display: table;
 	height: 100%;
 	width: 100%;
 }
 
 .layout-vertical-row {
 	.debugborders();
-	display: table-row;
-	height: 0;
+	height: auto;
 }
 
-.layout-vertical-stretch {
+.layout-vertical-bottom {
 	.debugborders();
-	display: table-row;
-	height: auto;
+	height: calc(100% - (@programbarWidth + 11px));
 }
 
 .layout-vertical-offset {
