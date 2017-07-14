@@ -8,7 +8,7 @@
 	width: @programbarWidth;
 	overflow-x: hidden;
 	white-space: nowrap;
-	transition: width 0.2s;
+	transition: width 0.3s;
 
 }
 
@@ -57,8 +57,6 @@
 	z-index: 1000;
 	padding-right: 15px;
 	overflow-y: scroll;
-	// not possible to add padding-bottom
-	// height: 95%;
 	height: 100%;
 }
 
@@ -75,7 +73,6 @@
 .programbar-domain .programbar-domain-name {
 	opacity: 0;
 	height: 0;
-
 	font-size: @main-text;
 	line-height: @line-height-main-text;
 	font-weight: @semibold;
@@ -83,7 +80,6 @@
 	margin-left: (@width-circle + 10px);
 	transition: opacity 0.35s;
 	transition: height 0.35s;
-	
 	padding-bottom: 30px;
 }
 
@@ -93,6 +89,7 @@
 
 :hover > .programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
 	padding-bottom: 30px;
+	transition: padding-bottom 0.3s;
 }
 
 :hover > .programbar-domain .programbar-domain-name {
