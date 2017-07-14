@@ -1,6 +1,7 @@
 @import "variables/colors.less";
 @import "templates/Inputs.less";
 @margin-bottom-editor-items: 75px;
+@margin-status-button: 1%;
 
 .editor {
 	width: 100%;
@@ -63,7 +64,7 @@
 	margin-top: -26px;
 }
 
-.editor-typeselect-type, .toggle {
+.editor-typeselect-type, .toggle .status-labels {
 	padding: 10px;
 	border: @border-box solid @color-editable;
 	margin-bottom: 8px;
@@ -121,26 +122,22 @@
 }
 
 // Sketch
-.status-content {
-
-}
-
-.efforteditor div.status-content:first-child {
-display: none;
-}
-
-.toggle {
+.status-labels {
 	font-weight: @semibold;
 	box-sizing: border-box;
-	width: 50%;
+	width: calc(50% - @margin-status-button);
 	display: inline-block;
 }
 
-.toggle.state-off {
-	color: green;
+.toggle div.status-labels:first-child {
+	margin-right: @margin-status-button;
 }
 
-.toggle.state-on {
+.toggle div.status-labels:last-child {
+	margin-left: @margin-status-button;
+}
+
+.toggle .state-on {
 	background-color: @color-selected;
 	color: @color-white;
 }
