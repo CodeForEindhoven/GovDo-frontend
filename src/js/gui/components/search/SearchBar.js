@@ -35,7 +35,7 @@ var SearchBar = function(){
 							return m(".searchbar-popup",[
 								((value.length > 0)?
 									m(".searchbar-popup-column", [
-										m(".searchbar-popup-header","Inspanningen"),
+										m(".searchbar-popup-header","Zoekresultaten"),
 										m(SearchList,{
 											value: value,
 											onfind: function(){

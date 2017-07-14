@@ -12,14 +12,7 @@ Models.Search = (function(){
 			model.post("search", {
 				query: query
 			}, function(data){
-				content = data.filter(function(result){
-					return (result.Tasks[0])?true:false;
-				}).map(function(result){
-					result.task = result.Tasks[0].name;
-					result.program = result.Tasks[0].Programs[0].name;
-					return result;
-				});
-
+				content = data;
 				waiting = false;
 				if(next){
 					loadContent(next);
