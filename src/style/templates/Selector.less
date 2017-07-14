@@ -24,7 +24,6 @@
 	.editor-header {
 		margin-bottom: 20px;
 	}
-
 }
 
 .selector .selector-header, .programdetails, .editor-header {
@@ -119,4 +118,16 @@
 
 .selectorlist-item:last-child {
 	padding-bottom: (@width-circle / 2);
+}
+
+
+.selector-hidden {
+	opacity: 0;
+	display: none;
+	transition: opacity 0.4s;
+}
+
+.state-selected .selector-hidden {
+	opacity: 1;
+	display: block;
 }

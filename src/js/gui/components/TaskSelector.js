@@ -53,8 +53,11 @@ var TaskSelector = function(){
 									m("span.taskselector-title-name", task.name),
 									(task.means)?[
 										m("span.taskselector-title-means-label", " door "),
-										m("span.taskselector-title-means", task.means)
-									]:[]
+										m("span.taskselector-title-means", task.means),
+									]:[],
+									m(".selector-hidden",[
+										m("span.taskselector-kpi", task.kpi)
+									])
 
 								]),
 							]),
