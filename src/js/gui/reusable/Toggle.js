@@ -7,14 +7,14 @@ var Toggle = function(){
 					onclick: function(){
 						vnode.attrs.onchange(-1);
 					},
-				}, vnode.attrs.label-sketch), 			
-			
+				}, vnode.attrs.label_sketch),
+
 				m(".status-labels", {
 					class: vnode.attrs.value?"state-off":"state-on",
 					onclick: function(){
 						vnode.attrs.onchange(0);
 					},
-				}, vnode.attrs.label-definitive), 
+				}, vnode.attrs.label_definitive),
 			]);
 		}
 	};
