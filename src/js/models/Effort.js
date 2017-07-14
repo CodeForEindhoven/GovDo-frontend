@@ -1,21 +1,15 @@
 Models.Effort = (function(){
 	var currentView = -1;
 	var content = [];
-	var name = "";
 
 	function loadContent(){
 		model.get("task/"+currentView, {}, function(data){
 			content = data.Efforts;
-			name = data.name;
 		});
 	}
 
 	function getContent(){
 		return content;
-	}
-
-	function getName(){
-		return name;
 	}
 
 	function updateContent(program){
@@ -63,7 +57,6 @@ Models.Effort = (function(){
 
 		loadContent: loadContent,
 		getContent: getContent,
-		getName: getName,
 		updateContent:updateContent
 	};
 })();

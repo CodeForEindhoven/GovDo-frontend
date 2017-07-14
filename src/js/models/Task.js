@@ -1,21 +1,15 @@
 Models.Task = (function(){
 	var currentView = -1;
 	var content = [];
-	var name = "";
 
 	function loadContent(){
 		model.get("program/"+currentView, {}, function(data){
 			content = data.Tasks;
-			name = data.name;
 		});
 	}
 
 	function getContent(){
 		return content;
-	}
-
-	function getName(){
-		return name;
 	}
 
 	function updateContent(program){
@@ -50,7 +44,6 @@ Models.Task = (function(){
 		updateItem: updateItem,
 		loadContent: loadContent,
 		getContent: getContent,
-		getName: getName,
 		updateContent:updateContent
 	};
 })();

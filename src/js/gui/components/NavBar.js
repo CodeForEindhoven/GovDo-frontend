@@ -6,7 +6,7 @@ var NavBar = function(){
 				m(".nav-dashbutton",[
 					m(".nav-dashbutton-icon")
 				]),
-				//m(SearchBar)
+				m(SearchBar)
 			]);
 		}
 	};
