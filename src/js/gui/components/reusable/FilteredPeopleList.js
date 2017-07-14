@@ -21,13 +21,20 @@ var FilteredPeopleList = function(){
 				}));
 			} else {
 				//show new person list
-				return m(".personlist", [
-					m(".personlist-person-new", {
-						onclick: function(){
-							vnode.attrs.onnew();
-						}
-					}, "voeg '"+vnode.attrs.value+"' toe aan personen")
-				]);
+				if(vnode.attrs.allownew){
+					return m(".personlist", [
+						m(".personlist-person-new", {
+							onclick: function(){
+								vnode.attrs.onnew();
+							}
+						}, "voeg '"+vnode.attrs.value+"' toe aan personen")
+					]);
+				} else {
+					return m(".personlist",
+						m(".personlist-noresults", "Geen resultaten")
+					);
+				}
+
 			}
 		}
 	};

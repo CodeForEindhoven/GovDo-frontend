@@ -4,11 +4,14 @@ var ProgramDetails = function(){
 		view: function(vnode){
 			if(viewModels.Hierarchy.getProgram()>0){
 				return m(".programdetails",[
-					m(".programdetails-title", 
+					m(".programdetails-title",
 					viewModels.Hierarchy.getProgramDetails().name),
 					m(".icons-header", [
 						m("i.material-icons.edit-button", {
-							class: state?"":"state-hidden"
+							class: state?"":"state-hidden",
+							onclick: function(){
+								viewModels.editMode.set("program", viewModels.Hierarchy.getProgramDetails());
+							}
 						}, "build"),
 						m("i.material-icons", {
 							onclick: function(){

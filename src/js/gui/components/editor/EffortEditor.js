@@ -128,13 +128,6 @@ var PeopleListEditor = function(){
 				m(".editor-peoplelist-finder", {
 					class: vnode.attrs.state ? "":"state-hidden"
 				},[
-					//m(".editor-peoplelist-add",[
-					//	m("i.material-icons", {
-					//		onclick: function(e){
-					//			state = true;
-					//		}
-					//	},"add")
-					//]),
 					m("input.input.editor-peoplelist-searchbar", {
 						placeholder: "Voornaam Achternaam",
 						oninput: m.withAttr("value", function(v) {value = v;}),
@@ -144,6 +137,7 @@ var PeopleListEditor = function(){
 					(value.length > 0)?
 						m(FilteredPeopleList, {
 							value: value,
+							allownew: true,
 							onadd: function(p){onadd(p, vnode);},
 							onnew: function(){onnew(vnode);}
 						})
@@ -174,20 +168,20 @@ var TypeEditor = function(){
 						m(".editor-typeselect-type-timespan", {
 							class: (vnode.attrs.type === count && count<2)? "state-visible": "",
 						},[
-							m(".editor-typeselect-type-timespan-subtitle","van"),
-							m(".editor-typeselect-type-timespan-timebox",
-								m(DatePicker, {
-									value: vnode.attrs.startdate,
-									onchange: vnode.attrs.onchangeStartDate
-								})
-							),
-							m(".editor-typeselect-type-timespan-subtitle","t/m"),
-							m(".editor-typeselect-type-timespan-timebox",
-								m(DatePicker, {
-									value:  vnode.attrs.enddate,
-									onchange: vnode.attrs.onchangeEndDate
-								})
-							),
+							//m(".editor-typeselect-type-timespan-subtitle","van"),
+							//m(".editor-typeselect-type-timespan-timebox",
+							//	m(DatePicker, {
+							//		value: vnode.attrs.startdate,
+							//		onchange: vnode.attrs.onchangeStartDate
+							//	})
+							//),
+							//m(".editor-typeselect-type-timespan-subtitle","t/m"),
+							//m(".editor-typeselect-type-timespan-timebox",
+							//	m(DatePicker, {
+							//		value:  vnode.attrs.enddate,
+							//		onchange: vnode.attrs.onchangeEndDate
+							//	})
+							//),
 						]),
 					]);
 				})
