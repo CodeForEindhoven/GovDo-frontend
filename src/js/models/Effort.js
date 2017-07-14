@@ -13,12 +13,12 @@ Models.Effort = (function(){
 	}
 
 	function updateContent(program){
-		if(program!==currentView){
+		//if(program!==currentView){
 			currentView = program;
 			if(program>0){
 				loadContent();
 			}
-		}
+		//}
 	}
 
 	function newItem(i, callback){

@@ -1,9 +1,15 @@
 Models.Task = (function(){
 	var currentView = -1;
 	var content = [];
+	var parent = {};
 
 	function loadContent(){
 		model.get("program/"+currentView, {}, function(data){
+			parent = {
+				name: data.name,
+				mission: data.mission,
+				id: data.id
+			};
 			content = data.Tasks;
 		});
 	}
@@ -12,13 +18,17 @@ Models.Task = (function(){
 		return content;
 	}
 
+	function getParent(){
+		return parent;
+	}
+
 	function updateContent(program){
-		if(program!==currentView){
+		//if(program!==currentView){
 			currentView = program;
 			if(program>0){
 				loadContent();
 			}
-		}
+		//}
 	}
 
 	function newItem(item, callback){
@@ -44,6 +54,7 @@ Models.Task = (function(){
 		updateItem: updateItem,
 		loadContent: loadContent,
 		getContent: getContent,
+		getParent: getParent,
 		updateContent:updateContent
 	};
 })();
