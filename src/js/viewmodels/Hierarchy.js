@@ -49,8 +49,8 @@ viewModels.Hierarchy = (function(){
 		return currentPerson;
 	}
 
-	function jumpTo(p,t,e){
-		updateProgram(p);
+	function jumpTo(p,details,t,e){
+		updateProgram(p,details);
 		updateTask(t);
 		updateEffort(e);
 	}

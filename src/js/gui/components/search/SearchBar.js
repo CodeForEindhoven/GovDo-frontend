@@ -8,22 +8,25 @@ var SearchBar = function(){
 			return [
 				(function(){
 					if(opened){
-						return m(".overlay-fullscreen", m(".overlay-color",{
+						return m(".overlay-fullscreen",{
 							onclick: function(){
 								opened = false;
 							}
-						}));
+						});
 					}
 				}()),
 
 				m(".searchbar"+(opened?".state-active":""), [
 					m("div",
-//						m("input.input",{
 						m("input",{
 							placeholder: "Zoeken naar ...",
 							value: value,
-							oninput: m.withAttr("value", function(v) {value = v;}),
-							onchange: m.withAttr("value", function(v) {value = v;}),
+							oninput: m.withAttr("value", function(v) {
+								value = v;
+								if(value.length > 0){
+									Models.Search.loadContent(value);
+								}
+							}),
 							onclick: function(){
 								opened = true;
 							}
@@ -32,24 +35,26 @@ var SearchBar = function(){
 					(function(){
 						if(opened){
 							return m(".searchbar-popup",[
-							
-								m(".searchbar-popup-column",[
-									m(".searchbar-popup-header","Recente Veranderingen"),
-									m(ChangesList,{
-										onfind: function(){
-											opened = false;
-										}
-									})
-								]),							
-//								m(".searchbar-popup-column", [
-//									m(".searchbar-popup-header","Opgaven/Inspanningen"),
-//									m(SearchList,{
-//										value: value,
-//										onfind: function(){
-//											opened = false;
-//										}
-//									})
-//								]),
+								((value.length > 0)?
+									m(".searchbar-popup-column", [
+										m(".searchbar-popup-header","Inspanningen"),
+										m(SearchList,{
+											value: value,
+											onfind: function(){
+												opened = false;
+											}
+										})
+									])
+								:
+									m(".searchbar-popup-column",[
+										m(".searchbar-popup-header","Recente Veranderingen"),
+										m(ChangesList,{
+											onfind: function(){
+												opened = false;
+											}
+										})
+									])
+								),
 								m(".searchbar-popup-column", [
 									m(".searchbar-popup-header","Personeel"),
 									(function(){
