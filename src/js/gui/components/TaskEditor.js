@@ -15,7 +15,6 @@ var TaskEditor = function(){
 				m(".editor-subtitle", "Opgave titel"),
 				m(TextArea, {
 					value: viewModels.editMode.content().name,
-					placeholder: "title",
 					onchange: function(v){
 						viewModels.editMode.setContent("name", v);
 					}
@@ -24,9 +23,16 @@ var TaskEditor = function(){
 				m(".editor-subtitle opg-door", "door"),
 				m(TextArea, {
 					value: viewModels.editMode.content().means,
-					placeholder: "door",
 					onchange: function(v){
 						viewModels.editMode.setContent("means", v);
+					}
+				}),
+
+				m(".editor-subtitle", "Opgave indicator"),
+				m(TextArea, {
+					value: viewModels.editMode.content().kpi,
+					onchange: function(v){
+						viewModels.editMode.setContent("kpi", v);
 					}
 				})
 			]);
