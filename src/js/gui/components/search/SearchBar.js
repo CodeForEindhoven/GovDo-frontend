@@ -18,7 +18,8 @@ var SearchBar = function(){
 
 				m(".searchbar"+(opened?".state-active":""), [
 					m("div",
-						m("input.input",{
+//						m("input.input",{
+						m("input",{
 							placeholder: "Zoeken naar ...",
 							value: value,
 							oninput: m.withAttr("value", function(v) {value = v;}),

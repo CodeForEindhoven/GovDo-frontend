@@ -1,10 +1,85 @@
 @import "variables/colors.less";
+@import "variables/fonts.less";
 @import "templates/Buttons.less";
 
 .searchbar {
+	width: 100%;
 	display: inline-block;
-	margin-left: 10px;
+	margin-left: (@programbarWidth + 10px);
 	position: relative;
 	display: inline-block;
-	top: ((@width-circle - @width-circle) - (@width-circle / 2));
+	top: ((@programbarWidth - @programbarWidth) - (@programbarWidth - 8px));
+}
+
+.searchbar.state-active {
+	z-index: 10000000;
+}
+
+.searchbar input {
+	width: 40%;
+}
+
+.overlay-fullscreen {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background-color: rgba(0, 0, 255, 0.2);
+	z-index: 100000;
+}
+
+/*.searchbar-popup:before {
+	background: #FFFFFF;
+	display: block;
+	content: ".";
+	font-size: 0;
+	width: 300px;
+	height: 8px;
+	position: absolute;
+	left: 0px;
+	top: -8px;
+}*/
+
+.searchbar-popup {
+	position: absolute;
+
+	top: (@programbarWidth - 11px);
+	left: 0px;
+
+	//padding: 5px;
+
+	width: 80%;
+	height: 500px;
+
+	background: @color-white;
+
+	border-radius: 0px;
+	z-index: 10000000;
+}
+
+.searchbar-popup-column {
+	width: 33.3%;
+	float: left;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 100%;
+	max-height: 100%;
+}
+
+.searchbar-popup-column:nth-child(2) {
+
+}
+
+.searchbar-popup-column .personlist {
+	height: 100%;
+	max-height: 100%;
+	box-sizing: border-box;
+	overflow-y: visible;
+}
+
+.searchbar-popup-header {
+	font-weight: @semibold;
+	//margin-bottom: 20px;
 }
