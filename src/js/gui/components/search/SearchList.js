@@ -5,7 +5,7 @@ var SearchList = function(){
 		return [
 			m("span", string.slice(0, splitpoint)),
 			m("span.search-result-highlight", string.slice(splitpoint, splitpoint+value.length)),
-			m("span", string.slice(splitpoint+value.length)),
+			m("span", string.slice(splitpoint+value.length, string.length)),
 		];
 	}
 
@@ -31,7 +31,7 @@ var SearchList = function(){
 							}
 						},[
 								m(".searchlist-result-program", c.program.name), // Programma
-								m(".searchlist-result-effort", c.name) // Inspanningen
+								m(".searchlist-result-effort", highlight(c.name, vnode.attrs.value)) // Inspanningen
 						]);
 					}
 				})
