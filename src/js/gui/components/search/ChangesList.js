@@ -12,10 +12,15 @@ var ChangesList = function(){
 							viewModels.Hierarchy.jumpTo(c.Tasks[0].Programs[0].id, c.Tasks[0].id, c.id);
 						}
 					},[
-						m(".changeslist-change-type", (c.new?"nieuw":"aangepast")),
+						m(".changeslist-change-first-line",[
+							m(".changeslist-change-program", c.program),
+							m(".changeslist-change-name", c.name),
+						]),
+						
+						m(".changeslist-change-second-line",[
 						m(".changeslist-change-date", c.date+ " geleden"),
-						m(".changeslist-change-program", c.program),
-						m(".changeslist-change-name", c.name)
+						m(".changeslist-change-type", (c.new?"nieuw":"aangepast")),
+						]),
 					]);
 				})
 			]);

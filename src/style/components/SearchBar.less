@@ -2,6 +2,8 @@
 @import "variables/fonts.less";
 @import "templates/Buttons.less";
 
+@popup-width: 100%;
+
 .searchbar {
 	width: 100%;
 	display: inline-block;
@@ -49,29 +51,91 @@
 
 	//padding: 5px;
 
-	width: 80%;
+	width: (@popup-width - 45%); //55%
 	height: 500px;
 
 	background: @color-white;
 
-	border-radius: 0px;
+	border-radius: 2px;
 	z-index: 10000000;
 }
 
 .searchbar-popup-column {
-	width: 33.3%;
+	width: (@popup-width / 2);
 	float: left;
 	box-sizing: border-box;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	height: 100%;
 	max-height: 100%;
+	
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: -10px;
 }
 
-.searchbar-popup-column:nth-child(2) {
-
+.searchbar-popup-header {
+	font-weight: @semibold;
+	//margin-bottom: 20px;
 }
 
+// FIRST COLUMN
+// Recent changes
+.changeslist-change {
+	line-height: 18px;
+}
+
+.changeslist-change:hover {
+	color: @color-selected;
+	cursor: pointer;
+}
+
+.changeslist-change-first-line, .changeslist-change-second-line {
+	display: block;
+}
+
+.changeslist-change + .changeslist-change {
+	margin-top: 20px;
+}
+
+// First row
+.changeslist-change .changeslist-change-program {
+	font-weight: @semibold;
+}
+
+.changeslist-change .changeslist-change-program, .changeslist .changeslist-change-name {
+	display: inline;
+}
+
+.changeslist-change-program:after {
+	content: ', ';
+	margin-right: 2px;
+}
+
+// Second row
+.changeslist-change .changeslist-change-date, .changeslist .changeslist-change-type {
+	display: inline-block;
+	color: @color-unselected;
+}
+
+.changeslist-change-date:after {
+	content: ' – ';
+	margin-right: 2px;
+}
+
+//.changeslist-change:hover {
+//	background-color: @color-selected;
+//	color: @color-white;
+//	cursor: pointer;
+//}
+
+// Opgaven/Inspannigen
+
+
+
+
+
+// SECOND COLUMN – Personeel
 .searchbar-popup-column .personlist {
 	height: 100%;
 	max-height: 100%;
@@ -79,7 +143,24 @@
 	overflow-y: visible;
 }
 
-.searchbar-popup-header {
-	font-weight: @semibold;
-	//margin-bottom: 20px;
+.searchbar-popup-column .personlist-teamname, .searchbar-popup-column .personlist-person {
+	color: @color-black;
+	margin-bottom: 0px;
+	padding-left: 0px;
+	line-height: 30px;
+}
+
+.searchbar-popup-column .personlist-person + .personlist-teamname {
+	margin-top: 20px;
+}
+
+.searchbar-popup-column .personlist-person:hover {
+	width: 100%;
+	border-radius: 2px;
+	color: @color-selected;
+	cursor: pointer;
+}
+
+.searchbar-popup-column .personlist-person:hover > .person-list-add-button {
+	display: none;
 }

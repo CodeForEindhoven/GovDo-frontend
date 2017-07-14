@@ -32,15 +32,24 @@ var SearchBar = function(){
 					(function(){
 						if(opened){
 							return m(".searchbar-popup",[
-								m(".searchbar-popup-column", [
-									m(".searchbar-popup-header","Inspanningen"),
-									m(SearchList,{
-										value: value,
+							
+								m(".searchbar-popup-column",[
+									m(".searchbar-popup-header","Recente Veranderingen"),
+									m(ChangesList,{
 										onfind: function(){
 											opened = false;
 										}
 									})
-								]),
+								]),							
+//								m(".searchbar-popup-column", [
+//									m(".searchbar-popup-header","Opgaven/Inspanningen"),
+//									m(SearchList,{
+//										value: value,
+//										onfind: function(){
+//											opened = false;
+//										}
+//									})
+//								]),
 								m(".searchbar-popup-column", [
 									m(".searchbar-popup-header","Personeel"),
 									(function(){
@@ -51,14 +60,6 @@ var SearchBar = function(){
 										}
 									})()
 
-								]),
-								m(".searchbar-popup-column",[
-									m(".searchbar-popup-header","Recente Veranderingen"),
-									m(ChangesList,{
-										onfind: function(){
-											opened = false;
-										}
-									})
 								]),
 							]);
 						}
