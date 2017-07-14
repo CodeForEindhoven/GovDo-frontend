@@ -1,4 +1,5 @@
 var EffortSelector = function(){
+	var scrollstore = 0;
 
 	function selected(id){
 		return (viewModels.Hierarchy.getEffort() === id);
@@ -23,7 +24,6 @@ var EffortSelector = function(){
 						m("span", "Inspanningen"),
 							m(".icons-header", [
 								m("i.material-icons", {
-									class: !viewModels.editMode.state()?"":"state-hidden",
 									onclick: function(){
 										viewModels.editMode.new("effort");
 									}
@@ -32,9 +32,16 @@ var EffortSelector = function(){
 								m("i.material-icons", {}, "info_outline")
 							]),
 					]),
-					m(".selectorlist", m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
+					m(".selectorlist", {
+						onbeforeupdate: function(vnode, old){
+							scrollstore = old.dom.scrollTop;
+						},
+						onupdate: function(vnode){
+							vnode.dom.scrollTop = scrollstore;
+						}
+					},m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
 						return m(".state-selectable.selectorlist-item", {
-							class: ((selected(effort.id))?"state-selected":"") +" "+((editing(effort.id))?"state-editing":"")+" "+(effort.mode?"mode-sketch":""),
+							class: ((selected(effort.id))?"state-selected":"") +/*" "+((editing(effort.id))?"state-editing":"")+*/" "+(effort.mode?"mode-sketch":""),
 							onclick: function(){
 								viewModels.Hierarchy.updateEffort(effort.id);
 							}
