@@ -9,6 +9,19 @@ input {
 	color: @color-selected;
 }
 
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: @color-selected;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: @color-selected;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: @color-selected;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: @color-selected;
+}
+
 .textarea {
 	background-color: @color-background;
 	border: @border-box solid @color-editable;
@@ -24,11 +37,6 @@ input {
 	border: @border-box solid @color-editable;
 	border-radius: 4px;
 	padding: 5px;
-}
-
-.searchbar .input {
-	background-color: @color-white;
-	border: @border-box solid @color-unselected;
 }
 
 .editor-peoplelist-finder .input {
