@@ -7,17 +7,13 @@ var Editor = function(){
 
 				m(".editor-header",[
 					m("span", "Editor"),
-						m(".icons-header", [
-						m(".save-button", {
-							onclick: function(){
-								viewModels.editMode.save();
-							}
-						},"Opslaan"),
-						m("i.material-icons", {
-							onclick: function(){
-								viewModels.editMode.close();
-							}
-						},"close"),
+					m(".icons-header .close-button", {
+						onclick: function(){
+							viewModels.editMode.save();
+						}
+					}, [
+						m(".save-button", (viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),
+						m("i.material-icons", "close"),
 					]),
 				]),
 				(function(){

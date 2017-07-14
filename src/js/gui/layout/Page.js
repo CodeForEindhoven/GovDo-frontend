@@ -14,7 +14,6 @@ var Page = function(){
 					m(".layout-column .layout-vertical-offset", m(EffortSelector)),
 					m(".layout-column .layout-vertical-offset", m(Editor))
 				]),
-
 				//m(Viewer),
 			];
 		}
