@@ -49,7 +49,7 @@ var EffortSelector = function(){
 							]),
 							m(".selectorlist-item-content", [
 								m(".effortselector-title", effort.name),
-								m(".effortselector-hidden",[
+								m(".selector-hidden",[
 									m(".effortselector-type", viewModels.typeNames[effort.type]),
 									m(".effortselector-description", effort.description),
 									m(".effortselector-subheader", "Mensen"),
