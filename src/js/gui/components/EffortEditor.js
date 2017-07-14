@@ -3,15 +3,6 @@ var EffortEditor = function(){
 	return {
 		view: function(vnode){
 			return m(".efforteditor",[
-				m(Toggle, {
-					value: viewModels.editMode.content().mode,
-					label: "schets",
-					onchange: function(){
-						var v = viewModels.editMode.content().mode;
-						if(v===0){v=-1;}else{v=0;}
-						viewModels.editMode.setContent("mode", v);
-					}
-				}),
 
 				m(".editor-subtitle", "Inspanning titel"),
 				m(TextArea, {
@@ -65,6 +56,21 @@ var EffortEditor = function(){
 						viewModels.editMode.setContent("enddate", v);
 					}
 				}),
+				
+				m(".editor-subtitle", "Status"), 
+				m("i.material-icons", {}, "info_outline"),
+
+				m(".status-content",[
+					m(Toggle, {
+						value: viewModels.editMode.content().mode,
+						label-sketch: "Schets", 
+						label-definitive: "Definitief",
+						onchange: function(v){
+							viewModels.editMode.setContent("mode", v);
+						}
+					}),
+
+				]),
 			]);
 		}
 	};
@@ -165,6 +171,7 @@ var TypeEditor = function(){
 					}, [
 						m(".editor-typeselect-type-name", t),
 						m("i", {class:"material-icons hide-icon"}, "info_outline"),
+						
 						m(".editor-typeselect-type-timespan", {
 							class: (vnode.attrs.type === count && count<2)? "state-visible": "",
 						},[

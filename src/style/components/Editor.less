@@ -52,11 +52,18 @@
 	padding-right: 20px;
 }
 
-.efforteditor .textarea + .editor-subtitle {
+.efforteditor .textarea + .editor-subtitle, .efforteditor .editor-typeselect + .editor-subtitle {
 	margin-top: @margin-bottom-editor-items;
 }
 
-.editor-typeselect-type {
+// header - title + icon 
+.editor-subtitle +.material-icons {
+	float: right;
+	cursor: pointer;
+	margin-top: -26px;
+}
+
+.editor-typeselect-type, .toggle {
 	padding: 10px;
 	border: @border-box solid @color-editable;
 	margin-bottom: 8px;
@@ -111,4 +118,29 @@
 .efforteditor .textarea + .opg-door {
 	margin-top: 16px;
 	margin-bottom: 16px;
+}
+
+// Sketch
+.status-content {
+
+}
+
+.efforteditor div.status-content:first-child {
+display: none;
+}
+
+.toggle {
+	font-weight: @semibold;
+	box-sizing: border-box;
+	width: 50%;
+	display: inline-block;
+}
+
+.toggle.state-off {
+	color: green;
+}
+
+.toggle.state-on {
+	background-color: @color-selected;
+	color: @color-white;
 }
