@@ -87,7 +87,6 @@ var PeopleListEditor = function(){
 			}
 		}
 		people.push(person);
-		//state = false;
 		vnode.attrs.onchange(people);
 	};
 

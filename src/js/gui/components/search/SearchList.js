@@ -1,13 +1,4 @@
 var SearchList = function(){
-	function highlight(string, value){
-		var splitpoint = string.toLowerCase().indexOf(value);
-
-		return [
-			m("span", string.slice(0, splitpoint)),
-			m("span.search-result-highlight", string.slice(splitpoint, splitpoint+value.length)),
-			m("span", string.slice(splitpoint+value.length, string.length)),
-		];
-	}
 
 	return {
 		view: function(vnode){
@@ -21,7 +12,7 @@ var SearchList = function(){
 							}
 						},[
 								m(".searchlist-result-program", c.program.name), // Programma
-								m(".searchlist-result-effort", highlight(c.name, vnode.attrs.value)) // Inspanningen
+								m(".searchlist-result-effort", StringHighlight(c.name, vnode.attrs.value)) // Inspanningen
 						]);
 					} else if(c.type==="task") {
 						return m(".searchlist-result", {
@@ -31,7 +22,7 @@ var SearchList = function(){
 							}
 						},[
 								m(".searchlist-result-program", c.program.name), // Programma
-								m(".searchlist-result-effort", highlight(c.name, vnode.attrs.value)) // Inspanningen
+								m(".searchlist-result-effort", StringHighlight(c.name, vnode.attrs.value)) // Inspanningen
 						]);
 					}
 				})

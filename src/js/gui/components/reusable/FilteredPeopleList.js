@@ -4,6 +4,9 @@ var FilteredPeopleList = function(){
 	function getFilterdContent(value){
 		return Models.Person.getPeople().filter(function(p){
 			return (p.name.toLowerCase().indexOf(value.toLowerCase())>-1);
+		}).map(function(p){
+			p.displayName = StringHighlight(p.name, value);
+			return p;
 		});
 	}
 
@@ -15,9 +18,12 @@ var FilteredPeopleList = function(){
 				return m(".personlist", filterlist.map(function(p){
 					return m(".personlist-person",{
 						onclick: function(){
-							vnode.attrs.onadd(p);
+							vnode.attrs.onadd({
+								name: p.name,
+								id: p.id
+							});
 						}
-					}, p.name);
+					}, p.displayName);
 				}));
 			} else {
 				//show new person list
