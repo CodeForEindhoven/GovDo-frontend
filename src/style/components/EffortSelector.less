@@ -3,8 +3,8 @@
 @import "templates/Buttons.less";
 
 // Inspanningen
-
-.effortselector-subheader{
+// Style as .state-selected in TaskSelector.less
+.effortselector-subheader {
 	font-weight: @semibold;
 }
 
@@ -13,18 +13,19 @@
 }
 
 .effortselector-description {
-	font-size: @main-text;
-	line-height: @line-height-main-text;
+//	font-size: @main-text;
+//	line-height: @line-height-main-text;
 	font-weight: @light;
 	padding-right: 13px;
 }
 
 
 .effortselector-peoplelist {
-	margin-bottom: 5px;
+//	margin-bottom: 5px;
+	font-weight: @light;
 }
 
 // Description div is visible also without text
 .effortselector-type + .effortselector-description, .effortselector-description + .effortselector-subheader {
-	margin-top: 35px;
+	margin-top: 25px;
 }

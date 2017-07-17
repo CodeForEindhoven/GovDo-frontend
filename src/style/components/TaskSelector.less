@@ -12,18 +12,31 @@
 	font-weight: @semibold;
 }
 
-.taskselector-title-name + .selector-hidden {
-	margin-top: 20px;
+.taskselector-title-name + .selector-hidden, .effortselector-title + .selector-hidden {
+	margin-top: 35px;
+}
+
+.taskselector-subheader {
+	font-weight: @semibold;
 }
 
 .taskselector-kpi {
 	font-weight: @light;
 }
 
-/* when title is selected the size increase */
+// OPGAVEN – INSPANNINGEN
+// When text is selected – .state-selected
 .state-selected .taskselector-title, .state-selected .effortselector-title {
 	font-size: @size-selected;
 	line-height: @line-height-size-selected;
+}
+
+// The rest of the text (.selector-hidden) 
+.state-selected .selector-hidden {
+	font-size: @size-selected-main-text;
+	line-height: @line-height-size-selected-main-text;
+	letter-spacing: 0.02em;
+	word-spacing: 0.04em;
 }
 
 /* description inspanningen-effort */

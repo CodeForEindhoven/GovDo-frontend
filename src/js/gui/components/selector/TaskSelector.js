@@ -55,6 +55,7 @@ var TaskSelector = function(){
 										m("span.taskselector-title-means", task.means),
 									]:[],
 									m(".selector-hidden",[
+										m(".taskselector-subheader", "Indicator"),
 										m("span.taskselector-kpi", task.kpi)
 									])
 
