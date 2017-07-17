@@ -33,6 +33,12 @@ var SearchBar = function(){
 					(function(){
 						if(opened){
 							return m(".searchbar-popup",[
+								m(".searchbar-close", {
+									onclick: function(){
+										opened = false;
+									}
+								}, m("i.material-icons", "close")),
+
 								((value.length > 0)?
 									m(".searchbar-popup-column", [
 										m(".searchbar-popup-header","Zoekresultaten"),
