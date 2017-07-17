@@ -36,12 +36,16 @@ var Editor = function(){
 									return m(ProgramEditor);
 								}
 							})(),
-							
+
 							m(".editor-buttons",[
-							
+
 							// Save button
-							m(".save-button", (viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),
-							
+							m(".save-button", {
+								onclick: function(){
+									viewModels.editMode.save();
+								}
+							},(viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),
+
 							//Delete item
 							m(".button-delete", {
 								onclick: function(){
