@@ -30,6 +30,16 @@
 	color: @color-editable;
 }
 
+.searchbar-popup-close {
+	position: absolute;
+	top: 6px;
+	right: 6px;
+}
+
+.searchbar-popup-close:hover {
+	cursor: pointer;
+}
+
 .overlay-fullscreen {
 	position: fixed;
 	width: 100%;
@@ -108,7 +118,7 @@
 // Second row
 .changeslist-change-date, .changeslist-change-type {
 	display: inline-block;
-	color: @color-unselected;
+	color: @color-grey;
 }
 
 .changeslist-change-date:after {
@@ -127,6 +137,10 @@
 	overflow-y: visible;
 }
 
+.searchbar-popup-column .personlist-team:last-child {
+	padding-bottom: 20px;
+}
+
 .searchbar-popup-column .personlist-teamname, .searchbar-popup-column .personlist-person {
 	color: @color-black;
 	margin-bottom: 0px;
@@ -136,10 +150,6 @@
 
 .searchbar-popup-column .personlist-person + .personlist-teamname {
 	margin-top: 20px;
-}
-
-div.personlist:last-child {
-	padding-bottom: 80px;
 }
 
 .searchbar-popup-column .personlist-person:hover, .searchlist-result:hover {
