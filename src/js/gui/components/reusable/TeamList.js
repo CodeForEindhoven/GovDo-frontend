@@ -22,8 +22,7 @@ var TeamList = function(){
 							p.name,
 							m("i.material-icons .person-list-add-button", "add"),
 						]);
-						
-					})
+					}).emptyState(m(".personlist-team-emptystate.state-empty", "–"))
 				]);
 			}));
 		}
