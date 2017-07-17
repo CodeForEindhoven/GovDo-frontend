@@ -4,3 +4,4 @@ node_modules
 *.bbprojectsettings
 *.bbprojectdata
 *.log
+*.log*
