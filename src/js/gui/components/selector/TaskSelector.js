@@ -27,7 +27,7 @@ var TaskSelector = function(){
 										viewModels.editMode.new("task");
 									}
 								}, "add"),
-								m("i.material-icons", {}, "import_export"),
+								//m("i.material-icons", {}, "import_export"),
 								m("i.material-icons", {}, "info_outline")
 							]),
 					]),

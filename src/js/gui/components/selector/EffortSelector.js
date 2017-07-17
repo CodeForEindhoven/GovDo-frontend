@@ -28,7 +28,7 @@ var EffortSelector = function(){
 										viewModels.editMode.new("effort");
 									}
 								}, "add"),
-								m("i.material-icons", {}, "import_export"),
+								//m("i.material-icons", {}, "import_export"),
 								m("i.material-icons", {}, "info_outline")
 							]),
 					]),
