@@ -52,6 +52,7 @@ viewModels.editMode = (function(){
 					id: -1,
 					name: "",
 					means: "",
+					kpi: "",
 					mode: -1,
 				});
 			}
@@ -117,18 +118,25 @@ viewModels.editMode = (function(){
 		},
 
 		delete: function(){
-			console.log("delete");
-			if (window.confirm("Weet u zeker dat u dit wilt verwijderen?") === true) {
-				if(type==="effort"){
-					console.log("effort");
-					if(content.id===-1){
-						viewModels.editMode.close();
-					} else {
+			if(type==="program"){
+				window.alert("Programma's kunnen op dit moment niet verwijderd worden");
+			}
+			
+			if (window.confirm("Weet u zeker dat u dit wilt verwijderen? U kunt deze actie niet ongedaan maken.") === true) {
+				if(content.id===-1){ // if it's a new item, just close the window
+					viewModels.editMode.close();
+				} else {
+					if(type==="effort"){
 						Models.Effort.deleteItem(content.id,function(){
+							viewModels.editMode.close();
+						});
+					} else if(type==="task"){
+						Models.Task.deleteItem(content.id,function(){
 							viewModels.editMode.close();
 						});
 					}
 				}
+
 			}
 		}
 	};

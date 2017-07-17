@@ -57,16 +57,16 @@ var EffortSelector = function(){
 							m(".selectorlist-item-content", [
 								m(".effortselector-title", effort.name),
 								m(".selector-hidden",[
-									m(".effortselector-type", viewModels.typeNames[effort.type]),
-									m(".effortselector-description", effort.description),
+									m(".effortselector-type", emptyState(viewModels.typeNames[effort.type], m(".effortselector-type-state.state-empty", "Nog geen type"))),
+									m(".effortselector-description", effort.description.emptyState(m(".effortselector-description-state.state-empty", "Nog geen bescrhijving"))),
 									m(".effortselector-subheader", "Mensen"),
 									m(".effortselector-peoplelist", effort.People.map(function(person){
 										return m(".effortselector-peoplelist", person.name);
-									})),
+									}).emptyState(m(".effortselector-peoplelist-state.state-empty", "Nog geen mensen"))),
 								])
 							]),
 						]);
-					}))),
+					}).emptyState(m(".selectorlist-state.state-empty", "Nog geen inspanningen")))),
 				]);
 			} else {
 				return [];

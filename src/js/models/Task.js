@@ -31,8 +31,10 @@ Models.Task = (function(){
 		//}
 	}
 
-	function newItem(item, callback){
+	function newItem(i, callback){
+		var item = JSON.parse(JSON.stringify(i));
 		item.program = currentView;
+		delete item.id;
 		model.post("task", item, function(data){
 			loadContent();
 			callback(data.id);
@@ -49,9 +51,18 @@ Models.Task = (function(){
 		});
 	}
 
+	function deleteItem(id, callback) {
+		model.delete("task/"+id, {}, function(data){
+			loadContent();
+			callback(data);
+		});
+	}
+
 	return {
 		newItem: newItem,
 		updateItem: updateItem,
+		deleteItem: deleteItem,
+
 		loadContent: loadContent,
 		getContent: getContent,
 		getParent: getParent,

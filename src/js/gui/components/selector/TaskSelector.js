@@ -41,7 +41,6 @@ var TaskSelector = function(){
 							m(".selectorlist-item-number", [
 								m(".button-number", count+1),
 								m(".selectorlist-item-edit.button-edit-small",{
-									//class: (editable(task.id))?"":"state-hidden",
 									onclick: function(){
 										viewModels.editMode.set("task", task);
 									}
@@ -56,13 +55,12 @@ var TaskSelector = function(){
 									]:[],
 									m(".selector-hidden",[
 										m(".taskselector-subheader", "Indicator"),
-										m("span.taskselector-kpi", task.kpi)
+										m("span.taskselector-kpi", task.kpi.emptyState(m(".effortselector-description-state.state-empty", "Nog geen indicator")))
 									])
-
 								]),
 							]),
 						]);
-					}))),
+					}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven")))),
 				]);
 			} else {
 				return [];
