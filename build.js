@@ -9,6 +9,7 @@ compressor.minify({
 		'./src/js/config.js',
 
 		"./src/js/polyfills/leftpad.js",
+		"./src/js/polyfills/emptyState.js",
 
 		"./src/js/models/Models.js",
 		"./src/js/models/Program.js",
