@@ -4,22 +4,25 @@ var TeamList = function(){
 
 	return {
 		view: function(vnode){
-			return m(".PersonList", Models.Person.getTeams().map(function(t){
-				return m(".team",{
+			return m(".personlist", Models.Person.getTeams().map(function(t){
+				return m(".personlist-team",{
 					oncreate: function(vnode){
 						if(t.id === viewModels.Hierarchy.getProgram()){
 							vnode.dom.scrollIntoView(true);
 						}
 					}
 				},[
-					m(".name", t.name),
+					m(".personlist-teamname", t.name),
 					t.People.map(function(p){
-						return m(".person",{
+						return m(".personlist-person",{
 							onclick: function(){
 								vnode.attrs.onadd(p);
 							}
-						}, p.name);
-					})
+						}, [
+							p.name,
+							m("i.material-icons .person-list-add-button", "add"),
+						]);
+					}).emptyState(m(".personlist-team-emptystate.state-empty", ""))
 				]);
 			}));
 		}

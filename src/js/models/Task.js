@@ -1,12 +1,16 @@
 Models.Task = (function(){
 	var currentView = -1;
 	var content = [];
-	var name = "";
+	var parent = {};
 
 	function loadContent(){
 		model.get("program/"+currentView, {}, function(data){
+			parent = {
+				name: data.name,
+				mission: data.mission,
+				id: data.id
+			};
 			content = data.Tasks;
-			name = data.name;
 		});
 	}
 
@@ -14,46 +18,54 @@ Models.Task = (function(){
 		return content;
 	}
 
-	function getName(){
-		return name;
+	function getParent(){
+		return parent;
 	}
 
 	function updateContent(program){
-		if(program!==currentView){
+		//if(program!==currentView){
 			currentView = program;
 			if(program>0){
 				loadContent();
 			}
-		}
+		//}
 	}
 
-	function newItem(name, means, callback){
-		model.post("task", {
-			program: currentView,
-			name: name,
-			means: means
-		}, function(data){
+	function newItem(i, callback){
+		var item = JSON.parse(JSON.stringify(i));
+		item.program = currentView;
+		delete item.id;
+		model.post("task", item, function(data){
 			loadContent();
 			callback(data.id);
 		});
 	}
 
-	function updateItem(id, name, means, callback){
-		model.post("task/"+id, {
-			name: name,
-			means: means
-		}, function(data){
+	function updateItem(i, callback){
+		var item = JSON.parse(JSON.stringify(i));
+		var id = item.id;
+		delete item.id;
+		model.post("task/"+id, item, function(data){
 			loadContent();
 			callback(data.id);
+		});
+	}
+
+	function deleteItem(id, callback) {
+		model.delete("task/"+id, {}, function(data){
+			loadContent();
+			callback(data);
 		});
 	}
 
 	return {
 		newItem: newItem,
 		updateItem: updateItem,
+		deleteItem: deleteItem,
+
 		loadContent: loadContent,
 		getContent: getContent,
-		getName: getName,
+		getParent: getParent,
 		updateContent:updateContent
 	};
 })();

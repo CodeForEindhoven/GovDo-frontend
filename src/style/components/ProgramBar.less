@@ -1,0 +1,93 @@
+@import "variables/colors.less";
+@import "variables/fonts.less";
+@import "templates/Buttons.less";
+@programbarWidth: 54px;
+
+.programbar {
+	background: @color-white;
+	width: @programbarWidth;
+	overflow-x: hidden;
+	white-space: nowrap;
+	transition: width 0.3s;
+	margin-left: 10px;
+}
+
+.programbar-program {
+	cursor: pointer;
+	margin-bottom: 10px;
+}
+
+.programbar-program-number {
+	display: inline-block;
+}
+
+.programbar-program-title {
+	font-size: @main-text;
+	line-height: @line-height-main-text;
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.programbar-program-mission {
+	margin-left: 40px;
+	display: block;
+	width: 200px;
+	white-space: normal;
+	max-height: 0;
+	overflow-y: hidden;
+	transition: max-height 0.4s;
+}
+
+.programbar-domain {
+	margin-top: ((@programbarWidth - @width-circle) / 2);
+	margin-left: ((@programbarWidth - @width-circle) / 2);
+}
+
+.programbar-domain + .programbar-domain {
+	margin-top: 30px;
+}
+
+:hover > .programbar-domain:last-child {
+	padding-bottom: (@width-circle / 2.5);
+}
+
+//hover
+.programbar:hover {
+	width: 265px;
+	z-index: 1000;
+	padding-right: 15px;
+	overflow-y: scroll;
+	height: 100%;
+}
+
+:hover > .programbar-program-title, .state-selected > .programbar-program-title{
+	color: @color-selected;
+}
+
+// Program bar Names
+.programbar-domain .programbar-domain-name {
+	opacity: 0;
+	height: 0;
+	font-size: @main-text;
+	line-height: @line-height-main-text;
+	font-weight: @semibold;
+	text-transform: @uppercase;
+	margin-left: (@width-circle + 10px);
+	transition: opacity 0.35s;
+	transition: height 0.35s;
+	padding-bottom: 30px;
+	transition: padding-bottom 0.3s;
+}
+
+.programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
+	padding-bottom: 0;
+}
+
+:hover > .programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
+	padding-bottom: 30px;
+	transition: padding-bottom 0.3s;
+}
+
+:hover > .programbar-domain .programbar-domain-name {
+	opacity: 1;
+}

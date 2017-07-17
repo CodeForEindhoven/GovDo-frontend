@@ -3,8 +3,9 @@ Models.Changes = (function(){
 
 	function loadContent(){
 		model.get("changes", {}, function(data){
-			content = data.map(function(change){
-
+			content = data.filter(function(change){
+				return (change.Tasks.length>0); //filter removed changes TODO: move to backend
+			}).map(function(change){
 				change.new = false;
 				if(change.updatedAt == change.createdAt){
 					change.new = true;

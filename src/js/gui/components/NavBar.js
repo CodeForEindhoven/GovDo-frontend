@@ -3,7 +3,9 @@ var NavBar = function(){
 	return {
 		view: function(vnode){
 			return m("nav",[
-				m(".name", "Planlab Sociaal Domein"),
+				m(".nav-dashbutton",[
+//					m(".nav-dashbutton-icon")
+				]),
 				m(SearchBar)
 			]);
 		}

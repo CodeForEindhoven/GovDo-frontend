@@ -1,0 +1,139 @@
+@import "variables/colors.less";
+@import "variables/fonts.less";
+@width-circle: 38px;
+
+.button-number {
+	background-color: @color-unselected;
+	width: @width-circle;
+	height: @width-circle;
+	line-height: @width-circle;
+	border-radius: 50%;
+	text-align: center;
+	font-size: (@main-text * 0.95);
+	font-weight: @semibold;
+}
+
+.button-number + .selectorlist-item-edit {
+	margin-top: 12px;
+	background-color: @color-background;
+	text-align: center;
+	font-size: @main-text;
+}
+
+.state-selectable:hover .button-number, .state-selected .button-number {
+	background-color: @color-selected;
+	color: @color-white;
+}
+
+.button {
+	display: inline-block;
+	cursor: pointer;
+	background-color: @color-button;
+	text-align: center;
+
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.button-edit {
+	.button();
+	background-color: @color-button-edit;
+}
+
+.editor-buttons .button-edit {
+	margin-right: 9px;
+}
+
+.button-delete {
+	.button();
+	float: right;
+	background-color: @color-background;
+	color: @color-red;
+	border: @border-box solid @color-red;
+}
+
+.button-delete:hover {
+	background-color: @color-red;
+	color: @color-white;
+}
+
+.save-button {
+	.button();
+	border: @border-box solid @color-selected;
+	font-weight: @semibold;
+	background-color: @color-selected;
+	color: @color-white;
+}
+
+.save-button:hover {
+	background-color: @color-background;
+	color: @color-selected;
+}
+
+
+.button-edit-small {
+	.button-edit();
+	width: @width-circle;
+	height: 20px;
+	line-height: 20px;
+	font-size: 0.6em;
+	
+	background-color: none
+}
+
+// All Icons
+// Icon container headers
+.icons-header {
+	float: right;
+	vertical-align: top;
+}
+
+.material-icons {
+	vertical-align: top;
+	font-size: @icon-size;
+	text-align: center;
+}
+
+// Program Mission
+.programdetails .material-icons {
+	margin-top: -24px;
+	cursor: pointer;
+}
+
+.programdetails .edit-button.state-hidden {
+	display: none;
+}
+
+.programdetails .material-icons.edit-button:hover {
+	color: @color-selected;
+}
+
+
+// Headers Icons
+.selector-header .material-icons {
+	cursor: pointer;
+	background-color: white;
+	border-radius: 25px;
+	padding: 2px;
+}
+
+.editor-header .material-icons {
+	cursor: pointer;
+	color: @color-selected;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+div.icons-header .material-icons + .material-icons {
+ 	margin-left: 10px;
+}
+
+.selector-header .material-icons + .material-icons, .editor-header .material-icons + .material-icons, .editor-header .save-button + .material-icons {
+ 	margin-left: 10px;
+}
+ 
+ // To hide info
+/*.hide-icon {
+ 	display: none;
+}*/

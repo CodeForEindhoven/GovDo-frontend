@@ -7,21 +7,18 @@ Models.Program = (function(){
 		});
 	}
 
-	function newItem(name, mission, callback){
-		model.post("program", {
-			name: name,
-			mission: mission,
-		}, function(data){
+	function newItem(item, callback){
+		model.post("program", item, function(data){
 			loadContent();
 			callback(data.id);
 		});
 	}
 
-	function updateItem(id, name, mission, callback){
-		model.post("program/"+id, {
-			name: name,
-			mission: mission,
-		}, function(data){
+	function updateItem(i, callback){
+		var item = JSON.parse(JSON.stringify(i));
+		var id = item.id;
+		delete item.id;
+		model.post("program/"+id, item, function(data){
 			loadContent();
 			callback(data.id);
 		});

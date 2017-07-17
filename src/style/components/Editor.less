@@ -1,0 +1,156 @@
+@import "variables/colors.less";
+@import "templates/Inputs.less";
+@margin-bottom-editor-items: 75px;
+@margin-status-button: 1%;
+
+.editor {
+	width: 100%;
+	height: 100%;
+	transition: margin-left 0.4s;
+	font-size: @main-text;
+}
+
+.editor-header {
+	margin-right: 28px;
+	padding-bottom: 20px;
+	span {
+		color: @color-selected;
+	}
+}
+
+.editor-subtitle-header {
+	margin-top: @margin-bottom-editor-items;
+}
+
+.editor-subtitle-header .material-icons {
+	cursor: pointer;
+}
+
+.editor-subtitle-header + .editor-peoplelist {
+	margin-top: (@margin-bottom-editor-items / 7);
+}
+
+.editor-content {
+	overflow-y: scroll;
+	height: calc(100% - 40px);
+	width: 90%;
+	margin-left: 10%;
+	//padding-bottom: 40px; Firefox doesn't recognise the padding-bottom + box-sizing
+	box-sizing: border-box;
+}
+
+.editor-buttons {
+	margin-top: 70px;
+	margin-bottom: 30px;
+	margin-right: 16px;
+	padding-bottom: 40px;
+}
+
+.editor.state-hidden {
+	margin-left: 100%;
+}
+
+.efforteditor {
+	padding-right: 20px;
+}
+
+.efforteditor .textarea + .editor-subtitle, .efforteditor .editor-typeselect + .editor-subtitle {
+	margin-top: @margin-bottom-editor-items;
+}
+
+// header - title + icon 
+.editor-subtitle +.material-icons {
+	float: right;
+	cursor: pointer;
+	margin-top: -26px;
+}
+
+.editor-typeselect-type, .toggle .status-labels {
+	padding: 10px;
+	border: @border-box solid @color-editable;
+	margin-bottom: 8px;
+	cursor: pointer;
+}
+
+.editor-typeselect-type:hover {
+	background-color: @color-editable;
+	color: @color-white;
+}
+
+.editor-typeselect-type.state-selected {
+	background-color: @color-selected;
+	color: @color-white;
+}
+
+// Typology
+// When typology is selected
+.editor-typeselect-type-timespan {
+	display: none;
+}
+
+.editor-typeselect-type-name {
+	font-weight: @semibold;
+}
+
+.editor-typeselect-type-timespan-subtitle {
+	margin-top: 6px;
+	margin-bottom: 3px;
+}
+
+.editor-typeselect-type-timespan.state-visible  {
+	display: block;
+}
+
+.editor-typeselect-type .material-icons {
+	float: right;
+	cursor: pointer;
+	margin-top: -19px;
+}
+
+.editor-subtitle {
+	font-weight: @semibold;
+	margin-bottom: 8px;
+}
+
+.opg-door {
+	text-align: center;
+	margin-bottom: 16px;
+}
+
+.efforteditor .textarea + .opg-door {
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+// Sketch
+.status-labels {
+	font-weight: @semibold;
+	box-sizing: border-box;
+	width: calc(50% - @margin-status-button);
+	display: inline-block;
+}
+
+.status-labels {
+	font-weight: @semibold;
+	box-sizing: border-box;
+	width: calc(50% - @margin-status-button);
+	display: inline-block;
+}
+
+.status-labels:hover {
+	background-color: @color-selected;
+	color: @color-white;
+}
+
+.toggle div.status-labels:first-child {
+	margin-right: @margin-status-button;
+}
+
+.toggle div.status-labels:last-child {
+	margin-left: @margin-status-button;
+}
+
+.toggle .state-on {
+	background-color: @color-selected;
+	color: @color-white;
+}

@@ -1,0 +1,26 @@
+@import "variables/colors.less";
+@import "variables/fonts.less";
+
+::selection { 
+	background-color: @selection; 
+}
+
+::-moz-selection { 
+	background-color: @selection; 
+}
+
+body {
+	font-family: @font-base;
+	font-size: @font-size;
+	font-variant-ligatures: common-ligatures;
+	background: @color-background;
+}
+
+input, textarea, select {
+	font-family: @font-base;
+	font-size: 0.9em;
+}
+
+div {
+	border-radius: 2px;
+}

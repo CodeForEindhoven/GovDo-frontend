@@ -1,0 +1,66 @@
+@import "variables/colors.less";
+@border-box: 1px;
+
+input, textarea, select, a { 
+	outline: none; 
+}
+
+input {
+	color: @color-selected;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: @color-selected;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: @color-selected;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: @color-selected;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: @color-selected;
+}
+
+.textarea {
+	background-color: @color-background;
+	border: @border-box solid @color-editable;
+	width: 100%;
+	box-sizing: border-box;
+	height: 200px;
+	resize: vertical;
+	border-radius: 2px;
+}
+
+.input {
+	background-color: @color-background;
+	border: @border-box solid @color-editable;
+	border-radius: 4px;
+	padding: 5px;
+}
+
+.editor-peoplelist-finder .input {
+	background-color: @color-background;
+	border: none;
+	border-bottom: 	@border-box solid grey;
+	padding: 5px;
+	border-radius: 0;
+	margin-left: 5px;
+	margin-bottom: 20px;
+}
+
+.datepicker-day, .datepicker-month {
+	width: 2em;
+	display: inline-block;
+}
+
+.datepicker-dash {
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.datepicker-year {
+	width: 4em;
+	display: inline-block;
+}
