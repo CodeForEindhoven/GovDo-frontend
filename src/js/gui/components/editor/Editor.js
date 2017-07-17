@@ -12,7 +12,7 @@ var Editor = function(){
 							viewModels.editMode.save();
 						}
 					}, [
-						m(".save-button", (viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),
+//						m(".save-button", (viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),
 						m("i.material-icons", "close"),
 					]),
 				]),
@@ -37,13 +37,17 @@ var Editor = function(){
 								}
 							})(),
 							
-							//Delete item
 							m(".editor-buttons",[
-								m(".button-delete", {
-									onclick: function(){
-										viewModels.editMode.delete();
-									}
-								},"Verwijder"),
+							
+							// Save button
+							m(".save-button", (viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),
+							
+							//Delete item
+							m(".button-delete", {
+								onclick: function(){
+									viewModels.editMode.delete();
+								}
+							},"Verwijder"),
 							]),
 						]);
 					}

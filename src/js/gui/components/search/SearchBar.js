@@ -33,7 +33,7 @@ var SearchBar = function(){
 					(function(){
 						if(opened){
 							return m(".searchbar-popup",[
-								m(".searchbar-close", {
+								m(".searchbar-popup-close", {
 									onclick: function(){
 										opened = false;
 									}
