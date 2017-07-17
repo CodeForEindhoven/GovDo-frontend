@@ -41,7 +41,7 @@ var EffortSelector = function(){
 						}
 					},m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
 						return m(".state-selectable.selectorlist-item", {
-							class: ((selected(effort.id))?"state-selected":"") +/*" "+((editing(effort.id))?"state-editing":"")+*/" "+(effort.mode?"mode-sketch":""),
+							class: ((selected(effort.id))?"state-selected":"") +" "+((editing(effort.id))?"state-editing":"")+" "+(effort.mode?"mode-sketch":""),
 							onclick: function(){
 								viewModels.Hierarchy.updateEffort(effort.id);
 							}
