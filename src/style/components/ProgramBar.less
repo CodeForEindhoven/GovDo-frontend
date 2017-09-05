@@ -3,32 +3,27 @@
 @import "templates/Buttons.less";
 @programbarWidth: 54px;
 
-.programbar {
-	background: @color-white;
-	width: @programbarWidth;
-	overflow-x: hidden;
-	white-space: nowrap;
-	transition: width 0.3s;
-	margin-left: 10px;
+.programnav {
+
 }
 
-.programbar-program {
+.programnav-program {
 	cursor: pointer;
 	margin-bottom: 10px;
 }
 
-.programbar-program-number {
+.programnav-program-number {
 	display: inline-block;
 }
 
-.programbar-program-title {
-	font-size: @main-text;
-	line-height: @line-height-main-text;
+.programnav-program-title {
+	font-size: @size-selected;
+	font-weight: @semibold;
 	margin-left: 10px;
 	display: inline-block;
 }
 
-.programbar-program-mission {
+.programnav-program-mission {
 	margin-left: 40px;
 	display: block;
 	width: 200px;
@@ -38,7 +33,7 @@
 	transition: max-height 0.4s;
 }
 
-.programbar-domain {
+.programnav-domain {
 	margin-top: ((@programbarWidth - @width-circle) / 2);
 	margin-left: ((@programbarWidth - @width-circle) / 2);
 }
