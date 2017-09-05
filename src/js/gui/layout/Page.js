@@ -5,14 +5,10 @@ var Page = function(){
 				m(".layout-nav-top", m(NavBar)),
 				m(".layout-workspace", [
 					m(".layout-column .layout-nav-left", m(ProgramBar)),
-					m(".layout-column", [
-						m(".layout-vertical", [
-							m(".layout-vertical-row", m(ProgramDetails)),
-							m(".layout-vertical-bottom", m(TaskSelector))
-						]),
-					]),
-					m(".layout-column .layout-vertical-offset", m(EffortSelector)),
-					m(".layout-column .layout-vertical-offset", m(Editor))
+					m(".layout-column",  m(TaskSelector)),
+							//m(".layout-vertical-row", m(ProgramDetails)),
+					m(".layout-column", m(EffortSelector)),
+					m(".layout-column", m(Editor))
 				]),
 				//m(Viewer),
 			];

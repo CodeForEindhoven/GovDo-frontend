@@ -1,8 +1,8 @@
 viewModels.typeNames = [
 	"Project",
-	"Programma",
+	//"Programma",
 	"Routine",
-	"Proces",
-	"Improvisatie",
-	"Klusje"
+	//"Proces",
+	//"Improvisatie",
+	//"Klusje"
 ];

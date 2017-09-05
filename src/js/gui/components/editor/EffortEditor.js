@@ -63,7 +63,7 @@ var EffortEditor = function(){
 				m(".status-content",[
 					m(Toggle, {
 						value: viewModels.editMode.content().mode,
-						label_sketch: "Schets",
+						label_sketch: "Voorstel",
 						label_definitive: "Definitief",
 						onchange: function(v){
 							viewModels.editMode.setContent("mode", v);
