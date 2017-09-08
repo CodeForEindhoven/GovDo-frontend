@@ -8,6 +8,7 @@
 	height: 100%;
 	transition: margin-left 0.4s;
 	font-size: @main-text;
+	background-color: @color-background;
 }
 
 .editor-header {
@@ -33,8 +34,7 @@
 .editor-content {
 	overflow-y: scroll;
 	height: calc(100% - 40px);
-	width: 90%;
-	margin-left: 10%;
+	width: 100%;
 	//padding-bottom: 40px; Firefox doesn't recognise the padding-bottom + box-sizing
 	box-sizing: border-box;
 }
@@ -58,7 +58,7 @@
 	margin-top: @margin-bottom-editor-items;
 }
 
-// header - title + icon 
+// header - title + icon
 .editor-subtitle +.material-icons {
 	float: right;
 	cursor: pointer;

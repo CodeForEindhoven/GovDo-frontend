@@ -4,7 +4,22 @@
 @programbarWidth: 54px;
 
 .programnav {
+	position: relative;
+}
 
+.programnav-topbar {
+	cursor: pointer;
+}
+
+.programnav-popup {
+	position: absolute;
+	left: -8px;
+	width: 25%;
+	height: calc(100vh - 80px);
+	z-index: 9999999;
+	padding-top: 30px;
+	background-color:  @color-background;
+	overflow-y: scroll;
 }
 
 .programnav-program {
@@ -16,9 +31,14 @@
 	display: inline-block;
 }
 
-.programnav-program-title {
+.programnav-program-title-top {
 	font-size: @size-selected;
 	font-weight: @semibold;
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.programnav-program-title {
 	margin-left: 10px;
 	display: inline-block;
 }
@@ -38,51 +58,47 @@
 	margin-left: ((@programbarWidth - @width-circle) / 2);
 }
 
-.programbar-domain + .programbar-domain {
+.programnav-domain + .programnav-domain {
 	margin-top: 30px;
 }
 
-:hover > .programbar-domain:last-child {
-	padding-bottom: (@width-circle / 2.5);
-}
+//:hover > .programbar-domain:last-child {
+//	padding-bottom: (@width-circle / 2.5);
+//}
 
 //hover
-.programbar:hover {
-	width: 265px;
-	z-index: 1000;
-	padding-right: 15px;
-	overflow-y: scroll;
-	height: 100%;
-}
+//.programbar:hover {
+//	width: 265px;
+//	z-index: 1000;
+//	padding-right: 15px;
+//	overflow-y: scroll;
+//	height: 100%;
+//}
 
-:hover > .programbar-program-title, .state-selected > .programbar-program-title{
-	color: @color-selected;
-}
+//:hover > .programbar-program-title, .state-selected > .programbar-program-title{
+//	color: @color-selected;
+//}
 
 // Program bar Names
-.programbar-domain .programbar-domain-name {
-	opacity: 0;
+.programnav-domain .programnav-domain-name {
 	height: 0;
 	font-size: @main-text;
 	line-height: @line-height-main-text;
 	font-weight: @semibold;
 	text-transform: @uppercase;
 	margin-left: (@width-circle + 10px);
-	transition: opacity 0.35s;
-	transition: height 0.35s;
 	padding-bottom: 30px;
-	transition: padding-bottom 0.3s;
 }
 
-.programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
-	padding-bottom: 0;
-}
+//.programnav div.programnav-domain:first-child > div.programnav-domain-name:first-child {
+//	padding-bottom: 0;
+//}
 
-:hover > .programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
-	padding-bottom: 30px;
-	transition: padding-bottom 0.3s;
-}
-
-:hover > .programbar-domain .programbar-domain-name {
-	opacity: 1;
-}
+//:hover > .programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
+//	padding-bottom: 30px;
+//	transition: padding-bottom 0.3s;
+//}
+//
+//:hover > .programbar-domain .programbar-domain-name {
+//	opacity: 1;
+//}
