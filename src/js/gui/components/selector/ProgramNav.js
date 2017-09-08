@@ -40,6 +40,7 @@ var ProgramNav = function(){
 				},[
 					m(".programnav-program-number.button-number", p.count),
 					m(".programnav-program-title-top", p.name),
+					m("i.material-icons.programnav-dropdown", state ? "arrow_drop_up" : "arrow_drop_down"),
 				]),
 				state ? m(".programnav-popup", {},[
 					Models.Program.getContent().map(function(domain){
