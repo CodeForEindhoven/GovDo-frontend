@@ -60,6 +60,8 @@ var EffortSelector = function(){
 									m(".effortselector-type", emptyState(viewModels.typeNames[effort.type], m(".effortselector-type-state.state-empty", "Nog geen type"))),
 									m(".effortselector-subheader", "Beoogd Effect"),
 									m(".effortselector-description", effort.description.emptyState(m(".effortselector-description-state.state-empty", "Nog geen beoogd effect"))),
+									m(".effortselector-subheader", "Eindproduct"),
+									m(".effortselector-description", effort.endproduct.emptyState(m(".effortselector-description-state.state-empty", "Nog geen eindproduct"))),
 									m(".effortselector-subheader", "Mensen"),
 									m(".effortselector-peoplelist", effort.People.map(function(person){
 										return m(".effortselector-peoplelist", person.name);

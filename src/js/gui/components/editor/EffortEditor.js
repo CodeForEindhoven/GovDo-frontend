@@ -12,11 +12,19 @@ var EffortEditor = function(){
 					}
 				}),
 
-				m(".editor-subtitle", "Inspanning beschrijving"),
+				m(".editor-subtitle", "Beoogd Effect"),
 				m(TextArea, {
 					value: viewModels.editMode.content().description,
 					onchange: function(v){
 						viewModels.editMode.setContent("description", v);
+					}
+				}),
+
+				m(".editor-subtitle", "Eindproduct"),
+				m(TextArea, {
+					value: viewModels.editMode.content().endproduct,
+					onchange: function(v){
+						viewModels.editMode.setContent("endproduct", v);
 					}
 				}),
 
