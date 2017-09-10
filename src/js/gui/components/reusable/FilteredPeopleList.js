@@ -23,7 +23,10 @@ var FilteredPeopleList = function(){
 								id: p.id
 							});
 						}
-					}, p.displayName);
+					}, [
+						p.displayName,
+						m("i.material-icons .person-list-add-button", "add"),
+					]);
 				}));
 			} else {
 				//show new person list

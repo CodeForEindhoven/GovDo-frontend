@@ -17,6 +17,7 @@ compressor.minify({
 		"./src/js/models/Person.js",
 		"./src/js/models/Changes.js",
 		"./src/js/models/Search.js",
+		"./src/js/models/Overview.js",
 
 		"./src/js/viewmodels/viewModels.js",
 		"./src/js/viewmodels/Hierarchy.js",

@@ -1,5 +1,6 @@
 var EffortEditor = function(){
 	var state = false;
+	var state2 = false;
 	return {
 		view: function(vnode){
 			return m(".efforteditor",[
@@ -9,6 +10,22 @@ var EffortEditor = function(){
 					value: viewModels.editMode.content().name,
 					onchange: function(v){
 						viewModels.editMode.setContent("name", v);
+					}
+				}),
+
+				m(".editor-subtitle", "Type"),
+				m(TypeEditor, {
+					type: viewModels.editMode.content().type,
+					startdate: viewModels.editMode.content().startdate,
+					enddate: viewModels.editMode.content().enddate,
+					onchange: function(v){
+						viewModels.editMode.setContent("type", v);
+					},
+					onchangeStartDate: function(v){
+						viewModels.editMode.setContent("startdate", v);
+					},
+					onchangeEndDate: function(v){
+						viewModels.editMode.setContent("enddate", v);
 					}
 				}),
 
@@ -49,19 +66,21 @@ var EffortEditor = function(){
 					state: state
 				}),
 
-				m(".editor-subtitle", "Type"),
-				m(TypeEditor, {
-					type: viewModels.editMode.content().type,
-					startdate: viewModels.editMode.content().startdate,
-					enddate: viewModels.editMode.content().enddate,
-					onchange: function(v){
-						viewModels.editMode.setContent("type", v);
-					},
-					onchangeStartDate: function(v){
-						viewModels.editMode.setContent("startdate", v);
-					},
-					onchangeEndDate: function(v){
-						viewModels.editMode.setContent("enddate", v);
+				m(".editor-subtitle-header",[
+					m("span.editor-subtitle", "Gerelateerde Opgaven"),
+					m(".icons-header", [
+						m("i.material-icons", {
+							onclick: function(e){
+								state2 = true;
+							}
+						},"add")
+					]),
+				]),
+				m(ConnectionEditor, {
+					id: viewModels.editMode.content().id,
+					state: state2,
+					onchange: function(){
+						state2 = false;
 					}
 				}),
 
@@ -78,6 +97,8 @@ var EffortEditor = function(){
 						}
 					}),
 				]),
+
+
 			]);
 		}
 	};
@@ -193,6 +214,72 @@ var TypeEditor = function(){
 					]);
 				})
 			]);
+		}
+	};
+};
+
+var ConnectionEditor = function(){
+	Models.Overview.loadContent();
+	var selected = 0;
+	var selected1 = 0;
+	var selected2 = -1;
+	return {
+		view: function(vnode){
+			count = -1;
+			return [
+				vnode.attrs.state ? m(".editor-connectionlist", [
+					m(".editor-connectionlist-list", [
+						Models.Overview.getContent().map(function(domain, domaincount){
+							return domain.Programs.map(function(program, programcount){
+								count++;
+								return m(".editor-connectionlist-item",{
+									class: (selected1 === programcount && selected == domaincount)?"state-selected":"",
+									onclick: (function(d,c){
+										return function(){
+											selected = d;
+											selected1 = c;
+											selected2 = -1;
+										};
+									})(domaincount, programcount)
+								},[
+									m(".button-number.editor-connectionlist-item-number",count+1),
+									m(".editor-connectionlist-item-name",program.name)
+								]);
+							});
+
+						})
+					]),
+					m(".editor-connectionlist-list", [
+						Models.Overview.getContent()[selected] ? Models.Overview.getContent()[selected].Programs[selected1].Tasks.map(function(elem, count){
+							return m(".editor-connectionlist-item",{
+								class: (selected2 === count)?"state-selected":"",
+								onclick: function(){
+									selected2 = count;
+									Models.Overview.setParent(elem.id, vnode.attrs.id, function(){
+										vnode.attrs.onchange();
+										m.redraw();
+
+									});
+								}
+							},[
+								m(".button-number.editor-connectionlist-item-number",count+1),
+								m(".editor-connectionlist-item-name",elem.name),
+								m("i.material-icons .connectionlist-addbutton", "add"),
+							]);
+						}) : []
+					])
+				]) : [],
+
+				m(".editor-connections-parents", [
+					Models.Overview.getParents(vnode.attrs.id).map(function(parent){
+						return m(".editor-connections-parent.state-selected",[
+							m(".button-number.editor-connections-parent-number", parent.program.count),
+							m(".button-number.editor-connections-parent-number", parent.task.count),
+							m(".editor-connections-parent-name", parent.program.name+" - "+parent.task.name)
+						]);
+					})
+				])
+			];
 		}
 	};
 };
