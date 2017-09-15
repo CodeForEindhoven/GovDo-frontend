@@ -19,10 +19,6 @@
 	}
 }
 
-.editor-subtitle-header {
-	margin-top: @margin-bottom-editor-items;
-}
-
 .editor-subtitle-header .material-icons {
 	cursor: pointer;
 }
@@ -109,7 +105,31 @@
 
 .editor-subtitle {
 	font-weight: @semibold;
+	color: @color-selected;
 	margin-bottom: 8px;
+}
+
+.editor-section-title {
+	font-weight: @semibold;
+	font-size: 20px;
+	margin-bottom: 8px;
+}
+
+.editor-section {
+	border-right: 3px @color-selected solid;
+	padding-right: 40px;
+	padding-bottom: 60px;
+	position: relative;
+}
+
+.editor-section::before {
+    content: "";
+    width: 19px;
+    height: 19px;
+    background-color: @color-selected;
+    position: absolute;
+    right: -11px;
+    border-radius: 10px;
 }
 
 .opg-door {

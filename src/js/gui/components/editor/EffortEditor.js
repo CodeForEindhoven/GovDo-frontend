@@ -5,98 +5,115 @@ var EffortEditor = function(){
 		view: function(vnode){
 			return m(".efforteditor",[
 
-				m(".editor-subtitle", "Inspanning titel"),
-				m(TextArea, {
-					value: viewModels.editMode.content().name,
-					onchange: function(v){
-						viewModels.editMode.setContent("name", v);
-					}
-				}),
+				m(".editor-section",[
+					m(".editor-section-title", "Beschrijving"),
 
-				m(".editor-subtitle", "Type"),
-				m(TypeEditor, {
-					type: viewModels.editMode.content().type,
-					startdate: viewModels.editMode.content().startdate,
-					enddate: viewModels.editMode.content().enddate,
-					onchange: function(v){
-						viewModels.editMode.setContent("type", v);
-					},
-					onchangeStartDate: function(v){
-						viewModels.editMode.setContent("startdate", v);
-					},
-					onchangeEndDate: function(v){
-						viewModels.editMode.setContent("enddate", v);
-					}
-				}),
-
-				m(".editor-subtitle", "Beoogd Effect"),
-				m(TextArea, {
-					value: viewModels.editMode.content().description,
-					onchange: function(v){
-						viewModels.editMode.setContent("description", v);
-					}
-				}),
-
-				m(".editor-subtitle", "Eindproduct"),
-				m(TextArea, {
-					value: viewModels.editMode.content().endproduct,
-					onchange: function(v){
-						viewModels.editMode.setContent("endproduct", v);
-					}
-				}),
-
-
-				m(".editor-subtitle-header",[
-					m("span.editor-subtitle", "Mensen"),
-					m(".icons-header", [
-						m("i.material-icons", {
-							onclick: function(e){
-								state = !state;
-							}
-						},"add")
-					]),
-				]),
-
-				m(PeopleListEditor, {
-					value: viewModels.editMode.content().People,
-					onchange: function(v){
-						viewModels.editMode.setContent("People", v);
-						state = false;
-					},
-					state: state
-				}),
-
-				m(".editor-subtitle-header",[
-					m("span.editor-subtitle", "Gerelateerde Opgaven"),
-					m(".icons-header", [
-						m("i.material-icons", {
-							onclick: function(e){
-								state2 = !state2;
-							}
-						},"add")
-					]),
-				]),
-				m(ConnectionEditor, {
-					id: viewModels.editMode.content().id,
-					state: state2,
-					onchange: function(){
-						state2 = false;
-					}
-				}),
-
-				m(".editor-subtitle-header",[
-					m("span.editor-subtitle", "Status"),
-				]),
-
-				m(".status-content",[
-					m(Toggle, {
-						value: viewModels.editMode.content().mode,
-						label_sketch: "Voorstel",
-						label_definitive: "Definitief",
+					m(".editor-subtitle", "Inspanning titel"),
+					m(TextArea, {
+						value: viewModels.editMode.content().name,
 						onchange: function(v){
-							viewModels.editMode.setContent("mode", v);
+							viewModels.editMode.setContent("name", v);
 						}
 					}),
+
+					m(".editor-subtitle", "Type"),
+					m(TypeEditor, {
+						type: viewModels.editMode.content().type,
+						startdate: viewModels.editMode.content().startdate,
+						enddate: viewModels.editMode.content().enddate,
+						onchange: function(v){
+							viewModels.editMode.setContent("type", v);
+						},
+						onchangeStartDate: function(v){
+							viewModels.editMode.setContent("startdate", v);
+						},
+						onchangeEndDate: function(v){
+							viewModels.editMode.setContent("enddate", v);
+						}
+					}),
+
+					m(".editor-subtitle", "Beoogd Effect"),
+					m(TextArea, {
+						value: viewModels.editMode.content().description,
+						onchange: function(v){
+							viewModels.editMode.setContent("description", v);
+						}
+					}),
+
+					m(".editor-subtitle", "Eindproduct"),
+					m(TextArea, {
+						value: viewModels.editMode.content().endproduct,
+						onchange: function(v){
+							viewModels.editMode.setContent("endproduct", v);
+						}
+					}),
+				]),
+
+				m(".editor-section",[
+					m(".editor-section-title", "Mensen"),
+
+					m(".editor-subtitle-header",[
+						m("span.editor-subtitle", "Team"),
+						m(".icons-header", [
+							m("i.material-icons", {
+								onclick: function(e){
+									state = !state;
+								}
+							},"add")
+						]),
+					]),
+
+					m(PeopleListEditor, {
+						value: viewModels.editMode.content().People,
+						onchange: function(v){
+							viewModels.editMode.setContent("People", v);
+							state = false;
+						},
+						state: state
+					}),
+				]),
+
+				m(".editor-section",[
+					m(".editor-section-title", "Planning"),
+					m(".editor-subtitle", "Periode"),
+
+				]),
+
+				m(".editor-section",[
+					m(".editor-section-title", "Positionering"),
+
+					m(".editor-subtitle-header",[
+						m("span.editor-subtitle", "Gerelateerde Opgaven"),
+						m(".icons-header", [
+							m("i.material-icons", {
+								onclick: function(e){
+									state2 = !state2;
+								}
+							},"add")
+						]),
+					]),
+					m(ConnectionEditor, {
+						id: viewModels.editMode.content().id,
+						state: state2,
+						onchange: function(){
+							state2 = false;
+						}
+					}),
+				]),
+
+				m(".editor-section",[
+					m(".editor-section-title", "Status"),
+
+					m(".status-content",[
+						m(Toggle, {
+							value: viewModels.editMode.content().mode,
+							label_sketch: "Voorstel",
+							label_definitive: "Goedgegeurd",
+							onchange: function(v){
+								viewModels.editMode.setContent("mode", v);
+							}
+						}),
+					]),
 				]),
 
 
