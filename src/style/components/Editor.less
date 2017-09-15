@@ -142,6 +142,48 @@
 	margin-bottom: 16px;
 }
 
+.dropdown {
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+}
+
+//Date planning
+.dropdown-value {
+	margin: 5px;
+	color: @color-selected;
+	padding-bottom: 1px;
+	padding-left: 3px;
+	padding-right: 3px;
+	border-bottom: 2px solid blue;
+}
+
+.dropdown-value.novalue {
+	color: @color-;
+}
+
+.dropdown-options {
+	border: 2px solid blue;
+	background-color: @color-background;
+	display: inline-block;
+	position: absolute;
+	left: 3px;
+	top: 20px;
+	z-index: 99999999;
+	height: 200px;
+    overflow-y: scroll;
+}
+
+.dropdown-option {
+	padding: 3px;
+	border-radius: 0px
+}
+
+.dropdown-option:hover {
+	background-color: @color-selected;
+	color: @color-white;
+}
+
 // Sketch
 .status-labels {
 	font-weight: @semibold;

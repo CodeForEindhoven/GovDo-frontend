@@ -73,9 +73,55 @@ var EffortEditor = function(){
 					}),
 				]),
 
+
+				//Planning
 				m(".editor-section",[
 					m(".editor-section-title", "Planning"),
 					m(".editor-subtitle", "Periode"),
+
+
+					m("editor-selection-date",[
+						m("span", "van"),
+						m(DropdownMenu,{
+							value: viewModels.editMode.content().start_month,
+							options: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"],
+							novalue: "maand",
+							onchange: function(v){
+								viewModels.editMode.setContent("start_month", v);
+							}
+						}),
+						m("span.editor-selection-date-dash","-"),
+						m(DropdownMenu,{
+							value: viewModels.editMode.content().start_year,
+							options: ["2017", "2018", "2019", "2020", "2021", "2022"],
+							novalue: "jaar",
+							onchange: function(v){
+								viewModels.editMode.setContent("start_year", v);
+							}
+						}),
+					]),
+
+					m("editor-selection-date",[
+						m("span", "t/m"),
+						m(DropdownMenu,{
+							value: viewModels.editMode.content().end_month,
+							options: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "October", "November", "December"],
+							novalue: "maand",
+							onchange: function(v){
+								viewModels.editMode.setContent("end_month", v);
+							}
+						}),
+						m("span.editor-selection-date-dash","-"),
+						m(DropdownMenu,{
+							value: viewModels.editMode.content().end_year,
+							options: ["2017", "2018", "2019", "2020", "2021", "2022"],
+							novalue: "jaar",
+							onchange: function(v){
+								viewModels.editMode.setContent("end_year", v);
+							}
+						}),
+					]),
+
 
 				]),
 
@@ -231,6 +277,32 @@ var TypeEditor = function(){
 						]),
 					]);
 				})
+			]);
+		}
+	};
+};
+
+var DropdownMenu = function(){
+	var state = false;
+	return {
+		view: function(vnode){
+			return m(".dropdown", [
+				m("span.dropdown-value", {
+					class: vnode.attrs.value ? "" : "novalue"
+					onclick: function(){
+						state = !state;
+					}
+				}, vnode.attrs.value ? vnode.attrs.value : vnode.attrs.novalue),
+				state ? m("div.dropdown-options",[
+					vnode.attrs.options.map(function(option){
+						return m(".dropdown-option", {
+							onclick: function(){
+								state = false;
+								vnode.attrs.onchange(option);
+							}
+						}, option);
+					})
+				]) : []
 			]);
 		}
 	};
