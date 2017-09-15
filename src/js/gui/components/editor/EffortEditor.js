@@ -51,7 +51,7 @@ var EffortEditor = function(){
 					m(".icons-header", [
 						m("i.material-icons", {
 							onclick: function(e){
-								state = true;
+								state = !state;
 							}
 						},"add")
 					]),
@@ -71,7 +71,7 @@ var EffortEditor = function(){
 					m(".icons-header", [
 						m("i.material-icons", {
 							onclick: function(e){
-								state2 = true;
+								state2 = !state2;
 							}
 						},"add")
 					]),
@@ -84,8 +84,9 @@ var EffortEditor = function(){
 					}
 				}),
 
-				m(".editor-subtitle", "Status"),
-				m("i.material-icons", {}, "info_outline"),
+				m(".editor-subtitle-header",[
+					m("span.editor-subtitle", "Status"),
+				]),
 
 				m(".status-content",[
 					m(Toggle, {
@@ -144,15 +145,6 @@ var PeopleListEditor = function(){
 	return {
 		view: function(vnode){
 			return m(".editor-peoplelist", [
-				vnode.attrs.value.map(function(person){
-					return m(".editor-peoplelist-person", [
-						m("span", person.name),
-						m("span.editor-peoplelist-person-remove", {
-							onclick: function(){onremove(person, vnode);}
-						}, m("i", {class:"material-icons"}, "close")),
-					]);
-				}),
-
 				m(".editor-peoplelist-finder", {
 					class: vnode.attrs.state ? "":"state-hidden"
 				},[
@@ -173,7 +165,16 @@ var PeopleListEditor = function(){
 						m(TeamList, {
 							onadd: function(p){onadd(p, vnode);}
 						})
-				])
+				]),
+
+				vnode.attrs.value.map(function(person){
+					return m(".editor-peoplelist-person", [
+						m("span", person.name),
+						m("span.editor-peoplelist-person-remove", {
+							onclick: function(){onremove(person, vnode);}
+						}, m("i", {class:"material-icons"}, "close")),
+					]);
+				}),
 			]);
 		}
 	};
@@ -275,7 +276,15 @@ var ConnectionEditor = function(){
 						return m(".editor-connections-parent.state-selected",[
 							m(".button-number.editor-connections-parent-number", parent.program.count),
 							m(".button-number.editor-connections-parent-number", parent.task.count),
-							m(".editor-connections-parent-name", parent.program.name+" - "+parent.task.name)
+							m(".editor-connections-parent-name", parent.program.name+" - "+parent.task.name),
+							(Models.Overview.getParents(vnode.attrs.id).length > 1) ? m("span..editor-connections-parent-remove", {
+								onclick: function(){
+									Models.Overview.removeParent(parent.task.id, vnode.attrs.id, function(){
+										vnode.attrs.onchange();
+										m.redraw();
+									});
+								}
+							}, m("i", {class:"material-icons"}, "close")) : [],
 						]);
 					})
 				])

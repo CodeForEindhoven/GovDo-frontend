@@ -50,10 +50,20 @@ Models.Overview = (function(){
 		});
 	}
 
+	function removeParent(parent, effort, callback) {
+		console.log(parent);
+		model.delete("task/"+parent+"/effort", {
+			effort: effort
+		}, function(data){
+			loadContent(callback);
+		});
+	}
+
 	return {
 		loadContent: loadContent,
 		getContent: getContent,
 		getParents: getParents,
-		setParent: setParent
+		setParent: setParent,
+		removeParent: removeParent
 	};
 })();
