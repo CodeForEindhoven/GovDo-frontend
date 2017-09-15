@@ -32,8 +32,8 @@ var ProgramNav = function(){
 			var p = currentProgram();
 			var count = 0;
 
-			return m(".programnav.state-selected", {},[
-				m(".programnav-topbar",{
+			return m(".programnav", {},[
+				m(".programnav-topbar.state-selected",{
 					onclick: function(){
 						state = !state;
 					}
