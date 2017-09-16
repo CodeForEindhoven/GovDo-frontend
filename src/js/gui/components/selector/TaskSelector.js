@@ -31,36 +31,38 @@ var TaskSelector = function(){
 								m("i.material-icons", {}, "info_outline")
 							]),
 					]),
-					m(".selectorlist", m(".selectorlist-back", Models.Task.getContent().map(function(task, count){
-						return m(".state-selectable.selectorlist-item", {
-							class: ((selected(task.id))?"state-selected":"") +" "+((editing(task.id))?"state-editing":"")+" "+(task.mode?"mode-sketch":""),
-							onclick: function(){
-								viewModels.Hierarchy.updateTask(task.id);
-							}
-						},[
-							m(".selectorlist-item-number", [
-								m(".button-number", count+1),
-								m(".selectorlist-item-edit.button-edit-small",{
-									onclick: function(){
-										viewModels.editMode.set("task", task);
-									}
-								}, m("i.material-icons","build"))
-							]),
-							m(".selectorlist-item-content", [
-								m(".taskselector-title", [
-									m("span.taskselector-title-name", task.name),
-									(task.means)?[
-										m("span.taskselector-title-means-label", " door "),
-										m("span.taskselector-title-means", task.means),
-									]:[],
-									m(".selector-hidden",[
-										m(".taskselector-subheader", "Indicator"),
-										m("span.taskselector-kpi", task.kpi.emptyState(m(".effortselector-description-state.state-empty", "Nog geen indicator")))
-									])
+					m(".selectorlist", m(".selectorlist-back", [
+						Models.Task.getContent().map(function(task, count){
+							return m(".state-selectable.selectorlist-item", {
+								class: ((selected(task.id))?"state-selected":"") +" "+((editing(task.id))?"state-editing":"")+" "+(task.mode?"mode-sketch":""),
+								onclick: function(){
+									viewModels.Hierarchy.updateTask(task.id);
+								}
+							},[
+								m(".selectorlist-item-number", [
+									m(".button-number", count+1),
+									m(".selectorlist-item-edit.button-edit-small",{
+										onclick: function(){
+											viewModels.editMode.set("task", task);
+										}
+									}, m("i.material-icons","build"))
 								]),
-							]),
-						]);
-					}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven")))),
+								m(".selectorlist-item-content", [
+									m(".taskselector-title", [
+										m("span.taskselector-title-name", task.name),
+										(task.means)?[
+											m("span.taskselector-title-means-label", " door "),
+											m("span.taskselector-title-means", task.means),
+										]:[],
+										m(".selector-hidden",[
+											m(".taskselector-subheader", "Indicator"),
+											m("span.taskselector-kpi", task.kpi.emptyState(m(".effortselector-description-state.state-empty", "Nog geen indicator")))
+										])
+									]),
+								]),
+							]);
+						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven"))
+					])),
 				]);
 			} else {
 				return [];
