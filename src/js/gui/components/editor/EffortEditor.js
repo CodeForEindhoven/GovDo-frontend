@@ -8,45 +8,57 @@ var EffortEditor = function(){
 				m(".editor-section",[
 					m(".editor-section-title", "Beschrijving"),
 
-					m(".editor-subtitle", "Inspanning titel"),
-					m(TextArea, {
-						value: viewModels.editMode.content().name,
-						onchange: function(v){
-							viewModels.editMode.setContent("name", v);
-						}
-					}),
+					m(".editor-row",[
+						m(".editor-column",[
+							m(".editor-subtitle", "Inspanning titel"),
+							m(TextArea, {
+								value: viewModels.editMode.content().name,
+								onchange: function(v){
+									viewModels.editMode.setContent("name", v);
+								}
+							}),
+						]),
 
-					m(".editor-subtitle", "Type"),
-					m(TypeEditor, {
-						type: viewModels.editMode.content().type,
-						startdate: viewModels.editMode.content().startdate,
-						enddate: viewModels.editMode.content().enddate,
-						onchange: function(v){
-							viewModels.editMode.setContent("type", v);
-						},
-						onchangeStartDate: function(v){
-							viewModels.editMode.setContent("startdate", v);
-						},
-						onchangeEndDate: function(v){
-							viewModels.editMode.setContent("enddate", v);
-						}
-					}),
+						m(".editor-column",[
+							m(".editor-subtitle", "Type"),
+							m(TypeEditor, {
+								type: viewModels.editMode.content().type,
+								startdate: viewModels.editMode.content().startdate,
+								enddate: viewModels.editMode.content().enddate,
+								onchange: function(v){
+									viewModels.editMode.setContent("type", v);
+								},
+								onchangeStartDate: function(v){
+									viewModels.editMode.setContent("startdate", v);
+								},
+								onchangeEndDate: function(v){
+									viewModels.editMode.setContent("enddate", v);
+								}
+							}),
+						]),
+					]),
 
-					m(".editor-subtitle", "Beoogd Effect"),
-					m(TextArea, {
-						value: viewModels.editMode.content().description,
-						onchange: function(v){
-							viewModels.editMode.setContent("description", v);
-						}
-					}),
+					m(".editor-row",[
+						m(".editor-column",[
+							m(".editor-subtitle", "Beoogd Effect"),
+							m(TextArea, {
+								value: viewModels.editMode.content().description,
+								onchange: function(v){
+									viewModels.editMode.setContent("description", v);
+								}
+							}),
+						]),
 
-					m(".editor-subtitle", "Eindproduct"),
-					m(TextArea, {
-						value: viewModels.editMode.content().endproduct,
-						onchange: function(v){
-							viewModels.editMode.setContent("endproduct", v);
-						}
-					}),
+						m(".editor-column",[
+							m(".editor-subtitle", "Eindproduct"),
+							m(TextArea, {
+								value: viewModels.editMode.content().endproduct,
+								onchange: function(v){
+									viewModels.editMode.setContent("endproduct", v);
+								}
+							}),
+						]),
+					]),
 				]),
 
 				m(".editor-section",[
@@ -288,7 +300,7 @@ var DropdownMenu = function(){
 		view: function(vnode){
 			return m(".dropdown", [
 				m("span.dropdown-value", {
-					class: vnode.attrs.value ? "" : "novalue"
+					class: vnode.attrs.value ? "" : "novalue",
 					onclick: function(){
 						state = !state;
 					}
