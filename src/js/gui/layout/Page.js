@@ -3,7 +3,7 @@ var Page = function(){
 		view: function(vnode){
 			return [
 				m(".layout-nav-top", [
-					m(".layout-nav-segment", m(ProgramNav)),
+					m(".layout-nav-segment", m(NavBar)),
 				]),
 
 				m(".layout-workspace", [
