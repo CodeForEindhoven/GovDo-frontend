@@ -1,4 +1,6 @@
 var viewModels = {};
 
 var viewModel = {};
-viewModel.currentProgram = {};
+viewModel.currentProgram = undefined;
+viewModel.currentTask = undefined;
+viewModel.currentEffort = undefined;

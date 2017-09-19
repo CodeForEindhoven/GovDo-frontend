@@ -83,6 +83,7 @@ var ptrn =  (function(){
 		});
 	}
 
+
 	//builds a list of atoms from relations
 	function selectRelations(id){
 		var results = relations.filter(function(relation){
@@ -105,11 +106,15 @@ var ptrn =  (function(){
 		if(n.node==="selector"){
 			var selection = select(n.type, n.value, subset);
 
-			return selection.map(function(atom){
-				if(callback){
+			//if a callback is provided perform a map
+			//otherwise just return the first element
+			if(callback){
+				return selection.map(function(atom){
 					return callback(produceAtom(atom));
-				}
-			});
+				});
+			} else {
+				return produceAtom(selection[0]);
+			}
 		}
 		//var p = parse(q);
 		//select(p.type, p.value);
@@ -259,6 +264,7 @@ model.get("overview", {}, function(data){
 		domain.Programs.map(function(program){
 			var p = ptrn.create("program", program.name);
 			ptrn.createrelate("mission", program.mission, p);
+			ptrn.createrelate("order", program.id, p);
 
 			ptrn.relate(d,p);
 			program.Tasks.map(function(task){
