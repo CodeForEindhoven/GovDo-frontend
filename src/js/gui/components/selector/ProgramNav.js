@@ -39,25 +39,26 @@ var ProgramNav = function(){
 					}
 				},[
 					m(".programnav-program-number.button-number", p.count),
-					m(".programnav-program-title-top", p.name),
+					//m(".programnav-program-title-top", viewModel.currentProgram.value()),
 					m("i.material-icons.programnav-dropdown", state ? "arrow_drop_up" : "arrow_drop_down"),
 				]),
 				state ? m(".programnav-popup", {},[
-					Models.Program.getContent().map(function(domain){
+					ptrn("domain", function(domain){
 						return m(".programnav-domain",[
-							m(".programnav-domain-name", domain.name),
-							domain.Programs.map(function(program){
+							m(".programnav-domain-name", domain.value()),
+							domain("program", function(program){
 								count++;
 								return m(".state-selectable.programnav-program", {
-									class: (selected(program.id))?"state-selected":"",
-									onclick: function(){
-										viewModels.Hierarchy.updateProgram(program.id);
-										state = false;
-									}
+							//		class: (selected(program.id()))?"state-selected":"",
+							//		onclick: function(){
+							//			//viewModels.Hierarchy.updateProgram(program.id());
+							//			viewModel.currentProgram = program;
+							//			state = false;
+							//		}
 								},[
 									m(".programnav-program-number.button-number", count),
-									m(".programnav-program-title", program.name),
-									//m(".programbar-program-mission", program.mission)
+									m(".programnav-program-title", program.value()),
+							//		//m(".programbar-program-mission", program.mission)
 								]);
 							})
 						]);
