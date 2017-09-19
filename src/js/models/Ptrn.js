@@ -271,6 +271,7 @@ model.get("overview", {}, function(data){
 				var t = ptrn.create("task", task.name);
 				ptrn.createrelate("means", task.means, t);
 				ptrn.createrelate("kpi", task.kpi, t);
+				ptrn.createrelate("order", task.id, t);
 
 				ptrn.relate(p,t);
 				task.Efforts.map(function(effort){
@@ -278,6 +279,7 @@ model.get("overview", {}, function(data){
 					ptrn.createrelate("description", effort.description, e);
 					ptrn.createrelate("endproduct", effort.endproduct, e);
 					ptrn.createrelate("type", effort.type, e);
+					ptrn.createrelate("order", effort.id, e);
 					ptrn.relate(t,e);
 
 					effort.People.map(function(person){

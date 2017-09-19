@@ -1,31 +1,9 @@
 var ProgramNav = function(){
-	//Models.Program.loadContent();
-	//viewModels.Hierarchy.updateProgram(1);
-
 	var state = true;
 
 	function selected(id){
 		return (viewModel.currentProgram && (viewModel.currentProgram.id() === id));
 	}
-
-	//function currentProgram(){
-	//	//reduce domains to programs
-	//	var list = Models.Program.getContent().reduce(function(acc, curr){
-	//		return acc.concat(curr.Programs);
-	//	},[])
-	//	.map(function(program,count){
-	//		program.count = count+1;
-	//		return program;
-	//	})
-	//	.filter(function(program){
-	//		return program.id === viewModels.Hierarchy.getProgram();
-	//	});
-
-	//	if(list.length > 0 ){
-	//		return list[0];
-	//	}
-	//	return {};
-	//}
 
 	return {
 		view: function(vnode){
