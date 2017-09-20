@@ -1,21 +1,5 @@
 var EffortSelector = function(){
 	var scrollstore = 0;
-
-	function selected(id){
-		return (vm.effort() && (vm.effort().id() === id));
-	}
-
-	function editable(id){
-		return (!viewModels.editMode.state() && selected(id));
-	}
-
-	function editing(id){
-		if(viewModels.editMode.state() && viewModels.editMode.isType("effort")){
-			return (viewModels.editMode.content().id === id);
-		}
-		return false;
-	}
-
 	return {
 		view: function(vnode){
 			if(vm.task()){
@@ -42,7 +26,7 @@ var EffortSelector = function(){
 					},m(".selectorlist-back", [
 						vm.task()("effort", function(effort, count){
 							return m(".state-selectable.selectorlist-item", {
-								class: ((selected(effort.id()))?"state-selected":"") +" "+((editing(effort.id))?"state-editing":"")+" "+(effort.mode?"mode-sketch":""),
+								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()?"mode-sketch":""),
 								onclick: function(){
 									vm.effort(effort);
 								}

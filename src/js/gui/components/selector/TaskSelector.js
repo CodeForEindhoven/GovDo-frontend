@@ -1,20 +1,4 @@
 var TaskSelector = function(){
-
-	function selected(id){
-		return (vm.task() && (vm.task().id() === id));
-	}
-
-	//function editable(id){
-	//	return (!viewModels.editMode.state() && selected(id));
-	//}
-
-	function editing(id){
-		if(viewModels.editMode.state() && viewModels.editMode.isType("task")){
-			return (viewModels.editMode.content().id === id);
-		}
-		return false;
-	}
-
 	return {
 		view: function(vnode){
 			if(vm.program()){
@@ -34,7 +18,7 @@ var TaskSelector = function(){
 					m(".selectorlist", m(".selectorlist-back", [
 						vm.program()("task", function(task){
 							return m(".state-selectable.selectorlist-item", {
-								class: ((selected(task.id()))?"state-selected":"") +" "+((editing(task.id))?"state-editing":"")+" "+(task.mode?"mode-sketch":""),
+								class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()?"mode-sketch":""),
 								onclick: function(){
 									vm.task(task);
 								}
@@ -50,7 +34,7 @@ var TaskSelector = function(){
 								m(".selectorlist-item-content", [
 									m(".taskselector-title", [
 										m("span.taskselector-title-name", task.value()),
-										(task("means"))?[
+										(task("means").value() !== "")?[
 											m("span.taskselector-title-means-label", " door "),
 											m("span.taskselector-title-means", task("means").value()),
 										]:[],

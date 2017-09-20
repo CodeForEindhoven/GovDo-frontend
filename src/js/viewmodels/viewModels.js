@@ -16,14 +16,22 @@ var vm = (function(){
 		},
 		task : function(i){
 			if(i !== undefined){
-				currentTask = i;
+				if(ptrn.compare(currentTask, i)){
+					currentTask = undefined;
+				} else {
+					currentTask = i;
+				}
 				currentEffort = undefined;
 			}
 			return currentTask;
 		},
 		effort : function(i){
 			if(i !== undefined){
-				currentEffort = i;
+				if(ptrn.compare(currentEffort, i)){
+					currentEffort = undefined;
+				} else {
+					currentEffort = i;
+				}
 			}
 			return currentEffort;
 		}

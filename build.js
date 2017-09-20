@@ -11,13 +11,13 @@ compressor.minify({
 		"./src/js/polyfills/*.js",
 
 		"./src/js/models/Models.js",
-		"./src/js/models/Program.js",
-		"./src/js/models/Task.js",
-		"./src/js/models/Effort.js",
-		"./src/js/models/Person.js",
-		"./src/js/models/Changes.js",
-		"./src/js/models/Search.js",
-		"./src/js/models/Overview.js",
+		//"./src/js/models/Program.js",
+		//"./src/js/models/Task.js",
+		//"./src/js/models/Effort.js",
+		//"./src/js/models/Person.js",
+		//"./src/js/models/Changes.js",
+		//"./src/js/models/Search.js",
+		//"./src/js/models/Overview.js",
 
 		"./src/js/models/Ptrn.js",
 

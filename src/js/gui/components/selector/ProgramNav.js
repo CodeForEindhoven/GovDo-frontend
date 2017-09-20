@@ -1,10 +1,6 @@
 var ProgramNav = function(){
 	var state = true;
 
-	function selected(id){
-		return (vm.program() && (vm.program().id() === id));
-	}
-
 	return {
 		view: function(vnode){
 			return m(".programnav", {},[
@@ -26,7 +22,7 @@ var ProgramNav = function(){
 							domain("program", function(program){
 								//count++;
 								return m(".state-selectable.programnav-program", {
-									class: (selected(program.id()))?"state-selected":"",
+									class: (ptrn.compare(vm.program(),program))?"state-selected":"",
 									onclick: function(){
 										vm.program(program);
 										state = false;

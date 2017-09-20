@@ -96,6 +96,10 @@ var ptrn =  (function(){
 	}
 
 
+	function compare(a, b){
+		return (a && b && a.id()===b.id());
+	}
+
 
 	/*INTERFACE*/
 	function query(q, callback, subset){
@@ -252,6 +256,7 @@ var ptrn =  (function(){
 	query.relate = relate;
 	query.createrelate = createrelate;
 	query.createorfind = createorfind;
+	query.compare = compare;
 	return query;
 })();
 
@@ -269,6 +274,7 @@ model.get("overview", {}, function(data){
 				ptrn.createrelate("means", task.means, t);
 				ptrn.createrelate("kpi", task.kpi, t);
 				ptrn.createrelate("order", task.id, t);
+				ptrn.createrelate("mode", task.mode, t);
 
 				ptrn.relate(p,t);
 				task.Efforts.map(function(effort){
@@ -277,6 +283,7 @@ model.get("overview", {}, function(data){
 					ptrn.createrelate("endproduct", effort.endproduct, e);
 					ptrn.createrelate("type", effort.type, e);
 					ptrn.createrelate("order", effort.id, e);
+					ptrn.createrelate("mode", effort.mode, e);
 					ptrn.relate(t,e);
 
 					effort.People.map(function(person){

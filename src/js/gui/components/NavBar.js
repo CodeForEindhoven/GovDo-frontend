@@ -4,7 +4,7 @@ var NavBar = function(){
 		view: function(vnode){
 			return m("nav",[
 				m(ProgramNav),
-				m(SearchBar)
+				//m(SearchBar)
 			]);
 		}
 	};
