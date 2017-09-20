@@ -1,7 +1,7 @@
 var TaskSelector = function(){
 
 	function selected(id){
-		return (viewModel.currentTask && (viewModel.currentTask.id() === id));
+		return (vm.task() && (vm.task().id() === id));
 	}
 
 	//function editable(id){
@@ -17,7 +17,7 @@ var TaskSelector = function(){
 
 	return {
 		view: function(vnode){
-			if(viewModel.currentProgram){
+			if(vm.program()){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Opgaven"),
@@ -32,11 +32,11 @@ var TaskSelector = function(){
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
-						viewModel.currentProgram("task", function(task){
+						vm.program()("task", function(task){
 							return m(".state-selectable.selectorlist-item", {
 								class: ((selected(task.id()))?"state-selected":"") +" "+((editing(task.id))?"state-editing":"")+" "+(task.mode?"mode-sketch":""),
 								onclick: function(){
-									viewModel.currentTask = task;
+									vm.task(task);
 								}
 							},[
 								m(".selectorlist-item-number", [

@@ -2,7 +2,7 @@ var EffortSelector = function(){
 	var scrollstore = 0;
 
 	function selected(id){
-		return (viewModel.currentEffort && (viewModel.currentEffort.id() === id));
+		return (vm.effort() && (vm.effort().id() === id));
 	}
 
 	function editable(id){
@@ -18,7 +18,7 @@ var EffortSelector = function(){
 
 	return {
 		view: function(vnode){
-			if(viewModel.currentTask){
+			if(vm.task()){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Inspanningen"),
@@ -40,11 +40,11 @@ var EffortSelector = function(){
 							vnode.dom.scrollTop = scrollstore;
 						}
 					},m(".selectorlist-back", [
-						viewModel.currentTask("effort", function(effort, count){
+						vm.task()("effort", function(effort, count){
 							return m(".state-selectable.selectorlist-item", {
 								class: ((selected(effort.id()))?"state-selected":"") +" "+((editing(effort.id))?"state-editing":"")+" "+(effort.mode?"mode-sketch":""),
 								onclick: function(){
-									viewModel.currentEffort = effort;
+									vm.effort(effort);
 								}
 							},[
 								m(".selectorlist-item-number", [

@@ -15,9 +15,6 @@ var ptrn =  (function(){
 		return a;
 	}
 
-
-
-
 	/*STORE*/
 	var atoms = [];
 	var relations = [];

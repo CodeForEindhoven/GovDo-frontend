@@ -2,7 +2,7 @@ var ProgramNav = function(){
 	var state = true;
 
 	function selected(id){
-		return (viewModel.currentProgram && (viewModel.currentProgram.id() === id));
+		return (vm.program() && (vm.program().id() === id));
 	}
 
 	return {
@@ -13,9 +13,9 @@ var ProgramNav = function(){
 						state = !state;
 					}
 				},[
-					viewModel.currentProgram ? [
-						m(".programnav-program-number.button-number", viewModel.currentProgram("order").value()),
-						m(".programnav-program-title-top", viewModel.currentProgram.value())
+					vm.program() ? [
+						m(".programnav-program-number.button-number", vm.program()("order").value()),
+						m(".programnav-program-title-top", vm.program().value())
 					] : [],
 					m("i.material-icons.programnav-dropdown", state ? "arrow_drop_up" : "arrow_drop_down"),
 				]),
@@ -28,7 +28,7 @@ var ProgramNav = function(){
 								return m(".state-selectable.programnav-program", {
 									class: (selected(program.id()))?"state-selected":"",
 									onclick: function(){
-										viewModel.currentProgram = program;
+										vm.program(program);
 										state = false;
 									}
 								},[
