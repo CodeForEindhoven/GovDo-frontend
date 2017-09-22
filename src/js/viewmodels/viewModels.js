@@ -5,6 +5,8 @@ var vm = (function(){
 	var currentTask;
 	var currentEffort;
 
+	var currentEditor;
+
 	return {
 		program : function(i){
 			if(i !== undefined){
@@ -34,6 +36,12 @@ var vm = (function(){
 				}
 			}
 			return currentEffort;
+		},
+		edit: function(i){
+			if(i !== undefined){
+				currentEditor = i;				
+			}
+			return currentEditor;
 		}
 	};
 

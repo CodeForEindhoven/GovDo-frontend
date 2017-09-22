@@ -8,7 +8,25 @@ var ptrn =  (function(){
 			return query(q, callback, subset);
 		};
 
-		a.value = function(){return atom.value[0].value;};
+		a.update = function(input){
+			atom.newvalue = input;
+		};
+
+		a.transact = function(){
+			if(atom.newvalue){
+				atom.value.unshift({
+					tid: transactions++,
+					value: atom.newvalue
+				});
+				return true;
+			}
+			return false;
+		};
+
+		a.value = function(){
+			return atom.value[0].value;
+		};
+
 		a.type = function(){return atom.type;};
 		a.id = function(){return atom.oid;};
 
@@ -98,6 +116,11 @@ var ptrn =  (function(){
 
 	function compare(a, b){
 		return (a && b && a.id()===b.id());
+	}
+
+	//transacts all the speculative changes
+	function transact(){
+		console.log("transact");
 	}
 
 
@@ -250,15 +273,24 @@ var ptrn =  (function(){
 
 	}
 
+	function log(){
+		console.log(transactions);
+	}
+
 
 	/*PUBLIC INTERFACE*/
 	query.create = create;
 	query.relate = relate;
 	query.createrelate = createrelate;
 	query.createorfind = createorfind;
+
+	query.transact = transact;
+
 	query.compare = compare;
+	query.log = log;
 	return query;
 })();
+
 
 model.get("overview", {}, function(data){
 	data.map(function(domain){

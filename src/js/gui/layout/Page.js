@@ -11,7 +11,7 @@ var Page = function(){
 					m(".layout-column",  m(TaskSelector)),
 							//m(".layout-vertical-row", m(ProgramDetails)),
 					m(".layout-column", m(EffortSelector)),
-					//m(".layout-right", m(Editor))
+					m(".layout-right", m(Editor))
 				]),
 				//m(Viewer),
 			];

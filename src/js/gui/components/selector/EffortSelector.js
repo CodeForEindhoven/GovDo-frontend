@@ -1,5 +1,7 @@
 var EffortSelector = function(){
 	var scrollstore = 0;
+	//var dragover;
+
 	return {
 		view: function(vnode){
 			if(vm.task()){
@@ -24,18 +26,27 @@ var EffortSelector = function(){
 							vnode.dom.scrollTop = scrollstore;
 						}
 					},m(".selectorlist-back", [
-						vm.task()("effort", function(effort, count){
+						vm.task()("effort", function(effort){
 							return m(".state-selectable.selectorlist-item", {
+								//draggable: true,
 								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()?"mode-sketch":""),
 								onclick: function(){
 									vm.effort(effort);
-								}
+								},
+								//ondragenter: function(e){
+								//	this.classList.add('drag-over');
+								//},
+								//ondragover: function(e){
+								//	e.preventDefault(); // Necessary. Allows us to drop.
+								//	dragover = effort.id();
+								//	e.dataTransfer.dropEffect = 'move';
+								//}
 							},[
 								m(".selectorlist-item-number", [
 									m(".button-number", effort("order").value()),
 									m(".selectorlist-item-edit.button-edit-small",{
 										onclick: function(){
-											//viewModel.currentEffort = effort;
+											vm.edit(effort);
 										}
 									}, m("i.material-icons","build"))
 								]),
