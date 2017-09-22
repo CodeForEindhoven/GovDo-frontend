@@ -1,6 +1,5 @@
 var ptrn =  (function(){
 
-
 	/*ATOM FACTORY*/
 	function produceAtom(atom){
 		var a = function(q, callback){
@@ -8,22 +7,34 @@ var ptrn =  (function(){
 			return query(q, callback, subset);
 		};
 
+		//write temporary values
 		a.update = function(input){
 			atom.newvalue = input;
 		};
 
+		//drop temporary
+		a.drop = function(){
+			atom.drop = true;
+			atom.newvalue = undefined;
+		};
+
 		a.transact = function(){
-			if(atom.newvalue){
+			if(atom.newvalue !== undefined){
+				console.log("transact");
 				atom.value.unshift({
 					tid: transactions++,
 					value: atom.newvalue
 				});
+				atom.newvalue = undefined;
 				return true;
 			}
 			return false;
 		};
 
 		a.value = function(){
+			if(atom.newvalue !== undefined){
+				return atom.newvalue;
+			}
 			return atom.value[0].value;
 		};
 
@@ -31,6 +42,22 @@ var ptrn =  (function(){
 		a.id = function(){return atom.oid;};
 
 		return a;
+	}
+
+	function produceRelation(rel){
+		var r = function(){
+
+		};
+
+		r.a = function() {
+			return produceAtom(atoms[rel.value[0].aid]);
+		};
+
+		r.b = function() {
+			return produceAtom(atoms[rel.value[0].bid]);
+		};
+
+		return r;
 	}
 
 	/*STORE*/
@@ -55,6 +82,14 @@ var ptrn =  (function(){
 		return produceAtom(atom);
 	}
 
+	function drop(atom){
+		atoms[atom.id()].value.unshift({
+			tid: transactions++,
+			drop: true
+		});
+		return produceAtom(atoms[atom.id()]);
+	}
+
 	function relate(a, b){
 		var aid = a.id();
 		var bid = b.id();
@@ -69,6 +104,20 @@ var ptrn =  (function(){
 					bid: bid,
 				}
 			]
+		});
+	}
+
+	function unrelate(a,b){
+		var aid = a.id();
+		var bid = b.id();
+
+		relations.filter(function(relation){
+			return ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
+		}).map(function(relation){
+			relations[relation.rid].value.unshift({
+				tid: transactions++,
+				drop: true
+			});
 		});
 	}
 
@@ -94,15 +143,14 @@ var ptrn =  (function(){
 			subset = atoms;
 		}
 		return subset.filter(function(atom){
-			return (type==="?" || type===atom.type) && (value==="?" || value===atom.value[0].value);
+			return (!atom.value[0].drop) && ((type==="?" || type===atom.type) && (value==="?" || value===atom.value[0].value));
 		});
 	}
-
 
 	//builds a list of atoms from relations
 	function selectRelations(id){
 		var results = relations.filter(function(relation){
-			return (relation.value[0].aid === id || relation.value[0].bid === id);
+			return (!relation.value[0].drop) && (relation.value[0].aid === id || relation.value[0].bid === id);
 		}).map(function(relation){
 			if(relation.value[0].aid === id){
 				return atoms[relation.value[0].bid];
@@ -113,14 +161,15 @@ var ptrn =  (function(){
 		return results;
 	}
 
-
 	function compare(a, b){
 		return (a && b && a.id()===b.id());
 	}
 
 	//transacts all the speculative changes
 	function transact(){
-		console.log("transact");
+		atoms.map(function(atom){
+			produceAtom(atom).transact();
+		});
 	}
 
 
@@ -280,7 +329,10 @@ var ptrn =  (function(){
 
 	/*PUBLIC INTERFACE*/
 	query.create = create;
+	query.drop = drop;
 	query.relate = relate;
+	query.unrelate = unrelate;
+
 	query.createrelate = createrelate;
 	query.createorfind = createorfind;
 

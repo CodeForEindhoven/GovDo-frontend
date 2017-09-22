@@ -9,7 +9,8 @@ var Editor = function(){
 					m("span", "Editor"),
 					m(".icons-header .close-button", {
 						onclick: function(){
-							vm.edit(undefined);
+							ptrn.transact();
+							vm.editClose();
 						}
 					}, [
 //						m(".save-button", (viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),

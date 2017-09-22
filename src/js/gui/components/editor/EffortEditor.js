@@ -12,9 +12,10 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", "Inspanning titel"),
 							m(TextArea, {
-								value: viewModels.editMode.content().name,
+								value: vm.edit().value(),
 								onchange: function(v){
-									viewModels.editMode.setContent("name", v);
+									vm.edit().update(v);
+									//viewModels.editMode.setContent("name", v);
 								}
 							}),
 						]),
@@ -22,18 +23,11 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", "Type"),
 							m(TypeEditor, {
-								type: viewModels.editMode.content().type,
-								startdate: viewModels.editMode.content().startdate,
-								enddate: viewModels.editMode.content().enddate,
+								type: vm.edit()("type").value(),
 								onchange: function(v){
-									viewModels.editMode.setContent("type", v);
+									vm.edit()("type").update(v);
+									//viewModels.editMode.setContent("type", v);
 								},
-								onchangeStartDate: function(v){
-									viewModels.editMode.setContent("startdate", v);
-								},
-								onchangeEndDate: function(v){
-									viewModels.editMode.setContent("enddate", v);
-								}
 							}),
 						]),
 					]),
@@ -42,20 +36,20 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", "Beoogd Effect"),
 							m(TextArea, {
-								value: viewModels.editMode.content().description,
+								value: vm.edit()("description").value(),
 								onchange: function(v){
-									viewModels.editMode.setContent("description", v);
-								}
+									vm.edit()("description").update(v);
+								},
 							}),
 						]),
 
 						m(".editor-column",[
 							m(".editor-subtitle", "Eindproduct"),
 							m(TextArea, {
-								value: viewModels.editMode.content().endproduct,
+								value: vm.edit()("endproduct").value(),
 								onchange: function(v){
-									viewModels.editMode.setContent("endproduct", v);
-								}
+									vm.edit()("endproduct").update(v);
+								},
 							}),
 						]),
 					]),
@@ -76,9 +70,9 @@ var EffortEditor = function(){
 					]),
 
 					m(PeopleListEditor, {
-						value: viewModels.editMode.content().People,
+						parent: vm.edit(),
 						onchange: function(v){
-							viewModels.editMode.setContent("People", v);
+							//viewModels.editMode.setContent("People", v);
 							state = false;
 						},
 						state: state
@@ -87,60 +81,60 @@ var EffortEditor = function(){
 
 
 				//Planning
-				m(".editor-section",[
-					m(".editor-section-title", "Planning"),
-					m(".editor-subtitle", "Periode"),
+				//m(".editor-section",[
+				//	m(".editor-section-title", "Planning"),
+				//	m(".editor-subtitle", "Periode"),
 
 
-					m("editor-selection-date",[
-						m("span", "van"),
-						m(DatePicker)
-					]),
+				//	m("editor-selection-date",[
+				//		m("span", "van"),
+				//		m(DatePicker)
+				//	]),
 
-					m("editor-selection-date",[
-						m("span", "t/m"),
-						m(DatePicker)
-					]),
+				//	m("editor-selection-date",[
+				//		m("span", "t/m"),
+				//		m(DatePicker)
+				//	]),
 
 
-				]),
+				//]),
 
-				m(".editor-section",[
-					m(".editor-section-title", "Positionering"),
+				//m(".editor-section",[
+				//	m(".editor-section-title", "Positionering"),
 
-					m(".editor-subtitle-header",[
-						m("span.editor-subtitle", "Gerelateerde Opgaven"),
-						m(".icons-header", [
-							m("i.material-icons", {
-								onclick: function(e){
-									state2 = !state2;
-								}
-							},"add")
-						]),
-					]),
-					m(ConnectionEditor, {
-						id: viewModels.editMode.content().id,
-						state: state2,
-						onchange: function(){
-							state2 = false;
-						}
-					}),
-				]),
+				//	m(".editor-subtitle-header",[
+				//		m("span.editor-subtitle", "Gerelateerde Opgaven"),
+				//		m(".icons-header", [
+				//			m("i.material-icons", {
+				//				onclick: function(e){
+				//					state2 = !state2;
+				//				}
+				//			},"add")
+				//		]),
+				//	]),
+				//	m(ConnectionEditor, {
+				//		id: viewModels.editMode.content().id,
+				//		state: state2,
+				//		onchange: function(){
+				//			state2 = false;
+				//		}
+				//	}),
+				//]),
 
-				m(".editor-section",[
-					m(".editor-section-title", "Status"),
+				//m(".editor-section",[
+				//	m(".editor-section-title", "Status"),
 
-					m(".status-content",[
-						m(Toggle, {
-							value: viewModels.editMode.content().mode,
-							label_sketch: "Voorstel",
-							label_definitive: "Goedgegeurd",
-							onchange: function(v){
-								viewModels.editMode.setContent("mode", v);
-							}
-						}),
-					]),
-				]),
+				//	m(".status-content",[
+				//		m(Toggle, {
+				//			value: viewModels.editMode.content().mode,
+				//			label_sketch: "Voorstel",
+				//			label_definitive: "Goedgegeurd",
+				//			onchange: function(v){
+				//				viewModels.editMode.setContent("mode", v);
+				//			}
+				//		}),
+				//	]),
+				//]),
 
 
 			]);
@@ -152,37 +146,31 @@ var PeopleListEditor = function(){
 	//var state = false;
 	var value = "";
 
-	var onadd = function(person, vnode){
-		var people = vnode.attrs.value;
-		for(var i = people.length - 1; i >= 0; i--) {
-			if(people[i].id === person.id) {
-				return;
-			}
-		}
-		people.push(person);
-		vnode.attrs.onchange(people);
-	};
+	//var onadd = function(person, vnode){
+	//	var people = vnode.attrs.value;
+	//	for(var i = people.length - 1; i >= 0; i--) {
+	//		if(people[i].id === person.id) {
+	//			return;
+	//		}
+	//	}
+	//	people.push(person);
+	//	vnode.attrs.onchange(people);
+	//};
 
-	var onnew = function(vnode){
-		Models.Person.newItem(value, function(p){
-			Models.Person.loadTeams();
-			Models.Person.loadPeople();
-			onadd({
-				id: p.id,
-				name: p.name
-			}, vnode);
-			value = "";
-		});
-	};
+	//var onnew = function(vnode){
+	//	Models.Person.newItem(value, function(p){
+	//		Models.Person.loadTeams();
+	//		Models.Person.loadPeople();
+	//		onadd({
+	//			id: p.id,
+	//			name: p.name
+	//		}, vnode);
+	//		value = "";
+	//	});
+	//};
 
-	var onremove = function(person, vnode){
-		var people = vnode.attrs.value;
-		for(var i = people.length - 1; i >= 0; i--) {
-			if(people[i].id === person.id) {
-				people.splice(i, 1);
-			}
-		}
-		vnode.attrs.onchange(people);
+	var onremove = function(parent, person){
+		ptrn.unrelate(parent, person);
 	};
 
 	return {
@@ -197,24 +185,24 @@ var PeopleListEditor = function(){
 						onchange: m.withAttr("value", function(v) {value = v;}),
 						value: value
 					}),
-					(value.length > 0)?
-						m(FilteredPeopleList, {
-							value: value,
-							allownew: true,
-							onadd: function(p){onadd(p, vnode);},
-							onnew: function(){onnew(vnode);}
-						})
-					:
-						m(TeamList, {
-							onadd: function(p){onadd(p, vnode);}
-						})
+					//(value.length > 0)?
+					//	m(FilteredPeopleList, {
+					//		value: value,
+					//		allownew: true,
+					//		onadd: function(p){onadd(p, vnode);},
+					//		onnew: function(){onnew(vnode);}
+					//	})
+					//:
+					//	m(TeamList, {
+					//		onadd: function(p){onadd(p, vnode);}
+					//	})
 				]),
 
-				vnode.attrs.value.map(function(person){
+				vnode.attrs.parent("person", function(person){
 					return m(".editor-peoplelist-person", [
-						m("span", person.name),
+						m("span", person.value()),
 						m("span.editor-peoplelist-person-remove", {
-							onclick: function(){onremove(person, vnode);}
+							onclick: function(){onremove(vnode.attrs.parent, person);}
 						}, m("i", {class:"material-icons"}, "close")),
 					]);
 				}),
@@ -240,20 +228,20 @@ var TypeEditor = function(){
 						m(".editor-typeselect-type-timespan", {
 							class: (vnode.attrs.type === count && count<2)? "state-visible": "",
 						},[
-							//m(".editor-typeselect-type-timespan-subtitle","van"),
-							//m(".editor-typeselect-type-timespan-timebox",
-							//	m(DatePicker, {
-							//		value: vnode.attrs.startdate,
-							//		onchange: vnode.attrs.onchangeStartDate
-							//	})
-							//),
-							//m(".editor-typeselect-type-timespan-subtitle","t/m"),
-							//m(".editor-typeselect-type-timespan-timebox",
-							//	m(DatePicker, {
-							//		value:  vnode.attrs.enddate,
-							//		onchange: vnode.attrs.onchangeEndDate
-							//	})
-							//),
+							m(".editor-typeselect-type-timespan-subtitle","van"),
+							m(".editor-typeselect-type-timespan-timebox",
+								m(DatePicker, {
+									value: vnode.attrs.startdate,
+									onchange: vnode.attrs.onchangeStartDate
+								})
+							),
+							m(".editor-typeselect-type-timespan-subtitle","t/m"),
+							m(".editor-typeselect-type-timespan-timebox",
+								m(DatePicker, {
+									value:  vnode.attrs.enddate,
+									onchange: vnode.attrs.onchangeEndDate
+								})
+							),
 						]),
 					]);
 				})

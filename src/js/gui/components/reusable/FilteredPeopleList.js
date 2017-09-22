@@ -1,8 +1,8 @@
 var FilteredPeopleList = function(){
-	Models.Person.loadPeople();
+
 
 	function getFilterdContent(value){
-		return Models.Person.getPeople().filter(function(p){
+		return filter(function(p){
 			return (p.name.toLowerCase().indexOf(value.toLowerCase())>-1);
 		}).map(function(p){
 			p.displayName = StringHighlight(p.name, value);

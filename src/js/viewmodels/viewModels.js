@@ -39,9 +39,12 @@ var vm = (function(){
 		},
 		edit: function(i){
 			if(i !== undefined){
-				currentEditor = i;				
+				currentEditor = i;
 			}
 			return currentEditor;
+		},
+		editClose: function(){
+			currentEditor = undefined;
 		}
 	};
 
