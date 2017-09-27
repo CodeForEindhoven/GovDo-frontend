@@ -224,25 +224,6 @@ var TypeEditor = function(){
 					}, [
 						m(".editor-typeselect-type-name", t),
 						m("i", {class:"material-icons hide-icon"}, "info_outline"),
-
-						m(".editor-typeselect-type-timespan", {
-							class: (vnode.attrs.type === count && count<2)? "state-visible": "",
-						},[
-							m(".editor-typeselect-type-timespan-subtitle","van"),
-							m(".editor-typeselect-type-timespan-timebox",
-								m(DatePicker, {
-									value: vnode.attrs.startdate,
-									onchange: vnode.attrs.onchangeStartDate
-								})
-							),
-							m(".editor-typeselect-type-timespan-subtitle","t/m"),
-							m(".editor-typeselect-type-timespan-timebox",
-								m(DatePicker, {
-									value:  vnode.attrs.enddate,
-									onchange: vnode.attrs.onchangeEndDate
-								})
-							),
-						]),
 					]);
 				})
 			]);

@@ -29,7 +29,7 @@ var EffortSelector = function(){
 						vm.task()("effort", function(effort){
 							return m(".state-selectable.selectorlist-item", {
 								//draggable: true,
-								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()?"mode-sketch":""),
+								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==-1?"mode-sketch":""),
 								onclick: function(){
 									vm.effort(effort);
 								},

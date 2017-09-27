@@ -18,7 +18,7 @@ var TaskSelector = function(){
 					m(".selectorlist", m(".selectorlist-back", [
 						vm.program()("task", function(task){
 							return m(".state-selectable.selectorlist-item", {
-								class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()?"mode-sketch":""),
+								class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()==-1?"mode-sketch":""),
 								onclick: function(){
 									vm.task(task);
 								}
