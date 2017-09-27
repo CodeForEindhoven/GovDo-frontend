@@ -44,80 +44,21 @@ var ptrn =  (function(){
 	/*STORE*/
 	var atoms = [];
 	var relations = [];
-	var transactions = 0;
+	var specRelations = [];
 
-	/*STORAGE FUNCTIONS*/
-//	function create(type, value){
-//		//push(type, value);
-//		var oid = atoms.length;
-//		var atom = {
-//			oid: oid,
-//			type: type,
-//			value: [
-//				{
-//					tid: transactions++,
-//					value: value
-//				}
-//			]
-//		};
-//		atoms.push(atom);
-//		return produceAtom(atom);
-//	}
-
-//	function drop(atom){
-//		atoms[atom.id()].value.unshift({
-//			tid: transactions++,
-//			drop: true
-//		});
-//		return produceAtom(atoms[atom.id()]);
-//	}
-//
-//	function relate(a, b){
-//		var aid = a.id();
-//		var bid = b.id();
-//
-//		var rid = relations.length;
-//		relations.push({
-//			rid: rid,
-//			value: [
-//				{
-//					tid: transactions++,
-//					aid: aid,
-//					bid: bid,
-//				}
-//			]
-//		});
-//	}
-
-//	function unrelate(a,b){
-//		var aid = a.id();
-//		var bid = b.id();
-//
-//		relations.filter(function(relation){
-//			return ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
-//		}).map(function(relation){
-//			relations[relation.rid].value.unshift({
-//				tid: transactions++,
-//				drop: true
-//			});
-//		});
-//	}
-
-//	//convenience create and then relate
-//	function createrelate(type, value, a){
-//		var b = create(type, value);
-//		relate(a, b);
-//	}
-
-//	//convenience find one or create it
-//	function createorfind(type, value){
-//		var find = select(type, value);
-//		if(find.length > 0){
-//			return produceAtom(find[0]);
-//		} else {
-//			return create(type, value);
-//		}
-//	}
+	function speculativeRelate(a,b){
+		var aid = a.id();
+		var bid = b.id();
+		specRelations.push({
+			value: [
+				{
+					tid: -1,
+					aid: aid,
+					bid: bid,
+				}
+			]
+		});
+	}
 
 	//builds a list of atoms based on matches
 	function select(type, value, subset){
@@ -133,7 +74,8 @@ var ptrn =  (function(){
 
 	//builds a list of atoms from relations
 	function selectRelations(id){
-		var results = relations.filter(function(relation){
+
+		var results = relations.concat(specRelations).filter(function(relation){
 			return (!relation.value[0].drop) && (relation.value[0].aid === id || relation.value[0].bid === id);
 		}).map(function(relation){
 			if(relation.value[0].aid === id){
@@ -152,6 +94,11 @@ var ptrn =  (function(){
 		atoms.map(function(atom){
 			produceAtom(atom).transact();
 		});
+
+		specRelations.map(function(rel){
+			relate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
+		});
+		specRelations = [];
 	}
 
 	/*CONVENIENCE*/
@@ -374,7 +321,7 @@ var ptrn =  (function(){
 					]
 				};
 			}
-
+			m.redraw();
 			callback(produceAtom(atoms[elem.id]));
 		});
 	}
@@ -396,7 +343,7 @@ var ptrn =  (function(){
 					]
 				};
 			}
-
+			m.redraw();
 			callback(produceAtom(atoms[elem.id]));
 		});
 	}
@@ -432,6 +379,7 @@ var ptrn =  (function(){
 					}
 				]
 			};
+			m.redraw();
 		});
 	}
 
@@ -480,40 +428,6 @@ var ptrn =  (function(){
 		}
 	}
 
-	function relpul(id){
-		request("GET", "relation/"+id, {}, function(data){
-			data.map(function(elem){
-				if(!atoms[elem.id]){
-					atoms[elem.id] = {
-						oid: elem.id,
-						type: elem.type,
-						value: [
-							{
-								tid: elem.tid,
-								value: elem.value
-							}
-						]
-					};
-				}
-
-				relations[elem.rid] = {
-					value: [
-						{
-							tid: elem.tid,
-							aid: id,
-							bid: elem.id,
-						}
-					]
-				};
-
-				if(elem.rid>transactions){
-					transactions = elem.tid;
-				}
-				m.redraw();
-			});
-		});
-	}
-
 	function request(type, url, data, callback){
 		var api = "http://localhost:9000/";
 		var xhttp = new XMLHttpRequest();
@@ -530,14 +444,6 @@ var ptrn =  (function(){
 
 
 	/*PUBLIC INTERFACE*/
-	//query.create = create;
-	//query.drop = drop;
-	//query.relate = relate;
-	//query.unrelate = unrelate;
-
-	//query.createrelate = createrelate;
-	//query.createorfind = createorfind;
-
 	query.transact = transact;
 
 	query.compare = compare;
@@ -547,6 +453,7 @@ var ptrn =  (function(){
 	query.create = create;
 	query.findorcreate = findorcreate;
 	query.relate = relate;
+	query.speculativeRelate = speculativeRelate;
 
 	pulldump();
 	//query.push = push;
