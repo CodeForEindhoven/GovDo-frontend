@@ -23,7 +23,7 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", "Type"),
 							m(TypeEditor, {
-								type: vm.edit()("type").value(),
+								type: parseInt(vm.edit()("type").value()),
 								onchange: function(v){
 									vm.edit()("type").update(v);
 									//viewModels.editMode.setContent("type", v);

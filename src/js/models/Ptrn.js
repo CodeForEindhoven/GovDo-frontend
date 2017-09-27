@@ -21,10 +21,7 @@ var ptrn =  (function(){
 		a.transact = function(){
 			if(atom.newvalue !== undefined){
 				console.log("transact");
-				atom.value.unshift({
-					tid: transactions++,
-					value: atom.newvalue
-				});
+				update(atom.oid, atom.newvalue);
 				atom.newvalue = undefined;
 				return true;
 			}
@@ -378,10 +375,42 @@ var ptrn =  (function(){
 				};
 			}
 
-			if(callback){
-				callback(produceAtom(atoms[elem.id]));
+			callback(produceAtom(atoms[elem.id]));
+		});
+	}
+
+	function findorcreate(type, value, callback){
+		request("POST", "findorcreate", {
+			type: type,
+			value: value
+		}, function(elem){
+			if(!atoms[elem.id]){
+				atoms[elem.id] = {
+					oid: elem.id,
+					type: elem.type,
+					value: [
+						{
+							tid: elem.tid,
+							value: elem.value
+						}
+					]
+				};
 			}
 
+			callback(produceAtom(atoms[elem.id]));
+		});
+	}
+
+
+	function update(id, value){
+		request("POST", "update/"+id, {
+			value: value
+		}, function(elem){
+			atoms[elem.id].value.unshift({
+				tid: elem.tid,
+				value: elem.value
+			});
+			m.redraw();
 		});
 	}
 
@@ -516,6 +545,7 @@ var ptrn =  (function(){
 
 
 	query.create = create;
+	query.findorcreate = findorcreate;
 	query.relate = relate;
 
 	pulldump();
@@ -551,11 +581,9 @@ model.get("overview", {}, function(data){
 									ptrn.create("order", effort.id, function(a){ptrn.relate(e,a);});
 									ptrn.create("mode", effort.mode, function(a){ptrn.relate(e,a);});
 
-									//effort.People.map(function(person){
-									//	var p = ptrn.createorfind("person", person.name);
-									//	ptrn.relate(p,e);
-									//});
-
+									effort.People.map(function(person){
+										ptrn.findorcreate("person", person.name, function(p){ptrn.relate(p,e);});
+									});
 								});
 							});
 						});
