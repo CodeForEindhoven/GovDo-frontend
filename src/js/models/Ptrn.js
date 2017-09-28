@@ -44,12 +44,11 @@ var ptrn =  (function(){
 	/*STORE*/
 	var atoms = [];
 	var relations = [];
-	var specRelations = [];
 
 	function speculativeRelate(a,b){
 		var aid = a.id();
 		var bid = b.id();
-		specRelations.push({
+		relations.push({
 			value: [
 				{
 					tid: -1,
@@ -58,6 +57,24 @@ var ptrn =  (function(){
 				}
 			]
 		});
+	}
+
+	function speculativeUnrelate(a,b){
+		var aid = a.id();
+		var bid = b.id();
+
+		var found = relations.filter(function(relation){
+			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
+		});
+
+		if(found.length >0){
+			found[0].value.unshift({
+				tid: -1,
+				drop: true,
+				aid: aid,
+				bid: bid,
+			});
+		}
 	}
 
 	//builds a list of atoms based on matches
@@ -75,7 +92,7 @@ var ptrn =  (function(){
 	//builds a list of atoms from relations
 	function selectRelations(id){
 
-		var results = relations.concat(specRelations).filter(function(relation){
+		var results = relations.filter(function(relation){
 			return (!relation.value[0].drop) && (relation.value[0].aid === id || relation.value[0].bid === id);
 		}).map(function(relation){
 			if(relation.value[0].aid === id){
@@ -95,10 +112,16 @@ var ptrn =  (function(){
 			produceAtom(atom).transact();
 		});
 
-		specRelations.map(function(rel){
-			relate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
+		relations.filter(function(rel){
+			return (rel.value[0].tid===-1);
+		}).map(function(rel){
+			if(rel.value[0].drop){
+				unrelate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
+			} else {
+				relate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
+			}
+
 		});
-		specRelations = [];
 	}
 
 	/*CONVENIENCE*/
@@ -263,6 +286,16 @@ var ptrn =  (function(){
 		});
 	}
 
+	function unrelate(a, b){
+		var aid = a.id();
+		var bid = b.id();
+
+		request("POST", "unrelate", {
+			aid: aid,
+			bid: bid
+		}, function(rel){});
+	}
+
 	function request(type, url, data, callback){
 		var api = "http://localhost:9000/";
 		var xhttp = new XMLHttpRequest();
@@ -289,6 +322,7 @@ var ptrn =  (function(){
 	query.findorcreate = findorcreate;
 	query.relate = relate;
 	query.speculativeRelate = speculativeRelate;
+	query.speculativeUnrelate = speculativeUnrelate;
 
 	pulldump();
 	//query.push = push;
