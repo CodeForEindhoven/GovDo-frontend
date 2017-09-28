@@ -56,6 +56,27 @@ var EffortEditor = function(){
 				]),
 
 				m(".editor-section",[
+					m(".editor-section-title", "Positionering"),
+
+					m(".editor-subtitle-header",[
+						m("span.editor-subtitle", "Gerelateerde Opgaven"),
+						m(".icons-header", [
+							m("i.material-icons", {
+								onclick: function(e){
+									state2 = !state2;
+								}
+							},"add")
+						]),
+					]),
+					m(ConnectionEditor, {
+						state: state2,
+						onchange: function(){
+							state2 = false;
+						}
+					}),
+				]),
+
+				m(".editor-section",[
 					m(".editor-section-title", "Mensen"),
 
 					m(".editor-subtitle-header",[
@@ -97,28 +118,6 @@ var EffortEditor = function(){
 				//	]),
 
 
-				//]),
-
-				//m(".editor-section",[
-				//	m(".editor-section-title", "Positionering"),
-
-				//	m(".editor-subtitle-header",[
-				//		m("span.editor-subtitle", "Gerelateerde Opgaven"),
-				//		m(".icons-header", [
-				//			m("i.material-icons", {
-				//				onclick: function(e){
-				//					state2 = !state2;
-				//				}
-				//			},"add")
-				//		]),
-				//	]),
-				//	m(ConnectionEditor, {
-				//		id: viewModels.editMode.content().id,
-				//		state: state2,
-				//		onchange: function(){
-				//			state2 = false;
-				//		}
-				//	}),
 				//]),
 
 				//m(".editor-section",[
@@ -236,51 +235,38 @@ var TypeEditor = function(){
 
 
 var ConnectionEditor = function(){
-	Models.Overview.loadContent();
-	var selected = 0;
-	var selected1 = 0;
-	var selected2 = -1;
+	var selectedProgram;
+	var selectedTask;
+
 	return {
 		view: function(vnode){
-			count = -1;
 			return [
 				vnode.attrs.state ? m(".editor-connectionlist", [
 					m(".editor-connectionlist-list", [
-						Models.Overview.getContent().map(function(domain, domaincount){
-							return domain.Programs.map(function(program, programcount){
-								count++;
-								return m(".editor-connectionlist-item",{
-									class: (selected1 === programcount && selected == domaincount)?"state-selected":"",
-									onclick: (function(d,c){
-										return function(){
-											selected = d;
-											selected1 = c;
-											selected2 = -1;
-										};
-									})(domaincount, programcount)
-								},[
-									m(".button-number.editor-connectionlist-item-number",count+1),
-									m(".editor-connectionlist-item-name",program.name)
-								]);
-							});
-
+						ptrn("program", function(program){
+							return m(".editor-connectionlist-item",{
+								class: ptrn.compare(selectedProgram, program)?"state-selected":"",
+								onclick: function(){selectedProgram = program;}
+							},[
+								m(".button-number.editor-connectionlist-item-number",program("order").value()),
+								m(".editor-connectionlist-item-name",program.value())
+							]);
 						})
 					]),
 					m(".editor-connectionlist-list", [
-						Models.Overview.getContent()[selected] ? Models.Overview.getContent()[selected].Programs[selected1].Tasks.map(function(elem, count){
+						selectedProgram ? selectedProgram("task", function(task){
 							return m(".editor-connectionlist-item",{
-								class: (selected2 === count)?"state-selected":"",
+								class: ptrn.compare(selectedTask,task)?"state-selected":"",
 								onclick: function(){
-									selected2 = count;
-									Models.Overview.setParent(elem.id, vnode.attrs.id, function(){
-										vnode.attrs.onchange();
-										m.redraw();
-
-									});
+									selectedTask = task;
+									ptrn.speculativeRelate(vm.edit(), task);
+									selectedProgram = undefined;
+									selectedTask = undefined;
+									vnode.attrs.onchange();
 								}
 							},[
-								m(".button-number.editor-connectionlist-item-number",count+1),
-								m(".editor-connectionlist-item-name",elem.name),
+								m(".button-number.editor-connectionlist-item-number",task("order").value()),
+								m(".editor-connectionlist-item-name",task.value()),
 								m("i.material-icons .connectionlist-addbutton", "add"),
 							]);
 						}) : []
@@ -288,17 +274,15 @@ var ConnectionEditor = function(){
 				]) : [],
 
 				m(".editor-connections-parents", [
-					Models.Overview.getParents(vnode.attrs.id).map(function(parent){
+					vm.edit()("task", function(parent){
 						return m(".editor-connections-parent.state-selected",[
-							m(".button-number.editor-connections-parent-number", parent.program.count),
-							m(".button-number.editor-connections-parent-number", parent.task.count),
-							m(".editor-connections-parent-name", parent.program.name+" - "+parent.task.name),
-							(Models.Overview.getParents(vnode.attrs.id).length > 1) ? m("span..editor-connections-parent-remove", {
+							m(".button-number.editor-connections-parent-number", parent("program")("order").value()),
+							m(".button-number.editor-connections-parent-number", parent("order").value()),
+							m(".editor-connections-parent-name", parent.value()),
+							(vm.edit()("task",function(e){return e;}).length > 1) ? m("span.editor-connections-parent-remove", {
 								onclick: function(){
-									Models.Overview.removeParent(parent.task.id, vnode.attrs.id, function(){
-										vnode.attrs.onchange();
-										m.redraw();
-									});
+									ptrn.speculativeUnrelate(vm.edit(), parent);
+									vnode.attrs.onchange();
 								}
 							}, m("i", {class:"material-icons"}, "close")) : [],
 						]);
