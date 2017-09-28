@@ -108,12 +108,11 @@ var ptrn =  (function(){
 
 	/*INTERFACE*/
 	function query(q, callback, subset){
-		var n = parse(q);
-		if(n.node==="selector"){
-			var selection = select(n.type, n.value, subset);
-
-			//if a callback is provided perform a map
-			//otherwise just return the first element
+		var words = q.split(/ (.+)/);
+		var selection = select(words[0], "?", subset);
+		//if a callback is provided perform a map
+		//otherwise just return the first element
+		if(words.length===1){
 			if(callback){
 				return selection.map(function(atom){
 					return callback(produceAtom(atom));
@@ -131,138 +130,20 @@ var ptrn =  (function(){
 					}]
 				});
 			}
+		} else {
+			var relations = selection.map(function(atom){
+				return selectRelations(atom.oid);
+			}).reduce(function(a,b){
+				return a.concat(b);
+			},[]);
+			relations = relations.filter(function(item, pos) {
+				return relations.indexOf(item) == pos;
+			});
+			return query(words[1], callback, relations);
 		}
+
 		//var p = parse(q);
 		//select(p.type, p.value);
-	}
-
-	function parse(q){
-		var p = 0;
-		function token(offset){
-			return {
-				type: function(type){
-					if(tokens[p+offset]){
-						return tokens[p+offset].type === type;
-					}
-					return false;
-				},
-				value: function(type){
-					if(tokens[p+offset]){
-						return tokens[p+offset].value;
-					}
-					return false;
-				}
-			};
-		}
-
-		function selector(){
-			var type = "";
-			var value = "";
-			var tv = false;
-			if(token(0).type("word")||token(0).type("string")||token(0).type("wildcard")){
-				type = token(0).value();
-
-				if(token(1).type("typevalue")){
-					if(token(2).type("word")||token(2).type("string")||token(2).type("wildcard")){
-						value = token(2).value();
-						return {
-							node: "selector",
-							type: type,
-							value: value
-						};
-					}
-				} else {
-					return {
-						node: "selector",
-						type: type,
-						value: "?"
-					};
-				}
-
-			} else {
-				return false;
-			}
-		}
-
-		var tokens = tokenize(q);
-		return selector();
-	}
-
-	function tokenize(q){
-		var chars = q.split("");
-		var tokens = [];
-		var token = {
-			value: "",
-			type: ""
-		};
-
-		function newToken(v,t){
-			token.value = v;
-			token.type = t;
-		}
-
-		function writeToken(v){
-			token.value = token.value + v;
-		}
-
-		function pushToken(){
-			tokens.push({
-				value: token.value,
-				type: token.type,
-			});
-			token.value = "";
-			token.type = "";
-		}
-
-		for(var i=0; i<chars.length; i++){
-			var c = chars[i];
-
-			//state new token
-			if(token.type === "") { //state = new token
-				if(c===":"){
-					newToken(c, "typevalue");
-					pushToken();
-				} else if(c==="?"){
-					newToken(c, "wildcard");
-					pushToken();
-				} else if(c==="'"){
-					newToken("", "string");
-				} else {
-					newToken(c, "word");
-				}
-				continue;
-			}
-
-			//state inside string
-			if(token.type === "string") {
-				if(c==="'"){
-					pushToken();
-				} else {
-					writeToken(c);
-				}
-				continue;
-			}
-
-			//state inside word
-			if(token.type === "word") {
-				if(c===" "){
-					pushToken();
-				} else if(c===":" || c==="?"){
-					pushToken();
-					i--;
-				} else {
-					writeToken(c);
-				}
-				continue;
-			}
-		}
-
-		if(token.type !== ""){
-			pushToken();
-		}
-
-		return tokens;
-
 	}
 
 	function log(){
@@ -361,7 +242,6 @@ var ptrn =  (function(){
 		});
 	}
 
-
 	function relate(a, b){
 		var aid = a.id();
 		var bid = b.id();
@@ -381,51 +261,6 @@ var ptrn =  (function(){
 			};
 			m.redraw();
 		});
-	}
-
-	function pull(type){
-		if(!cache[type]){
-			console.log("pull:  "+type);
-			cache[type] = true;
-
-			request("GET", "select/"+type, {}, function(data){
-				data.map(function(elem){
-					if(!atoms[elem.id]){
-						atoms[elem.id] = {
-							oid: elem.id,
-							type: elem.type,
-							value: [
-								{
-									tid: elem.tid,
-									value: elem.value
-								}
-							]
-						};
-					}
-
-					elem.collection.map(function(rel){
-						if(!relations[rel.tid]){
-							relations[rel.tid] = {
-								value: [
-									{
-										tid: rel.tid,
-										aid: rel.aid,
-										bid: rel.bid,
-									}
-								]
-							};
-						}
-					});
-
-					if(elem.tid>transactions){
-						transactions = elem.tid;
-					}
-					m.redraw();
-				});
-			});
-		} else {
-			console.log("cache: "+type);
-		}
 	}
 
 	function request(type, url, data, callback){

@@ -168,9 +168,12 @@ var PeopleListEditor = function(){
 	//		value = "";
 	//	});
 	//};
+	var onadd = function(a, b){
+		ptrn.speculativeRelate(a, b);
+	};
 
-	var onremove = function(parent, person){
-		ptrn.unrelate(parent, person);
+	var onremove = function(a, b){
+		ptrn.speculativeUnrelate(a, b);
 	};
 
 	return {
@@ -185,24 +188,24 @@ var PeopleListEditor = function(){
 						onchange: m.withAttr("value", function(v) {value = v;}),
 						value: value
 					}),
-					//(value.length > 0)?
-					//	m(FilteredPeopleList, {
-					//		value: value,
-					//		allownew: true,
-					//		onadd: function(p){onadd(p, vnode);},
-					//		onnew: function(){onnew(vnode);}
-					//	})
-					//:
-					//	m(TeamList, {
-					//		onadd: function(p){onadd(p, vnode);}
-					//	})
+					(value.length > 0)?
+						m(FilteredPeopleList, {
+							value: value,
+							allownew: true,
+							onadd: function(p){onadd(p, vnode.attrs.parent); vnode.attrs.onchange();},
+							//onnew: function(){onnew(vnode);}
+						})
+					:
+						m(TeamList, {
+							onadd: function(p){onadd(p, vnode.attrs.parent); vnode.attrs.onchange();}
+						})
 				]),
 
 				vnode.attrs.parent("person", function(person){
 					return m(".editor-peoplelist-person", [
 						m("span", person.value()),
 						m("span.editor-peoplelist-person-remove", {
-							onclick: function(){onremove(vnode.attrs.parent, person);}
+							onclick: function(){onremove(person, vnode.attrs.parent);}
 						}, m("i", {class:"material-icons"}, "close")),
 					]);
 				}),
