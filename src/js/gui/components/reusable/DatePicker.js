@@ -49,11 +49,18 @@ var DatePicker = function(){
 			{label: "Begin", value: "1k", p: false},
 			{label: "Midden", value: "2k", p: false},
 			{label: "Eind", value: "3k", p: false},
-		];;
+		];
 		for(var i=1; i<31; i++){
 			d.push({label: i, value: i, p: true});
 		}
 		return d;
+	}
+
+	function getLabel(e){
+		if(e.value===false){
+			return "Geen";
+		}
+		return e.label;
 	}
 
 	return {
@@ -62,48 +69,58 @@ var DatePicker = function(){
 				m(".datepicker-value", {
 					onclick: function(){state=!state;}
 				},[
-					m(".datepicker-section", date[0]),
-					m(".datepicker-section", date[1]),
-					m(".datepicker-section", date[2])
+					m("",[
+						m(".datepicker-section.datepicker-label", "Jaar"),
+						m(".datepicker-section.datepicker-label", "Maand/Kwartaal"),
+						m(".datepicker-section.datepicker-label", "Dag/Periode"),
+					]),
+					m("",[
+						m(".datepicker-section", getLabel(date[0])),
+						m(".datepicker-section", getLabel(date[1])),
+						m(".datepicker-section", getLabel(date[2])),
+					])
 				]),
 				state ? m(".datepicker-menu",[
 					m(".datepicker-column", [
 						years().map(function(e){
-							if(e) return m(".datepicker-option", {
+							if(!e.splitter) return m(".datepicker-option", {
+								class: (date[0].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[0] = e;
-									if(e === "Geen" || "10+ jaar") {
+									if(!e.p) {
 										state = false;
-										date[1] = "Geen";
-										date[2] = "Geen";
+										date[1] = {value: false};
+										date[2] = {value: false};
 									}
 								}
-							},e);
+							},getLabel(e));
 							return m(".datepicker-splitter","");
 						})
 					]),
-					(date[0]!== "Geen") ? m(".datepicker-column", [
+					(date[0].p) ? m(".datepicker-column", [
 						months().map(function(e){
-							if(e) return m(".datepicker-option", {
+							if(!e.splitter) return m(".datepicker-option", {
+								class: (date[1].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[1] = e;
-									if(e === "Geen") {
+									if(!e.p) {
 										state = false;
-										date[2] = "Geen";
+										date[2] = {value: false};
 									}
 								}
-							},e);
+							},getLabel(e));
 							return m(".datepicker-splitter","");
 						})
 					]) : [],
-					(date[1]!=="Geen") ? m(".datepicker-column", [
+					(date[1].p) ? m(".datepicker-column", [
 						days().map(function(e){
-							if(e) return m(".datepicker-option", {
+							if(!e.splitter) return m(".datepicker-option", {
+								class: (date[2].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[2] = e;
-									if(e === "Geen") {state = false;}
+									state = false;
 								}
-							},e);
+							},getLabel(e));
 							return m(".datepicker-splitter","");
 						})
 					]) : []
