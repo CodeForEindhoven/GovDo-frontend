@@ -82,7 +82,6 @@ var DatePicker = function(){
 		date[0] = date[0] || {value: false};
 		date[1] = date[1] || {value: false};
 		date[2] = date[2] || {value: false};
-		console.log(date);
 	}
 
 	function getLabel(e){
@@ -117,10 +116,10 @@ var DatePicker = function(){
 								class: (date[0].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[0] = e;
+									date[1] = {value: false};
+									date[2] = {value: false};
 									update(vnode);
 									if(!e.p) {
-										date[1] = {value: false};
-										date[2] = {value: false};
 										finish();
 									}
 								}
@@ -134,9 +133,9 @@ var DatePicker = function(){
 								class: (date[1].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[1] = e;
+									date[2] = {value: false};
 									update(vnode);
 									if(!e.p) {
-										date[2] = {value: false};
 										finish();
 									}
 								}
