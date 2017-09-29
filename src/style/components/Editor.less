@@ -192,7 +192,14 @@
 	margin-bottom: 5px;
 }
 
-//Date planning
+//Dropdown
+
+.dropdown {
+	display: inline;
+	position: relative;
+	cursor: pointer;
+}
+
 .dropdown-value {
 	margin: 5px;
 	color: @color-selected;
@@ -214,8 +221,8 @@
 	left: 3px;
 	top: 20px;
 	z-index: 99999999;
-	height: 200px;
-    overflow-y: scroll;
+	max-height: 200px;
+	overflow-y: scroll;
 }
 
 .dropdown-option {
