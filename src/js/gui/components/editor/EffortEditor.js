@@ -12,9 +12,10 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", "Inspanning titel"),
 							m(TextArea, {
-								value: viewModels.editMode.content().name,
+								value: vm.edit().value(),
 								onchange: function(v){
-									viewModels.editMode.setContent("name", v);
+									vm.edit().update(v);
+									//viewModels.editMode.setContent("name", v);
 								}
 							}),
 						]),
@@ -22,18 +23,11 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", "Type"),
 							m(TypeEditor, {
-								type: viewModels.editMode.content().type,
-								startdate: viewModels.editMode.content().startdate,
-								enddate: viewModels.editMode.content().enddate,
+								type: parseInt(vm.edit()("type").value()),
 								onchange: function(v){
-									viewModels.editMode.setContent("type", v);
+									vm.edit()("type").update(v);
+									//viewModels.editMode.setContent("type", v);
 								},
-								onchangeStartDate: function(v){
-									viewModels.editMode.setContent("startdate", v);
-								},
-								onchangeEndDate: function(v){
-									viewModels.editMode.setContent("enddate", v);
-								}
 							}),
 						]),
 					]),
@@ -42,23 +36,44 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", "Beoogd Effect"),
 							m(TextArea, {
-								value: viewModels.editMode.content().description,
+								value: vm.edit()("description").value(),
 								onchange: function(v){
-									viewModels.editMode.setContent("description", v);
-								}
+									vm.edit()("description").update(v);
+								},
 							}),
 						]),
 
 						m(".editor-column",[
 							m(".editor-subtitle", "Eindproduct"),
 							m(TextArea, {
-								value: viewModels.editMode.content().endproduct,
+								value: vm.edit()("endproduct").value(),
 								onchange: function(v){
-									viewModels.editMode.setContent("endproduct", v);
-								}
+									vm.edit()("endproduct").update(v);
+								},
 							}),
 						]),
 					]),
+				]),
+
+				m(".editor-section",[
+					m(".editor-section-title", "Positionering"),
+
+					m(".editor-subtitle-header",[
+						m("span.editor-subtitle", "Gerelateerde Opgaven"),
+						m(".icons-header", [
+							m("i.material-icons", {
+								onclick: function(e){
+									state2 = !state2;
+								}
+							},"add")
+						]),
+					]),
+					m(ConnectionEditor, {
+						state: state2,
+						onchange: function(){
+							state2 = false;
+						}
+					}),
 				]),
 
 				m(".editor-section",[
@@ -76,9 +91,9 @@ var EffortEditor = function(){
 					]),
 
 					m(PeopleListEditor, {
-						value: viewModels.editMode.content().People,
+						parent: vm.edit(),
 						onchange: function(v){
-							viewModels.editMode.setContent("People", v);
+							//viewModels.editMode.setContent("People", v);
 							state = false;
 						},
 						state: state
@@ -92,12 +107,12 @@ var EffortEditor = function(){
 					m(".editor-subtitle", "Periode"),
 
 
-					m("editor-selection-date",[
+					m(".editor-selection-date",[
 						m("span", "van"),
 						m(DatePicker)
 					]),
 
-					m("editor-selection-date",[
+					m(".editor-selection-date",[
 						m("span", "t/m"),
 						m(DatePicker)
 					]),
@@ -105,42 +120,20 @@ var EffortEditor = function(){
 
 				]),
 
-				m(".editor-section",[
-					m(".editor-section-title", "Positionering"),
+				//m(".editor-section",[
+				//	m(".editor-section-title", "Status"),
 
-					m(".editor-subtitle-header",[
-						m("span.editor-subtitle", "Gerelateerde Opgaven"),
-						m(".icons-header", [
-							m("i.material-icons", {
-								onclick: function(e){
-									state2 = !state2;
-								}
-							},"add")
-						]),
-					]),
-					m(ConnectionEditor, {
-						id: viewModels.editMode.content().id,
-						state: state2,
-						onchange: function(){
-							state2 = false;
-						}
-					}),
-				]),
-
-				m(".editor-section",[
-					m(".editor-section-title", "Status"),
-
-					m(".status-content",[
-						m(Toggle, {
-							value: viewModels.editMode.content().mode,
-							label_sketch: "Voorstel",
-							label_definitive: "Goedgegeurd",
-							onchange: function(v){
-								viewModels.editMode.setContent("mode", v);
-							}
-						}),
-					]),
-				]),
+				//	m(".status-content",[
+				//		m(Toggle, {
+				//			value: viewModels.editMode.content().mode,
+				//			label_sketch: "Voorstel",
+				//			label_definitive: "Goedgegeurd",
+				//			onchange: function(v){
+				//				viewModels.editMode.setContent("mode", v);
+				//			}
+				//		}),
+				//	]),
+				//]),
 
 
 			]);
@@ -149,40 +142,14 @@ var EffortEditor = function(){
 };
 
 var PeopleListEditor = function(){
-	//var state = false;
 	var value = "";
 
-	var onadd = function(person, vnode){
-		var people = vnode.attrs.value;
-		for(var i = people.length - 1; i >= 0; i--) {
-			if(people[i].id === person.id) {
-				return;
-			}
-		}
-		people.push(person);
-		vnode.attrs.onchange(people);
+	var onadd = function(a, b){
+		ptrn.speculativeRelate(a, b);
 	};
 
-	var onnew = function(vnode){
-		Models.Person.newItem(value, function(p){
-			Models.Person.loadTeams();
-			Models.Person.loadPeople();
-			onadd({
-				id: p.id,
-				name: p.name
-			}, vnode);
-			value = "";
-		});
-	};
-
-	var onremove = function(person, vnode){
-		var people = vnode.attrs.value;
-		for(var i = people.length - 1; i >= 0; i--) {
-			if(people[i].id === person.id) {
-				people.splice(i, 1);
-			}
-		}
-		vnode.attrs.onchange(people);
+	var onremove = function(a, b){
+		ptrn.speculativeUnrelate(a, b);
 	};
 
 	return {
@@ -201,20 +168,20 @@ var PeopleListEditor = function(){
 						m(FilteredPeopleList, {
 							value: value,
 							allownew: true,
-							onadd: function(p){onadd(p, vnode);},
-							onnew: function(){onnew(vnode);}
+							onadd: function(p){onadd(p, vnode.attrs.parent); vnode.attrs.onchange();},
+							//onnew: function(){onnew(vnode);}
 						})
 					:
 						m(TeamList, {
-							onadd: function(p){onadd(p, vnode);}
+							onadd: function(p){onadd(p, vnode.attrs.parent); vnode.attrs.onchange();}
 						})
 				]),
 
-				vnode.attrs.value.map(function(person){
+				vnode.attrs.parent("person", function(person){
 					return m(".editor-peoplelist-person", [
-						m("span", person.name),
+						m("span", person.value()),
 						m("span.editor-peoplelist-person-remove", {
-							onclick: function(){onremove(person, vnode);}
+							onclick: function(){onremove(person, vnode.attrs.parent);}
 						}, m("i", {class:"material-icons"}, "close")),
 					]);
 				}),
@@ -236,25 +203,6 @@ var TypeEditor = function(){
 					}, [
 						m(".editor-typeselect-type-name", t),
 						m("i", {class:"material-icons hide-icon"}, "info_outline"),
-
-						m(".editor-typeselect-type-timespan", {
-							class: (vnode.attrs.type === count && count<2)? "state-visible": "",
-						},[
-							//m(".editor-typeselect-type-timespan-subtitle","van"),
-							//m(".editor-typeselect-type-timespan-timebox",
-							//	m(DatePicker, {
-							//		value: vnode.attrs.startdate,
-							//		onchange: vnode.attrs.onchangeStartDate
-							//	})
-							//),
-							//m(".editor-typeselect-type-timespan-subtitle","t/m"),
-							//m(".editor-typeselect-type-timespan-timebox",
-							//	m(DatePicker, {
-							//		value:  vnode.attrs.enddate,
-							//		onchange: vnode.attrs.onchangeEndDate
-							//	})
-							//),
-						]),
 					]);
 				})
 			]);
@@ -264,51 +212,38 @@ var TypeEditor = function(){
 
 
 var ConnectionEditor = function(){
-	Models.Overview.loadContent();
-	var selected = 0;
-	var selected1 = 0;
-	var selected2 = -1;
+	var selectedProgram;
+	var selectedTask;
+
 	return {
 		view: function(vnode){
-			count = -1;
 			return [
 				vnode.attrs.state ? m(".editor-connectionlist", [
 					m(".editor-connectionlist-list", [
-						Models.Overview.getContent().map(function(domain, domaincount){
-							return domain.Programs.map(function(program, programcount){
-								count++;
-								return m(".editor-connectionlist-item",{
-									class: (selected1 === programcount && selected == domaincount)?"state-selected":"",
-									onclick: (function(d,c){
-										return function(){
-											selected = d;
-											selected1 = c;
-											selected2 = -1;
-										};
-									})(domaincount, programcount)
-								},[
-									m(".button-number.editor-connectionlist-item-number",count+1),
-									m(".editor-connectionlist-item-name",program.name)
-								]);
-							});
-
+						ptrn("program", function(program){
+							return m(".editor-connectionlist-item",{
+								class: ptrn.compare(selectedProgram, program)?"state-selected":"",
+								onclick: function(){selectedProgram = program;}
+							},[
+								m(".button-number.editor-connectionlist-item-number",program("order").value()),
+								m(".editor-connectionlist-item-name",program.value())
+							]);
 						})
 					]),
 					m(".editor-connectionlist-list", [
-						Models.Overview.getContent()[selected] ? Models.Overview.getContent()[selected].Programs[selected1].Tasks.map(function(elem, count){
+						selectedProgram ? selectedProgram("task", function(task){
 							return m(".editor-connectionlist-item",{
-								class: (selected2 === count)?"state-selected":"",
+								class: ptrn.compare(selectedTask,task)?"state-selected":"",
 								onclick: function(){
-									selected2 = count;
-									Models.Overview.setParent(elem.id, vnode.attrs.id, function(){
-										vnode.attrs.onchange();
-										m.redraw();
-
-									});
+									selectedTask = task;
+									ptrn.speculativeRelate(vm.edit(), task);
+									selectedProgram = undefined;
+									selectedTask = undefined;
+									vnode.attrs.onchange();
 								}
 							},[
-								m(".button-number.editor-connectionlist-item-number",count+1),
-								m(".editor-connectionlist-item-name",elem.name),
+								m(".button-number.editor-connectionlist-item-number",task("order").value()),
+								m(".editor-connectionlist-item-name",task.value()),
 								m("i.material-icons .connectionlist-addbutton", "add"),
 							]);
 						}) : []
@@ -316,17 +251,15 @@ var ConnectionEditor = function(){
 				]) : [],
 
 				m(".editor-connections-parents", [
-					Models.Overview.getParents(vnode.attrs.id).map(function(parent){
+					vm.edit()("task", function(parent){
 						return m(".editor-connections-parent.state-selected",[
-							m(".button-number.editor-connections-parent-number", parent.program.count),
-							m(".button-number.editor-connections-parent-number", parent.task.count),
-							m(".editor-connections-parent-name", parent.program.name+" - "+parent.task.name),
-							(Models.Overview.getParents(vnode.attrs.id).length > 1) ? m("span..editor-connections-parent-remove", {
+							m(".button-number.editor-connections-parent-number", parent("program")("order").value()),
+							m(".button-number.editor-connections-parent-number", parent("order").value()),
+							m(".editor-connections-parent-name", parent.value()),
+							(vm.edit()("task",function(e){return e;}).length > 1) ? m("span.editor-connections-parent-remove", {
 								onclick: function(){
-									Models.Overview.removeParent(parent.task.id, vnode.attrs.id, function(){
-										vnode.attrs.onchange();
-										m.redraw();
-									});
+									ptrn.speculativeUnrelate(vm.edit(), parent);
+									vnode.attrs.onchange();
 								}
 							}, m("i", {class:"material-icons"}, "close")) : [],
 						]);

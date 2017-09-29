@@ -2,14 +2,15 @@ var Editor = function(){
 	return {
 		view: function(vnode){
 			return m(".editor",{
-				class: viewModels.editMode.state() ? "state-edit": "state-hidden"
+				class: vm.edit() ? "state-edit": "state-hidden"
 			}, [
 				//Header
 				m(".editor-header",[
 					m("span", "Editor"),
 					m(".icons-header .close-button", {
 						onclick: function(){
-							viewModels.editMode.save();
+							ptrn.transact();
+							vm.editClose();
 						}
 					}, [
 //						m(".save-button", (viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),
@@ -19,7 +20,7 @@ var Editor = function(){
 
 				//Content
 				(function(){
-					if(viewModels.editMode.state()) {
+					if(vm.edit()) {
 						return m(".editor-content",{
 							onbeforeremove: function(){
 								return new Promise(function(resolve) {
@@ -28,11 +29,11 @@ var Editor = function(){
 							}
 						},[
 							(function(){
-								if(viewModels.editMode.isType("effort")){
+								if(vm.edit().type()==="effort"){
 									return m(EffortEditor);
-								} else if(viewModels.editMode.isType("task")){
+								} else if(vm.edit().type()==="task"){
 									return m(TaskEditor);
-								} else if(viewModels.editMode.isType("program")){
+								} else if(vm.edit().type()==="program"){
 									return m(ProgramEditor);
 								}
 							})(),
@@ -42,14 +43,14 @@ var Editor = function(){
 							// Save button
 							m(".save-button", {
 								onclick: function(){
-									viewModels.editMode.save();
+									ptrn.transact();
 								}
-							},(viewModels.editMode.savingState())?"Opslaan...":"Opslaan"),
+							},(/*viewModels.editMode.savingState()*/false)?"Opslaan...":"Opslaan"),
 
 							//Delete item
 							m(".button-delete", {
 								onclick: function(){
-									viewModels.editMode.delete();
+									vm.edit.delete();
 								}
 							},"Verwijder"),
 							]),

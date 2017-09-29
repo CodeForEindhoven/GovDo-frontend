@@ -1,23 +1,7 @@
 var TaskSelector = function(){
-
-	function selected(id){
-		return (viewModels.Hierarchy.getTask() === id);
-	}
-
-	function editable(id){
-		return (!viewModels.editMode.state() && selected(id));
-	}
-
-	function editing(id){
-		if(viewModels.editMode.state() && viewModels.editMode.isType("task")){
-			return (viewModels.editMode.content().id === id);
-		}
-		return false;
-	}
-
 	return {
 		view: function(vnode){
-			if(viewModels.Hierarchy.getProgram()>0){
+			if(vm.program()){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Opgaven"),
@@ -32,15 +16,15 @@ var TaskSelector = function(){
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
-						Models.Task.getContent().map(function(task, count){
+						vm.program()("task", function(task){
 							return m(".state-selectable.selectorlist-item", {
-								class: ((selected(task.id))?"state-selected":"") +" "+((editing(task.id))?"state-editing":"")+" "+(task.mode?"mode-sketch":""),
+								class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()==-1?"mode-sketch":""),
 								onclick: function(){
-									viewModels.Hierarchy.updateTask(task.id);
+									vm.task(task);
 								}
 							},[
 								m(".selectorlist-item-number", [
-									m(".button-number", count+1),
+									m(".button-number", task("order").value()),
 									m(".selectorlist-item-edit.button-edit-small",{
 										onclick: function(){
 											viewModels.editMode.set("task", task);
@@ -49,14 +33,14 @@ var TaskSelector = function(){
 								]),
 								m(".selectorlist-item-content", [
 									m(".taskselector-title", [
-										m("span.taskselector-title-name", task.name),
-										(task.means)?[
+										m("span.taskselector-title-name", task.value()),
+										(task("means").value() !== "")?[
 											m("span.taskselector-title-means-label", " door "),
-											m("span.taskselector-title-means", task.means),
+											m("span.taskselector-title-means", task("means").value()),
 										]:[],
 										m(".selector-hidden",[
 											m(".taskselector-subheader", "Indicator"),
-											m("span.taskselector-kpi", task.kpi.emptyState(m(".effortselector-description-state.state-empty", "Nog geen indicator")))
+											m("span.taskselector-kpi", task("kpi").value().emptyState(m(".effortselector-description-state.state-empty", "Nog geen indicator")))
 										])
 									]),
 								]),
