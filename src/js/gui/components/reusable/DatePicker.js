@@ -99,9 +99,9 @@ var DatePicker = function(){
 					onclick: function(){state=!state;}
 				},[
 					m("",[
-						m(".datepicker-section.datepicker-label", "Jaar"),
-						m(".datepicker-section.datepicker-label", "Maand/Kwartaal"),
-						m(".datepicker-section.datepicker-label", "Dag/Periode"),
+						m(".datepicker-section.editor-small-label", "Jaar"),
+						m(".datepicker-section.editor-small-label", "Maand/Kwartaal"),
+						m(".datepicker-section.editor-small-label", "Dag/Periode"),
 					]),
 					m("",[
 						m(".datepicker-section", getLabel(date[0])),

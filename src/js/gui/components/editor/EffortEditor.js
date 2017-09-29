@@ -1,5 +1,5 @@
 var EffortEditor = function(){
-	var state = false;
+	var stateTeam = false;
 	var state2 = false;
 	return {
 		view: function(vnode){
@@ -84,7 +84,7 @@ var EffortEditor = function(){
 						m(".icons-header", [
 							m("i.material-icons", {
 								onclick: function(e){
-									state = !state;
+									stateTeam = !stateTeam;
 								}
 							},"add")
 						]),
@@ -92,11 +92,22 @@ var EffortEditor = function(){
 
 					m(PeopleListEditor, {
 						parent: vm.edit(),
-						onchange: function(v){
-							//viewModels.editMode.setContent("People", v);
-							state = false;
+						onadd: function(v){
+							ptrn.speculativeRelate(vm.edit(), v);
+							stateTeam = false;
 						},
-						state: state
+						ondelete: function(v){
+							ptrn.speculativeUnrelate(vm.edit(), v);
+						},
+						onsetrole: function(v){
+							//console.log(v);
+							ptrn.speculativeRelate(vm.edit(), v("role:leader"));
+						},
+						onunsetrole: function(v){
+							console.log(v);
+							ptrn.speculativeUnrelate(vm.edit(), v("role:leader"));
+						},
+						state: stateTeam
 					}),
 				]),
 
@@ -154,15 +165,8 @@ var EffortEditor = function(){
 };
 
 var PeopleListEditor = function(){
+	var state = false;
 	var value = "";
-
-	var onadd = function(a, b){
-		ptrn.speculativeRelate(a, b);
-	};
-
-	var onremove = function(a, b){
-		ptrn.speculativeUnrelate(a, b);
-	};
 
 	return {
 		view: function(vnode){
@@ -180,21 +184,41 @@ var PeopleListEditor = function(){
 						m(FilteredPeopleList, {
 							value: value,
 							allownew: true,
-							onadd: function(p){onadd(p, vnode.attrs.parent); vnode.attrs.onchange();},
+							onadd: function(p){vnode.attrs.onadd(p);},
 							//onnew: function(){onnew(vnode);}
 						})
 					:
 						m(TeamList, {
-							onadd: function(p){onadd(p, vnode.attrs.parent); vnode.attrs.onchange();}
+							onadd: function(p){vnode.attrs.onadd(p);}
 						})
 				]),
 
 				vnode.attrs.parent("person", function(person){
 					return m(".editor-peoplelist-person", [
+
+						//name
 						m("span", person.value()),
+
+						//role picker
+						m("span", person("role:leader #"+vnode.attrs.parent.id()).id()>0 ?
+							m("span", {
+								onclick: function(){
+									vnode.attrs.onunsetrole(person);
+								}
+							},"Trekker")
+							:
+							m("span", {
+								onclick: function(){
+									vnode.attrs.onsetrole(person);
+								}
+							},"Teamlid")
+						),
+
+						//deletebutton
 						m("span.editor-peoplelist-person-remove", {
-							onclick: function(){onremove(person, vnode.attrs.parent);}
+							onclick: function(){vnode.attrs.ondelete(person);}
 						}, m("i", {class:"material-icons"}, "close")),
+
 					]);
 				}),
 			]);

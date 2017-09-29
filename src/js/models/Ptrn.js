@@ -131,8 +131,30 @@ var ptrn =  (function(){
 
 	/*INTERFACE*/
 	function query(q, callback, subset){
+		var selection;
+
 		var words = q.split(/ (.+)/);
-		var selection = select(words[0], "?", subset);
+		var first = words[0];
+
+		if(first.charAt(0)==="#"){
+			var id = parseInt(first.substring(1));
+			selection = [];
+			var found = subset.find(function(a){
+				return a.oid === id;
+			})	;
+			if(found) selection.push(found);
+		} else {
+			var type = first.split(":");
+			var value = "?";
+			if(type.length>1){
+				value = type[1];
+			}
+
+			type = type[0];
+			selection = select(type, value, subset);
+		}
+
+
 		//if a callback is provided perform a map
 		//otherwise just return the first element
 		if(words.length===1){
