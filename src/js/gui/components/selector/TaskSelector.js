@@ -29,13 +29,21 @@ var TaskSelector = function(){
 										onclick: function(){
 											viewModels.editMode.set("task", task);
 										}
-									}, m("i.material-icons","build"))
+									}, 
+									
+									m(".position", [
+									m("i.material-icons","keyboard_arrow_down"), 
+									m("i.material-icons","keyboard_arrow_up"), 
+									]),
+									
+									m("i.material-icons","build")),
 								]),
+								
 								m(".selectorlist-item-content", [
 									m(".taskselector-title", [
 										m("span.taskselector-title-name", task.value()),
 										(task("means").value() !== "")?[
-											m("span.taskselector-title-means-label", " door "),
+											m("span.taskselector-title-means-label", m("i.material-icons .taskselector-arrow", "arrow_forward")),
 											m("span.taskselector-title-means", task("means").value()),
 										]:[],
 										m(".selector-hidden",[
