@@ -226,19 +226,32 @@ var PeopleListEditor = function(){
 						m("span", person.value()),
 
 						//role picker
-						m("span", person("role:leader #"+vnode.attrs.parent.id()).id()>0 ?
-							m("span", {
-								onclick: function(){
+						//m("span", person("role:leader #"+vnode.attrs.parent.id()).id()>0 ?
+						//	m("span", {
+						//		onclick: function(){
+						//			vnode.attrs.onunsetrole(person);
+						//		}
+						//	},"Trekker")
+						//:
+						//	m("span", {
+						//		onclick: function(){
+						//			vnode.attrs.onsetrole(person);
+						//		}
+						//	},"Teamlid")
+						//),
+						m(DropDown, {
+							value: (person("role:leader #"+vnode.attrs.parent.id()).id()>0) ? 0 : -1,
+							options:["Trekker"],
+							novalue: "Teamlid",
+							onchange: function(e){
+								if(e===0){
+									vnode.attrs.onsetrole(person);
+								} else {
 									vnode.attrs.onunsetrole(person);
 								}
-							},"Trekker")
-							:
-							m("span", {
-								onclick: function(){
-									vnode.attrs.onsetrole(person);
-								}
-							},"Teamlid")
-						),
+							},
+
+						}),
 
 						//deletebutton
 						m("span.editor-peoplelist-person-remove", {
