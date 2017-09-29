@@ -55,7 +55,7 @@ var EffortSelector = function(){
 										}
 									},
 									
-									m(".position", [
+									m(".selectorlist-item-position", [
 									m("i.material-icons","keyboard_arrow_down"), 
 									m("i.material-icons","keyboard_arrow_up"), 
 									]),
