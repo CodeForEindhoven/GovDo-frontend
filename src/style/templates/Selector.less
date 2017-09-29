@@ -15,7 +15,8 @@
 
 .selector-header, .editor-header, .searchbar-popup-header {
 	// font-size: @size-selected;
-	font-weight: @semibold;
+	font-weight: @regular;
+	letter-spacing: @var-05;
 
 	// All uppercase
 	font-size: @main-text;
@@ -32,7 +33,7 @@
 
 .selectorlist {
 	position: absolute;
-	top: 40px;
+	top: 32px;
 	bottom: 0px;
 	width: 100%;
 	overflow-y: scroll;
@@ -50,6 +51,7 @@
 
 .selectorlist-item {
 	cursor: pointer;
+	position: relative;
 }
 
 .selectorlist-item.state-editing, .selectorlist-item.effortselector-title {
@@ -96,6 +98,14 @@
 	margin-top: 5px;
 	opacity: 1;
 	transition: opacity 0.3s;
+	position: absolute;
+	right: -19%;
+	top: 1%;
+}
+
+.selectorlist-item-edit i.material-icons {
+	display: inline;
+//	color: red;
 }
 
 // Program Mission

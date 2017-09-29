@@ -44,14 +44,23 @@ var EffortSelector = function(){
 							},[
 								m(".selectorlist-item-number", [
 									m(".button-number", effort("order").value()),
+
+								]),
+								m(".selectorlist-item-content", [
+									m(".effortselector-title", effort.value()),
+									
 									m(".selectorlist-item-edit.button-edit-small",{
 										onclick: function(){
 											vm.edit(effort);
 										}
-									}, m("i.material-icons","build"))
-								]),
-								m(".selectorlist-item-content", [
-									m(".effortselector-title", effort.value()),
+									},
+									
+									m(".position", [
+									m("i.material-icons","keyboard_arrow_down"), 
+									m("i.material-icons","keyboard_arrow_up"), 
+									]),
+									
+									m("i.material-icons","build")),
 									m(".selector-hidden",[
 										m(".effortselector-type", emptyState(viewModels.typeNames[effort("type").value()], m(".effortselector-type-state.state-empty", "Nog geen type"))),
 										m(".effortselector-subheader", "Beoogd Effect"),

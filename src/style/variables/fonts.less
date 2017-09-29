@@ -1,23 +1,40 @@
-@font-base: 'Open Sans', sans-serif;
-@font-size: 16px;
+@font-base: 'Graphik', sans-serif;
+@font-number: 'Space Mono', monospace;
+@font-size: 15px;
+@regular: 400;
+@medium: 500;
 @semibold: 600;
 @light: 300;
 @uppercase: uppercase;
 
 @main-text: (@font-size * 0.875);
+@button-number: @font-size;
 @line-height-main-text: (@font-size * 1.250);
 @icon-size: (@font-size * 1.125);
+// The typesize of the arrow in the Opgaven column is 24px
+
+@main-letter-spacing: 1px;
+
 
 // Selected text
 
 
+//Navigation Bar
+
+//Title current page (current programma, name on personal dashboard, general dashboard)
+//Letter spacing
+@var-01: (@main-letter-spacing * 1.1);
+@var-05: (@main-letter-spacing * 0.5);
+
 // Title
 // Variable
 @var-selected-title: 1.25;
-@var-selected-title-line-height: 1.625;
+@var-selected-title-line-height: 1.85;
 
 @size-selected: (@font-size * @var-selected-title); // 1.25 .selected-text
 @line-height-size-selected: (@font-size * @var-selected-title-line-height);
+
+@word-space-size-selected: (@font-size / 22.35);
 
 // Main-text
 // Variable

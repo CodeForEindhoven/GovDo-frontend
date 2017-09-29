@@ -9,20 +9,23 @@
 	line-height: @width-circle;
 	border-radius: 50%;
 	text-align: center;
-	font-size: (@main-text * 0.95);
-	font-weight: @semibold;
+	font-family: @font-number;
+	font-size: @button-number;
+	font-weight: @regular;
 }
 
-.button-number + .selectorlist-item-edit {
+/*.button-number + .selectorlist-item-edit {
 	margin-top: 12px;
-	background-color: @color-background;
+	background-color: @color-white;
 	text-align: center;
 	font-size: @main-text;
-}
+}*/
 
 .state-selectable:hover .button-number, .state-selected .button-number {
 	background-color: @color-selected;
 	color: @color-white;
+	-webkit-font-smoothing: subpixel-antialiased;
+  	-moz-osx-font-smoothing: grayscale;
 }
 
 .button {
@@ -38,7 +41,7 @@
 
 .button-edit {
 	.button();
-	background-color: @color-button-edit;
+	background-color: @color-white;
 }
 
 .editor-buttons .button-edit {
@@ -87,6 +90,7 @@
 .icons-header {
 	float: right;
 	vertical-align: top;
+	margin-right: 24px;
 }
 
 .material-icons {
@@ -113,16 +117,12 @@
 // Headers Icons
 .selector-header .material-icons {
 	cursor: pointer;
-	background-color: white;
-	border-radius: 25px;
+	color:@color-selected;
 	padding: 2px;
 }
 
-.editor-header .material-icons {
-	cursor: pointer;
-	color: @color-selected;
-	padding-left: 4px;
-	padding-right: 4px;
+.selector-header .material-icons:hover {
+	color: @color-black;
 }
 
 div.icons-header .material-icons + .material-icons {
