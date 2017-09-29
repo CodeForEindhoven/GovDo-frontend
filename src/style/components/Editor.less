@@ -71,6 +71,8 @@
 	border: @border-box solid @color-editable;
 	margin-bottom: 8px;
 	cursor: pointer;
+	width: 45%;
+	text-align: center;
 }
 
 .editor-typeselect-type:hover {
@@ -111,10 +113,15 @@
 .editor-subtitle {
 	font-weight: @semibold;
 	color: @color-selected;
-	margin-bottom: 8px;
+	margin-bottom: 20px;
 }
 
-.editor-row {
+.editor-subtitle span + i.material-icons {
+	margin-left: 15px;
+}
+
+.editor-row + .editor-row {
+	margin-top: 60px;
 }
 
 .editor-column:first-child {
@@ -128,15 +135,15 @@
 }
 
 .editor-section-title {
-	font-weight: @semibold;
+	font-weight: @regular;
 	font-size: 20px;
-	margin-bottom: 8px;
+	margin-bottom: 40px;
 }
 
 .editor-section {
 	border-right: 3px @color-selected solid;
 	padding-right: 40px;
-	padding-bottom: 60px;
+	padding-bottom: 180px;
 	position: relative;
 }
 
