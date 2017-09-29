@@ -1,10 +1,12 @@
 var Models = {};
 
+var temp_api = "http://api.test.planlab.wolkenmachine.nl/";
+
 var model = {
 	get: function(adress,data,callback){
 		m.request({
 			method: "GET",
-			url: config.api_endpoint+adress
+			url: temp_api+adress
 		}).catch(function(reason){
 			window.alert(reason);
 		}).then(callback);
@@ -13,7 +15,7 @@ var model = {
 	post: function(adress,data,callback){
 		m.request({
 			method: "POST",
-			url: config.api_endpoint+adress,
+			url: temp_api+adress,
 			data: data
 		}).catch(function(reason){
 			window.alert(reason);
@@ -23,7 +25,7 @@ var model = {
 	delete: function(adress,data,callback){
 		m.request({
 			method: "DELETE",
-			url: config.api_endpoint+adress,
+			url: temp_api+adress,
 			data: data
 		}).catch(function(reason){
 			window.alert(reason);

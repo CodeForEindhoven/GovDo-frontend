@@ -102,23 +102,23 @@ var EffortEditor = function(){
 
 
 				//Planning
-				//m(".editor-section",[
-				//	m(".editor-section-title", "Planning"),
-				//	m(".editor-subtitle", "Periode"),
+				m(".editor-section",[
+					m(".editor-section-title", "Planning"),
+					m(".editor-subtitle", "Periode"),
 
 
-				//	m("editor-selection-date",[
-				//		m("span", "van"),
-				//		m(DatePicker)
-				//	]),
+					m(".editor-selection-date",[
+						m("span", "van"),
+						m(DatePicker)
+					]),
 
-				//	m("editor-selection-date",[
-				//		m("span", "t/m"),
-				//		m(DatePicker)
-				//	]),
+					m(".editor-selection-date",[
+						m("span", "t/m"),
+						m(DatePicker)
+					]),
 
 
-				//]),
+				]),
 
 				//m(".editor-section",[
 				//	m(".editor-section-title", "Status"),
@@ -142,31 +142,8 @@ var EffortEditor = function(){
 };
 
 var PeopleListEditor = function(){
-	//var state = false;
 	var value = "";
 
-	//var onadd = function(person, vnode){
-	//	var people = vnode.attrs.value;
-	//	for(var i = people.length - 1; i >= 0; i--) {
-	//		if(people[i].id === person.id) {
-	//			return;
-	//		}
-	//	}
-	//	people.push(person);
-	//	vnode.attrs.onchange(people);
-	//};
-
-	//var onnew = function(vnode){
-	//	Models.Person.newItem(value, function(p){
-	//		Models.Person.loadTeams();
-	//		Models.Person.loadPeople();
-	//		onadd({
-	//			id: p.id,
-	//			name: p.name
-	//		}, vnode);
-	//		value = "";
-	//	});
-	//};
 	var onadd = function(a, b){
 		ptrn.speculativeRelate(a, b);
 	};

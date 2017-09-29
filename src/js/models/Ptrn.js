@@ -177,7 +177,7 @@ var ptrn =  (function(){
 	/*NETWORK*/
 	var cache = {};
 
-	function pulldump(){
+	function pulldump(callback){
 		request("GET", "dump", {}, function(data){
 			data.nodes.map(function(elem){
 				atoms[elem.id] = {
@@ -204,7 +204,7 @@ var ptrn =  (function(){
 				};
 			});
 
-			m.redraw();
+			callback();
 		});
 	}
 
@@ -297,7 +297,7 @@ var ptrn =  (function(){
 	}
 
 	function request(type, url, data, callback){
-		var api = "http://localhost:9000/";
+		var api = config.api_endpoint;
 		var xhttp = new XMLHttpRequest();
 
 		xhttp.onreadystatechange = function() {
@@ -323,42 +323,42 @@ var ptrn =  (function(){
 	query.relate = relate;
 	query.speculativeRelate = speculativeRelate;
 	query.speculativeUnrelate = speculativeUnrelate;
-
-	pulldump();
+	query.loadall = pulldump;
 	//query.push = push;
 	return query;
 })();
 
-/*
-model.get("overview", {}, function(data){
-	data.map(function(domain){
-		ptrn.create("domain", domain.name, function(d){
-			domain.Programs.map(function(program){
-				ptrn.create("program", program.name, function(p){
-					ptrn.relate(d,p);
-					ptrn.create("mission", program.mission, function(a){ptrn.relate(p,a);});
-					ptrn.create("order", program.id, function(a){ptrn.relate(p,a);});
-					ptrn.create("mode", program.mode, function(a){ptrn.relate(p,a);});
+function pushAllTheData(){
+	model.get("overview", {}, function(data){
+		data.map(function(domain){
+			ptrn.create("domain", domain.name, function(d){
+				domain.Programs.map(function(program){
+					ptrn.create("program", program.name, function(p){
+						ptrn.relate(d,p);
+						ptrn.create("mission", program.mission, function(a){ptrn.relate(p,a);});
+						ptrn.create("order", program.id, function(a){ptrn.relate(p,a);});
+						ptrn.create("mode", program.mode, function(a){ptrn.relate(p,a);});
 
-					program.Tasks.map(function(task){
-						ptrn.create("task", task.name, function(t){
-							ptrn.relate(p,t);
-							ptrn.create("means", task.means, function(a){ptrn.relate(t,a);});
-							ptrn.create("kpi", task.kpi, function(a){ptrn.relate(t,a);});
-							ptrn.create("order", task.id, function(a){ptrn.relate(t,a);});
-							ptrn.create("mode", task.mode, function(a){ptrn.relate(t,a);});
+						program.Tasks.map(function(task){
+							ptrn.create("task", task.name, function(t){
+								ptrn.relate(p,t);
+								ptrn.create("means", task.means, function(a){ptrn.relate(t,a);});
+								ptrn.create("kpi", task.kpi, function(a){ptrn.relate(t,a);});
+								ptrn.create("order", task.id, function(a){ptrn.relate(t,a);});
+								ptrn.create("mode", task.mode, function(a){ptrn.relate(t,a);});
 
-							task.Efforts.map(function(effort){
-								ptrn.create("effort", effort.name, function(e){
-									ptrn.relate(t,e);
-									ptrn.create("description", effort.description, function(a){ptrn.relate(e,a);});
-									ptrn.create("endproduct", effort.endproduct, function(a){ptrn.relate(e,a);});
-									ptrn.create("type", effort.type, function(a){ptrn.relate(e,a);});
-									ptrn.create("order", effort.id, function(a){ptrn.relate(e,a);});
-									ptrn.create("mode", effort.mode, function(a){ptrn.relate(e,a);});
+								task.Efforts.map(function(effort){
+									ptrn.create("effort", effort.name, function(e){
+										ptrn.relate(t,e);
+										ptrn.create("description", effort.description, function(a){ptrn.relate(e,a);});
+										ptrn.create("endproduct", effort.endproduct, function(a){ptrn.relate(e,a);});
+										ptrn.create("type", effort.type, function(a){ptrn.relate(e,a);});
+										ptrn.create("order", effort.id, function(a){ptrn.relate(e,a);});
+										ptrn.create("mode", effort.mode, function(a){ptrn.relate(e,a);});
 
-									effort.People.map(function(person){
-										ptrn.findorcreate("person", person.name, function(p){ptrn.relate(p,e);});
+										effort.People.map(function(person){
+											ptrn.findorcreate("person", person.name, function(p){ptrn.relate(p,e);});
+										});
 									});
 								});
 							});
@@ -367,9 +367,9 @@ model.get("overview", {}, function(data){
 				});
 			});
 		});
-	});
-});
-*/
+	});	
+}
+
 
 //model.get("overview", {}, function(data){
 //	data.map(function(domain){
