@@ -161,29 +161,3 @@ var DatePicker = function(){
 		}
 	};
 };
-
-var DropdownMenu = function(){
-	var state = false;
-	return {
-		view: function(vnode){
-			return m(".dropdown", [
-				m("span.dropdown-value", {
-					class: (vnode.attrs.value !== undefined) ? "" : "novalue",
-					onclick: function(){
-						state = !state;
-					}
-				}, (vnode.attrs.value !== undefined) ? vnode.attrs.options[vnode.attrs.value] : vnode.attrs.novalue),
-				state ? m("div.dropdown-options",[
-					vnode.attrs.options.map(function(option, count){
-						return m(".dropdown-option", {
-							onclick: function(){
-								state = false;
-								vnode.attrs.onchange(count);
-							}
-						}, option);
-					})
-				]) : []
-			]);
-		}
-	};
-};
