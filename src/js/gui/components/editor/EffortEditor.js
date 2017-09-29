@@ -10,7 +10,10 @@ var EffortEditor = function(){
 
 					m(".editor-row",[
 						m(".editor-column",[
-							m(".editor-subtitle", "Inspanning titel"),
+							m(".editor-subtitle", [
+								m("span", "Inspanning titel"),
+								m("i.material-icons", "info_outline"),
+							]),
 							m(TextArea, {
 								value: vm.edit().value(),
 								onchange: function(v){
@@ -21,7 +24,12 @@ var EffortEditor = function(){
 						]),
 
 						m(".editor-column",[
-							m(".editor-subtitle", "Type"),
+							m(".editor-subtitle", [
+								m("span", "Type"),
+								m("i.material-icons", "info_outline"),
+							]),
+							
+							
 							m(TypeEditor, {
 								type: parseInt(vm.edit()("type").value()),
 								onchange: function(v){
@@ -34,7 +42,11 @@ var EffortEditor = function(){
 
 					m(".editor-row",[
 						m(".editor-column",[
-							m(".editor-subtitle", "Beoogd Effect"),
+							m(".editor-subtitle", [
+								m("span", "Beoogd Effect"),
+								m("i.material-icons", "info_outline"),
+							]),
+							
 							m(TextArea, {
 								value: vm.edit()("description").value(),
 								onchange: function(v){
@@ -44,7 +56,11 @@ var EffortEditor = function(){
 						]),
 
 						m(".editor-column",[
-							m(".editor-subtitle", "Eindproduct"),
+							m(".editor-subtitle", [
+								m("span", "Eindproduct"),
+								m("i.material-icons", "info_outline"),
+							]),
+							
 							m(TextArea, {
 								value: vm.edit()("endproduct").value(),
 								onchange: function(v){
@@ -59,7 +75,11 @@ var EffortEditor = function(){
 					m(".editor-section-title", "Positionering"),
 
 					m(".editor-subtitle-header",[
-						m("span.editor-subtitle", "Gerelateerde Opgaven"),
+							m(".editor-subtitle", [
+								m("span", "Gedeelde Opgaven"),
+								m("i.material-icons", "info_outline"),
+							]),
+
 						m(".icons-header", [
 							m("i.material-icons", {
 								onclick: function(e){
@@ -80,7 +100,11 @@ var EffortEditor = function(){
 					m(".editor-section-title", "Mensen"),
 
 					m(".editor-subtitle-header",[
-						m("span.editor-subtitle", "Team"),
+							m(".editor-subtitle", [
+								m("span", "Team"),
+								m("i.material-icons", "info_outline"),
+							]),
+
 						m(".icons-header", [
 							m("i.material-icons", {
 								onclick: function(e){
@@ -115,8 +139,10 @@ var EffortEditor = function(){
 				//Planning
 				m(".editor-section",[
 					m(".editor-section-title", "Planning"),
-					m(".editor-subtitle", "Periode"),
-
+					m(".editor-subtitle", [
+						m("span", "Periode"),
+						m("i.material-icons", "info_outline"),
+					]),
 
 					m(".editor-selection-date",[
 						m("span", "van"),
@@ -238,7 +264,7 @@ var TypeEditor = function(){
 						}
 					}, [
 						m(".editor-typeselect-type-name", t),
-						m("i", {class:"material-icons hide-icon"}, "info_outline"),
+						//m("i", {class:"material-icons hide-icon"}, "info_outline"),
 					]);
 				})
 			]);
