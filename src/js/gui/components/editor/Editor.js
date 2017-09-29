@@ -6,6 +6,7 @@ var Editor = function(){
 			}, [
 				//Header
 				m(".editor-header",[
+					vm.edit() ? m(".button-number", vm.edit()("order").value()) : [],
 					m("span", "Editor"),
 					m(".icons-header .close-button", {
 						onclick: function(){
