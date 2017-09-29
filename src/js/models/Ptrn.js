@@ -148,8 +148,8 @@ var ptrn =  (function(){
 					oid: -1,
 					type: "",
 					value: [{
-						value: "",
-						tid: -1
+						tid: -1,
+						value: ""
 					}]
 				});
 			}
@@ -170,8 +170,7 @@ var ptrn =  (function(){
 	}
 
 	function log(){
-		console.log(atoms);
-		console.log(relations);
+		//console.log(speculativeAtoms);
 	}
 
 	/*NETWORK*/
@@ -367,7 +366,7 @@ function pushAllTheData(){
 				});
 			});
 		});
-	});	
+	});
 }
 
 

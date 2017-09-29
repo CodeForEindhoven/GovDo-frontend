@@ -6,7 +6,7 @@ var DatePicker = function(){
 		var y = [{label:"Geen",value: false, p: false}, {splitter: true}];
 		var d = new Date().getFullYear();
 		for(var i=0; i<10; i++){
-			y.push({label:d,value: d, p: true});
+			y.push({label:d,value: ""+d, p: true});
 			d++;
 		}
 		return y.concat([{splitter: true},{label:"+10 jaar",value: "future", p: false}]);
@@ -25,18 +25,18 @@ var DatePicker = function(){
 
 			{splitter: true},
 
-			{label: "januari", 	value: 1, p: true},
-			{label: "februari", value: 2, p: true},
-			{label: "maart", 	value: 3, p: true},
-			{label: "april", 	value: 4, p: true},
-			{label: "mei", 		value: 5, p: true},
-			{label: "juni", 	value: 6, p: true},
-			{label: "juli", 	value: 7, p: true},
-			{label: "augustus", value: 8, p: true},
-			{label: "september",value: 9, p: true},
-			{label: "october", 	value: 10, p: true},
-			{label: "november", value: 11, p: true},
-			{label: "december", value: 12, p: true}
+			{label: "januari", 	value: "1", p: true},
+			{label: "februari", value: "2", p: true},
+			{label: "maart", 	value: "3", p: true},
+			{label: "april", 	value: "4", p: true},
+			{label: "mei", 		value: "5", p: true},
+			{label: "juni", 	value: "6", p: true},
+			{label: "juli", 	value: "7", p: true},
+			{label: "augustus", value: "8", p: true},
+			{label: "september",value: "9", p: true},
+			{label: "october", 	value: "10", p: true},
+			{label: "november", value: "11", p: true},
+			{label: "december", value: "12", p: true}
 		];
 	}
 
@@ -50,10 +50,39 @@ var DatePicker = function(){
 			{label: "Midden", value: "2k", p: false},
 			{label: "Eind", value: "3k", p: false},
 		];
-		for(var i=1; i<31; i++){
-			d.push({label: i, value: i, p: true});
+		for(var i=1; i<32; i++){
+			d.push({label: ""+i, value: ""+i, p: true});
 		}
 		return d;
+	}
+
+	function finish(){
+		state = false;
+	}
+
+	function update(vnode){
+		var y = date[0].value || "_";
+		var m = date[1].value || "_";
+		var d = date[2].value || "_";
+		vnode.attrs.onchange(y+"/"+m+"/"+d);
+	}
+
+	function parseValue(input){
+		var d = input.split("/");
+		date[0] = years().find(function(e){
+			return (!e.splitter) && (e.value === d[0]);
+		});
+		date[1] = months().find(function(e){
+			return (!e.splitter) && (e.value === d[1]);
+		});
+		date[2] = days().find(function(e){
+			return (!e.splitter) && (e.value === d[2]);
+		});
+
+		date[0] = date[0] || {value: false};
+		date[1] = date[1] || {value: false};
+		date[2] = date[2] || {value: false};
+		console.log(date);
 	}
 
 	function getLabel(e){
@@ -65,6 +94,7 @@ var DatePicker = function(){
 
 	return {
 		view: function(vnode){
+			parseValue(vnode.attrs.value);
 			return m(".datepicker",[
 				m(".datepicker-value", {
 					onclick: function(){state=!state;}
@@ -87,10 +117,11 @@ var DatePicker = function(){
 								class: (date[0].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[0] = e;
+									update(vnode);
 									if(!e.p) {
-										state = false;
 										date[1] = {value: false};
 										date[2] = {value: false};
+										finish();
 									}
 								}
 							},getLabel(e));
@@ -103,9 +134,10 @@ var DatePicker = function(){
 								class: (date[1].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[1] = e;
+									update(vnode);
 									if(!e.p) {
-										state = false;
 										date[2] = {value: false};
+										finish();
 									}
 								}
 							},getLabel(e));
@@ -118,7 +150,8 @@ var DatePicker = function(){
 								class: (date[2].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[2] = e;
-									state = false;
+									update(vnode);
+									finish();
 								}
 							},getLabel(e));
 							return m(".datepicker-splitter","");

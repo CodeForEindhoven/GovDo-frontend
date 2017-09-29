@@ -109,12 +109,24 @@ var EffortEditor = function(){
 
 					m(".editor-selection-date",[
 						m("span", "van"),
-						m(DatePicker)
+						m(DatePicker,{
+							value: vm.edit()("startdate").value(),
+							onchange: function(e){
+								console.log("update: "+e);
+								vm.edit()("startdate").update(e);
+							}
+						})
 					]),
 
 					m(".editor-selection-date",[
 						m("span", "t/m"),
-						m(DatePicker)
+						m(DatePicker,{
+							value: vm.edit()("enddate").value(),
+							onchange: function(e){
+								console.log("update: "+e);
+								vm.edit()("enddate").update(e);
+							}
+						})
 					]),
 
 
