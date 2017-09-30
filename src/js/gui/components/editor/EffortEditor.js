@@ -413,7 +413,7 @@ var ConnectionEditor = function(){
 									ptrn.speculativeUnrelate(vm.edit(), parent);
 									vnode.attrs.onchange();
 								}
-							}, m("div", {class:"remove"}, "Verwijderen")) : [],
+							}, "Verwijderen") : [],
 						]);
 					})
 				])
