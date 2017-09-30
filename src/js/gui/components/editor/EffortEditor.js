@@ -371,7 +371,7 @@ var ConnectionEditor = function(){
 									ptrn.speculativeUnrelate(vm.edit(), parent);
 									vnode.attrs.onchange();
 								}
-							}, m("i", {class:"material-icons"}, "close")) : [],
+							}, m("div", {class:"remove"}, "Verwijderen")) : [],
 						]);
 					})
 				])
