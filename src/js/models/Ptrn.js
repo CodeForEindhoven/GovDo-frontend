@@ -48,6 +48,24 @@ var ptrn =  (function(){
 	var typemap = {};
 	var relationmap = {};
 
+	function createRelation(aid, bid, tid){
+		var newrel = {
+			value: [
+				{
+					tid: tid,
+					aid: aid,
+					bid: bid,
+				}
+			]
+		};
+		relations[tid] = newrel;
+
+		if(!relationmap[aid]){relationmap[aid] = [];}
+		relationmap[aid].push(newrel);
+		if(!relationmap[bid]){relationmap[bid] = [];}
+		relationmap[bid].push(newrel);
+	}
+
 	function speculativeRelate(a,b){
 		var aid = a.id();
 		var bid = b.id();
@@ -55,16 +73,10 @@ var ptrn =  (function(){
 		var found = relations.filter(function(relation){
 			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
 		});
+		console.log("relate");
+
 		if(found.length === 0){
-			relations.push({
-				value: [
-					{
-						tid: -1,
-						aid: aid,
-						bid: bid,
-					}
-				]
-			});
+			createRelation(aid, bid, -1);
 		}
 	}
 
@@ -76,7 +88,9 @@ var ptrn =  (function(){
 			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
 		});
 
-		if(found.length >0){
+		if(found.length > 0){
+			console.log("drop");
+			console.log(found[0]);
 			found[0].value.unshift({
 				tid: -1,
 				drop: true,
@@ -100,9 +114,13 @@ var ptrn =  (function(){
 
 	//builds a list of atoms from relations
 	function selectRelations(id){
-
-		var results = relationmap[id].map(function(bid){
-			return atoms[bid];
+		var results = relationmap[id].filter(function(rel){
+			return (!rel.value[0].drop);
+		}).map(function(rel){
+			if(rel.value[0].aid===id){
+				return atoms[rel.value[0].bid];
+			}
+			return atoms[rel.value[0].aid];
 		});
 		return results;
 		/*
@@ -243,21 +261,7 @@ var ptrn =  (function(){
 			});
 
 			data.relations.map(function(rel){
-				var newrel = {
-					value: [
-						{
-							tid: rel.tid,
-							aid: rel.aid,
-							bid: rel.bid,
-						}
-					]
-				};
-				relations[rel.tid] = newrel;
-
-				if(!relationmap[rel.aid]){relationmap[rel.aid] = [];}
-				relationmap[rel.aid].push(rel.bid);
-				if(!relationmap[rel.bid]){relationmap[rel.bid] = [];}
-				relationmap[rel.bid].push(rel.aid);
+				createRelation(rel.aid, rel.bid, rel.tid);
 			});
 
 			callback();
