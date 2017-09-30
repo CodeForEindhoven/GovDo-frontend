@@ -12,12 +12,27 @@
 }
 
 .editor-header {
-	margin-right: 28px;
-	padding-bottom: 20px;
-	box-shadow: 0px 30px 20px red;
+	box-shadow: -15px 21px 8px @color-background;
+	z-index: 1;
+	position: relative;
+	margin-right: 30px;
+	
 	span {
 		color: @color-selected;
+		padding-left: 20px;
 	}
+	
+	.button-number {
+		color: @color-white;
+		background-color: @color-selected;
+		display: inline-block;
+	}
+}
+
+.editor-header .icons-header {
+	cursor: pointer;
+	margin-top: -25px;
+	margin-right: 2px;
 }
 
 .editor-subtitle-header .material-icons {
@@ -49,6 +64,7 @@
 
 .efforteditor {
 	padding-right: 20px;
+	padding-top: 25px;
 }
 
 .efforteditor .textarea + .editor-subtitle, .efforteditor .editor-typeselect + .editor-subtitle {
