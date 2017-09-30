@@ -47,5 +47,32 @@ var vm = (function(){
 			currentEditor = undefined;
 		}
 	};
-
 })();
+
+var createnew = {
+	task: function(){
+		if(vm.program()){
+			ptrn.create("task", "", function(t){
+				ptrn.relate(vm.program(), t);
+				ptrn.create("means", "", function(a){ptrn.relate(t,a);});
+				ptrn.create("kpi", "", function(a){ptrn.relate(t,a);});
+				ptrn.create("order", "1", function(a){ptrn.relate(t,a);});
+				ptrn.create("mode", "-1", function(a){ptrn.relate(t,a);});
+				vm.edit(t);
+			});
+		}
+	},
+	effort: function(){
+		if(vm.task()){
+			ptrn.create("effort", "", function(e){
+				ptrn.relate(vm.task(), e);
+				ptrn.create("description", "", function(a){ptrn.relate(e,a);});
+				ptrn.create("endproduct", "", function(a){ptrn.relate(e,a);});
+				ptrn.create("type", "", function(a){ptrn.relate(e,a);});
+				ptrn.create("order", "1", function(a){ptrn.relate(e,a);});
+				ptrn.create("mode", "-1", function(a){ptrn.relate(e,a);});
+				vm.edit(e);
+			});
+		}
+	}
+};
