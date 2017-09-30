@@ -127,35 +127,43 @@ var DatePicker = function(){
 							return m(".datepicker-splitter","");
 						})
 					]),
-					(date[0].p) ? m(".datepicker-column", [
+					m(".datepicker-column", {
+						class: (date[0].p) ? "active" : "disabled",
+					},[
 						months().map(function(e){
 							if(!e.splitter) return m(".datepicker-option", {
 								class: (date[1].value===e.value) ? "state-selected":"",
 								onclick: function(){
-									date[1] = e;
-									date[2] = {value: false};
-									update(vnode);
-									if(!e.p) {
+									if(date[0].p){
+										date[1] = e;
+										date[2] = {value: false};
+										update(vnode);
+										if(!e.p) {
+											finish();
+										}
+									}
+								}
+							},getLabel(e));
+							return m(".datepicker-splitter","");
+						})
+					]),
+					m(".datepicker-column", {
+						class: (date[1].p) ? "active": "disabled",
+					}, [
+						days().map(function(e){
+							if(!e.splitter) return m(".datepicker-option", {
+								class: (date[2].value===e.value) ? "state-selected":"",
+								onclick: function(){
+									if(date[1].p){
+										date[2] = e;
+										update(vnode);
 										finish();
 									}
 								}
 							},getLabel(e));
 							return m(".datepicker-splitter","");
 						})
-					]) : [],
-					(date[1].p) ? m(".datepicker-column", [
-						days().map(function(e){
-							if(!e.splitter) return m(".datepicker-option", {
-								class: (date[2].value===e.value) ? "state-selected":"",
-								onclick: function(){
-									date[2] = e;
-									update(vnode);
-									finish();
-								}
-							},getLabel(e));
-							return m(".datepicker-splitter","");
-						})
-					]) : []
+					])
 				]) : []
 			]);
 		}
