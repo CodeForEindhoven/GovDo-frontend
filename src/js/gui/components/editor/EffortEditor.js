@@ -1,5 +1,6 @@
 var EffortEditor = function(){
 	var stateTeam = false;
+	var stateClient = false;
 	var state2 = false;
 	return {
 		view: function(vnode){
@@ -31,7 +32,7 @@ var EffortEditor = function(){
 								m(InfoBox, {
 									content: m("ul", [
 										m("li","Een routine is een activiteit die zich perodiek herhaalt."),
-										m("li", "Een project heeft een duidelijk begin en einde")
+										m("li", "Een project heeft een begin en einde.")
 									])
 								})
 							]),
@@ -126,6 +127,60 @@ var EffortEditor = function(){
 				m(".editor-section",[
 					m(".editor-section-title", "Mensen"),
 
+					//Opdrachtgevers
+					m(".editor-subtitle-header",[
+							m(".editor-subtitle", [
+								m("span", "Opdrachtgevers"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Bestuurlijk en Ambtelijk Opdrachtgevers"),
+									])
+								})
+							]),
+
+						m(".icons-header", [
+							m("i.material-icons", {
+								onclick: function(e){
+									stateClient = !stateClient;
+								}
+							},"add")
+						]),
+					]),
+
+					m(PeopleListEditor, {
+						peoplelist: vm.edit()("role:aclient person", function(a){return a;}).concat(vm.edit()("role:bclient person", function(a){return a;})),
+						roles: {
+							selected: function(person){
+								return (person("role:bclient #"+vm.edit().id()).id()>0) ? 0 : -1;
+							},
+							options:["Bestuurlijk Opdrachtgever"],
+							novalue: "Ambtelijk Opdrachtgever",
+							onchange: function(e, p){
+								if(e===0){
+									ptrn.speculativeRelate(vm.edit(), p("role:bclient"));
+									ptrn.speculativeUnrelate(vm.edit(), p("role:aclient"));
+								} else {
+									ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
+									ptrn.speculativeUnrelate(vm.edit(), p("role:bclient"));
+								}
+							},
+						},
+						onadd: function(p){
+							ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
+							stateClient = false;
+						},
+						ondelete: function(p){
+							if((p("role:aclient #"+vm.edit().id()).id()>0)){
+								ptrn.speculativeUnrelate(vm.edit(), p("role:aclient"));
+							} else {
+								ptrn.speculativeUnrelate(vm.edit(), p("role:bclient"));
+							}
+						},
+						state: stateClient
+					}),
+
+
+					//Team
 					m(".editor-subtitle-header",[
 							m(".editor-subtitle", [
 								m("span", "Team"),
@@ -146,21 +201,27 @@ var EffortEditor = function(){
 					]),
 
 					m(PeopleListEditor, {
-						parent: vm.edit(),
+						peoplelist: vm.edit()("person", function(a){return a;}),
+						roles: {
+							selected: function(person){
+								return (person("role:leader #"+vm.edit().id()).id()>0) ? 0 : -1;
+							},
+							options:["Trekker"],
+							novalue: "-",
+							onchange: function(e, p){
+								if(e===0){
+									ptrn.speculativeRelate(vm.edit(), p("role:leader"));
+								} else {
+									ptrn.speculativeUnrelate(vm.edit(), p("role:leader"));
+								}
+							},
+						},
 						onadd: function(v){
 							ptrn.speculativeRelate(vm.edit(), v);
 							stateTeam = false;
 						},
 						ondelete: function(v){
 							ptrn.speculativeUnrelate(vm.edit(), v);
-						},
-						onsetrole: function(v){
-							//console.log(v);
-							ptrn.speculativeRelate(vm.edit(), v("role:leader"));
-						},
-						onunsetrole: function(v){
-							console.log(v);
-							ptrn.speculativeUnrelate(vm.edit(), v("role:leader"));
 						},
 						state: stateTeam
 					}),
@@ -254,38 +315,19 @@ var PeopleListEditor = function(){
 						})
 				]),
 
-				vnode.attrs.parent("person", function(person){
+				vnode.attrs.peoplelist.map(function(person){
 					return m(".editor-peoplelist-person", [
 
 						//name
 						m("span", person.value()),
 
-						//role picker
-						//m("span", person("role:leader #"+vnode.attrs.parent.id()).id()>0 ?
-						//	m("span", {
-						//		onclick: function(){
-						//			vnode.attrs.onunsetrole(person);
-						//		}
-						//	},"Trekker")
-						//:
-						//	m("span", {
-						//		onclick: function(){
-						//			vnode.attrs.onsetrole(person);
-						//		}
-						//	},"Teamlid")
-						//),
 						m(DropDown, {
-							value: (person("role:leader #"+vnode.attrs.parent.id()).id()>0) ? 0 : -1,
-							options:["Trekker"],
-							novalue: "Teamlid",
+							value: vnode.attrs.roles.selected(person),
+							options: vnode.attrs.roles.options,
+							novalue: vnode.attrs.roles.novalue,
 							onchange: function(e){
-								if(e===0){
-									vnode.attrs.onsetrole(person);
-								} else {
-									vnode.attrs.onunsetrole(person);
-								}
-							},
-
+								vnode.attrs.roles.onchange(e, person);
+							}
 						}),
 
 						//deletebutton
