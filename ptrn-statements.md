@@ -7,6 +7,11 @@ ptrn("person", function(e){
 	ptrn.create("role", "leader", function(a){ptrn.relate(e,a);});
 });
 
+ptrn("person", function(e){
+	ptrn.create("role", "aclient", function(a){ptrn.relate(e,a);});
+	ptrn.create("role", "bclient", function(a){ptrn.relate(e,a);});
+});
+
 ptrn("role", function(role){
 	var person = role("person");
 	if(person.id()>0){
