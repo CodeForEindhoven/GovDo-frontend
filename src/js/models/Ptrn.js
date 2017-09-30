@@ -48,15 +48,21 @@ var ptrn =  (function(){
 	function speculativeRelate(a,b){
 		var aid = a.id();
 		var bid = b.id();
-		relations.push({
-			value: [
-				{
-					tid: -1,
-					aid: aid,
-					bid: bid,
-				}
-			]
+
+		var found = relations.filter(function(relation){
+			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
 		});
+		if(found.length === 0){
+			relations.push({
+				value: [
+					{
+						tid: -1,
+						aid: aid,
+						bid: bid,
+					}
+				]
+			});
+		}
 	}
 
 	function speculativeUnrelate(a,b){
@@ -112,7 +118,15 @@ var ptrn =  (function(){
 			produceAtom(atom).transact();
 		});
 
-		relations.filter(function(rel){
+		var updaterelations = relations.filter(function(rel){
+			return (rel.value[0].tid===-1);
+		});
+
+		relations = relations.filter(function(rel){
+			return (rel.value[0].tid!==-1);
+		});
+
+		updaterelations.filter(function(rel){
 			return (rel.value[0].tid===-1);
 		}).map(function(rel){
 			if(rel.value[0].drop){
@@ -120,8 +134,9 @@ var ptrn =  (function(){
 			} else {
 				relate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
 			}
-
 		});
+
+
 	}
 
 	/*CONVENIENCE*/
