@@ -8,7 +8,7 @@ var TaskSelector = function(){
 							m(".icons-header", [
 								m("i.material-icons", {
 									onclick: function(){
-										viewModels.editMode.new("task");
+										createnew.task();
 									}
 								}, "add"),
 								//m("i.material-icons", {}, "import_export"),

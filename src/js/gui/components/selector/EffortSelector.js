@@ -11,7 +11,7 @@ var EffortSelector = function(){
 							m(".icons-header", [
 								m("i.material-icons", {
 									onclick: function(){
-										viewModels.editMode.new("effort");
+										createnew.effort();
 									}
 								}, "add"),
 								//m("i.material-icons", {}, "import_export"),
@@ -48,18 +48,18 @@ var EffortSelector = function(){
 								]),
 								m(".selectorlist-item-content", [
 									m(".effortselector-title", effort.value()),
-									
+
 									m(".selectorlist-item-edit.button-edit-small",{
 										onclick: function(){
 											vm.edit(effort);
 										}
 									},
-									
+
 									m(".selectorlist-item-position", [
-									m("i.material-icons","keyboard_arrow_down"), 
-									m("i.material-icons","keyboard_arrow_up"), 
+									m("i.material-icons","keyboard_arrow_down"),
+									m("i.material-icons","keyboard_arrow_up"),
 									]),
-									
+
 									m("i.material-icons","build")),
 									m(".selector-hidden",[
 										m(".effortselector-type", emptyState(viewModels.typeNames[effort("type").value()], m(".effortselector-type-state.state-empty", "Nog geen type"))),
