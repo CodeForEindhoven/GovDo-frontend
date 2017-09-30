@@ -27,18 +27,18 @@ var TaskSelector = function(){
 									m(".button-number", task("order").value()),
 									m(".selectorlist-item-edit.button-edit-small",{
 										onclick: function(){
-											viewModels.editMode.set("task", task);
+											vm.edit(task);
 										}
-									}, 
-									
+									},
+
 									m(".selectorlist-item-position", [
-									m("i.material-icons","keyboard_arrow_down"), 
-									m("i.material-icons","keyboard_arrow_up"), 
+									m("i.material-icons","keyboard_arrow_down"),
+									m("i.material-icons","keyboard_arrow_up"),
 									]),
-									
+
 									m("i.material-icons","build")),
 								]),
-								
+
 								m(".selectorlist-item-content", [
 									m(".taskselector-title", [
 										m("span.taskselector-title-name", task.value()),
