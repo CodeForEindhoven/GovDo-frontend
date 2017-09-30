@@ -29,7 +29,10 @@ var EffortEditor = function(){
 							m(".editor-subtitle", [
 								m("span", "Type"),
 								m(InfoBox, {
-									content: "Een routine is een activiteit die zich perodiek herhaalt. Een project heeft een duidelijk begin en einde"
+									content: m("ul", [
+										m("li","Een routine is een activiteit die zich perodiek herhaalt."),
+										m("li", "Een project heeft een duidelijk begin en einde")
+									])
 								})
 							]),
 
@@ -48,7 +51,15 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", [
 								m("span", "Beoogd Effect"),
-								m("i.material-icons", "info_outline"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Datgene wat uiteindelijk bereikt wordt, bijvoorbeeld:"),
+										m("ul", [
+											m("li","vermindering armoede"),
+											m("li", "...")
+										])
+									])
+								})
 							]),
 
 							m(TextArea, {
@@ -62,7 +73,15 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", [
 								m("span", "Eindproduct"),
-								m("i.material-icons", "info_outline"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Datgene wat uiteindelijk wordt opgeleverd, bijvoorbeeld:"),
+										m("ul", [
+											m("li","Een rapport"),
+											m("li", "...")
+										])
+									])
+								})
 							]),
 
 							m(TextArea, {
@@ -81,7 +100,11 @@ var EffortEditor = function(){
 					m(".editor-subtitle-header",[
 							m(".editor-subtitle", [
 								m("span", "Gedeelde Opgaven"),
-								m("i.material-icons", "info_outline"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Sommige inspanningen worden gedeeld door meerdere programma's"),
+									])
+								})
 							]),
 
 						m(".icons-header", [
@@ -106,7 +129,11 @@ var EffortEditor = function(){
 					m(".editor-subtitle-header",[
 							m(".editor-subtitle", [
 								m("span", "Team"),
-								m("i.material-icons", "info_outline"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Alle mensen die meewerken aan deze inspanning. Een persoon is de trekker."),
+									])
+								})
 							]),
 
 						m(".icons-header", [
@@ -145,7 +172,11 @@ var EffortEditor = function(){
 					m(".editor-section-title", "Planning"),
 					m(".editor-subtitle", [
 						m("span", "Periode"),
-						m("i.material-icons", "info_outline"),
+						m(InfoBox, {
+							content: m("",[
+								m("span", "Als er geen precieze datum bekend is, geef dan alleen een schatting"),
+							])
+						})
 					]),
 
 					m(".editor-selection-date",[
