@@ -44,6 +44,9 @@ var ptrn =  (function(){
 	/*STORE*/
 	var atoms = [];
 	var relations = [];
+	//type map
+	var typemap = {};
+	var relationmap = {};
 
 	function speculativeRelate(a,b){
 		var aid = a.id();
@@ -98,6 +101,11 @@ var ptrn =  (function(){
 	//builds a list of atoms from relations
 	function selectRelations(id){
 
+		var results = relationmap[id].map(function(bid){
+			return atoms[bid];
+		});
+		return results;
+		/*
 		var results = relations.filter(function(relation){
 			return (!relation.value[0].drop) && (relation.value[0].aid === id || relation.value[0].bid === id);
 		}).map(function(relation){
@@ -108,6 +116,7 @@ var ptrn =  (function(){
 			}
 		});
 		return results;
+		*/
 	}
 
 
@@ -207,7 +216,8 @@ var ptrn =  (function(){
 	}
 
 	function log(){
-		//console.log(speculativeAtoms);
+		console.log(typemap);
+		console.log(relationmap);
 	}
 
 	/*NETWORK*/
@@ -226,10 +236,14 @@ var ptrn =  (function(){
 						}
 					]
 				};
+
+				if(!typemap[elem.type]){typemap[elem.type] = [];}
+				typemap[elem.type].push(elem.id);
+
 			});
 
 			data.relations.map(function(rel){
-				relations[rel.tid] = {
+				var newrel = {
 					value: [
 						{
 							tid: rel.tid,
@@ -238,6 +252,12 @@ var ptrn =  (function(){
 						}
 					]
 				};
+				relations[rel.tid] = newrel;
+
+				if(!relationmap[rel.aid]){relationmap[rel.aid] = [];}
+				relationmap[rel.aid].push(rel.bid);
+				if(!relationmap[rel.bid]){relationmap[rel.bid] = [];}
+				relationmap[rel.bid].push(rel.aid);
 			});
 
 			callback();
