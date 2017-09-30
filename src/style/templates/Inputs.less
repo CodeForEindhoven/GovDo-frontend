@@ -79,11 +79,10 @@ input {
 
 .editor-connectionlist-item-name, .editor-connections-parent-name{
 	display: inline-block;
-	vertical-align: top;
 	margin-left: 16px;
 	white-space: normal;
 	width: 70%;
-	margin-top: 7px;
+	vertical-align: middle;
 }
 
 .connectionlist-addbutton {
@@ -99,6 +98,7 @@ input {
 
 .editor-connections-parent {
 	margin-bottom: 15px;
+	position: relative;
 }
 
 .editor-connections-parent-number{
@@ -107,8 +107,13 @@ input {
 }
 
 .editor-connections-parent-remove{
-	float: right;
+	font-weight: @medium;
+	color: @color-red;
+	vertical-align: middle;
 	cursor: pointer;
+	position: absolute;
+	top: 13px;
+	right: 0;
 }
 
 
