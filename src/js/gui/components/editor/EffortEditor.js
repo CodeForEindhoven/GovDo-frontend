@@ -12,7 +12,9 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", [
 								m("span", "Inspanning titel"),
-								m("i.material-icons", "info_outline"),
+								m(InfoBox, {
+									content: "Kies een korte en herkenbare titel"
+								})
 							]),
 							m(TextArea, {
 								value: vm.edit().value(),
@@ -26,10 +28,12 @@ var EffortEditor = function(){
 						m(".editor-column",[
 							m(".editor-subtitle", [
 								m("span", "Type"),
-								m("i.material-icons", "info_outline"),
+								m(InfoBox, {
+									content: "Een routine is een activiteit die zich perodiek herhaalt. Een project heeft een duidelijk begin en einde"
+								})
 							]),
-							
-							
+
+
 							m(TypeEditor, {
 								type: parseInt(vm.edit()("type").value()),
 								onchange: function(v){
@@ -46,7 +50,7 @@ var EffortEditor = function(){
 								m("span", "Beoogd Effect"),
 								m("i.material-icons", "info_outline"),
 							]),
-							
+
 							m(TextArea, {
 								value: vm.edit()("description").value(),
 								onchange: function(v){
@@ -60,7 +64,7 @@ var EffortEditor = function(){
 								m("span", "Eindproduct"),
 								m("i.material-icons", "info_outline"),
 							]),
-							
+
 							m(TextArea, {
 								value: vm.edit()("endproduct").value(),
 								onchange: function(v){

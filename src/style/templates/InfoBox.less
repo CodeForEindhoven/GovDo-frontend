@@ -1,0 +1,26 @@
+@import "variables/colors.less";
+.info-box {
+	display: inline-block;
+	position: relative;
+}
+
+.info-box i {
+	cursor: pointer;
+}
+
+.info-box-popup {
+	white-space: normal;
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 20px;
+	border: 1px solid @color-selected;
+	width: 200px;
+	min-height: 100px;
+	padding: 5px;
+	background: @color-background;
+}
+
+.info-box:hover .info-box-popup {
+	display: block;
+}
