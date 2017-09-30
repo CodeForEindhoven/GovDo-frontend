@@ -4,11 +4,24 @@
 @margin-status-button: 1%;
 
 .editor {
-	width: 100%;
+	width: calc(55% - 10px);
 	height: 100%;
-	transition: margin-left 0.4s;
 	font-size: @main-text;
 	background-color: @color-background;
+	position: absolute;
+	right: 0px;
+}
+
+.editor-right {
+	right: 0px;
+}
+
+.editor-left {
+	left: 10px;
+}
+
+.editor.state-hidden {
+	display: none;
 }
 
 .editor-header {
@@ -57,9 +70,7 @@
 	padding-bottom: 40px;
 }
 
-.editor.state-hidden {
-	margin-left: 100%;
-}
+
 
 .efforteditor {
 	padding-right: 20px;

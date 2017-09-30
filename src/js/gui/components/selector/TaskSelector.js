@@ -20,7 +20,15 @@ var TaskSelector = function(){
 							return m(".state-selectable.selectorlist-item", {
 								class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()==-1?"mode-sketch":""),
 								onclick: function(){
-									vm.task(task);
+									if(vm.edit()){
+										vm.editClose();
+										if(!ptrn.compare(vm.task(), task)){
+											vm.task(task);
+										}
+									} else {
+										vm.task(task);
+									}
+
 								}
 							},[
 								m(".selectorlist-item-number", [
