@@ -98,12 +98,12 @@ var DatePicker = function(){
 				m(".datepicker-value", {
 					onclick: function(){state=!state;}
 				},[
-					m("",[
+					m(".datepicker-navigation",[
 						m(".datepicker-section.editor-small-label", "Jaar"),
 						m(".datepicker-section.editor-small-label", "Maand/Kwartaal"),
 						m(".datepicker-section.editor-small-label", "Dag/Periode"),
 					]),
-					m("",[
+					m(".datepicker-date",[
 						m(".datepicker-section", getLabel(date[0])),
 						m(".datepicker-section", getLabel(date[1])),
 						m(".datepicker-section", getLabel(date[2])),
