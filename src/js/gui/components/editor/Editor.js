@@ -6,7 +6,7 @@ var Editor = function(){
 			}, [
 				//Header
 				m(".editor-header",[
-					m("span", "Editor"),
+					m("span", "Inspanningen Editor"),
 					m(".icons-header .close-button", {
 						onclick: function(){
 							ptrn.transact();
