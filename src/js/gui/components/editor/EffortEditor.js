@@ -265,20 +265,18 @@ var EffortEditor = function(){
 
 				]),
 
-				//m(".editor-section",[
-				//	m(".editor-section-title", "Status"),
-
-				//	m(".status-content",[
-				//		m(Toggle, {
-				//			value: viewModels.editMode.content().mode,
-				//			label_sketch: "Voorstel",
-				//			label_definitive: "Goedgegeurd",
-				//			onchange: function(v){
-				//				viewModels.editMode.setContent("mode", v);
-				//			}
-				//		}),
-				//	]),
-				//]),
+				m(".editor-section.editor-section-end",[
+					m(".status-content",[
+						m(Toggle, {
+							value: parseInt(vm.edit()("mode").value()),
+							label_sketch: "Voorstel",
+							label_definitive: "Goedgekeurd",
+							onchange: function(v){
+								vm.edit()("mode").update(v);
+							}
+						}),
+					]),
+				]),
 
 
 			]);

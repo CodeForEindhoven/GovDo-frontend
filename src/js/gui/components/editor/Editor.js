@@ -39,22 +39,22 @@ var Editor = function(){
 								}
 							})(),
 
-							m(".editor-buttons",[
+	//						m(".editor-buttons",[
 
-							// Save button
-							m(".save-button", {
-								onclick: function(){
-									ptrn.transact();
-								}
-							},(/*viewModels.editMode.savingState()*/false)?"Opslaan...":"Opslaan"),
+	//							// Save button
+	//							m(".save-button", {
+	//								onclick: function(){
+	//									ptrn.transact();
+	//								}
+	//							},(/*viewModels.editMode.savingState()*/false)?"Opslaan...":"Opslaan"),
 
-							//Delete item
-							m(".button-delete", {
-								onclick: function(){
-									vm.edit.delete();
-								}
-							},"Verwijder"),
-							]),
+	//							//Delete item
+	//							m(".button-delete", {
+	//								onclick: function(){
+	//									vm.edit.delete();
+	//								}
+	//							},"Verwijder"),
+	//						]),
 						]);
 					}
 					return [];
