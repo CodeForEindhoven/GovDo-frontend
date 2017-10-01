@@ -4,7 +4,17 @@ ptrn("effort", function(e){
 });
 
 ptrn("person", function(e){
-	ptrn.create("role", "leader", function(a){ptrn.relate(e,a);});
+	ptrn.createrelate("role", "leader", e, function(){
+	ptrn.createrelate("role", "aclient", e, function(){
+	ptrn.createrelate("role", "bclient", e, function(){
+	});});});
+});
+
+ptrn("person", function(e){
+	ptrn.createrelate("role", "leader", e, function(){
+	ptrn.createrelate("role", "aclient", e, function(){
+	ptrn.createrelate("role", "bclient", e, function(){
+	});});});
 });
 
 ptrn("person", function(e){
