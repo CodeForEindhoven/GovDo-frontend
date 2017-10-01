@@ -3,32 +3,56 @@
 @import "templates/Buttons.less";
 @programbarWidth: 54px;
 
-.programbar {
-	background: @color-white;
-	width: @programbarWidth;
-	overflow-x: hidden;
-	white-space: nowrap;
-	transition: width 0.3s;
-	margin-left: 10px;
+.programnav {
+	display: inline-block;
+	position: relative;
+	width: 30%;
 }
 
-.programbar-program {
+.programnav-topbar {
+	cursor: pointer;
+}
+
+.programnav-popup {
+	position: absolute;
+	left: -8px;
+	width: 100%;
+	height: calc(100vh - 66px);
+	z-index: 9999999;
+	padding-top: 18px;
+	background-color:  @color-background;
+	overflow-y: scroll;
+}
+
+.programnav-program {
 	cursor: pointer;
 	margin-bottom: 10px;
 }
 
-.programbar-program-number {
+.programnav-program-number {
 	display: inline-block;
 }
 
-.programbar-program-title {
-	font-size: @main-text;
-	line-height: @line-height-main-text;
+.programnav-program-title-top {
+	font-size: @size-selected;
+	letter-spacing: @var-05;
+	font-weight: @medium;
 	margin-left: 10px;
 	display: inline-block;
 }
 
-.programbar-program-mission {
+.programnav-dropdown {
+	vertical-align: middle;
+	float: right;
+	margin-right: 25px;
+}
+
+.programnav-program-title {
+	margin-left: 10px;
+	display: inline-block;
+}
+
+.programnav-program-mission {
 	margin-left: 40px;
 	display: block;
 	width: 200px;
@@ -38,56 +62,54 @@
 	transition: max-height 0.4s;
 }
 
-.programbar-domain {
+.programnav-domain {
 	margin-top: ((@programbarWidth - @width-circle) / 2);
 	margin-left: ((@programbarWidth - @width-circle) / 2);
 }
 
-.programbar-domain + .programbar-domain {
-	margin-top: 30px;
+.programnav-domain + .programnav-domain {
+	margin-top: 65px;
 }
 
-:hover > .programbar-domain:last-child {
-	padding-bottom: (@width-circle / 2.5);
-}
+//:hover > .programbar-domain:last-child {
+//	padding-bottom: (@width-circle / 2.5);
+//}
 
 //hover
-.programbar:hover {
-	width: 265px;
-	z-index: 1000;
-	padding-right: 15px;
-	overflow-y: scroll;
-	height: 100%;
-}
+//.programbar:hover {
+//	width: 265px;
+//	z-index: 1000;
+//	padding-right: 15px;
+//	overflow-y: scroll;
+//	height: 100%;
+//}
 
-:hover > .programbar-program-title, .state-selected > .programbar-program-title{
-	color: @color-selected;
-}
+//:hover > .programbar-program-title, .state-selected > .programbar-program-title{
+//	color: @color-selected;
+//}
 
 // Program bar Names
-.programbar-domain .programbar-domain-name {
-	opacity: 0;
+.programnav-domain .programnav-domain-name {
 	height: 0;
 	font-size: @main-text;
 	line-height: @line-height-main-text;
-	font-weight: @semibold;
+	letter-spacing: @var-01;
+	color: @color-selected;
+	font-weight: @regular;
 	text-transform: @uppercase;
 	margin-left: (@width-circle + 10px);
-	transition: opacity 0.35s;
-	transition: height 0.35s;
 	padding-bottom: 30px;
-	transition: padding-bottom 0.3s;
 }
 
-.programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
-	padding-bottom: 0;
-}
+//.programnav div.programnav-domain:first-child > div.programnav-domain-name:first-child {
+//	padding-bottom: 0;
+//}
 
-:hover > .programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
-	padding-bottom: 30px;
-	transition: padding-bottom 0.3s;
-}
-
-:hover > .programbar-domain .programbar-domain-name {
-	opacity: 1;
-}
+//:hover > .programbar div.programbar-domain:first-child > div.programbar-domain-name:first-child {
+//	padding-bottom: 30px;
+//	transition: padding-bottom 0.3s;
+//}
+//
+//:hover > .programbar-domain .programbar-domain-name {
+//	opacity: 1;
+//}

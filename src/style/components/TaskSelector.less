@@ -6,18 +6,48 @@
 	font-weight: @semibold;
 }
 
+//@keyframes fadeInLeftBig {
+//  from {
+//    transform: translate3d(-8px, 0, 0);
+//  }
+//
+//  to {
+//    transform: translate3d(2px, 0, 0);
+//  }
+//}
+
+.taskselector-title-means-label, .taskselector-title-means {
+	display: none;
+}
+
+.state-selected .taskselector-title-means-label, .state-selected .taskselector-title-means {
+	display: inline;
+}
+
+.taskselector-title-means-label .taskselector-arrow {
+	margin-left: 10px;
+	margin-right: 10px;
+	color: @color-selected;
+	font-size: 24px;
+//	animation-name: fadeInLeftBig;
+//	animation-duration: 1s;
+//	animation-iteration-count: infinite;
+}
+
 .taskselector-title, .effortselector-title {
 	font-size: @main-text;
 	line-height: @line-height-main-text;
-	font-weight: @semibold;
+	font-weight: @regular;
+	word-spacing: @word-space-size-selected;
 }
 
 .taskselector-title-name + .selector-hidden, .taskselector-title-means + .selector-hidden, .effortselector-title + .selector-hidden {
-	margin-top: 35px;
+	margin-top: 50px;
 }
 
 .taskselector-subheader {
 	font-weight: @semibold;
+	color: @color-editable;
 }
 
 .taskselector-kpi {
@@ -31,7 +61,7 @@
 	line-height: @line-height-size-selected;
 }
 
-// The rest of the text (.selector-hidden) 
+// The rest of the text (.selector-hidden)
 .state-selected .selector-hidden {
 	font-size: @size-selected-main-text;
 	line-height: @line-height-size-selected-main-text;
@@ -50,20 +80,16 @@
 	margin-left: 20px;
 }
 
-.effortselector-type {
-	font-weight: @semibold;
-}
-
 // Empty state
  .state-empty {
  	color: @color-sketch;
  	font-weight: @light;
  }
- 
+
 .selectorlist-state.state-empty {
 	margin-left: 10px;
 }
- 
+
   .state-empty:before {
   	content: '– ';
  	color: @color-sketch;

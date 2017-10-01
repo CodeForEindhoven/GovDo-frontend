@@ -1,8 +1,8 @@
 @import "variables/colors.less";
 @border-box: 1px;
 
-input, textarea, select, a { 
-	outline: none; 
+input, textarea, select, a {
+	outline: none;
 }
 
 input {
@@ -30,6 +30,7 @@ input {
 	height: 200px;
 	resize: vertical;
 	border-radius: 2px;
+	padding: 7px;
 }
 
 .input {
@@ -47,6 +48,81 @@ input {
 	border-radius: 0;
 	margin-left: 5px;
 	margin-bottom: 20px;
+}
+
+//Connection list
+.editor-connectionlist{
+	background-color: @color-background;
+	height: 300px;
+	border: @border-box solid @color-editable;
+	margin-bottom: 10px;
+}
+
+.editor-connectionlist-list {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.editor-connectionlist-item {
+	margin-left: 5px;
+	margin-top: 5px;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.editor-connectionlist-item-number {
+	display: inline-block;
+}
+
+.editor-connectionlist-item-name, .editor-connections-parent-name{
+	display: inline-block;
+	margin-left: 16px;
+	white-space: normal;
+	width: 70%;
+	vertical-align: middle;
+}
+
+.connectionlist-addbutton {
+	display: none;
+	margin-top: 16px;
+	margin-left: 5px;
+}
+
+.editor-connections-parents {
+	margin-top: (@margin-bottom-editor-items / 7);
+	margin-bottom: 20px;
+}
+
+.editor-connections-parent {
+	margin-bottom: 15px;
+	position: relative;
+}
+
+.editor-connections-parent-number{
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.editor-connections-parent-remove{
+	font-weight: @medium;
+	color: @color-red;
+	vertical-align: middle;
+	cursor: pointer;
+	position: absolute;
+	top: 13px;
+	right: 0;
+}
+
+
+:hover > .connectionlist-addbutton {
+	display: inline-block;
+}
+
+.state-selected > .editor-connectionlist-item-name {
+	font-weight: @semibold;
 }
 
 .datepicker-day, .datepicker-month {

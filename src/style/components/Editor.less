@@ -4,22 +4,47 @@
 @margin-status-button: 1%;
 
 .editor {
-	width: 100%;
+	width: calc(55% - 10px);
 	height: 100%;
-	transition: margin-left 0.4s;
 	font-size: @main-text;
+	background-color: @color-background;
+	position: absolute;
+	right: 0px;
+}
+
+.editor-right {
+	right: 0px;
+}
+
+.editor-left {
+	left: 10px;
+}
+
+.editor.state-hidden {
+	display: none;
 }
 
 .editor-header {
-	margin-right: 28px;
-	padding-bottom: 20px;
+	box-shadow: -15px 21px 8px @color-background;
+	z-index: 1;
+	position: relative;
+	margin-right: 30px;
+
 	span {
 		color: @color-selected;
+		padding-left: 20px;
+	}
+
+	.button-number {
+		color: @color-white;
+		background-color: @color-selected;
+		display: inline-block;
 	}
 }
 
-.editor-subtitle-header {
-	margin-top: @margin-bottom-editor-items;
+.editor-header .icons-header {
+	cursor: pointer;
+	margin-right: -2px;
 }
 
 .editor-subtitle-header .material-icons {
@@ -33,8 +58,7 @@
 .editor-content {
 	overflow-y: scroll;
 	height: calc(100% - 40px);
-	width: 90%;
-	margin-left: 10%;
+	width: 100%;
 	//padding-bottom: 40px; Firefox doesn't recognise the padding-bottom + box-sizing
 	box-sizing: border-box;
 }
@@ -46,23 +70,27 @@
 	padding-bottom: 40px;
 }
 
-.editor.state-hidden {
-	margin-left: 100%;
-}
+
 
 .efforteditor {
 	padding-right: 20px;
+	padding-top: 25px;
 }
 
 .efforteditor .textarea + .editor-subtitle, .efforteditor .editor-typeselect + .editor-subtitle {
 	margin-top: @margin-bottom-editor-items;
 }
 
-// header - title + icon 
-.editor-subtitle +.material-icons {
+// header - title + icon
+.editor-subtitle-header .icons-header {
 	float: right;
 	cursor: pointer;
-	margin-top: -26px;
+	margin-top: -37px;
+}
+
+.editor-small-label {
+	font-size: 0.8em;
+	color: @color-editable;
 }
 
 .editor-typeselect-type, .toggle .status-labels {
@@ -70,6 +98,8 @@
 	border: @border-box solid @color-editable;
 	margin-bottom: 8px;
 	cursor: pointer;
+	width: 45%;
+	text-align: center;
 }
 
 .editor-typeselect-type:hover {
@@ -109,7 +139,54 @@
 
 .editor-subtitle {
 	font-weight: @semibold;
-	margin-bottom: 8px;
+	color: @color-selected;
+	margin-bottom: 20px;
+}
+
+.editor-subtitle span + .info-box {
+	margin-left: 15px;
+}
+
+.editor-row + .editor-row {
+	margin-top: 60px;
+}
+
+.editor-column:first-child {
+	margin-right: 2%
+}
+
+.editor-column {
+	width: 49%;
+	display: inline-block;
+    vertical-align: top;
+}
+
+.editor-section-title {
+	font-weight: @regular;
+	font-size: 20px;
+	margin-bottom: 40px;
+}
+
+.editor-section {
+	border-right: 3px @color-selected solid;
+	padding-right: 40px;
+	padding-bottom: 180px;
+	position: relative;
+}
+
+.editor-section.editor-section-end {
+	border-right: 3px transparent solid;
+	padding-bottom: 40px;
+}
+
+.editor-section::before {
+    content: "";
+    width: 19px;
+    height: 19px;
+    background-color: @color-selected;
+    position: absolute;
+    right: -11px;
+    border-radius: 10px;
 }
 
 .opg-door {
@@ -120,6 +197,53 @@
 .efforteditor .textarea + .opg-door {
 	margin-top: 16px;
 	margin-bottom: 16px;
+}
+
+
+
+
+
+//Dropdown
+
+.dropdown {
+	display: inline;
+	position: relative;
+	cursor: pointer;
+}
+
+.dropdown-value {
+	margin: 5px;
+	color: @color-selected;
+	padding-bottom: 1px;
+	padding-left: 3px;
+	padding-right: 3px;
+	border-bottom: 2px solid blue;
+}
+
+.dropdown-value.novalue {
+	color: @color-grey;
+}
+
+.dropdown-options {
+	border: 2px solid blue;
+	background-color: @color-background;
+	display: inline-block;
+	position: absolute;
+	left: 3px;
+	top: 20px;
+	z-index: 99999999;
+	max-height: 200px;
+	overflow-y: scroll;
+}
+
+.dropdown-option {
+	padding: 3px;
+	border-radius: 0px
+}
+
+.dropdown-option:hover {
+	background-color: @color-selected;
+	color: @color-white;
 }
 
 // Sketch

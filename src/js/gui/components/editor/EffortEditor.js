@@ -1,129 +1,296 @@
 var EffortEditor = function(){
-	var state = false;
+	var stateTeam = false;
+	var stateClient = false;
+	var state2 = false;
 	return {
 		view: function(vnode){
 			return m(".efforteditor",[
 
-				m(".editor-subtitle", "Inspanning titel"),
-				m(TextArea, {
-					value: viewModels.editMode.content().name,
-					onchange: function(v){
-						viewModels.editMode.setContent("name", v);
-					}
-				}),
+				m(".editor-section",[
+					m(".editor-section-title", "Beschrijving"),
 
-				m(".editor-subtitle", "Inspanning beschrijving"),
-				m(TextArea, {
-					value: viewModels.editMode.content().description,
-					onchange: function(v){
-						viewModels.editMode.setContent("description", v);
-					}
-				}),
+					m(".editor-row",[
+						m(".editor-column",[
+							m(".editor-subtitle", [
+								m("span", "Inspanning titel"),
+								m(InfoBox, {
+									content: "Kies een korte en herkenbare titel"
+								})
+							]),
+							m(TextArea, {
+								value: vm.edit().value(),
+								onchange: function(v){
+									vm.edit().update(v);
+									//viewModels.editMode.setContent("name", v);
+								}
+							}),
+						]),
+
+						m(".editor-column",[
+							m(".editor-subtitle", [
+								m("span", "Type"),
+								m(InfoBox, {
+									content: m("ul", [
+										m("li","Een routine is een activiteit die zich perodiek herhaalt."),
+										m("li", "Een project heeft een begin en einde.")
+									])
+								})
+							]),
 
 
-				m(".editor-subtitle-header",[
-					m("span.editor-subtitle", "Mensen"),
-					m(".icons-header", [
-						m("i.material-icons", {
-							onclick: function(e){
-								state = true;
-							}
-						},"add")
+							m(TypeEditor, {
+								type: parseInt(vm.edit()("type").value()),
+								onchange: function(v){
+									vm.edit()("type").update(v);
+									//viewModels.editMode.setContent("type", v);
+								},
+							}),
+						]),
+					]),
+
+					m(".editor-row",[
+						m(".editor-column",[
+							m(".editor-subtitle", [
+								m("span", "Beoogd Effect"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Datgene wat uiteindelijk bereikt wordt, bijvoorbeeld:"),
+										m("ul", [
+											m("li","vermindering armoede"),
+											m("li", "...")
+										])
+									])
+								})
+							]),
+
+							m(TextArea, {
+								value: vm.edit()("description").value(),
+								onchange: function(v){
+									vm.edit()("description").update(v);
+								},
+							}),
+						]),
+
+						m(".editor-column",[
+							m(".editor-subtitle", [
+								m("span", "Eindproduct"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Datgene wat uiteindelijk wordt opgeleverd, bijvoorbeeld:"),
+										m("ul", [
+											m("li","Een rapport"),
+											m("li", "...")
+										])
+									])
+								})
+							]),
+
+							m(TextArea, {
+								value: vm.edit()("endproduct").value(),
+								onchange: function(v){
+									vm.edit()("endproduct").update(v);
+								},
+							}),
+						]),
 					]),
 				]),
 
-				m(PeopleListEditor, {
-					value: viewModels.editMode.content().People,
-					onchange: function(v){
-						viewModels.editMode.setContent("People", v);
-						state = false;
-					},
-					state: state
-				}),
+				m(".editor-section",[
+					m(".editor-section-title", "Positionering"),
 
-				m(".editor-subtitle", "Type"),
-				m(TypeEditor, {
-					type: viewModels.editMode.content().type,
-					startdate: viewModels.editMode.content().startdate,
-					enddate: viewModels.editMode.content().enddate,
-					onchange: function(v){
-						viewModels.editMode.setContent("type", v);
-					},
-					onchangeStartDate: function(v){
-						viewModels.editMode.setContent("startdate", v);
-					},
-					onchangeEndDate: function(v){
-						viewModels.editMode.setContent("enddate", v);
-					}
-				}),
+					m(".editor-subtitle-header",[
+							m(".editor-subtitle", [
+								m("span", "Gedeelde Opgaven"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Sommige inspanningen worden gedeeld door meerdere programma's"),
+									])
+								})
+							]),
 
-				m(".editor-subtitle", "Status"),
-				m("i.material-icons", {}, "info_outline"),
-
-				m(".status-content",[
-					m(Toggle, {
-						value: viewModels.editMode.content().mode,
-						label_sketch: "Schets",
-						label_definitive: "Definitief",
-						onchange: function(v){
-							viewModels.editMode.setContent("mode", v);
+						m(".icons-header", [
+							m("i.material-icons", {
+								onclick: function(e){
+									state2 = !state2;
+								}
+							},"add")
+						]),
+					]),
+					m(ConnectionEditor, {
+						state: state2,
+						onchange: function(){
+							state2 = false;
 						}
 					}),
 				]),
+
+				m(".editor-section",[
+					m(".editor-section-title", "Mensen"),
+
+					//Opdrachtgevers
+					m(".editor-subtitle-header",[
+							m(".editor-subtitle", [
+								m("span", "Opdrachtgevers"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Bestuurlijk en Ambtelijk Opdrachtgevers"),
+									])
+								})
+							]),
+
+						m(".icons-header", [
+							m("i.material-icons", {
+								onclick: function(e){
+									stateClient = !stateClient;
+								}
+							},"add")
+						]),
+					]),
+
+					m(PeopleListEditor, {
+						peoplelist: vm.edit()("role:aclient person", function(a){return a;}).concat(vm.edit()("role:bclient person", function(a){return a;})),
+						roles: {
+							selected: function(person){
+								return (person("role:bclient #"+vm.edit().id()).id()>0) ? 0 : -1;
+							},
+							options:["Bestuurlijk Opdrachtgever"],
+							novalue: "Ambtelijk Opdrachtgever",
+							onchange: function(e, p){
+								if(e===0){
+									ptrn.speculativeUnrelate(vm.edit(), p("role:aclient"));
+									ptrn.speculativeRelate(vm.edit(), p("role:bclient"));
+								} else {
+									ptrn.speculativeUnrelate(vm.edit(), p("role:bclient"));
+									ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
+								}
+							},
+						},
+						onadd: function(p){
+							ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
+							stateClient = false;
+						},
+						ondelete: function(p){
+							if((p("role:aclient #"+vm.edit().id()).id()>0)){
+								ptrn.speculativeUnrelate(vm.edit(), p("role:aclient"));
+							} else {
+								ptrn.speculativeUnrelate(vm.edit(), p("role:bclient"));
+							}
+						},
+						state: stateClient
+					}),
+
+
+					//Team
+					m(".editor-subtitle-header",[
+							m(".editor-subtitle", [
+								m("span", "Team"),
+								m(InfoBox, {
+									content: m("",[
+										m("span", "Alle mensen die meewerken aan deze inspanning. Een persoon is de trekker."),
+									])
+								})
+							]),
+
+						m(".icons-header", [
+							m("i.material-icons", {
+								onclick: function(e){
+									stateTeam = !stateTeam;
+								}
+							},"add")
+						]),
+					]),
+
+					m(PeopleListEditor, {
+						peoplelist: vm.edit()("person", function(a){return a;}),
+						roles: {
+							selected: function(person){
+								return (person("role:leader #"+vm.edit().id()).id()>0) ? 0 : -1;
+							},
+							options:["Trekker"],
+							novalue: "-",
+							onchange: function(e, p){
+								if(e===0){
+									ptrn.speculativeRelate(vm.edit(), p("role:leader"));
+								} else {
+									ptrn.speculativeUnrelate(vm.edit(), p("role:leader"));
+								}
+							},
+						},
+						onadd: function(v){
+							ptrn.speculativeRelate(vm.edit(), v);
+							stateTeam = false;
+						},
+						ondelete: function(v){
+							ptrn.speculativeUnrelate(vm.edit(), v);
+						},
+						state: stateTeam
+					}),
+				]),
+
+
+				//Planning
+				m(".editor-section",[
+					m(".editor-section-title", "Planning"),
+					m(".editor-subtitle", [
+						m("span", "Periode"),
+						m(InfoBox, {
+							content: m("",[
+								m("span", "Als er geen precieze datum bekend is, geef dan alleen een schatting"),
+							])
+						})
+					]),
+
+					m(".editor-selection-date",[
+						m("span", "van"),
+						m(DatePicker,{
+							value: vm.edit()("startdate").value(),
+							onchange: function(e){
+								console.log("update: "+e);
+								vm.edit()("startdate").update(e);
+							}
+						})
+					]),
+
+					m(".editor-selection-date",[
+						m("span", "t/m"),
+						m(DatePicker,{
+							value: vm.edit()("enddate").value(),
+							onchange: function(e){
+								console.log("update: "+e);
+								vm.edit()("enddate").update(e);
+							}
+						})
+					]),
+
+
+				]),
+
+				m(".editor-section.editor-section-end",[
+					m(".status-content",[
+						m(Toggle, {
+							value: parseInt(vm.edit()("mode").value()),
+							label_sketch: "Voorstel",
+							label_definitive: "Goedgekeurd",
+							onchange: function(v){
+								vm.edit()("mode").update(v);
+							}
+						}),
+					]),
+				]),
+
+
 			]);
 		}
 	};
 };
 
 var PeopleListEditor = function(){
-	//var state = false;
+	var state = false;
 	var value = "";
-
-	var onadd = function(person, vnode){
-		var people = vnode.attrs.value;
-		for(var i = people.length - 1; i >= 0; i--) {
-			if(people[i].id === person.id) {
-				return;
-			}
-		}
-		people.push(person);
-		vnode.attrs.onchange(people);
-	};
-
-	var onnew = function(vnode){
-		Models.Person.newItem(value, function(p){
-			Models.Person.loadTeams();
-			Models.Person.loadPeople();
-			onadd({
-				id: p.id,
-				name: p.name
-			}, vnode);
-			value = "";
-		});
-	};
-
-	var onremove = function(person, vnode){
-		var people = vnode.attrs.value;
-		for(var i = people.length - 1; i >= 0; i--) {
-			if(people[i].id === person.id) {
-				people.splice(i, 1);
-			}
-		}
-		vnode.attrs.onchange(people);
-	};
 
 	return {
 		view: function(vnode){
 			return m(".editor-peoplelist", [
-				vnode.attrs.value.map(function(person){
-					return m(".editor-peoplelist-person", [
-						m("span", person.name),
-						m("span.editor-peoplelist-person-remove", {
-							onclick: function(){onremove(person, vnode);}
-						}, m("i", {class:"material-icons"}, "close")),
-					]);
-				}),
-
 				m(".editor-peoplelist-finder", {
 					class: vnode.attrs.state ? "":"state-hidden"
 				},[
@@ -137,14 +304,37 @@ var PeopleListEditor = function(){
 						m(FilteredPeopleList, {
 							value: value,
 							allownew: true,
-							onadd: function(p){onadd(p, vnode);},
-							onnew: function(){onnew(vnode);}
+							onadd: function(p){vnode.attrs.onadd(p);},
+							//onnew: function(){onnew(vnode);}
 						})
 					:
 						m(TeamList, {
-							onadd: function(p){onadd(p, vnode);}
+							onadd: function(p){vnode.attrs.onadd(p);}
 						})
-				])
+				]),
+
+				vnode.attrs.peoplelist.map(function(person){
+					return m(".editor-peoplelist-person", [
+
+						//name
+						m("span.editor-peoplelist-person-name", person.value()),
+
+						m(DropDown, {
+							value: vnode.attrs.roles.selected(person),
+							options: vnode.attrs.roles.options,
+							novalue: vnode.attrs.roles.novalue,
+							onchange: function(e){
+								vnode.attrs.roles.onchange(e, person);
+							}
+						}),
+
+						//deletebutton
+						m("span.editor-peoplelist-person-remove", {
+							onclick: function(){vnode.attrs.ondelete(person);}
+						}, m("i", {class:"material-icons"}, "close")),
+
+					]);
+				}),
 			]);
 		}
 	};
@@ -162,29 +352,70 @@ var TypeEditor = function(){
 						}
 					}, [
 						m(".editor-typeselect-type-name", t),
-						m("i", {class:"material-icons hide-icon"}, "info_outline"),
-
-						m(".editor-typeselect-type-timespan", {
-							class: (vnode.attrs.type === count && count<2)? "state-visible": "",
-						},[
-							//m(".editor-typeselect-type-timespan-subtitle","van"),
-							//m(".editor-typeselect-type-timespan-timebox",
-							//	m(DatePicker, {
-							//		value: vnode.attrs.startdate,
-							//		onchange: vnode.attrs.onchangeStartDate
-							//	})
-							//),
-							//m(".editor-typeselect-type-timespan-subtitle","t/m"),
-							//m(".editor-typeselect-type-timespan-timebox",
-							//	m(DatePicker, {
-							//		value:  vnode.attrs.enddate,
-							//		onchange: vnode.attrs.onchangeEndDate
-							//	})
-							//),
-						]),
+						//m("i", {class:"material-icons hide-icon"}, "info_outline"),
 					]);
 				})
 			]);
+		}
+	};
+};
+
+
+var ConnectionEditor = function(){
+	var selectedProgram;
+	var selectedTask;
+
+	return {
+		view: function(vnode){
+			return [
+				vnode.attrs.state ? m(".editor-connectionlist", [
+					m(".editor-connectionlist-list", [
+						ptrn("program", function(program){
+							return m(".editor-connectionlist-item",{
+								class: ptrn.compare(selectedProgram, program)?"state-selected":"",
+								onclick: function(){selectedProgram = program;}
+							},[
+								m(".button-number.editor-connectionlist-item-number",program("order").value()),
+								m(".editor-connectionlist-item-name",program.value())
+							]);
+						})
+					]),
+					m(".editor-connectionlist-list", [
+						selectedProgram ? selectedProgram("task", function(task){
+							return m(".editor-connectionlist-item",{
+								class: ptrn.compare(selectedTask,task)?"state-selected":"",
+								onclick: function(){
+									selectedTask = task;
+									ptrn.speculativeRelate(vm.edit(), task);
+									selectedProgram = undefined;
+									selectedTask = undefined;
+									vnode.attrs.onchange();
+								}
+							},[
+								m(".button-number.editor-connectionlist-item-number",task("order").value()),
+								m(".editor-connectionlist-item-name",task.value()),
+								m("i.material-icons .connectionlist-addbutton", "add"),
+							]);
+						}) : []
+					])
+				]) : [],
+
+				m(".editor-connections-parents", [
+					vm.edit()("task", function(parent){
+						return m(".editor-connections-parent.state-selected",[
+							m(".button-number.editor-connections-parent-number", parent("program")("order").value()),
+							m(".button-number.editor-connections-parent-number", parent("order").value()),
+							m(".editor-connections-parent-name", parent.value()),
+							(vm.edit()("task",function(e){return e;}).length > 1) ? m("span.editor-connections-parent-remove", {
+								onclick: function(){
+									ptrn.speculativeUnrelate(vm.edit(), parent);
+									vnode.attrs.onchange();
+								}
+							}, "Verwijderen") : [],
+						]);
+					})
+				])
+			];
 		}
 	};
 };

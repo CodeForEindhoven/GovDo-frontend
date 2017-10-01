@@ -1,31 +1,17 @@
 var EffortSelector = function(){
 	var scrollstore = 0;
-
-	function selected(id){
-		return (viewModels.Hierarchy.getEffort() === id);
-	}
-
-	function editable(id){
-		return (!viewModels.editMode.state() && selected(id));
-	}
-
-	function editing(id){
-		if(viewModels.editMode.state() && viewModels.editMode.isType("effort")){
-			return (viewModels.editMode.content().id === id);
-		}
-		return false;
-	}
+	//var dragover;
 
 	return {
 		view: function(vnode){
-			if(viewModels.Hierarchy.getTask()>0){
+			if(vm.task()){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Inspanningen"),
 							m(".icons-header", [
 								m("i.material-icons", {
 									onclick: function(){
-										viewModels.editMode.new("effort");
+										createnew.effort();
 									}
 								}, "add"),
 								//m("i.material-icons", {}, "import_export"),
@@ -39,34 +25,57 @@ var EffortSelector = function(){
 						onupdate: function(vnode){
 							vnode.dom.scrollTop = scrollstore;
 						}
-					},m(".selectorlist-back", Models.Effort.getContent().map(function(effort, count){
-						return m(".state-selectable.selectorlist-item", {
-							class: ((selected(effort.id))?"state-selected":"") +" "+((editing(effort.id))?"state-editing":"")+" "+(effort.mode?"mode-sketch":""),
-							onclick: function(){
-								viewModels.Hierarchy.updateEffort(effort.id);
-							}
-						},[
-							m(".selectorlist-item-number", [
-								m(".button-number", count+1),
-								m(".selectorlist-item-edit.button-edit-small",{
-									onclick: function(){
-										viewModels.editMode.set("effort", effort);
-									}
-								}, m("i.material-icons","build"))
-							]),
-							m(".selectorlist-item-content", [
-								m(".effortselector-title", effort.name),
-								m(".selector-hidden",[
-									m(".effortselector-type", emptyState(viewModels.typeNames[effort.type], m(".effortselector-type-state.state-empty", "Nog geen type"))),
-									m(".effortselector-description", effort.description.emptyState(m(".effortselector-description-state.state-empty", "Nog geen beschrijving"))),
-									m(".effortselector-subheader", "Mensen"),
-									m(".effortselector-peoplelist", effort.People.map(function(person){
-										return m(".effortselector-peoplelist", person.name);
-									}).emptyState(m(".effortselector-peoplelist-state.state-empty", "Nog geen mensen"))),
-								])
-							]),
-						]);
-					}).emptyState(m(".selectorlist-state.state-empty", "Nog geen inspanningen")))),
+					},m(".selectorlist-back", [
+						vm.task()("effort", function(effort){
+							return m(".state-selectable.selectorlist-item", {
+								//draggable: true,
+								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==-1?"mode-sketch":""),
+								onclick: function(){
+									vm.effort(effort);
+								},
+								//ondragenter: function(e){
+								//	this.classList.add('drag-over');
+								//},
+								//ondragover: function(e){
+								//	e.preventDefault(); // Necessary. Allows us to drop.
+								//	dragover = effort.id();
+								//	e.dataTransfer.dropEffect = 'move';
+								//}
+							},[
+								m(".selectorlist-item-number", [
+									m(".button-number", effort("order").value()),
+
+								]),
+								m(".selectorlist-item-content", [
+									m(".effortselector-title", effort.value()),
+
+									m(".selectorlist-item-edit.button-edit-small",{
+										onclick: function(){
+											vm.edit(effort);
+										}
+									},
+
+									m(".selectorlist-item-position", [
+									m("i.material-icons","keyboard_arrow_down"),
+									m("i.material-icons","keyboard_arrow_up"),
+									]),
+
+									m("i.material-icons","build")),
+									m(".selector-hidden",[
+										m(".effortselector-type", emptyState(viewModels.typeNames[effort("type").value()], m(".effortselector-type-state.state-empty", "Nog geen type"))),
+										m(".effortselector-subheader", "Beoogd Effect"),
+										m(".effortselector-description", effort("description").value().emptyState(m(".effortselector-description-state.state-empty", "Nog geen beoogd effect"))),
+										m(".effortselector-subheader", "Eindproduct"),
+										m(".effortselector-description", effort("endproduct").value().emptyState(m(".effortselector-description-state.state-empty", "Nog geen eindproduct"))),
+										m(".effortselector-subheader", "Mensen"),
+										m(".effortselector-peoplelist", effort("person", function(person){
+											return m(".effortselector-peoplelist", person.value());
+										}).emptyState(m(".effortselector-peoplelist-state.state-empty", "Nog geen mensen"))),
+									])
+								]),
+							]);
+						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen inspanningen"))
+					])),
 				]);
 			} else {
 				return [];
