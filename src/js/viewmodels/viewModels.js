@@ -52,26 +52,30 @@ var vm = (function(){
 var createnew = {
 	task: function(){
 		if(vm.program()){
-			ptrn.create("task", "", function(t){
-				ptrn.relate(vm.program(), t);
-				ptrn.create("means", "", function(a){ptrn.relate(t,a);});
-				ptrn.create("kpi", "", function(a){ptrn.relate(t,a);});
-				ptrn.create("order", "1", function(a){ptrn.relate(t,a);});
-				ptrn.create("mode", "-1", function(a){ptrn.relate(t,a);});
-				vm.edit(t);
+			var taskcount = vm.program()("task", function(a){return a;}).length+1;
+			ptrn.createrelate("task", "", vm.program(), function(t){
+				ptrn.createrelate("means", "", t, function(){
+				ptrn.createrelate("kpi", "", t, function(){
+				ptrn.createrelate("order", taskcount, t, function(){
+				ptrn.createrelate("mode", "-1", t, function(){
+					vm.edit(t);
+				});});});});
 			});
 		}
 	},
 	effort: function(){
 		if(vm.task()){
-			ptrn.create("effort", "", function(e){
-				ptrn.relate(vm.task(), e);
-				ptrn.create("description", "", function(a){ptrn.relate(e,a);});
-				ptrn.create("endproduct", "", function(a){ptrn.relate(e,a);});
-				ptrn.create("type", "", function(a){ptrn.relate(e,a);});
-				ptrn.create("order", "1", function(a){ptrn.relate(e,a);});
-				ptrn.create("mode", "-1", function(a){ptrn.relate(e,a);});
-				vm.edit(e);
+			var effortcount = vm.task()("effort", function(a){return a;}).length+1;
+			ptrn.createrelate("effort", "", vm.task(), function(e){
+				ptrn.createrelate("description", "", e, function(){
+				ptrn.createrelate("endproduct", "", e, function(){
+				ptrn.createrelate("type", "", e, function(){
+				ptrn.createrelate("order", effortcount, e, function(){
+				ptrn.createrelate("mode", "", e, function(){
+				ptrn.createrelate("startdate", "_/_/_", e, function(){
+				ptrn.createrelate("enddate", "_/_/_", e, function(){
+					vm.edit(e);
+				});});});});});});});
 			});
 		}
 	}
