@@ -115,14 +115,17 @@ var ptrn =  (function(){
 
 	//builds a list of atoms from relations
 	function selectRelations(id){
-		var results = relationmap[id].filter(function(rel){
-			return (!rel.value[0].drop);
-		}).map(function(rel){
-			if(rel.value[0].aid===id){
-				return atoms[rel.value[0].bid];
-			}
-			return atoms[rel.value[0].aid];
-		});
+		var results = [];
+		if(relationmap[id]){
+			results = relationmap[id].filter(function(rel){
+				return (!rel.value[0].drop);
+			}).map(function(rel){
+				if(rel.value[0].aid===id){
+					return atoms[rel.value[0].bid];
+				}
+				return atoms[rel.value[0].aid];
+			});
+		}
 		return results;
 		/*
 		var results = relations.filter(function(relation){
@@ -291,6 +294,30 @@ var ptrn =  (function(){
 		});
 	}
 
+	function createrelate(type, value, b, callback){
+		var bid = b.id();
+		request("POST", "createrelate", {
+			type: type,
+			value: value,
+			bid: bid,
+		}, function(elem){
+			if(!atoms[elem.id]){
+				atoms[elem.id] = {
+					oid: elem.id,
+					type: elem.type,
+					value: [
+						{
+							tid: elem.tid,
+							value: elem.value
+						}
+					]
+				};
+			}
+			m.redraw();
+			callback(produceAtom(atoms[elem.id]));
+		});
+	}
+
 	function findorcreate(type, value, callback){
 		request("POST", "findorcreate", {
 			type: type,
@@ -326,7 +353,7 @@ var ptrn =  (function(){
 		});
 	}
 
-	function relate(a, b){
+	function relate(a, b, callback){
 		var aid = a.id();
 		var bid = b.id();
 
@@ -343,6 +370,7 @@ var ptrn =  (function(){
 					}
 				]
 			};
+			if(callback) callback();
 			m.redraw();
 		});
 	}
@@ -369,6 +397,10 @@ var ptrn =  (function(){
 		xhttp.open(type, api+url, true);
 		xhttp.setRequestHeader("Content-type", "application/json");
 		xhttp.send(JSON.stringify(data));
+
+		//if (xhttp.readyState == 4 && xhttp.status == 200) {
+		//	callback(JSON.parse(xhttp.responseText));
+		//}
 	}
 
 
@@ -382,6 +414,7 @@ var ptrn =  (function(){
 	query.create = create;
 	query.findorcreate = findorcreate;
 	query.relate = relate;
+	query.createrelate = createrelate;
 	query.speculativeRelate = speculativeRelate;
 	query.speculativeUnrelate = speculativeUnrelate;
 	query.loadall = pulldump;
@@ -389,33 +422,112 @@ var ptrn =  (function(){
 	return query;
 })();
 
+
+function asyncmap(array, next, done){
+	var i = -1;
+	function step(){
+		i++;
+		if(array.length > i){
+			next(array[i],step);
+		} else {
+			if(done) done();
+		}
+	}
+	step();
+}
+
+function pushAllTheDataSync(){
+	var commands = [];
+	model.get("overview", {}, function(data){
+		var programcount = 0;
+		var taskcount = 0;
+		var effortcount = 0;
+		asyncmap(data, function(domain, nextdomain){
+			ptrn.create("domain", domain.name, function(d){
+
+				//Programs
+				asyncmap(domain.Programs, function(program, nextprogram){
+					programcount++;
+					taskcount = 0;
+					effortcount = 0;
+					ptrn.createrelate("program", program.name, d, function(p){
+						ptrn.createrelate("mission", program.mission, p, function(){
+						ptrn.createrelate("order", programcount, p, function(){
+
+							//Tasks
+							asyncmap(program.Tasks, function(task, nexttask){
+								taskcount++;
+								effortcount = 0;
+								ptrn.createrelate("task", task.name, p, function(t){
+									ptrn.createrelate("means", task.means, t, function(){
+									ptrn.createrelate("order", taskcount, t, function(){
+									ptrn.createrelate("kpi", task.kpi, t, function(){
+									ptrn.createrelate("mode", task.mode, t, function(){
+
+										//Efforts
+										asyncmap(task.Efforts, function(effort, nexteffort){
+											effortcount++;
+											ptrn.createrelate("effort", effort.name, t, function(e){
+												ptrn.createrelate("description", effort.description, e, function(){
+												ptrn.createrelate("endproduct", effort.endproduct, e, function(){
+												ptrn.createrelate("type", effort.type, e, function(){
+												ptrn.createrelate("order", effortcount, e, function(){
+												ptrn.createrelate("mode", effort.mode, e, function(){
+												ptrn.createrelate("startdate", "_/_/_", e, function(){
+												ptrn.createrelate("enddate", "_/_/_", e, function(){
+
+													//People
+													asyncmap(effort.People, function(person, nextperson){
+														ptrn.findorcreate("person", person.name, function(p){
+															ptrn.relate(p,e, function(){
+																nextperson();
+															});
+														});
+													}, nexteffort);
+												});});});});});});});
+											});
+										},nexttask);
+									});});});});
+								});
+							}, nextprogram);
+						});});
+					});
+				}, nextdomain);
+			});
+		});
+	});
+}
+
+/*
 function pushAllTheData(){
 	model.get("overview", {}, function(data){
+		var programcount = 0;
 		data.map(function(domain){
 			ptrn.create("domain", domain.name, function(d){
 				domain.Programs.map(function(program){
+					programcount++;
 					ptrn.create("program", program.name, function(p){
 						ptrn.relate(d,p);
-						ptrn.create("mission", program.mission, function(a){ptrn.relate(p,a);});
-						ptrn.create("order", program.id, function(a){ptrn.relate(p,a);});
-						ptrn.create("mode", program.mode, function(a){ptrn.relate(p,a);});
+						ptrn.createrelate("mission", program.mission, p);
+						ptrn.createrelate("order", programcount, p);
+						ptrn.createrelate("mode", program.mode, p);
 
-						program.Tasks.map(function(task){
+						program.Tasks.map(function(task, taskcount){
 							ptrn.create("task", task.name, function(t){
 								ptrn.relate(p,t);
-								ptrn.create("means", task.means, function(a){ptrn.relate(t,a);});
-								ptrn.create("kpi", task.kpi, function(a){ptrn.relate(t,a);});
-								ptrn.create("order", task.id, function(a){ptrn.relate(t,a);});
-								ptrn.create("mode", task.mode, function(a){ptrn.relate(t,a);});
+								ptrn.createrelate("means", task.means, t);
+								ptrn.createrelate("kpi", task.kpi, t);
+								ptrn.createrelate("order", taskcount+1, t);
+								ptrn.createrelate("mode", task.mode, t);
 
-								task.Efforts.map(function(effort){
+								task.Efforts.map(function(effort, effortcount){
 									ptrn.create("effort", effort.name, function(e){
 										ptrn.relate(t,e);
-										ptrn.create("description", effort.description, function(a){ptrn.relate(e,a);});
-										ptrn.create("endproduct", effort.endproduct, function(a){ptrn.relate(e,a);});
-										ptrn.create("type", effort.type, function(a){ptrn.relate(e,a);});
-										ptrn.create("order", effort.id, function(a){ptrn.relate(e,a);});
-										ptrn.create("mode", effort.mode, function(a){ptrn.relate(e,a);});
+										ptrn.createrelate("description", effort.description, e);
+										ptrn.createrelate("endproduct", effort.endproduct, e);
+										ptrn.createrelate("type", effort.type, e);
+										ptrn.createrelate("order", effortcount+1, e);
+										ptrn.createrelate("mode", effort.mode, e);
 
 										effort.People.map(function(person){
 											ptrn.findorcreate("person", person.name, function(p){ptrn.relate(p,e);});
@@ -430,7 +542,7 @@ function pushAllTheData(){
 		});
 	});
 }
-
+*/
 
 //model.get("overview", {}, function(data){
 //	data.map(function(domain){
