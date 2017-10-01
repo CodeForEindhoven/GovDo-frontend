@@ -9,20 +9,23 @@
 	line-height: @width-circle;
 	border-radius: 50%;
 	text-align: center;
-	font-size: (@main-text * 0.95);
-	font-weight: @semibold;
+	font-family: @font-number;
+	font-size: @button-number;
+	font-weight: @regular;
 }
 
-.button-number + .selectorlist-item-edit {
+/*.button-number + .selectorlist-item-edit {
 	margin-top: 12px;
-	background-color: @color-background;
+	background-color: @color-white;
 	text-align: center;
 	font-size: @main-text;
-}
+}*/
 
 .state-selectable:hover .button-number, .state-selected .button-number {
 	background-color: @color-selected;
 	color: @color-white;
+	-webkit-font-smoothing: subpixel-antialiased;
+  	-moz-osx-font-smoothing: grayscale;
 }
 
 .button {
@@ -38,7 +41,7 @@
 
 .button-edit {
 	.button();
-	background-color: @color-button-edit;
+	background-color: @color-white;
 }
 
 .editor-buttons .button-edit {
@@ -78,7 +81,7 @@
 	height: 20px;
 	line-height: 20px;
 	font-size: 0.6em;
-	
+
 	background-color: none
 }
 
@@ -90,9 +93,10 @@
 }
 
 .material-icons {
-	vertical-align: top;
+	vertical-align: middle;
 	font-size: @icon-size;
 	text-align: center;
+	margin-bottom: 2px;
 }
 
 // Program Mission
@@ -113,16 +117,12 @@
 // Headers Icons
 .selector-header .material-icons {
 	cursor: pointer;
-	background-color: white;
-	border-radius: 25px;
+	color:@color-selected;
 	padding: 2px;
 }
 
-.editor-header .material-icons {
-	cursor: pointer;
-	color: @color-selected;
-	padding-left: 4px;
-	padding-right: 4px;
+.selector-header .material-icons:hover {
+	color: @color-black;
 }
 
 div.icons-header .material-icons + .material-icons {
@@ -132,7 +132,7 @@ div.icons-header .material-icons + .material-icons {
 .selector-header .material-icons + .material-icons, .editor-header .material-icons + .material-icons, .editor-header .save-button + .material-icons {
  	margin-left: 10px;
 }
- 
+
  // To hide info
 /*.hide-icon {
  	display: none;

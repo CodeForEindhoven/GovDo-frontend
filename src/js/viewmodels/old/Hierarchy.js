@@ -16,7 +16,11 @@ viewModels.Hierarchy = (function(){
 	}
 
 	function updateTask(p){
-		currentTask = p;
+		if(currentTask != p){
+			currentTask = p;
+		} else {
+			currentTask = -1;
+		}
 		currentEffort = -1;
 
 		Models.Effort.updateContent(currentTask);
@@ -27,7 +31,11 @@ viewModels.Hierarchy = (function(){
 	}
 
 	function updateEffort(p){
-		currentEffort = p;
+		if(currentEffort != p){
+			currentEffort = p;
+		} else {
+			currentEffort = -1;
+		}
 	}
 
 	function getEffort(){

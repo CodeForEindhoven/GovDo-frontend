@@ -1,25 +1,26 @@
 var TeamList = function(){
 
-	Models.Person.loadTeams();
-
 	return {
 		view: function(vnode){
-			return m(".personlist", Models.Person.getTeams().map(function(t){
+			return m(".personlist", ptrn("program", function(team){
 				return m(".personlist-team",{
-					oncreate: function(vnode){
-						if(t.id === viewModels.Hierarchy.getProgram()){
-							vnode.dom.scrollIntoView(true);
-						}
-					}
+					//oncreate: function(t){
+					//		return function(vnode){
+					//			if(ptrn.compare(vm.program(), team)){
+					//				console.log(team.value());
+					//				vnode.dom.scrollIntoView(true);
+					//			}
+					//		};
+					//}(team) //focus onto current team;
 				},[
-					m(".personlist-teamname", t.name),
-					t.People.map(function(p){
+					m(".personlist-teamname", team.value()),
+					team("task effort person", function(person){
 						return m(".personlist-person",{
 							onclick: function(){
-								vnode.attrs.onadd(p);
+								vnode.attrs.onadd(person);
 							}
 						}, [
-							p.name,
+							person.value(),
 							m("i.material-icons .person-list-add-button", "add"),
 						]);
 					}).emptyState(m(".personlist-team-emptystate.state-empty", ""))

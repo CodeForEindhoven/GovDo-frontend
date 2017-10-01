@@ -1,11 +1,11 @@
 var FilteredPeopleList = function(){
-	Models.Person.loadPeople();
+
 
 	function getFilterdContent(value){
-		return Models.Person.getPeople().filter(function(p){
-			return (p.name.toLowerCase().indexOf(value.toLowerCase())>-1);
+		return ptrn("person", function(p){return p;}).filter(function(p){
+			return (p.value().toLowerCase().indexOf(value.toLowerCase())>-1);
 		}).map(function(p){
-			p.displayName = StringHighlight(p.name, value);
+			p.displayName = StringHighlight(p.value(), value);
 			return p;
 		});
 	}
@@ -18,28 +18,28 @@ var FilteredPeopleList = function(){
 				return m(".personlist", filterlist.map(function(p){
 					return m(".personlist-person",{
 						onclick: function(){
-							vnode.attrs.onadd({
-								name: p.name,
-								id: p.id
-							});
+							vnode.attrs.onadd(p);
 						}
-					}, p.displayName);
+					}, [
+						p.displayName,
+						m("i.material-icons .person-list-add-button", "add"),
+					]);
 				}));
 			} else {
 				//show new person list
-				if(vnode.attrs.allownew){
-					return m(".personlist", [
-						m(".personlist-person-new", {
-							onclick: function(){
-								vnode.attrs.onnew();
-							}
-						}, "voeg '"+vnode.attrs.value+"' toe aan personen")
-					]);
-				} else {
+				//if(vnode.attrs.allownew){
+				//	return m(".personlist", [
+				//		m(".personlist-person-new", {
+				//			onclick: function(){
+				//				vnode.attrs.onnew();
+				//			}
+				//		}, "voeg '"+vnode.attrs.value+"' toe aan personen")
+				//	]);
+				//} else {
 					return m(".personlist",
 						m(".personlist-noresults", "Geen resultaten")
 					);
-				}
+				//}
 
 			}
 		}

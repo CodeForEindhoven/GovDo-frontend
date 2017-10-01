@@ -1,0 +1,82 @@
+.datepicker {
+	display: inline-block;
+	width: 100%;
+	padding-left: 40px;
+}
+
+.datepicker-section {
+	display: inline-block;
+	width: 27%;
+	vertical-align: top;
+	margin-right: 10px;
+//	background-color: red;
+}
+
+.editor-selection-date {
+	width: 50%;
+	display: inline-block;
+	margin-right: 20px;
+	vertical-align: top;
+	position: relative;
+}
+
+.datepicker-navigation > .datepicker-section, 
+.datepicker-date > .datepicker-section {
+	padding-left: 2px;
+}
+
+.editor-selection-date span {
+	margin-right: 29px;
+	margin-top: 20px;
+	position: absolute;
+}
+
+.datepicker-menu {
+	border: 1px solid @color-selected;
+	border-radius: 2px;
+	width: 88%;
+}
+
+.datepicker-column {
+	font-size: @column-date-font-size;
+	line-height: 30px;
+	display: inline-block;
+	width: 33.3%;
+	vertical-align: top;
+	height: 250px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.datepicker-column.disabled {
+	color: @color-grey;
+}
+
+.datepicker-splitter {
+	border-bottom: 2px dashed @color-selected;
+	border-radius: 0px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+
+.datepicker-option.state-selected {
+	background-color: @color-black;
+	color: @color-white;
+}
+
+.datepicker-navigation {
+
+}
+
+.datepicker-date {
+//	background-color: blue;
+	margin-bottom: 20px;
+}
+
+.datepicker-column.active .datepicker-option:hover {
+	cursor: pointer;
+}
+
+.datepicker-date .datepicker-section, .datepicker-column {
+	font-family: @font-number;
+}
