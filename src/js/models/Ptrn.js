@@ -300,7 +300,8 @@ var ptrn =  (function(){
 			type: type,
 			value: value,
 			bid: bid,
-		}, function(elem){
+		}, function(response){
+			var elem = response.node;
 			if(!atoms[elem.id]){
 				atoms[elem.id] = {
 					oid: elem.id,
@@ -313,8 +314,11 @@ var ptrn =  (function(){
 					]
 				};
 			}
-			m.redraw();
+
+			var rel = response.relation;
+			createRelation(rel.aid, rel.bid, rel.tid);
 			callback(produceAtom(atoms[elem.id]));
+			m.redraw();
 		});
 	}
 
@@ -361,15 +365,7 @@ var ptrn =  (function(){
 			aid: aid,
 			bid: bid
 		}, function(rel){
-			relations[rel.tid] = {
-				value: [
-					{
-						tid: rel.tid,
-						aid: rel.aid,
-						bid: rel.bid,
-					}
-				]
-			};
+			createRelation(rel.aid, rel.bid, rel.tid);
 			if(callback) callback();
 			m.redraw();
 		});
