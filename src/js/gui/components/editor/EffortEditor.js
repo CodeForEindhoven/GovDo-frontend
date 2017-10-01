@@ -157,11 +157,11 @@ var EffortEditor = function(){
 							novalue: "Ambtelijk Opdrachtgever",
 							onchange: function(e, p){
 								if(e===0){
-									ptrn.speculativeRelate(vm.edit(), p("role:bclient"));
 									ptrn.speculativeUnrelate(vm.edit(), p("role:aclient"));
+									ptrn.speculativeRelate(vm.edit(), p("role:bclient"));
 								} else {
-									ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
 									ptrn.speculativeUnrelate(vm.edit(), p("role:bclient"));
+									ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
 								}
 							},
 						},
@@ -317,7 +317,7 @@ var PeopleListEditor = function(){
 					return m(".editor-peoplelist-person", [
 
 						//name
-						m("span", person.value()),
+						m("span.editor-peoplelist-person-name", person.value()),
 
 						m(DropDown, {
 							value: vnode.attrs.roles.selected(person),

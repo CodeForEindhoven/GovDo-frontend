@@ -58,7 +58,7 @@ var ptrn =  (function(){
 				}
 			]
 		};
-		relations[tid] = newrel;
+		relations.push(newrel);
 
 		if(!relationmap[aid]){relationmap[aid] = [];}
 		relationmap[aid].push(newrel);
@@ -74,6 +74,7 @@ var ptrn =  (function(){
 			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
 		});
 		console.log("relate");
+		console.log(found);
 
 		if(found.length === 0){
 			createRelation(aid, bid, -1);
@@ -87,10 +88,10 @@ var ptrn =  (function(){
 		var found = relations.filter(function(relation){
 			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
 		});
+		console.log("unrelate");
+		console.log(found);
 
 		if(found.length > 0){
-			console.log("drop");
-			console.log(found[0]);
 			found[0].value.unshift({
 				tid: -1,
 				drop: true,
