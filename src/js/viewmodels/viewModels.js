@@ -2,14 +2,25 @@ var viewModels = {};
 
 var vm = (function(){
 	var loginPopup = -1;
+	var currentPage = 0;
 	var currentUser = {user:"",pass:""};
+
+
 	var currentProgram;
 	var currentTask;
 	var currentEffort;
+	var currentPerson;
+
 
 	var currentEditor;
 
 	return {
+		page: function(i){
+			if(i !== undefined){
+				currentPage = i;
+			}
+			return currentPage;
+		},
 		login: function(i){
 			if(i !== undefined){
 				loginPopup = i;
@@ -50,6 +61,12 @@ var vm = (function(){
 				}
 			}
 			return currentEffort;
+		},
+		person : function(i){
+			if(i !== undefined){
+				currentPerson = i;
+			}
+			return currentPerson;
 		},
 		edit: function(i){
 

@@ -25,6 +25,7 @@ var ProgramNav = function(){
 									class: (ptrn.compare(vm.program(),program))?"state-selected":"",
 									onclick: function(){
 										vm.program(program);
+										vm.page(0);
 										state = false;
 									}
 								},[

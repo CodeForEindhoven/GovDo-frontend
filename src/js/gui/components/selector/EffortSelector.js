@@ -69,7 +69,12 @@ var EffortSelector = function(){
 										m(".effortselector-description", effort("endproduct").value().emptyState(m(".effortselector-description-state.state-empty", "Nog geen eindproduct"))),
 										m(".effortselector-subheader", "Mensen"),
 										m(".effortselector-peoplelist", effort("person", function(person){
-											return m(".effortselector-peoplelist", person.value());
+											return m(".effortselector-peoplelist", {
+												onclick: function(){
+													vm.person(person);
+													vm.page(1);
+												}
+											}, person.value());
 										}).emptyState(m(".effortselector-peoplelist-state.state-empty", "Nog geen mensen"))),
 										m(".effortselector-subheader", "Periode"),
 										m(".effortselector-period", [
