@@ -3,7 +3,10 @@ var PersonalEfforts = function(){
 		view: function(vnode){
 			return vm.person() ? m(".personal-efforts",[
 				vm.person()("effort", function(effort){
-					return m(".personal-efforts-effort-name", effort.value());
+					return [
+						m(Numbering, {node: effort, whole: true}),
+						m(".personal-efforts-effort-name", effort.value())
+					];
 				})
 			]) : [];
 		}
