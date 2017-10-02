@@ -1,9 +1,8 @@
 var viewModels = {};
 
 var vm = (function(){
-	var loginPopup = false;
-
-	var currentUser;
+	var loginPopup = -1;
+	var currentUser = {user:"",pass:""};
 	var currentProgram;
 	var currentTask;
 	var currentEffort;
@@ -12,10 +11,16 @@ var vm = (function(){
 
 	return {
 		login: function(i){
-			if(i === true){
-				loginPopup = true;
+			if(i !== undefined){
+				loginPopup = i;
 			}
 			return loginPopup;
+		},
+		user: function(i){
+			if(i !== undefined){
+				currentUser = i;
+			}
+			return currentUser;
 		},
 		program : function(i){
 			if(i !== undefined){

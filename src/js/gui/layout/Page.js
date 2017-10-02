@@ -2,6 +2,7 @@ var Page = function(){
 	return {
 		view: function(vnode){
 			return [
+				m(".layout-overlay", m(Login)),
 				m(".layout-nav-top", [
 					m(".layout-nav-segment", m(NavBar)),
 				]),
@@ -13,8 +14,6 @@ var Page = function(){
 					m(".layout-column", m(EffortSelector)),
 					m(".layout-right", m(Editor))
 				]),
-					m(".layout-overlay", m(Login)),
-				//m(Viewer),
 			];
 		}
 	};
