@@ -71,6 +71,14 @@ var EffortSelector = function(){
 										m(".effortselector-peoplelist", effort("person", function(person){
 											return m(".effortselector-peoplelist", person.value());
 										}).emptyState(m(".effortselector-peoplelist-state.state-empty", "Nog geen mensen"))),
+										m(".effortselector-subheader", "Periode"),
+										m(".effortselector-period", [
+											m("span.effortselector-period-label", "van"),
+											m(DateDisplay, {date: effort("startdate").value()}),
+											m("span.effortselector-period-label", "t/m"),
+											m(DateDisplay, {date: effort("enddate").value()}),
+										])
+
 									])
 								]),
 							]);

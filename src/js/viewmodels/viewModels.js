@@ -52,9 +52,15 @@ var vm = (function(){
 			return currentEffort;
 		},
 		edit: function(i){
+
 			if(i !== undefined){
-				currentEditor = i;
+				if(loginPopup === 0){
+					currentEditor = i;
+				} else {
+					loginPopup = 1;
+				}
 			}
+
 			return currentEditor;
 		},
 		editClose: function(){
