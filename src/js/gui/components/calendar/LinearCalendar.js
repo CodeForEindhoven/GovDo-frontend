@@ -10,7 +10,7 @@ var LinearCalendar = function(){
 	}
 	return {
 		view: function(vnode){
-			var hcount = 0;
+			var hcount = -1;
 			return m(".calendar",[
 				m("svg",{
 					oncreate: function(vnode) {
@@ -36,8 +36,8 @@ var CalendarTimeLine = function(){
 	return {
 		view: function(vnode){
 			return m("line.calendarTimeLine", {
-				x1:0, 				y1:vnode.attrs.top*100,
-				x2:vnode.attrs.p.w, y2: vnode.attrs.top*100
+				x1:0, 				y1:vnode.attrs.top*100+20,
+				x2:vnode.attrs.p.w, y2: vnode.attrs.top*100+20
 			});
 		}
 	};

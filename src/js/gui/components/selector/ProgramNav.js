@@ -6,7 +6,12 @@ var ProgramNav = function(){
 			return m(".programnav", {},[
 				m(".programnav-topbar.state-selected",{
 					onclick: function(){
-						state = !state;
+						if(vm.page()!== 0 && vm.program()){
+							vm.page(0);
+						} else {
+							state = !state;
+						}
+
 					}
 				},[
 					vm.program() ? [
