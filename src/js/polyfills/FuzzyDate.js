@@ -67,7 +67,12 @@ FuzzyDate.toArray = function(string){
 		return (!e.splitter) && (e.value === d[2]);
 	});
 
-	date[0] = date[0] || {value: d[0], label: d[0]};
+	if(d[0]==="_") {
+		date[0] = {value: false};
+	} else {
+		date[0] = {value: d[0], label: d[0]};
+	}
+
 	date[1] = date[1] || {value: false};
 	date[2] = date[2] || {value: false};
 
