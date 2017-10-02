@@ -1,6 +1,6 @@
 @import "variables/fonts.less";
 @import "components/NavBar.less";
-@import "templates/Buttons.less";
+@import "components/Buttons.less";
 @top-window-margin: 110px;
 
 .debugborders {
@@ -87,4 +87,12 @@ html, body {
 	.debugborders();
 	margin-top: (@programbarWidth + 11px);
 	height: calc(100% - (@programbarWidth + 11px));
+}
+
+.layout-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+	top: 0px;
+	left: 0px;
 }

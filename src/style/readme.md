@@ -10,9 +10,6 @@ Variables such as typography and colors
 ## layout
 Pure layout classes
 
-## templates
-Unspecific Repeated / mixable styles
-
 ## components
 Specific nonrepeated styles
 

@@ -13,6 +13,7 @@ var Page = function(){
 					m(".layout-column", m(EffortSelector)),
 					m(".layout-right", m(Editor))
 				]),
+					m(".layout-overlay", m(Login)),
 				//m(Viewer),
 			];
 		}

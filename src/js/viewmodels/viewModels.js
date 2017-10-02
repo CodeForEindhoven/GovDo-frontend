@@ -1,6 +1,9 @@
 var viewModels = {};
 
 var vm = (function(){
+	var loginPopup = false;
+
+	var currentUser;
 	var currentProgram;
 	var currentTask;
 	var currentEffort;
@@ -8,6 +11,12 @@ var vm = (function(){
 	var currentEditor;
 
 	return {
+		login: function(i){
+			if(i === true){
+				loginPopup = true;
+			}
+			return loginPopup;
+		},
 		program : function(i){
 			if(i !== undefined){
 				currentProgram = i;
