@@ -19,7 +19,7 @@ var Page = function(){
 				//Calendar View
 				(vm.page() === 1) ? m(".layout-workspace", [
 					m(".layout-thincolumn",  m(PersonalEfforts)),
-					m(".layout-thickcolumn",  "calendar")
+					m(".layout-thickcolumn",  m(LinearCalendar))
 				]) : [],
 
 				m(".layout-overlay", m(Login)),
