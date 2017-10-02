@@ -19,7 +19,9 @@ var ptrn =  (function(){
 		};
 
 		a.transact = function(){
-			if(atom.newvalue !== undefined){
+			if(atom.drop===true){
+				drop(atom.oid);
+			} else if(atom.newvalue !== undefined){
 				console.log("transact");
 				update(atom.oid, atom.newvalue);
 				atom.newvalue = undefined;
@@ -344,6 +346,14 @@ var ptrn =  (function(){
 		});
 	}
 
+	function drop(id){
+		request("DELETE", "drop/"+id, {}, function(elem){
+			atoms[elem.id].value.unshift({
+				tid: elem.tid,
+				drop: true
+			});
+		});
+	}
 
 	function update(id, value){
 		request("POST", "update/"+id, {
