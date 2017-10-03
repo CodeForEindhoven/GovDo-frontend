@@ -3,11 +3,11 @@ var FuzzyDate = {};
 FuzzyDate.years = (function(){
 	var y = [{label:"Geen",value: false, p: false}, {splitter: true}];
 	var d = new Date().getFullYear();
-	for(var i=0; i<10; i++){
+	for(var i=0; i<30; i++){
 		y.push({label:d,value: ""+d, p: true});
 		d++;
 	}
-	return y.concat([{splitter: true},{label:"na "+(d+1),value: "future", p: false}]);
+	return y;
 })();
 
 FuzzyDate.months  = (function(){
@@ -54,6 +54,59 @@ FuzzyDate.days = (function(){
 	return d;
 })();
 
+FuzzyDate.toRange = function(string){
+	var date = FuzzyDate.toArray(string);
+	var a;
+	var b;
+	if(!date){
+		return [a,b];
+	}
+
+	if(date[0].p && date[1].p && date[2].p){
+		a = new Date(string);
+	} else if(date[0].p && date[1].p){
+		var y = date[0].value;
+		var m = date[1].value;
+		if(date[2].value){
+			if(date[2].value==="1k"){
+				a = new Date(y+"/"+m+"/1");
+				b = new Date(y+"/"+m+"/10");
+			} else if(date[2].value==="2k"){
+				a = new Date(y+"/"+m+"/10");
+				b = new Date(y+"/"+m+"/20");
+			}  else if(date[2].value==="3k"){
+				a = new Date(y+"/"+m+"/20");
+				b = new Date(y+"/"+m+"/30");
+			}
+		} else {
+			a = new Date(y+"/"+m+"/1");
+			b = new Date(y+"/"+m+"/30");
+		}
+	} else if(date[0].p){
+		var y = date[0].value;
+		if(date[1].value){
+			if(date[1].value==="1k"){
+				a = new Date(y+"/1/1");
+				b = new Date(y+"/3/30");
+			} else if(date[1].value==="2k"){
+				a = new Date(y+"/4/1");
+				b = new Date(y+"/6/30");
+			}  else if(date[1].value==="3k"){
+				a = new Date(y+"/7/1");
+				b = new Date(y+"/9/30");
+			} else if(date[1].value==="4k"){
+				a = new Date(y+"/10/1");
+				b = new Date(y+"/12/30");
+			}
+		} else {
+			a = new Date(y+"/1/1");
+			b = new Date(y+"/12/30");
+		}
+	}
+
+	return [a,b];
+};
+
 FuzzyDate.toArray = function(string){
 	var date = [];
 	var d = string.split("/");
@@ -70,7 +123,7 @@ FuzzyDate.toArray = function(string){
 	if(d[0]==="_") {
 		date[0] = {value: false};
 	} else {
-		date[0] = {value: d[0], label: d[0]};
+		date[0] = {value: d[0], label: d[0], p: true};
 	}
 
 	date[1] = date[1] || {value: false};
@@ -129,9 +182,19 @@ FuzzyDate.nextWeek = function(date){
 	return nextweek;
 };
 
+FuzzyDate.nextKwarter = function(date){
+	var d = new Date(date);
+	var nextweek = new Date(d.getFullYear(), d.getMonth(), d.getDate()+7*12);
+	return nextweek;
+};
+
 FuzzyDate.getMonday = function(date){
 	var d = new Date(date);
 	var day = d.getDay();
 	var diff = d.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
-	return new Date(d.setDate(diff));
+	var r = new Date(d.setDate(diff));
+	r.setHours(0);
+	r.setMinutes(0);
+	r.setSeconds(0);
+	return r;
 };

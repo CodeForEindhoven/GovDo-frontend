@@ -38,7 +38,7 @@ var CalendarLabels = function(){
 		var monday = FuzzyDate.getMonday(new Date());
 		var currentWeek = FuzzyDate.currentWeek(monday);
 		return ArrayFromRange(0,11).map(function(offset){
-			var labels = {week: currentWeek+offset, date: monday.getDate()+"-"+monday.getMonth()};
+			var labels = {week: currentWeek+offset, date: monday.getDate()+"-"+(monday.getMonth()+1)};
 			monday = FuzzyDate.nextWeek(monday);
 			return labels;
 		});
@@ -57,12 +57,44 @@ var CalendarLabels = function(){
 };
 
 var CalendarTimeLine = function(){
+	//should be defined at top
+	var opentime =  FuzzyDate.getMonday(new Date()).getTime();
+	var closetime =  FuzzyDate.nextKwarter(opentime).getTime();
+	var openlength = closetime - opentime;
 	return {
 		view: function(vnode){
-			return m("line.calendar-timeLine", {
-				x1:0, 				y1:vnode.attrs.top*100+20,
-				x2:vnode.attrs.p.w, y2: vnode.attrs.top*100+20
-			});
+			var starttime = FuzzyDate.toRange(vnode.attrs.effort("startdate").value())[0];
+			var endtime = FuzzyDate.toRange(vnode.attrs.effort("enddate").value())[0];
+			//calculate positions
+			var width = vnode.attrs.p.w;
+			var top = vnode.attrs.top*100+20;
+			var ratio = width / openlength;
+			var xstart = 0;
+			var xend = width;
+
+			if(starttime){
+				starttime = starttime.getTime();
+				if(starttime > opentime) {
+					xstart = (starttime - opentime) * ratio + 0;
+				}
+			}
+
+			if(endtime){
+				endtime = endtime.getTime();
+				if(endtime < closetime) {
+					xend = (endtime - opentime) * ratio + 0;
+				}
+			}
+
+			return [
+				m("line.calendar-timeline", {
+					x1:xstart, 				y1: top,
+					x2:xend, y2: top
+				}),
+				(starttime >= opentime) ? m("circle.calendar-timeline", {cx: xstart, cy: top, r: 5}) : [],
+				(endtime <= closetime) ? m("circle.calendar-timeline", {cx: xend, cy: top, r: 5}) : [],
+			];
+
 		}
 	};
 };
