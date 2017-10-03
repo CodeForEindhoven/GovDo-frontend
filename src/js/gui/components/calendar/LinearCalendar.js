@@ -59,7 +59,7 @@ var CalendarLabels = function(){
 var CalendarTimeLine = function(){
 	return {
 		view: function(vnode){
-			return m("line.calendarTimeLine", {
+			return m("line.calendar-timeLine", {
 				x1:0, 				y1:vnode.attrs.top*100+20,
 				x2:vnode.attrs.p.w, y2: vnode.attrs.top*100+20
 			});
@@ -74,7 +74,7 @@ var CalendarLines = function(){
 			var w = vnode.attrs.p.w/12;
 			var h = vnode.attrs.p.h;
 			for(var i=0; i<12; i++){
-				grid.push(m("line.calendarLines", {
+				grid.push(m("line.calendar-lines", {
 					x1:i*w, y1:0,
 					x2:i*w, y2: h
 				}));
@@ -93,7 +93,7 @@ var CalendarGrid = function(){
 			var h = vnode.attrs.p.h/40;
 			for(var i=0; i<12; i++){
 				for(var j=0; j<40; j++){
-					grid.push(m("rect.calendarGrid", {x:i*w+2, y:j*h+2, width:w-2, height: h-2}));
+					grid.push(m("rect.calendar-grid", {x:i*w+2, y:j*h+2, width:w-2, height: h-2}));
 				}
 			}
 
