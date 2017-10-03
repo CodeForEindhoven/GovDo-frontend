@@ -193,8 +193,6 @@ FuzzyDate.getMonday = function(date){
 	var day = d.getDay();
 	var diff = d.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
 	var r = new Date(d.setDate(diff));
-	r.setHours(0);
-	r.setMinutes(0);
-	r.setSeconds(0);
+	r.setHours(0,0,0,0);
 	return r;
 };

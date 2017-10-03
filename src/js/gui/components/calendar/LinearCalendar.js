@@ -85,7 +85,7 @@ var CalendarTimeLine = function(){
 					xend = (endtime - opentime) * ratio + 0;
 				}
 			}
-
+			console.log(starttime, opentime);
 			return [
 				m("line.calendar-timeline", {
 					x1:xstart, 				y1: top,
@@ -98,6 +98,22 @@ var CalendarTimeLine = function(){
 		}
 	};
 };
+
+var CalendarTodayLine = function(){
+	return {
+		view: function(vnode){
+			var grid = [];
+			var w = vnode.attrs.p.w/12;
+			var h = vnode.attrs.p.h;
+			return m("line.calendar-todayline", {
+				x1:i*w, y1:0,
+				x2:i*w, y2: h
+			});
+
+		}
+	};
+};
+
 
 var CalendarLines = function(){
 	return {
