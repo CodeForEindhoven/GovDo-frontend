@@ -20,3 +20,11 @@ if (!Array.prototype.find) {
     return undefined;
   };
 }
+
+var ArrayFromRange = function(a,b){
+	var O = [];
+	for(var i=a; i<=b; i++){
+		O.push(i);
+	}
+	return O;
+};

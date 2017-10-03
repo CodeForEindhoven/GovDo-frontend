@@ -102,3 +102,36 @@ FuzzyDate.toReadableString = function(string){
 	}
 	return readable;
 };
+
+FuzzyDate.inRange = function(start, end, input){
+	var startdate = FuzzyDate.toArray(start);
+	var enddate = FuzzyDate.toArray(end);
+	var inputdate = FuzzyDate.toArray(input);
+	return false;
+};
+
+FuzzyDate.currentWeek = function(date){
+    var d = new Date(date);
+    // Set to nearest Thursday: current date + 4 - current day number
+    // Make Sunday's day number 7
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+    // Get first day of year
+    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    // Calculate full weeks to nearest Thursday
+    var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+    // Return array of year and week number
+    return weekNo;
+};
+
+FuzzyDate.nextWeek = function(date){
+	var d = new Date(date);
+	var nextweek = new Date(d.getFullYear(), d.getMonth(), d.getDate()+7);
+	return nextweek;
+};
+
+FuzzyDate.getMonday = function(date){
+	var d = new Date(date);
+	var day = d.getDay();
+	var diff = d.getDate() - day + (day === 0 ? -6:1); // adjust when day is sunday
+	return new Date(d.setDate(diff));
+};

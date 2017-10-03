@@ -1,6 +1,5 @@
 var LinearCalendar = function(){
-	var p = {w:100, h:100};
-	var date = 0;
+	var p = {w:100, h:100, time: 0};
 
 	function resize(dom){
 		var rect = dom.getBoundingClientRect();
@@ -24,10 +23,35 @@ var LinearCalendar = function(){
 					m(CalendarLines, {p: p}),
 					vm.person()("effort", function(effort){
 						hcount++;
-						return m(CalendarTimeLine, {p: p, top: hcount});
+						return m(CalendarTimeLine, {p: p, top: hcount, effort: effort});
 					})
-				])
+				]),
+				m(CalendarLabels)
 			]);
+		}
+	};
+};
+
+var CalendarLabels = function(){
+
+	function labels(){
+		var monday = FuzzyDate.getMonday(new Date());
+		var currentWeek = FuzzyDate.currentWeek(monday);
+		return ArrayFromRange(0,11).map(function(offset){
+			var labels = {week: currentWeek+offset, date: monday.getDate()+"-"+monday.getMonth()};
+			monday = FuzzyDate.nextWeek(monday);
+			return labels;
+		});
+	}
+
+	return {
+		view: function(vnode){
+			return m(".calendar-labels", labels().map(function(label){
+				return m(".calendar-label", [
+					m(".calendar-label-week", "week "+ label.week),
+					m(".calendar-label-date", label.date),
+				]);
+			}));
 		}
 	};
 };
