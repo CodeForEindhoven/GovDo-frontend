@@ -47,15 +47,15 @@ var TaskSelector = function(){
 								]),
 
 								m(".selectorlist-item-content", [
-									m(".taskselector-title", [
-										m("span.taskselector-title-name", task.value()),
+									m(".selector-selected", [
+										m(".selector-selected-title", task.value()),
 										(task("means").value() !== "")?[
-											m("span.taskselector-title-means-label", m("i.material-icons .taskselector-arrow", "arrow_forward")),
-											m("span.taskselector-title-means", task("means").value()),
+											m("span.selector-selected-title-means-label", m("i.material-icons .selector-selected-arrow", "arrow_forward")),
+											m("span.selector-selected-title-means", task("means").value()),
 										]:[],
 										m(".selector-hidden",[
-											m(".taskselector-subheader", "Indicator"),
-											m("span.taskselector-kpi", task("kpi").value().emptyState(m(".effortselector-description-state.state-empty", "Nog geen indicator")))
+											m(".selector-selected-subheader", "Indicator"),
+											m(".selector-selected-description.kpi", task("kpi").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator")))
 										])
 									]),
 								]),

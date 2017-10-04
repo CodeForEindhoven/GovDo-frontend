@@ -29,18 +29,18 @@ var DatePicker = function(){
 					onclick: function(){state=!state;}
 				},[
 					m(".datepicker-navigation",[
-						m(".datepicker-section.editor-small-label", "Jaar"),
+						m(".datepicker-section.year.editor-small-label", "Jaar"),
 						m(".datepicker-section.editor-small-label", "Maand/Kwartaal"),
 						m(".datepicker-section.editor-small-label", "Dag/Periode"),
 					]),
 					m(".datepicker-date",[
-						m(".datepicker-section", getLabel(date[0])),
+						m(".datepicker-section.year", getLabel(date[0])),
 						m(".datepicker-section", getLabel(date[1])),
 						m(".datepicker-section", getLabel(date[2])),
 					])
 				]),
 				state ? m(".datepicker-menu",[
-					m(".datepicker-column", [
+					m(".datepicker-column.year", [
 						FuzzyDate.years.map(function(e){
 							if(!e.splitter) return m(".datepicker-option", {
 								class: (date[0].value===e.value) ? "state-selected":"",
