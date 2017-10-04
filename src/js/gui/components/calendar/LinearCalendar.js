@@ -2,12 +2,18 @@ var LinearCalendar = function(){
 	var opentime =  FuzzyDate.getMonday(new Date());
 	var closetime =  FuzzyDate.nextKwarter(opentime);
 
-	var p = {w:100, h:100, opentime: opentime, closetime: closetime};
+	var p = {
+		w:100, h:100,
+		margin: 2,
+		opentime: opentime,
+		closetime: closetime
+	};
 
 	function resize(dom){
 		var rect = dom.getBoundingClientRect();
 		p.w = rect.width;
 		p.h = rect.height;
+		p.margin = rect.width*0.02;
 		console.log(p);
 	}
 
@@ -90,6 +96,11 @@ var CalendarTimeLine = function(){
 			var closetime =  vnode.attrs.p.closetime.getTime();
 			var openlength = closetime - opentime;
 
+			//correct for margins
+			opentime -= openlength/48;
+			closetime += openlength/48;
+			openlength = closetime - opentime;
+
 			var starttime = FuzzyDate.toRange(vnode.attrs.effort("startdate").value())[0];
 			var endtime = FuzzyDate.toRange(vnode.attrs.effort("enddate").value())[0];
 			//calculate positions
@@ -146,12 +157,13 @@ var CalendarLines = function(){
 	return {
 		view: function(vnode){
 			var grid = [];
-			var w = vnode.attrs.p.w/12;
+			var mrg = vnode.attrs.p.margin;
+			var w = (vnode.attrs.p.w-mrg*2)/12;
 			var h = vnode.attrs.p.h;
-			for(var i=0; i<12; i++){
+			for(var i=0; i<13; i++){
 				grid.push(m("line.calendar-lines", {
-					x1:i*w, y1:0,
-					x2:i*w, y2: h
+					x1:i*w+mrg, y1:0,
+					x2:i*w+mrg, y2: h
 				}));
 			}
 
