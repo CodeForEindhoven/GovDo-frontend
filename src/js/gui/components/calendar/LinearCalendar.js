@@ -47,7 +47,7 @@ var LinearCalendar = function(){
 					m(CalendarLines, {p: p}),
 					vm.person()("effort", function(effort){
 						hcount++;
-						return m(CalendarTimeLine, {p: p, top: hcount, effort: effort});
+						return m(CalendarTimeLine, {p: p, offsetTop: vnode.attrs.scrollTop, top: hcount, effort: effort});
 					})
 				]),
 				m(CalendarLabels, {p: p})
@@ -115,11 +115,11 @@ var CalendarTimeLine = function(){
 			console.log(starttime, opentime);
 			return [
 				m("line.calendar-timeline", {
-					x1:xstart, 				y1: top,
-					x2:xend, y2: top
+					x1:xstart, 				y1: top-vnode.attrs.offsetTop,
+					x2:xend, 				y2: top-vnode.attrs.offsetTop
 				}),
-				(starttime >= opentime) ? m("circle.calendar-timeline", {cx: xstart, cy: top, r: 5}) : [],
-				(endtime <= closetime) ? m("circle.calendar-timeline", {cx: xend, cy: top, r: 5}) : [],
+				(starttime >= opentime) ? m("circle.calendar-timeline", {cx: xstart, cy: top-vnode.attrs.offsetTop, r: 5}) : [],
+				(endtime <= closetime) ? m("circle.calendar-timeline", {cx: xend, cy: top-vnode.attrs.offsetTop, r: 5}) : [],
 			];
 
 		}
