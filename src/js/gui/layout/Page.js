@@ -8,13 +8,7 @@ var Page = function(){
 				]),
 
 				//GoalTree View
-				(vm.page() === 0) ? m(".layout-workspace", [
-					//m(".layout-column .layout-nav-left", m(ProgramBar)),
-					m(".layout-column",  m(TaskSelector)),
-							//m(".layout-vertical-row", m(ProgramDetails)),
-					m(".layout-column", m(EffortSelector)),
-					m(".layout-right", m(Editor))
-				]) : [],
+				(vm.page() === 0) ? m(TreePage): [],
 
 				//Calendar View
 				(vm.page() === 1) ? m(CalendarPage) : [],

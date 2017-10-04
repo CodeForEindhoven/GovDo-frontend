@@ -65,6 +65,13 @@ var LinearCalendar = function(){
 						} else {
 							vnode.attrs.setDate(FuzzyDate.prevWeek(p.opentime));
 						}
+					},
+					onDOMMouseScroll: function(e){
+						if(e.detail >= 0){
+							vnode.attrs.setDate(FuzzyDate.nextWeek(p.opentime));
+						} else {
+							vnode.attrs.setDate(FuzzyDate.prevWeek(p.opentime));
+						}
 					}
 				},[
 					m(CalendarLines, {p: p}),
