@@ -25,15 +25,18 @@ function mapDatePosition(p, date){
 }
 
 var LinearCalendar = function(){
-	var opentime =  FuzzyDate.getMonday(new Date());
-	var closetime =  FuzzyDate.nextKwarter(opentime);
-
+	//var opentime, closetime;
 	var p = {
 		w:100, h:100,
 		margin: 2,
-		opentime: opentime,
-		closetime: closetime
+		opentime: 0,
+		closetime: 0
 	};
+
+	function setCurrentDate(date){
+		p.opentime =  FuzzyDate.getMonday(date);
+		p.closetime =  FuzzyDate.nextKwarter(p.opentime);
+	}
 
 	function resize(dom){
 		var rect = dom.getBoundingClientRect();
@@ -43,23 +46,11 @@ var LinearCalendar = function(){
 		console.log(p);
 	}
 
-	function shiftdate(pm){
-		if(pm>0){
-			p.opentime = FuzzyDate.getMonday(FuzzyDate.nextWeek(p.opentime));
-		} else {
-			p.opentime = FuzzyDate.getMonday(FuzzyDate.prevWeek(p.opentime));
-		}
-		p.closetime =  FuzzyDate.nextKwarter(p.opentime);
-
-	}
-
 	return {
 		view: function(vnode){
 			var hcount = -1;
+			setCurrentDate(vnode.attrs.currentDate);
 			return m(".calendar",[
-				m(".next-week", {
-					onclick: shiftdate
-				}, "next week"),
 				m("svg",{
 					oncreate: function(vnode) {
 						resize(vnode.dom);
@@ -70,9 +61,9 @@ var LinearCalendar = function(){
 					},
 					onmousewheel: function(e){
 						if(e.wheelDelta >= 0){
-							shiftdate(1);
+							vnode.attrs.setDate(FuzzyDate.nextWeek(p.opentime));
 						} else {
-							shiftdate(-1);
+							vnode.attrs.setDate(FuzzyDate.prevWeek(p.opentime));
 						}
 					}
 				},[
@@ -90,13 +81,13 @@ var LinearCalendar = function(){
 };
 
 var CalendarLabels = function(){
-
+	var months = ["jan","feb","mrt","apr","mei","jun", "jul", "aug", "sep", "okt", "nov", "dec"];
 	function labels(vnode){
 		var monday =  vnode.attrs.p.opentime;
 
 		return ArrayFromRange(0,11).map(function(offset){
 			var currentWeek = FuzzyDate.currentWeek(monday);
-			var labels = {week: currentWeek, date: monday.getDate()+"-"+(monday.getMonth()+1)};
+			var labels = {week: currentWeek, date: monday.getDate()+" "+months[monday.getMonth()]};
 			monday = FuzzyDate.nextWeek(monday);
 			return labels;
 		});
