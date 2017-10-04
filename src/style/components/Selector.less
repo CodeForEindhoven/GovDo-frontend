@@ -162,6 +162,8 @@
 .selector-selected-title {
 	font-size: @main-text;
 	line-height: @line-height;
+	letter-spacing: @letter-spacing;
+	word-spacing: @word-spacing;
 }
 
 // The title is divided in two part: the first is .selector-selected-title
@@ -170,8 +172,8 @@
 .state-selected .selector-selected-title, .state-selected .selector-selected-title-means {
 	font-size: 	@selected-text-title;
 	line-height: @selected-text-title-line-height;
-	letter-spacing: 0.02em;
-	word-spacing: 0.04em;
+	letter-spacing: @letter-spacing;
+	word-spacing: @word-spacing;
 	display: inline;
 }
 
@@ -185,12 +187,15 @@
 	font-weight: @regular;
 	color: @color-editable;
 	margin-bottom: 3px;
+	letter-spacing: @letter-spacing;
+	word-spacing: @word-spacing;
 }
 
-.selector-selected-description {
+.selector-selected-description, .editor-connections-parent-name {
 	font-weight: @light;
 	padding-right: 13px;
 	margin-bottom: 25px;
+	letter-spacing: @letter-spacing;
 }
 
 // Arrow
