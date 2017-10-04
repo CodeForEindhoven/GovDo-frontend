@@ -1,3 +1,29 @@
+function mapDatePosition(p, date){
+	var opentime =  p.opentime.getTime();
+	var closetime =  p.closetime.getTime();
+	var openlength = closetime - opentime;
+
+	//correct for margins
+	opentime -= openlength/48;
+	closetime += openlength/48;
+	openlength = closetime - opentime;
+
+	var width = p.w;
+	var time = date.getTime();
+
+	//if over boundries
+	if(time < opentime) {
+		return 0;
+	}
+	if(time > closetime) {
+		return width;
+	}
+
+	//calculate positions
+	var ratio = width / openlength;
+	return (time - opentime) * ratio + 0;
+}
+
 var LinearCalendar = function(){
 	var opentime =  FuzzyDate.getMonday(new Date());
 	var closetime =  FuzzyDate.nextKwarter(opentime);
@@ -51,6 +77,7 @@ var LinearCalendar = function(){
 					}
 				},[
 					m(CalendarLines, {p: p}),
+					m(CalendarTodayLine, {p: p}),
 					vm.person()("effort", function(effort){
 						hcount++;
 						return m(CalendarTimeLine, {p: p, offsetTop: vnode.attrs.scrollTop, top: hcount, effort: effort});
@@ -92,45 +119,23 @@ var CalendarTimeLine = function(){
 
 	return {
 		view: function(vnode){
-			var opentime =  vnode.attrs.p.opentime.getTime();
-			var closetime =  vnode.attrs.p.closetime.getTime();
-			var openlength = closetime - opentime;
 
-			//correct for margins
-			opentime -= openlength/48;
-			closetime += openlength/48;
-			openlength = closetime - opentime;
-
-			var starttime = FuzzyDate.toRange(vnode.attrs.effort("startdate").value())[0];
-			var endtime = FuzzyDate.toRange(vnode.attrs.effort("enddate").value())[0];
 			//calculate positions
 			var width = vnode.attrs.p.w;
-			var top = vnode.attrs.top*100+20;
-			var ratio = width / openlength;
-			var xstart = 0;
-			var xend = width;
+			var top = vnode.attrs.top*100+20 - vnode.attrs.offsetTop;
 
-			if(starttime){
-				starttime = starttime.getTime();
-				if(starttime > opentime) {
-					xstart = (starttime - opentime) * ratio + 0;
-				}
-			}
+			var startdate = FuzzyDate.toRange(vnode.attrs.effort("startdate").value())[0];
+			var enddate   = FuzzyDate.toRange(vnode.attrs.effort("enddate").value())[0];
+			var xstart = startdate ? mapDatePosition(vnode.attrs.p, startdate) : 0;
+			var xend = enddate ? mapDatePosition(vnode.attrs.p, enddate) : width;
 
-			if(endtime){
-				endtime = endtime.getTime();
-				if(endtime < closetime) {
-					xend = (endtime - opentime) * ratio + 0;
-				}
-			}
-			console.log(starttime, opentime);
 			return [
 				m("line.calendar-timeline", {
-					x1:xstart, 				y1: top-vnode.attrs.offsetTop,
-					x2:xend, 				y2: top-vnode.attrs.offsetTop
+					x1:xstart, 				y1: top,
+					x2:xend, 				y2: top
 				}),
-				(starttime >= opentime) ? m("circle.calendar-timeline", {cx: xstart, cy: top-vnode.attrs.offsetTop, r: 5}) : [],
-				(endtime <= closetime) ? m("circle.calendar-timeline", {cx: xend, cy: top-vnode.attrs.offsetTop, r: 5}) : [],
+				(xstart > 0) ? m("circle.calendar-timeline", {cx: xstart, cy: top, r: 5}) : [],
+				(xend < width) ? m("circle.calendar-timeline", {cx: xend, cy: top, r: 5}) : [],
 			];
 
 		}
@@ -140,12 +145,13 @@ var CalendarTimeLine = function(){
 var CalendarTodayLine = function(){
 	return {
 		view: function(vnode){
-			var grid = [];
-			var w = vnode.attrs.p.w/12;
 			var h = vnode.attrs.p.h;
+
+			var x = mapDatePosition(vnode.attrs.p, new Date());
+
 			return m("line.calendar-todayline", {
-				x1:i*w, y1:0,
-				x2:i*w, y2: h
+				x1:x, y1:0,
+				x2:x, y2: h
 			});
 
 		}
