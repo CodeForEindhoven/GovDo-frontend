@@ -10,14 +10,14 @@ var Numbering = function(){
 				]);
 			} else if(type === "task") {
 				return m(".numbering", [
-					m(".numbering-number", element("task")("program")("order").value()),
-					m(".numbering-number", element("task")("order").value()),
+					m(".numbering-number-small", element("task")("program")("order").value()),
+					m(".numbering-number-small", element("task")("order").value()),
 				]);
 			} else if(type === "effort") {
 				return m(".numbering", [
-					m(".numbering-number", element("task")("program")("order").value()),
-					m(".numbering-number", element("task")("order").value()),
-					m(".numbering-number", element("order").value()),
+					m(".numbering-number-small", element("task")("program")("order").value()),
+					m(".numbering-number-small", element("task")("order").value()),
+					m(".numbering-number-small", element("order").value()),
 				]);
 			}
 		}

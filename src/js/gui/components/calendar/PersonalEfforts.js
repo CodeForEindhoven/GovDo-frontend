@@ -1,7 +1,11 @@
 var PersonalEfforts = function(){
 	return {
 		view: function(vnode){
-			return vm.person() ? m(".personal-efforts",[
+			return vm.person() ? m(".personal-efforts",{
+				onscroll: function(e){
+					vnode.attrs.onscroll(e.target.scrollTop);
+				}
+			},[
 				vm.person()("effort", function(effort){
 					return m(".personal-efforts-effort", [
 						m(Numbering, {node: effort, whole: true}),
