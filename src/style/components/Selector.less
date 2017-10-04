@@ -9,7 +9,7 @@
 }
 
 .programdetails-title {
-	font-size: @size-selected;
+	font-size: @selected-text-title;
 	font-weight: @semibold;
 }
 
@@ -128,7 +128,7 @@
 
 .programdetails-mission {
 	font-size: @main-text;
-	line-height: @line-height-main-text;
+	line-height: @line-height;
 	font-weight: @light;
 	margin-top: 15px;
 	max-height: 300px;
@@ -155,4 +155,85 @@
 .drag-over {
 	border-radius: 0px;
 	border-bottom: 2px dashed @color-editable;
+}
+
+
+
+.selector-selected-title {
+	font-size: @main-text;
+	line-height: @line-height;
+}
+
+// The title is divided in two part: the first is .selector-selected-title
+// the second one is .selector-selected-title-means.
+// The class .selector-selected-title-means-label is the arrow in between
+.state-selected .selector-selected-title, .state-selected .selector-selected-title-means {
+	font-size: 	@selected-text-title;
+	line-height: @selected-text-title-line-height;
+	letter-spacing: 0.02em;
+	word-spacing: 0.04em;
+	display: inline;
+}
+
+.selector-selected-title + .selector-hidden, // valid for the opgaven
+.selector-selected-title-means + .selector-hidden,
+.selector-selected-type + .selector-selected-subheader { // valid for inspanningen
+	margin-top: 50px;
+}
+
+.selector-selected-subheader {
+	font-weight: @regular;
+	color: @color-editable;
+	margin-bottom: 3px;
+}
+
+.selector-selected-description {
+	font-weight: @light;
+	padding-right: 13px;
+	margin-bottom: 25px;
+}
+
+// Arrow
+.selector-selected-title-means-label, // Arrow
+.selector-selected-title-means { // Second part of the title
+	display: none;
+}
+
+.state-selected .selector-selected-title-means-label, 
+.state-selected .selector-selected-title-means {
+	display: inline;
+}
+
+.selector-selected-title-means-label .selector-selected-arrow {
+	margin-left: 10px;
+	margin-right: 10px;
+	color: @color-selected;
+	font-size: 24px;
+}
+
+// List people
+.selector-selected-peoplelist + .selector-selected-peoplelist {
+	margin-top: 7px;
+}
+
+// Date
+.selector-selected-period-label {
+	margin-right: 6px;
+	color: @color-selected;
+}
+
+.date-display + .selector-selected-period-label {
+	margin-left: 20px;
+}
+
+// State empty
+.state-empty {
+ 	color: @color-sketch;
+ 	font-weight: @light;
+}
+
+.state-empty:before {
+  	content: '– ';
+ 	color: @color-sketch;
+ 	font-weight: @light;
 }
