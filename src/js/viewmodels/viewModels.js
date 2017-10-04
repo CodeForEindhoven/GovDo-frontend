@@ -1,7 +1,7 @@
 var viewModels = {};
 
 var vm = (function(){
-	var loginPopup = -1;
+	var loginPopup = 1;
 	var currentPage = 0;
 	var currentUser = {user:"",pass:""};
 
