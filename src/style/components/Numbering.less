@@ -1,6 +1,7 @@
 @import "variables/colors.less";
 @import "variables/fonts.less";
 @width-circle: 38px;
+@width-circle-small: 30px;
 
 .numbering {
 	display: inline-block;
@@ -14,6 +15,20 @@
 	line-height: @width-circle;
 	border-radius: 50%;
 	text-align: center;
+	font-family: @font-number;
+	font-size: @button-number;
+	font-weight: @regular;
+}
+
+.numbering-number-small {
+	display: inline-block;
+	background-color: @color-selected;
+	width: @width-circle-small;
+	height: @width-circle-small;
+	line-height: @width-circle-small;
+	border-radius: 50%;
+	text-align: center;
+	color: @color-white;
 	font-family: @font-number;
 	font-size: @button-number;
 	font-weight: @regular;

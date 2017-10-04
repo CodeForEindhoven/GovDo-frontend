@@ -182,6 +182,12 @@ FuzzyDate.nextWeek = function(date){
 	return nextweek;
 };
 
+FuzzyDate.prevWeek = function(date){
+	var d = new Date(date);
+	var nextweek = new Date(d.getFullYear(), d.getMonth(), d.getDate()-7);
+	return nextweek;
+};
+
 FuzzyDate.nextKwarter = function(date){
 	var d = new Date(date);
 	var nextweek = new Date(d.getFullYear(), d.getMonth(), d.getDate()+7*12);

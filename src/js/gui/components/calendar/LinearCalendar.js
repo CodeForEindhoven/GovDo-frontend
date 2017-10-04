@@ -1,5 +1,8 @@
 var LinearCalendar = function(){
-	var p = {w:100, h:100, time: 0};
+	var opentime =  FuzzyDate.getMonday(new Date());
+	var closetime =  FuzzyDate.nextKwarter(opentime);
+
+	var p = {w:100, h:100, opentime: opentime, closetime: closetime};
 
 	function resize(dom){
 		var rect = dom.getBoundingClientRect();
@@ -7,10 +10,24 @@ var LinearCalendar = function(){
 		p.h = rect.height;
 		console.log(p);
 	}
+
+	function shiftdate(pm){
+		if(pm>0){
+			p.opentime = FuzzyDate.getMonday(FuzzyDate.nextWeek(p.opentime));
+		} else {
+			p.opentime = FuzzyDate.getMonday(FuzzyDate.prevWeek(p.opentime));
+		}
+		p.closetime =  FuzzyDate.nextKwarter(p.opentime);
+
+	}
+
 	return {
 		view: function(vnode){
 			var hcount = -1;
 			return m(".calendar",[
+				m(".next-week", {
+					onclick: shiftdate
+				}, "next week"),
 				m("svg",{
 					oncreate: function(vnode) {
 						resize(vnode.dom);
@@ -18,6 +35,13 @@ var LinearCalendar = function(){
 							resize(vnode.dom);
 							m.redraw();
 						});
+					},
+					onmousewheel: function(e){
+						if(e.wheelDelta >= 0){
+							shiftdate(1);
+						} else {
+							shiftdate(-1);
+						}
 					}
 				},[
 					m(CalendarLines, {p: p}),
@@ -26,7 +50,7 @@ var LinearCalendar = function(){
 						return m(CalendarTimeLine, {p: p, top: hcount, effort: effort});
 					})
 				]),
-				m(CalendarLabels)
+				m(CalendarLabels, {p: p})
 			]);
 		}
 	};
@@ -34,11 +58,12 @@ var LinearCalendar = function(){
 
 var CalendarLabels = function(){
 
-	function labels(){
-		var monday = FuzzyDate.getMonday(new Date());
-		var currentWeek = FuzzyDate.currentWeek(monday);
+	function labels(vnode){
+		var monday =  vnode.attrs.p.opentime;
+
 		return ArrayFromRange(0,11).map(function(offset){
-			var labels = {week: currentWeek+offset, date: monday.getDate()+"-"+(monday.getMonth()+1)};
+			var currentWeek = FuzzyDate.currentWeek(monday);
+			var labels = {week: currentWeek, date: monday.getDate()+"-"+(monday.getMonth()+1)};
 			monday = FuzzyDate.nextWeek(monday);
 			return labels;
 		});
@@ -46,7 +71,7 @@ var CalendarLabels = function(){
 
 	return {
 		view: function(vnode){
-			return m(".calendar-labels", labels().map(function(label){
+			return m(".calendar-labels", labels(vnode).map(function(label){
 				return m(".calendar-label", [
 					m(".calendar-label-week", "week "+ label.week),
 					m(".calendar-label-date", label.date),
@@ -58,11 +83,13 @@ var CalendarLabels = function(){
 
 var CalendarTimeLine = function(){
 	//should be defined at top
-	var opentime =  FuzzyDate.getMonday(new Date()).getTime();
-	var closetime =  FuzzyDate.nextKwarter(opentime).getTime();
-	var openlength = closetime - opentime;
+
 	return {
 		view: function(vnode){
+			var opentime =  vnode.attrs.p.opentime.getTime();
+			var closetime =  vnode.attrs.p.closetime.getTime();
+			var openlength = closetime - opentime;
+
 			var starttime = FuzzyDate.toRange(vnode.attrs.effort("startdate").value())[0];
 			var endtime = FuzzyDate.toRange(vnode.attrs.effort("enddate").value())[0];
 			//calculate positions
