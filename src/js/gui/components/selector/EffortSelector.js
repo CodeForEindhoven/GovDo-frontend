@@ -30,9 +30,7 @@ var EffortSelector = function(){
 							return m(".state-selectable.selectorlist-item", {
 								//draggable: true,
 								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==-1?"mode-sketch":""),
-								onclick: function(){
-									vm.effort(effort);
-								},
+
 								//ondragenter: function(e){
 								//	this.classList.add('drag-over');
 								//},
@@ -47,7 +45,11 @@ var EffortSelector = function(){
 
 								]),
 								m(".selectorlist-item-content", [
-									m(".selector-selected-title", effort.value()),
+									m(".selector-selected-title", {
+										onclick: function(){
+											vm.effort(effort);
+										},
+									}, effort.value()),
 
 									m(".selectorlist-item-edit.button-edit-small",{
 										onclick: function(){

@@ -44,6 +44,7 @@ var LinearCalendar = function(){
 		p.h = rect.height;
 		p.margin = rect.width*0.02;
 		console.log(p);
+		m.redraw();
 	}
 
 	return {
@@ -56,7 +57,6 @@ var LinearCalendar = function(){
 						resize(vnode.dom);
 						window.addEventListener("resize", function(){
 							resize(vnode.dom);
-							m.redraw();
 						});
 					},
 					onmousewheel: function(e){
@@ -88,13 +88,26 @@ var LinearCalendar = function(){
 };
 
 var CalendarLabels = function(){
-	var months = ["jan","feb","mrt","apr","mei","jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+	var months = ["januari","februari","maart","april","mei","juni", "juli", "augustus", "september", "oktober", "november", "december"];
+
 	function labels(vnode){
 		var monday =  vnode.attrs.p.opentime;
+		var month = -1;
 
 		return ArrayFromRange(0,11).map(function(offset){
 			var currentWeek = FuzzyDate.currentWeek(monday);
-			var labels = {week: currentWeek, date: monday.getDate()+" "+months[monday.getMonth()]};
+			var showmonth = "";
+
+			if(month != monday.getMonth()){
+				month = monday.getMonth();
+				showmonth = months[monday.getMonth()];
+			}
+
+			var labels = {
+				week: currentWeek,
+				date: monday.getDate(),
+				month: showmonth
+			};
 			monday = FuzzyDate.nextWeek(monday);
 			return labels;
 		});
@@ -104,6 +117,7 @@ var CalendarLabels = function(){
 		view: function(vnode){
 			return m(".calendar-labels", labels(vnode).map(function(label){
 				return m(".calendar-label", [
+					m(".calendar-label-month", label.month),
 					m(".calendar-label-week", "week "+ label.week),
 					m(".calendar-label-date", label.date),
 				]);
