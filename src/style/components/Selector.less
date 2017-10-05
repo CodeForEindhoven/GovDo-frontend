@@ -161,6 +161,7 @@
 
 .selector-selected-title {
 	font-size: @main-text;
+	font-weight: @regular;
 	line-height: @line-height;
 	letter-spacing: @letter-spacing;
 	word-spacing: @word-spacing;
@@ -172,7 +173,7 @@
 .state-selected .selector-selected-title, .state-selected .selector-selected-title-means {
 	font-size: 	@selected-text-title;
 	line-height: @selected-text-title-line-height;
-	letter-spacing: @letter-spacing;
+	letter-spacing: @letter-spacing-selector-selected-title;
 	word-spacing: @word-spacing;
 	display: inline;
 }
@@ -191,11 +192,14 @@
 	word-spacing: @word-spacing;
 }
 
-.selector-selected-description, .editor-connections-parent-name {
+.selector-selected-description {
 	font-weight: @light;
 	padding-right: 13px;
 	margin-bottom: 25px;
+	font-size: @main-text;
+	line-height: @line-height;
 	letter-spacing: @letter-spacing;
+	word-spacing: @word-spacing;
 }
 
 // Arrow
