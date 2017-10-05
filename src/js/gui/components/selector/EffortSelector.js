@@ -28,17 +28,7 @@ var EffortSelector = function(){
 					},m(".selectorlist-back", [
 						vm.task()("effort", function(effort){
 							return m(".state-selectable.selectorlist-item", {
-								//draggable: true,
 								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==-1?"mode-sketch":""),
-
-								//ondragenter: function(e){
-								//	this.classList.add('drag-over');
-								//},
-								//ondragover: function(e){
-								//	e.preventDefault(); // Necessary. Allows us to drop.
-								//	dragover = effort.id();
-								//	e.dataTransfer.dropEffect = 'move';
-								//}
 							},[
 								m(".selectorlist-item-number", [
 									m(".button-number", effort("order").value()),
