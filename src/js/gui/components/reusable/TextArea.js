@@ -4,7 +4,7 @@ var TextArea = function(){
 
 	return {
 		view: function(vnode){
-			return m("textarea.textarea[wrap=hard]", {
+			return m("textarea.box-editor-style.textarea[wrap=hard]", {
 				oninput: m.withAttr("value", function(v) {vnode.attrs.onchange(v);}),
 				onchange: m.withAttr("value", function(v) {vnode.attrs.onchange(v);}),
 

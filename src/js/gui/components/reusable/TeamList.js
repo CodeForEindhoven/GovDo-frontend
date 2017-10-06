@@ -15,7 +15,7 @@ var TeamList = function(){
 				},[
 					m(".personlist-teamname", team.value()),
 					team("task effort person", function(person){
-						return m(".personlist-person",{
+						return m(".personlist-person.item-list",{
 							onclick: function(){
 								vnode.attrs.onadd(person);
 							}
