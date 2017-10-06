@@ -6,27 +6,47 @@
 }
 
 .personal-efforts-effort {
-	height: 100px;
+	height: 180px;
+	position: relative;
 }
 
 .personal-efforts-effort-name {
+	.default-text-regular ();
+	line-height: 20px;
+	
 	display: inline-block;
 	vertical-align: top;
-//	width: 200px;
-//	margin-top: 10px;
-//	margin-left: 10px;
 }
 
-.personal-efforts-effort-date {
-	.default-text-light ();
-}
-
-.personal-efforts-effort-date .date-display {
-	color: @color-selected;
+.personal-efforts-effort-name + .personal-efforts-effort-date {
+	margin-top: 2px;
 }
 
 .personal-efforts-effort-date, .personal-efforts-effort-type {
-	margin-left: 110px;
+	.default-text-light ();
+}
+
+.date-display + span {
+	margin-left: 10px;
+}
+
+span + .date-display {
+	margin-left: 7px;
+}
+
+.date-display {
+	color: @color-selected;
+}
+
+.date-display:hover {
+	color: @color-black;
+	cursor: pointer;
+}
+
+.personal-efforts-effort-details {
+	position: absolute;
+	left: 110px;
+	top: 0;
 }
 
 .calendar {
