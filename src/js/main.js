@@ -6,3 +6,8 @@ ptrn.loadall(function(){
 		"/": Page,
 	});
 });
+
+
+function cheatToCalendar(){
+	vm.program(ptrn("program"));vm.person(ptrn("person"));vm.page(1);m.redraw();
+}

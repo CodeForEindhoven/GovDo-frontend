@@ -1,5 +1,5 @@
 var ProgramNav = function(){
-	var state = true;
+	var state = false;
 
 	return {
 		view: function(vnode){
