@@ -114,22 +114,24 @@ var CalendarLabels = function(){
 
 	function labels(vnode){
 		var monday =  vnode.attrs.p.opentime;
-		var month = -1;
-		var phase = 0;
+
 
 		if(vnode.attrs.p.scale===1){
+			var month = -1;
+			var phase = 0;
+
 			return ArrayFromRange(0,11).map(function(offset){
 				var currentWeek = FuzzyDate.currentWeek(monday);
 				var showmonth = "";
 
-				if(month != monday.getMonth()){
+				if(month !== monday.getMonth()){
 					month = monday.getMonth();
 					showmonth = months[monday.getMonth()];
 					phase = month % 2;
 				}
 
 				var labels = {
-					week: currentWeek,
+					week: "week "+ currentWeek,
 					date: monday.getDate(),
 					month: showmonth,
 					phase: phase
@@ -138,12 +140,23 @@ var CalendarLabels = function(){
 				return labels;
 			});
 		} else {
+			var year = -1;
+			var phase = 0;
+
 			return ArrayFromRange(0,11).map(function(offset){
+				var showyear = "";
+
+				if(year !== monday.getFullYear()){
+					year = monday.getFullYear();
+					showyear = year;
+					phase = year % 2;
+				}
+
 				var labels = {
-					week: "",
+					week: months[monday.getMonth()],
 					date: "",
-					month: months[monday.getMonth()],
-					phase: 1
+					month: showyear,
+					phase: phase
 				};
 				monday = FuzzyDate.nextMonth(monday);
 				return labels;
@@ -187,7 +200,7 @@ var CalendarLabels = function(){
 						m(".calendar-label-month", {
 							class: (label.phase===1) ? "calendar-label-phase-a": "calendar-label-phase-b"
 						}, label.month),
-						m(".calendar-label-week", "week "+ label.week),
+						m(".calendar-label-week", label.week),
 						m(".calendar-label-date", label.date),
 					]);
 				}),
