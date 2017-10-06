@@ -200,9 +200,27 @@ FuzzyDate.prevWeek = function(date){
 	return nextweek;
 };
 
+FuzzyDate.nextMonth = function(date){
+	var d = new Date(date);
+	var nextweek = new Date(d.getFullYear(), d.getMonth()+1, d.getDate());
+	return nextweek;
+};
+
+FuzzyDate.prevMonth = function(date){
+	var d = new Date(date);
+	var nextweek = new Date(d.getFullYear(), d.getMonth()-1, d.getDate());
+	return nextweek;
+};
+
 FuzzyDate.nextKwarter = function(date){
 	var d = new Date(date);
 	var nextweek = new Date(d.getFullYear(), d.getMonth(), d.getDate()+7*12);
+	return nextweek;
+};
+
+FuzzyDate.nextYear = function(date){
+	var d = new Date(date);
+	var nextweek = new Date(d.getFullYear()+1, d.getMonth(), d.getDate());
 	return nextweek;
 };
 
