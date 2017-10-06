@@ -8,11 +8,13 @@ var CalendarOptions = function(){
 					}
 				}, "Deze Week"),
 				m(".optionbar-option", {
+					class: (vnode.attrs.currentScale===1) ? "state-selected":"",
 					onclick: function(){
 						vnode.attrs.setScale(1);
 					}
-				}, "Weeken"),
+				}, "Weken"),
 				m(".optionbar-option", {
+					class: (vnode.attrs.currentScale===2) ? "state-selected":"",
 					onclick: function(){
 						vnode.attrs.setScale(2);
 					}

@@ -212,11 +212,12 @@ var CalendarTimeLine = function(){
 
 			var startdate = FuzzyDate.toRange(vnode.attrs.effort("startdate").value());
 			var enddate  = FuzzyDate.toRange(vnode.attrs.effort("enddate").value());
+
 			if(startdate[0] && startdate[0].getTime() === -8640000000000000) {
-				startdate[0] = undefined;
+				startdate[1] = undefined;
 			}
 			if(enddate[0] && enddate[0].getTime() === -8640000000000000) {
-				enddate[0]= enddate[1];
+				enddate[0] = new Date(enddate[1]);
 				enddate[1] = undefined;
 			}
 

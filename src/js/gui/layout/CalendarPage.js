@@ -15,6 +15,7 @@ var CalendarPage = function(){
 		view: function(vnode){
 			return [
 				m(".layout-optionbar", m(CalendarOptions, {
+					currentScale: currentScale,
 					setDate: setDate,
 					setScale: setScale
 				})),
