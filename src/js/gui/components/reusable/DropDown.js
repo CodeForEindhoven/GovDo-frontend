@@ -3,7 +3,7 @@ var DropDown = function(){
 	return {
 		view: function(vnode){
 			return m(".dropdown", [
-				m("span.dropdown-value", {
+				m("div.dropdown-value", {
 					class: (vnode.attrs.value !== undefined) ? "" : "novalue",
 					onclick: function(){
 						state = !state;

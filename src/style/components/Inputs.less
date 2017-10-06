@@ -31,11 +31,12 @@ input {
 	resize: vertical;
 } // Box style is .box-editor-style
 
-.input {
+.input, .dropdown-value, .datepicker-date .datepicker-section {
 	background-color: @color-background;
 	padding-bottom: 5px;
 	border-bottom: @border-box-1 solid @color-selected;
 	margin-bottom: 20px;
+	cursor: pointer;
 }
 
 .editor-peoplelist .input {
@@ -63,24 +64,27 @@ input {
 	padding-top: 5px;
 	padding-bottom: 5px;
 	margin-bottom: 20px;
+	position: relative;
 }
 
 .editor-connectionlist-item-number {
 	display: inline-block;
 }
 
-.editor-connectionlist-item-name, .editor-connections-parent-name{
+.editor-connectionlist-item-name, .editor-connections-parent-name {
 	display: inline-block;
 	margin-left: 16px;
 	white-space: normal;
 	width: 70%;
 	vertical-align: top;
+	padding-top: 3px;
 }
 
 .connectionlist-addbutton {
 	display: none;
-	margin-top: 16px;
-	margin-left: 5px;
+	top: 6px;
+	right: 10px;
+	position: absolute;
 }
 
 .editor-connections-parents {
@@ -153,10 +157,15 @@ input {
 	border-radius: @border-radius-2;
 	margin-bottom: 20px;
 	//padding: 7px;
+	
+	font-family: 'Space Mono', monospace;
+	font-size: @column-date-font-size;
+	line-height: 20px;
+	font-weight: @regular;
 }
 
 // style item list + mouse hover
-.item-list {
+.item-list, .dropdown {
 	font-family: 'Space Mono', monospace;
 	font-size: @column-date-font-size;
 	line-height: 20px;

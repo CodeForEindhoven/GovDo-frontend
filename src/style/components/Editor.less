@@ -209,16 +209,13 @@
 .dropdown {
 	display: inline;
 	position: relative;
-	cursor: pointer;
 }
 
 .dropdown-value {
-	margin: 5px;
-	color: @color-selected;
-	padding-bottom: 1px;
-	padding-left: 3px;
-	padding-right: 3px;
-	border-bottom: 2px solid blue;
+	width: 26%;
+	display: inline-block;
+	padding-left: 7px;
+	padding-right: 7px;
 }
 
 .dropdown-value.novalue {
@@ -228,15 +225,18 @@
 .dropdown-options {
 	display: inline-block;
 	position: absolute;
-	left: 3px;
-	top: 20px;
+	left: 0px;
+	top: 30px;
 	z-index: 99999999;
 	max-height: 200px;
-	overflow-y: scroll;
+	width: 100%;
+	//overflow-y: scroll;
 } // Box style is .box-editor-style
 
 .dropdown-option {
 	padding: 3px;
+	padding-left: 7px;
+	padding-right: 7px;
 	border-radius: 0px
 }
 
