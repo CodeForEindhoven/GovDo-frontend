@@ -39,10 +39,10 @@ var DatePicker = function(){
 						m(".datepicker-section", getLabel(date[2])),
 					])
 				]),
-				state ? m(".datepicker-menu",[
+				state ? m(".datepicker-menu.box-editor-style",[
 					m(".datepicker-column.year", [
 						FuzzyDate.years.map(function(e){
-							if(!e.splitter) return m(".datepicker-option", {
+							if(!e.splitter) return m(".datepicker-option.item-list", {
 								class: (date[0].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[0] = e;
@@ -61,7 +61,7 @@ var DatePicker = function(){
 						class: (date[0].p) ? "active" : "disabled",
 					},[
 						FuzzyDate.months.map(function(e){
-							if(!e.splitter) return m(".datepicker-option", {
+							if(!e.splitter) return m(".datepicker-option.item-list", {
 								class: (date[1].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									if(date[0].p){
@@ -81,7 +81,7 @@ var DatePicker = function(){
 						class: (date[1].p) ? "active": "disabled",
 					}, [
 						FuzzyDate.days.map(function(e){
-							if(!e.splitter) return m(".datepicker-option", {
+							if(!e.splitter) return m(".datepicker-option.item-list", {
 								class: (date[2].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									if(date[1].p){

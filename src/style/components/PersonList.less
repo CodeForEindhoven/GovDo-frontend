@@ -5,7 +5,7 @@
 	max-height: 0px;
 }
 
-.state-hidden .editor-peoplelist-searchbar {
+.state-hidden .editor-peoplelist-searchbar, .state-hidden .editor-peoplelist-finder.box-editor-style {
 	display: none;
 }
 
@@ -36,17 +36,10 @@
 
 // Add People to the list
 // Add People container
-div.editor-peoplelist-finder {
-	border: @border-box solid @color-editable;
-	border-radius: 4px;
-	margin-top: 30px;
-	// width: calc(100% + 16px);
-	//float: right;
-	// margin-right: -16px;
-	padding-right: 1px;
+.editor-peoplelist-finder {
 	padding-bottom: 1px;
 	margin-bottom: 5px;
-}
+} // Box style is .box-editor-style
 
 .editor-peoplelist-finder.state-hidden {
 	display: none;
@@ -81,12 +74,13 @@ div.editor-peoplelist-finder {
 
 // Team name
 .personlist-team {
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 	padding-right: 5px;
 }
 
 .personlist-teamname {
 	font-weight: @semibold;
+	letter-spacing: 0.06em;
 }
 
 .personlist-teamname, .personlist-person {

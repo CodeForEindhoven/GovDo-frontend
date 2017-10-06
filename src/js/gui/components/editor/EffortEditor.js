@@ -290,51 +290,52 @@ var PeopleListEditor = function(){
 
 	return {
 		view: function(vnode){
-			return m(".editor-peoplelist", [
-				m(".editor-peoplelist-finder", {
+			return m(".editor-peoplelist", {
 					class: vnode.attrs.state ? "":"state-hidden"
-				},[
+				}, [
 					m("input.input.editor-peoplelist-searchbar", {
+						class: vnode.attrs.state ? "":"state-hidden",
 						placeholder: "Voornaam Achternaam",
 						oninput: m.withAttr("value", function(v) {value = v;}),
 						onchange: m.withAttr("value", function(v) {value = v;}),
 						value: value
 					}),
-					(value.length > 0)?
-						m(FilteredPeopleList, {
-							value: value,
-							allownew: true,
-							onadd: function(p){vnode.attrs.onadd(p);},
-							//onnew: function(){onnew(vnode);}
-						})
-					:
-						m(TeamList, {
-							onadd: function(p){vnode.attrs.onadd(p);}
-						})
-				]),
+					m(".editor-peoplelist-finder.box-editor-style", [
+						(value.length > 0)?
+							m(FilteredPeopleList, {
+								value: value,
+								allownew: true,
+								onadd: function(p){vnode.attrs.onadd(p);},
+								//onnew: function(){onnew(vnode);}
+							})
+						:
+							m(TeamList, {
+								onadd: function(p){vnode.attrs.onadd(p);}
+							})
+					]),
 
-				vnode.attrs.peoplelist.map(function(person){
-					return m(".editor-peoplelist-person", [
+					vnode.attrs.peoplelist.map(function(person){
+						return m(".editor-peoplelist-person", [
 
-						//name
-						m("span.editor-peoplelist-person-name", person.value()),
+							//name
+							m("span.editor-peoplelist-person-name", person.value()),
 
-						m(DropDown, {
-							value: vnode.attrs.roles.selected(person),
-							options: vnode.attrs.roles.options,
-							novalue: vnode.attrs.roles.novalue,
-							onchange: function(e){
-								vnode.attrs.roles.onchange(e, person);
-							}
-						}),
+							m(DropDown, {
+								value: vnode.attrs.roles.selected(person),
+								options: vnode.attrs.roles.options,
+								novalue: vnode.attrs.roles.novalue,
+								onchange: function(e){
+									vnode.attrs.roles.onchange(e, person);
+								}
+							}),
 
-						//deletebutton
-						m("span.editor-peoplelist-person-remove", {
-							onclick: function(){vnode.attrs.ondelete(person);}
-						}, m("i", {class:"material-icons"}, "close")),
+							//deletebutton
+							m("span.editor-peoplelist-person-remove", {
+								onclick: function(){vnode.attrs.ondelete(person);}
+							}, m("i", {class:"material-icons"}, "close")),
 
-					]);
-				}),
+						]);
+					}),
 			]);
 		}
 	};
@@ -368,10 +369,10 @@ var ConnectionEditor = function(){
 	return {
 		view: function(vnode){
 			return [
-				vnode.attrs.state ? m(".editor-connectionlist", [
+				vnode.attrs.state ? m(".editor-connectionlist.box-editor-style", [
 					m(".editor-connectionlist-list", [
 						ptrn("program", function(program){
-							return m(".editor-connectionlist-item",{
+							return m(".editor-connectionlist-item.item-list",{
 								class: ptrn.compare(selectedProgram, program)?"state-selected":"",
 								onclick: function(){selectedProgram = program;}
 							},[
@@ -382,7 +383,7 @@ var ConnectionEditor = function(){
 					]),
 					m(".editor-connectionlist-list", [
 						selectedProgram ? selectedProgram("task", function(task){
-							return m(".editor-connectionlist-item",{
+							return m(".editor-connectionlist-item.item-list",{
 								class: ptrn.compare(selectedTask,task)?"state-selected":"",
 								onclick: function(){
 									selectedTask = task;
