@@ -22,6 +22,7 @@
 .editor-peoplelist-person {
 	font-weight: @light;
 	margin-bottom: 8px;
+	position: relative;
 }
 
 .editor-peoplelist-person-name {
@@ -30,8 +31,10 @@
 }
 
 .editor-peoplelist-person-remove {
-	float: right;
 	cursor: pointer;
+	position: absolute;
+	right: 0px;
+	top: 1px;
 }
 
 // Add People to the list
@@ -91,6 +94,7 @@
 // Single person in the box list
 .personlist-person {
 	font-weight: @light;
+	position: relative;
 }
 
 .personlist-person:hover {
@@ -100,10 +104,11 @@
 }
 
 .person-list-add-button {
-	float: right;
 	display: none;
-	color: @color-selected;
-	margin-right: 16px;
+	color: @color-white;
+	position: absolute;
+	top: 1px;
+	right: 15px;
 }
 
 .personlist-person:hover  > .person-list-add-button {
