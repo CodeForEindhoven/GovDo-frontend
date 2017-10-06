@@ -7,7 +7,6 @@ ptrn.loadall(function(){
 	});
 });
 
-
 function cheatToCalendar(){
 	vm.program(ptrn("program"));
 	vm.person(ptrn("person"));

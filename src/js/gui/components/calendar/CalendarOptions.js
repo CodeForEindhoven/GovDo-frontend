@@ -7,6 +7,7 @@ var CalendarOptions = function(){
 						vnode.attrs.setDate(new Date());
 					}
 				}, "Deze Week"),
+
 				m(".optionbar-option", {
 					class: (vnode.attrs.currentScale===1) ? "state-selected":"",
 					onclick: function(){
@@ -18,7 +19,22 @@ var CalendarOptions = function(){
 					onclick: function(){
 						vnode.attrs.setScale(2);
 					}
-				}, "Maanden")
+				}, "Maanden"),
+
+
+				m(".optionbar-option", {
+					class: (vnode.attrs.currentView===1) ? "state-selected":"",
+					onclick: function(){
+						vnode.attrs.setView(1);
+					}
+				}, "Uren per week"),
+
+				m(".optionbar-option", {
+					class: (vnode.attrs.currentView===2) ? "state-selected":"",
+					onclick: function(){
+						vnode.attrs.setView(2);
+					}
+				}, "Tijdlijn")
 			]);
 		}
 	};
