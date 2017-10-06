@@ -6,7 +6,19 @@ var CalendarOptions = function(){
 					onclick: function(){
 						vnode.attrs.setDate(new Date());
 					}
-				}, "Deze Week")
+				}, "Deze Week"),
+				m(".optionbar-option", {
+					class: (vnode.attrs.currentScale===1) ? "state-selected":"",
+					onclick: function(){
+						vnode.attrs.setScale(1);
+					}
+				}, "Weken"),
+				m(".optionbar-option", {
+					class: (vnode.attrs.currentScale===2) ? "state-selected":"",
+					onclick: function(){
+						vnode.attrs.setScale(2);
+					}
+				}, "Maanden")
 			]);
 		}
 	};

@@ -15,7 +15,7 @@ var ProgramNav = function(){
 					}
 				},[
 					vm.program() ? [
-						m(".programnav-program-number.button-number", vm.program()("order").value()),
+						m(".programnav-program-number", m(Numbering, {node: vm.program()})),
 						m(".programnav-program-title-top", vm.program().value())
 					] : [],
 					m("i.material-icons.programnav-dropdown", state ? "arrow_drop_up" : "arrow_drop_down"),
@@ -34,7 +34,7 @@ var ProgramNav = function(){
 										state = false;
 									}
 								},[
-									m(".programnav-program-number.button-number", program("order").value()),
+									m(".programnav-program-number", m(Numbering, {node: program})),
 									m(".programnav-program-title", program.value()),
 									//m(".programbar-program-mission", program.mission)
 								]);

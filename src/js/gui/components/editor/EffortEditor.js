@@ -404,8 +404,9 @@ var ConnectionEditor = function(){
 				m(".editor-connections-parents", [
 					vm.edit()("task", function(parent){
 						return m(".editor-connections-parent.state-selected",[
-							m(".button-number.editor-connections-parent-number", parent("program")("order").value()),
-							m(".button-number.editor-connections-parent-number", parent("order").value()),
+							m(Numbering, {node: parent, whole: true}),
+							//m(".button-number.editor-connections-parent-number", parent("program")("order").value()),
+							//m(".button-number.editor-connections-parent-number", parent("order").value()),
 							m(".editor-connections-parent-name", parent.value()),
 							(vm.edit()("task",function(e){return e;}).length > 1) ? m("span.editor-connections-parent-remove", {
 								onclick: function(){
