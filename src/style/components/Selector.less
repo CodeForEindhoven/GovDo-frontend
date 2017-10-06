@@ -153,7 +153,7 @@
 
 
 
-.selector-selected-title {
+.selector-selected-title, .personal-efforts-effort-name {
 	font-size: @main-text;
 	font-weight: @regular;
 	line-height: @line-height;
@@ -172,7 +172,7 @@
 	display: inline;
 }
 
-.selector-selected-title + .selector-hidden, // valid for the opgaven
+.selectorlist-item-options + .selector-hidden, // valid for the opgaven
 .selector-selected-title-means + .selector-hidden,
 .selector-selected-type + .selector-selected-subheader { // valid for inspanningen
 	margin-top: 50px;
@@ -187,13 +187,9 @@
 }
 
 .selector-selected-description {
-	font-weight: @light;
 	padding-right: 13px;
 	margin-bottom: 25px;
-	font-size: @main-text;
-	line-height: @line-height;
-	letter-spacing: @letter-spacing;
-	word-spacing: @word-spacing;
+	.default-text-light ();
 }
 
 // Arrow
