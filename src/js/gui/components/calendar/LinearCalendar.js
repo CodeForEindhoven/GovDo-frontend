@@ -81,7 +81,17 @@ var LinearCalendar = function(){
 						return m(CalendarTimeLine, {p: p, offsetTop: vnode.attrs.scrollTop, top: hcount, effort: effort});
 					})
 				]),
-				m(CalendarLabels, {p: p})
+				m(CalendarLabels, {
+					p: p,
+					ondrag: function(dx){
+						if(dx>0){
+							vnode.attrs.setDate(FuzzyDate.nextWeek(p.opentime));
+						}
+						if(dx<0){
+							vnode.attrs.setDate(FuzzyDate.prevWeek(p.opentime));
+						}
+					}
+				})
 			]);
 		}
 	};
@@ -93,6 +103,7 @@ var CalendarLabels = function(){
 	function labels(vnode){
 		var monday =  vnode.attrs.p.opentime;
 		var month = -1;
+		var phase = 0;
 
 		return ArrayFromRange(0,11).map(function(offset){
 			var currentWeek = FuzzyDate.currentWeek(monday);
@@ -101,27 +112,64 @@ var CalendarLabels = function(){
 			if(month != monday.getMonth()){
 				month = monday.getMonth();
 				showmonth = months[monday.getMonth()];
+				phase = month % 2;
 			}
 
 			var labels = {
 				week: currentWeek,
 				date: monday.getDate(),
-				month: showmonth
+				month: showmonth,
+				phase: phase
 			};
 			monday = FuzzyDate.nextWeek(monday);
 			return labels;
 		});
 	}
 
+	var clicked = false;
+	var downX = 0;
+	document.addEventListener("mouseup", function(){
+		clicked = false;
+	}, false);
+
 	return {
 		view: function(vnode){
-			return m(".calendar-labels", labels(vnode).map(function(label){
-				return m(".calendar-label", [
-					m(".calendar-label-month", label.month),
-					m(".calendar-label-week", "week "+ label.week),
-					m(".calendar-label-date", label.date),
-				]);
-			}));
+			return m(".calendar-labels", {
+				onmousedown: function(e){
+					clicked = true;
+					downX = e.clientX;
+				},
+				onmousemove: function(e){
+					if(clicked){
+						var dx = downX - e.clientX;
+						if(dx > 50){
+							vnode.attrs.ondrag(1);
+							downX = e.clientX;
+						}
+						if(dx < -50){
+							vnode.attrs.ondrag(-1);
+							downX = e.clientX;
+						}
+					}
+				}
+			}, [
+				m(".calendar-navbutton", {
+					onclick: function(){vnode.attrs.ondrag(-1);}
+				}, "<"),
+				labels(vnode).map(function(label){
+					return m(".calendar-label", [
+						m(".calendar-label-month", {
+							class: (label.phase===1) ? "calendar-label-phase-a": "calendar-label-phase-b"
+						}, label.month),
+						m(".calendar-label-week", "week "+ label.week),
+						m(".calendar-label-date", label.date),
+					]);
+				}),
+				m(".calendar-navbutton", {
+					onclick: function(){vnode.attrs.ondrag(1);}
+				},">"),
+			]
+		);
 		}
 	};
 };

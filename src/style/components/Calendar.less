@@ -58,10 +58,37 @@ circle.calendar-timeline {
 	fill: blue;
 }
 
+.calendar-labels {
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+
+	cursor: w-resize;
+}
+
 .calendar-label {
 	width: 8%;
 	display: inline-block;
 }
-.calendar-label:first-child {
-	margin-left: 2%;
+
+.calendar-label-month.calendar-label-phase-a {
+	background-color: blue;
+	color: white;
+}
+
+.calendar-label-month.calendar-label-phase-b {
+	background-color: white;
+	color: blue;
+}
+
+.calendar-label-month:after {
+	content: '\200b';
+}
+
+.calendar-navbutton {
+	width: 2%;
+	display: inline-block;
+	cursor: pointer;
 }
