@@ -37,6 +37,8 @@ input {
 	border-bottom: @border-box-1 solid @color-selected;
 	margin-bottom: 20px;
 	cursor: pointer;
+	
+	.default-text-monospace ();
 }
 
 .editor-peoplelist .input {
@@ -166,10 +168,7 @@ input {
 
 // style item list + mouse hover
 .item-list, .dropdown {
-	font-family: 'Space Mono', monospace;
-	font-size: @column-date-font-size;
-	line-height: 20px;
-	font-weight: @regular;
+	.default-text-monospace ();
 }
 
 .item-list:hover {
