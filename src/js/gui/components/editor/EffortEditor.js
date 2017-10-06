@@ -376,7 +376,7 @@ var ConnectionEditor = function(){
 								class: ptrn.compare(selectedProgram, program)?"state-selected":"",
 								onclick: function(){selectedProgram = program;}
 							},[
-								m(".button-number.editor-connectionlist-item-number",program("order").value()),
+								m(".editor-connectionlist-item-number", m(Numbering, {node: program})),
 								m(".editor-connectionlist-item-name",program.value())
 							]);
 						})
@@ -393,7 +393,7 @@ var ConnectionEditor = function(){
 									vnode.attrs.onchange();
 								}
 							},[
-								m(".button-number.editor-connectionlist-item-number",task("order").value()),
+								m(".editor-connectionlist-item-number",m(Numbering, {node: task})),
 								m(".editor-connectionlist-item-name",task.value()),
 								m("i.material-icons .connectionlist-addbutton", "add"),
 							]);
