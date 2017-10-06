@@ -30,8 +30,12 @@
 	text-align: center;
 	color: @color-white;
 	font-family: @font-number;
-	font-size: @button-number;
+	font-size: @button-number-small;
 	font-weight: @regular;
+}
+
+.numbering-number-small + .numbering-number-small {
+	margin-left: 4px;
 }
 
 .state-selectable:hover .numbering-number, .state-selected .numbering-number, .editor-connectionlist-item:hover .numbering-number {
