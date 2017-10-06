@@ -81,7 +81,17 @@ var LinearCalendar = function(){
 						return m(CalendarTimeLine, {p: p, offsetTop: vnode.attrs.scrollTop, top: hcount, effort: effort});
 					})
 				]),
-				m(CalendarLabels, {p: p})
+				m(CalendarLabels, {
+					p: p,
+					ondrag: function(dx){
+						if(dx>0){
+							vnode.attrs.setDate(FuzzyDate.nextWeek(p.opentime));
+						}
+						if(dx<0){
+							vnode.attrs.setDate(FuzzyDate.prevWeek(p.opentime));
+						}
+					}
+				})
 			]);
 		}
 	};
@@ -93,6 +103,7 @@ var CalendarLabels = function(){
 	function labels(vnode){
 		var monday =  vnode.attrs.p.opentime;
 		var month = -1;
+		var phase = 0;
 
 		return ArrayFromRange(0,11).map(function(offset){
 			var currentWeek = FuzzyDate.currentWeek(monday);
@@ -101,27 +112,64 @@ var CalendarLabels = function(){
 			if(month != monday.getMonth()){
 				month = monday.getMonth();
 				showmonth = months[monday.getMonth()];
+				phase = month % 2;
 			}
 
 			var labels = {
 				week: currentWeek,
 				date: monday.getDate(),
-				month: showmonth
+				month: showmonth,
+				phase: phase
 			};
 			monday = FuzzyDate.nextWeek(monday);
 			return labels;
 		});
 	}
 
+	var clicked = false;
+	var downX = 0;
+	document.addEventListener("mouseup", function(){
+		clicked = false;
+	}, false);
+
 	return {
 		view: function(vnode){
-			return m(".calendar-labels", labels(vnode).map(function(label){
-				return m(".calendar-label", [
-					m(".calendar-label-month", label.month),
-					m(".calendar-label-week", "week "+ label.week),
-					m(".calendar-label-date", label.date),
-				]);
-			}));
+			return m(".calendar-labels", {
+				onmousedown: function(e){
+					clicked = true;
+					downX = e.clientX;
+				},
+				onmousemove: function(e){
+					if(clicked){
+						var dx = downX - e.clientX;
+						if(dx > 50){
+							vnode.attrs.ondrag(1);
+							downX = e.clientX;
+						}
+						if(dx < -50){
+							vnode.attrs.ondrag(-1);
+							downX = e.clientX;
+						}
+					}
+				}
+			}, [
+				m(".calendar-navbutton", {
+					onclick: function(){vnode.attrs.ondrag(-1);}
+				}, "<"),
+				labels(vnode).map(function(label){
+					return m(".calendar-label", [
+						m(".calendar-label-month", {
+							class: (label.phase===1) ? "calendar-label-phase-a": "calendar-label-phase-b"
+						}, label.month),
+						m(".calendar-label-week", "week "+ label.week),
+						m(".calendar-label-date", label.date),
+					]);
+				}),
+				m(".calendar-navbutton", {
+					onclick: function(){vnode.attrs.ondrag(1);}
+				},">"),
+			]
+		);
 		}
 	};
 };
@@ -136,19 +184,46 @@ var CalendarTimeLine = function(){
 			var width = vnode.attrs.p.w;
 			var top = vnode.attrs.top*100+20 - vnode.attrs.offsetTop;
 
-			var startdate = FuzzyDate.toRange(vnode.attrs.effort("startdate").value())[0];
-			var enddate   = FuzzyDate.toRange(vnode.attrs.effort("enddate").value())[0];
-			var xstart = startdate ? mapDatePosition(vnode.attrs.p, startdate) : 0;
-			var xend = enddate ? mapDatePosition(vnode.attrs.p, enddate) : width;
+			var startdate = FuzzyDate.toRange(vnode.attrs.effort("startdate").value());
+			var enddate  = FuzzyDate.toRange(vnode.attrs.effort("enddate").value());
 
-			return [
-				m("line.calendar-timeline", {
-					x1:xstart, 				y1: top,
-					x2:xend, 				y2: top
-				}),
-				(xstart > 0) ? m("circle.calendar-timeline", {cx: xstart, cy: top, r: 5}) : [],
-				(xend < width) ? m("circle.calendar-timeline", {cx: xend, cy: top, r: 5}) : [],
-			];
+			var range = [undefined, undefined, undefined, undefined];
+
+			if(startdate[1]){
+				range[0] = mapDatePosition(vnode.attrs.p, startdate[0]);
+				range[1] = mapDatePosition(vnode.attrs.p, startdate[1]);
+			} else if(startdate[0]) {
+				range[1] = mapDatePosition(vnode.attrs.p, startdate[0]);
+			}
+
+			if(enddate[1]){
+				range[2] = mapDatePosition(vnode.attrs.p, enddate[0]);
+				range[3] = mapDatePosition(vnode.attrs.p, enddate[1]);
+			} else if(enddate[0]) {
+				range[2] = mapDatePosition(vnode.attrs.p, enddate[0]);
+			}
+
+			if(range[2] !== undefined){
+				return [
+					(range[0] !== undefined) ? m("line.calendar-timeline-dashed", {
+						x1:range[0], 				y1: top,
+						x2:range[1], 				y2: top
+					}) : [],
+					m("line.calendar-timeline", {
+						x1:range[1], 				y1: top,
+						x2:range[2], 				y2: top
+					}),
+					(range[3] !== undefined) ? m("line.calendar-timeline-dashed", {
+						x1:range[2], 				y1: top,
+						x2:range[3], 				y2: top
+					}) : [],
+					(range[1] > 0) ? m("circle.calendar-timeline", {cx: range[1], cy: top, r: 5}) : [],
+					(range[2] < width) ? m("circle.calendar-timeline", {cx: range[2], cy: top, r: 5}) : [],
+				];
+			} else {
+				return [];
+			}
+
 
 		}
 	};

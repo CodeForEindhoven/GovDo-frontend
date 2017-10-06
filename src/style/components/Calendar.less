@@ -53,15 +53,48 @@ line.calendar-timeline {
 	stroke: #333333;
 }
 
+line.calendar-timeline-dashed {
+	stroke-width: 2px;
+	stroke: #333333;
+    stroke-dasharray: 10,10,5,10,5,10;
+}
+
 circle.calendar-timeline {
 	stroke-width: 2px;
 	fill: blue;
+}
+
+.calendar-labels {
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+
+	cursor: w-resize;
 }
 
 .calendar-label {
 	width: 8%;
 	display: inline-block;
 }
-.calendar-label:first-child {
-	margin-left: 2%;
+
+.calendar-label-month.calendar-label-phase-a {
+	background-color: blue;
+	color: white;
+}
+
+.calendar-label-month.calendar-label-phase-b {
+	background-color: white;
+	color: blue;
+}
+
+.calendar-label-month:after {
+	content: '\200b';
+}
+
+.calendar-navbutton {
+	width: 2%;
+	display: inline-block;
+	cursor: pointer;
 }

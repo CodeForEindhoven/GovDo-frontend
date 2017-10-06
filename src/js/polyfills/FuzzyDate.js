@@ -1,7 +1,12 @@
 var FuzzyDate = {};
 
 FuzzyDate.years = (function(){
-	var y = [{label:"Geen",value: false, p: false}, {splitter: true}];
+	var y = [
+		{label:"Geen",value: false, p: false},
+		{splitter: true},
+		{label:"Doorlopend",value: "~", p: false},
+		{splitter: true}
+	];
 	var d = new Date().getFullYear();
 	for(var i=0; i<30; i++){
 		y.push({label:d,value: ""+d, p: true});
@@ -47,6 +52,9 @@ FuzzyDate.days = (function(){
 		{label: "Begin", value: "1k", p: false},
 		{label: "Midden", value: "2k", p: false},
 		{label: "Eind", value: "3k", p: false},
+
+		{splitter: true},
+
 	];
 	for(var i=1; i<32; i++){
 		d.push({label: ""+i, value: ""+i, p: true});
@@ -56,15 +64,15 @@ FuzzyDate.days = (function(){
 
 FuzzyDate.toRange = function(string){
 	var date = FuzzyDate.toArray(string);
-	var a;
-	var b;
-	if(!date){
-		return [a,b];
-	}
+	var a,b;
+
+	if(!date){return [a,b];}
+
 
 	if(date[0].p && date[1].p && date[2].p){
 		a = new Date(string);
-	} else if(date[0].p && date[1].p){
+
+	} else if(date[0].p && date[1].p) {
 		var y = date[0].value;
 		var m = date[1].value;
 		if(date[2].value){
@@ -82,9 +90,10 @@ FuzzyDate.toRange = function(string){
 			a = new Date(y+"/"+m+"/1");
 			b = new Date(y+"/"+m+"/30");
 		}
+
 	} else if(date[0].p){
-		var y = date[0].value;
 		if(date[1].value){
+			var y = date[0].value;
 			if(date[1].value==="1k"){
 				a = new Date(y+"/1/1");
 				b = new Date(y+"/3/30");
@@ -102,6 +111,9 @@ FuzzyDate.toRange = function(string){
 			a = new Date(y+"/1/1");
 			b = new Date(y+"/12/30");
 		}
+	} else if(date[0].value === "~") {
+		a = new Date(-8640000000000000);
+		b = new Date(8640000000000000);
 	}
 
 	return [a,b];
@@ -121,7 +133,9 @@ FuzzyDate.toArray = function(string){
 	});
 
 	if(d[0]==="_") {
-		date[0] = {value: false};
+		date[0] = FuzzyDate.years[0];
+	} else if(d[0]==="~") {
+		date[0] = FuzzyDate.years[2];
 	} else {
 		date[0] = {value: d[0], label: d[0], p: true};
 	}
