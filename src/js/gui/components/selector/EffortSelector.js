@@ -31,28 +31,29 @@ var EffortSelector = function(){
 								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==-1?"mode-sketch":""),
 							},[
 								m(".selectorlist-item-number", [
-									m(".button-number", effort("order").value()),
-
+									m(Numbering, {node: effort}),
 								]),
 								m(".selectorlist-item-content", [
+
 									m(".selector-selected-title", {
 										onclick: function(){
 											vm.effort(effort);
 										},
 									}, effort.value()),
 
-									m(".selectorlist-item-edit.button-edit-small",{
-										onclick: function(){
-											vm.edit(effort);
-										}
-									},
-
-									m(".selectorlist-item-position", [
-									m("i.material-icons","keyboard_arrow_down"),
-									m("i.material-icons","keyboard_arrow_up"),
+									m(".selectorlist-item-options",[
+										m(".selectorlist-item-options-position", [
+											m("i.material-icons.selectorlist-item-option","keyboard_arrow_down"),
+											m("i.material-icons.selectorlist-item-option","keyboard_arrow_up"),
+										]),
+										m(".selectorlist-item-option.button-edit-small",{
+											onclick: function(){
+												vm.edit(effort);
+											}
+										}, m("i.material-icons","build")),
 									]),
 
-									m("i.material-icons","build")),
+
 									m(".selector-hidden",[
 										m(".selector-selected-type", emptyState(viewModels.typeNames[effort("type").value()], m(".state-empty", "Nog geen type"))),
 										m(".selector-selected-subheader", "Beoogd Effect"),

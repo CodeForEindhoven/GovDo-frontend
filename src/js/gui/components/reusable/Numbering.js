@@ -10,8 +10,8 @@ var Numbering = function(){
 				]);
 			} else if(type === "task") {
 				return m(".numbering", [
-					m(".numbering-number-small", element("task")("program")("order").value()),
-					m(".numbering-number-small", element("task")("order").value()),
+					m(".numbering-number-small", element("program")("order").value()),
+					m(".numbering-number-small", element("order").value()),
 				]);
 			} else if(type === "effort") {
 				return m(".numbering", [

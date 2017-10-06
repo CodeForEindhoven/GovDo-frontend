@@ -31,33 +31,32 @@ var TaskSelector = function(){
 								}
 							},[
 								m(".selectorlist-item-number", [
-									m(".button-number", task("order").value()),
-									m(".selectorlist-item-edit.button-edit-small",{
-										onclick: function(){
-											vm.edit(task);
-										}
-									},
-
-									m(".selectorlist-item-position", [
-									m("i.material-icons","keyboard_arrow_down"),
-									m("i.material-icons","keyboard_arrow_up"),
-									]),
-
-									m("i.material-icons","build")),
+									m(Numbering, {node: task}),
 								]),
 
 								m(".selectorlist-item-content", [
-									m(".selector-selected", [
-										m(".selector-selected-title", task.value()),
-										(task("means").value() !== "")?[
-											m("span.selector-selected-title-means-label", m("i.material-icons .selector-selected-arrow", "arrow_forward")),
-											m("span.selector-selected-title-means", task("means").value()),
-										]:[],
-										m(".selector-hidden",[
-											m(".selector-selected-subheader", "Indicator"),
-											m(".selector-selected-description.kpi", task("kpi").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator")))
-										])
+									m(".selector-selected-title", task.value()),
+
+									m(".selectorlist-item-options",[
+										m(".selectorlist-item-options-position", [
+											m("i.material-icons.selectorlist-item-option","keyboard_arrow_down"),
+											m("i.material-icons.selectorlist-item-option","keyboard_arrow_up"),
+										]),
+										m(".selectorlist-item-option.button-edit-small",{
+											onclick: function(){
+												vm.edit(task);
+											}
+										}, m("i.material-icons","build")),
 									]),
+
+									(task("means").value() !== "")?[
+										m("span.selector-selected-title-means-label", m("i.material-icons .selector-selected-arrow", "arrow_forward")),
+										m("span.selector-selected-title-means", task("means").value()),
+									]:[],
+									m(".selector-hidden",[
+										m(".selector-selected-subheader", "Indicator"),
+										m(".selector-selected-description.kpi", task("kpi").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator")))
+									])
 								]),
 							]);
 						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven"))

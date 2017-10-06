@@ -87,34 +87,28 @@
 	margin-left: 20px;
 }
 
-.selectorlist-item-edit {
-	opacity: 0;
-}
-
-.selectorlist-item-position {
-	display: inline;
-	margin-right: 15px;
-}
-
-.selectorlist-item-edit i.material-icons:hover {
-	color: @color-selected;
-}
-
-.selectorlist-item-edit.state-hidden {
+//Option buttons
+.selectorlist-item-options {
+	position: absolute;
+	top: 0;
+	right: -25%;
 	display: none;
 }
 
-.state-selected .selectorlist-item-edit {
-	margin-top: 5px;
-	opacity: 1;
-	transition: opacity 0.3s;
-	position: absolute;
-	right: -20%;
-	top: 1%;
+.state-selected .selectorlist-item-options {
+	display: block
 }
 
-.selectorlist-item-edit i.material-icons {
-	display: inline;
+.selectorlist-item-option, .selectorlist-item-options-position {
+	display: inline-block;
+}
+
+.selectorlist-item-option:hover {
+	color: @color-selected;
+}
+
+.selectorlist-item-options-position {
+	margin-right: 10px;
 }
 
 // Program Mission
@@ -208,7 +202,7 @@
 	display: none;
 }
 
-.state-selected .selector-selected-title-means-label, 
+.state-selected .selector-selected-title-means-label,
 .state-selected .selector-selected-title-means {
 	display: inline;
 }
