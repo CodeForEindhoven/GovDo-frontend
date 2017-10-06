@@ -184,19 +184,46 @@ var CalendarTimeLine = function(){
 			var width = vnode.attrs.p.w;
 			var top = vnode.attrs.top*100+20 - vnode.attrs.offsetTop;
 
-			var startdate = FuzzyDate.toRange(vnode.attrs.effort("startdate").value())[0];
-			var enddate   = FuzzyDate.toRange(vnode.attrs.effort("enddate").value())[0];
-			var xstart = startdate ? mapDatePosition(vnode.attrs.p, startdate) : 0;
-			var xend = enddate ? mapDatePosition(vnode.attrs.p, enddate) : width;
+			var startdate = FuzzyDate.toRange(vnode.attrs.effort("startdate").value());
+			var enddate  = FuzzyDate.toRange(vnode.attrs.effort("enddate").value());
 
-			return [
-				m("line.calendar-timeline", {
-					x1:xstart, 				y1: top,
-					x2:xend, 				y2: top
-				}),
-				(xstart > 0) ? m("circle.calendar-timeline", {cx: xstart, cy: top, r: 5}) : [],
-				(xend < width) ? m("circle.calendar-timeline", {cx: xend, cy: top, r: 5}) : [],
-			];
+			var range = [undefined, undefined, undefined, undefined];
+
+			if(startdate[1]){
+				range[0] = mapDatePosition(vnode.attrs.p, startdate[0]);
+				range[1] = mapDatePosition(vnode.attrs.p, startdate[1]);
+			} else if(startdate[0]) {
+				range[1] = mapDatePosition(vnode.attrs.p, startdate[0]);
+			}
+
+			if(enddate[1]){
+				range[2] = mapDatePosition(vnode.attrs.p, enddate[0]);
+				range[3] = mapDatePosition(vnode.attrs.p, enddate[1]);
+			} else if(enddate[0]) {
+				range[2] = mapDatePosition(vnode.attrs.p, enddate[0]);
+			}
+
+			if(range[2] !== undefined){
+				return [
+					(range[0] !== undefined) ? m("line.calendar-timeline-dashed", {
+						x1:range[0], 				y1: top,
+						x2:range[1], 				y2: top
+					}) : [],
+					m("line.calendar-timeline", {
+						x1:range[1], 				y1: top,
+						x2:range[2], 				y2: top
+					}),
+					(range[3] !== undefined) ? m("line.calendar-timeline-dashed", {
+						x1:range[2], 				y1: top,
+						x2:range[3], 				y2: top
+					}) : [],
+					(range[1] > 0) ? m("circle.calendar-timeline", {cx: range[1], cy: top, r: 5}) : [],
+					(range[2] < width) ? m("circle.calendar-timeline", {cx: range[2], cy: top, r: 5}) : [],
+				];
+			} else {
+				return [];
+			}
+
 
 		}
 	};
