@@ -306,20 +306,3 @@ var CalendarLines = function(){
 		}
 	};
 };
-
-var CalendarGrid = function(){
-	return {
-		view: function(vnode){
-			var grid = [];
-			var w = vnode.attrs.p.w/12;
-			var h = vnode.attrs.p.h/40;
-			for(var i=0; i<12; i++){
-				for(var j=0; j<40; j++){
-					grid.push(m("rect.calendar-grid", {x:i*w+2, y:j*h+2, width:w-2, height: h-2}));
-				}
-			}
-
-			return grid;
-		}
-	};
-};

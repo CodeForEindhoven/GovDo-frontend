@@ -30,13 +30,22 @@ var CalendarPage = function(){
 					m(".layout-thincolumn",  m(PersonalEfforts, {
 						onscroll: function(e){scrollTop = e;}
 					})),
+
 					m(".layout-thickcolumn", [
-						(currentView === 2) ? m(LinearCalendar, {
-							scrollTop: scrollTop,
-							currentDate: currentDate,
-							currentScale: currentScale,
-							setDate: setDate,
-						}) : []
+						(currentView === 1) ?
+							m(HoursCalendar, {
+								scrollTop: scrollTop,
+								currentDate: currentDate,
+								currentScale: currentScale,
+								setDate: setDate,
+							})
+						:
+							m(LinearCalendar, {
+								scrollTop: scrollTop,
+								currentDate: currentDate,
+								currentScale: currentScale,
+								setDate: setDate,
+							})
 					])
 				])
 			];
