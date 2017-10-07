@@ -7,11 +7,11 @@ var CalendarOptions = function(){
 //					m(".sub-navigation-label", "XXXXXX"),
 //					m(".sub-navigation-label", "XXXXXX"),
 				]),
-				
+
 				m(".calendar-options",[
 					m(".optionbar-option", {
 						onclick: function(){
-							vnode.attrs.setDate(new Date());
+							vnode.attrs.setDate(FuzzyDate.prevMonth(new Date()));
 						}
 					}, "Deze Week"),
 
@@ -43,7 +43,7 @@ var CalendarOptions = function(){
 						}
 					}, "Tijdlijn"),
 				]),
-				
+
 			]);
 		}
 	};

@@ -1,6 +1,6 @@
 var CalendarPage = function(){
 	var scrollTop = 0;
-	var currentDate = new Date();
+	var currentDate = FuzzyDate.prevMonth(new Date());
 	var currentScale = 1;
 	var currentView = 2;
 
