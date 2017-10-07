@@ -1,10 +1,21 @@
 // Sub Navigation
+.calendar-options {
+	display: inline-block;
+}
+
+.calendar-options + .calendar-options {
+	margin-left: 70px;
+}
+
 .optionbar-option {
 	.default-text-regular ();
 	.over-calendar-type-size ();
 	display: inline-block;
-	margin-right: 30px;
 	cursor: pointer;
+}
+
+.optionbar-option +.optionbar-option {
+	margin-left: 30px;
 }
 
 .optionbar-option.state-selected {

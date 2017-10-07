@@ -194,7 +194,7 @@ var CalendarLabels = function(){
 			}, [
 				m(".calendar-navbutton", {
 					onclick: function(){vnode.attrs.ondrag(-1);}
-				}, "<"),
+				}, m("i.material-icons", "keyboard_arrow_left")),
 				labels(vnode).map(function(label){
 					return m(".calendar-label", [
 						m(".calendar-label-week", label.week),
@@ -206,7 +206,7 @@ var CalendarLabels = function(){
 				}),
 				m(".calendar-navbutton", {
 					onclick: function(){vnode.attrs.ondrag(1);}
-				},">"),
+				}, m("i.material-icons", "keyboard_arrow_right")),
 			]
 		);
 		}

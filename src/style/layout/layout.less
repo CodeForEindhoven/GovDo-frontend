@@ -26,7 +26,7 @@ html, body {
 .layout-optionbar {
 	.debugborders();
 	height: 38px;
-	padding-left: 10px;
+	padding-left: (@width-circle + 20px);
 	padding-bottom: 40px;
 	padding-top: 10px;
 }
@@ -60,14 +60,15 @@ html, body {
 
 .layout-thincolumn {
 	.debugborders();
-	.layout-column;
+	.layout-column();
 	width: calc(33% - 10px);
+	margin-right: 0px;
 }
 
 .layout-thickcolumn {
 	.debugborders();
 	.layout-column;
-	width: calc(67% - 25px);
+	width: calc(69% - 25px);
 }
 
 .layout-right {
