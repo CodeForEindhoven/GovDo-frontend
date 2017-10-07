@@ -14,7 +14,9 @@ var Numbering = function(){
 					m(".numbering-number-small", element("order").value()),
 				]);
 			} else if(type === "effort") {
-				return m(".numbering", [
+				return m(".numbering", {
+					class: vnode.attrs.disabled ? "state-disabled" : ""
+				},[
 					m(".numbering-number-small", element("task")("program")("order").value()),
 					m(".numbering-number-small", element("task")("order").value()),
 					m(".numbering-number-small", element("order").value()),
