@@ -12,6 +12,7 @@
 
 .personal-efforts-effort-name {
 	.default-text-regular ();
+	.over-calendar-type-size ();
 	line-height: 20px;
 	
 	display: inline-block;
@@ -24,6 +25,7 @@
 
 .personal-efforts-effort-date, .personal-efforts-effort-type {
 	.default-text-light ();
+	.over-calendar-type-size ();
 }
 
 .date-display + span {
@@ -103,12 +105,18 @@ circle.calendar-timeline {
 	-webkit-user-select: none;
 	-o-user-select: none;
 
+	.default-text-monospace ();
+
 	cursor: ew-resize;
 }
 
 .calendar-label {
 	width: 8%;
 	display: inline-block;
+}
+
+.calendar-label-month, .calendar-label-date, .calendar-label-week {
+	padding-left: 5px;
 }
 
 .calendar-label-month.calendar-label-phase-a {

@@ -197,10 +197,10 @@ var CalendarLabels = function(){
 				}, "<"),
 				labels(vnode).map(function(label){
 					return m(".calendar-label", [
+						m(".calendar-label-week", label.week),
 						m(".calendar-label-month", {
 							class: (label.phase===1) ? "calendar-label-phase-a": "calendar-label-phase-b"
 						}, label.month),
-						m(".calendar-label-week", label.week),
 						m(".calendar-label-date", label.date),
 					]);
 				}),
