@@ -264,7 +264,7 @@ var CalendarTimeLine = function(){
 					x1:range[2], 				y1: top,
 					x2:range[3], 				y2: top
 				}) : [],
-				(range[1] > 0) ? m("circle.calendar-timeline", {cx: range[1], cy: top, r: 5}) : [],
+				(range[1] > 0) ? m("circle.calendar-timeline", {cx: range[1], cy: top, r: 5}) : [], // to change the shape in the beginning and end of the project time line
 				(range[2] < width) ? m("circle.calendar-timeline", {cx: range[2], cy: top, r: 5}) : [],
 			];
 		}
