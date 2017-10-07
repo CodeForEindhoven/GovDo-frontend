@@ -221,7 +221,7 @@ var CalendarTimeLine = function(){
 
 			//calculate positions
 			var width = vnode.attrs.p.w;
-			var top = vnode.attrs.top*180+20 - vnode.attrs.offsetTop;
+			var top = vnode.attrs.top*150+20 - vnode.attrs.offsetTop;
 
 			var startdate = FuzzyDate.toRange(vnode.attrs.effort("startdate").value());
 			var enddate  = FuzzyDate.toRange(vnode.attrs.effort("enddate").value());

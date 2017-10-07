@@ -6,7 +6,7 @@
 }
 
 .personal-efforts-effort {
-	height: 180px;
+	height: 150px;
 	position: relative;
 }
 
@@ -19,9 +19,9 @@
 	vertical-align: top;
 }
 
-.personal-efforts-effort-name + .personal-efforts-effort-date {
-	margin-top: 2px;
-}
+//.personal-efforts-effort-name + .personal-efforts-effort-date {
+//	margin-top: 2px;
+//}
 
 .personal-efforts-effort-date, .personal-efforts-effort-type {
 	.default-text-light ();
@@ -59,8 +59,8 @@ span + .date-display {
 
 .calendar svg {
 	width: 100%;
-	height: calc(100% - 80px);
-	margin-bottom: 10px;
+	height: calc(100% - 100px);
+	margin-bottom: 5px;
 	overflow: hidden;
 }
 
@@ -108,6 +108,7 @@ circle.calendar-timeline {
 	.default-text-monospace ();
 
 	cursor: ew-resize;
+	padding-bottom: 10px;
 }
 
 .calendar-label {
@@ -119,14 +120,24 @@ circle.calendar-timeline {
 	padding-left: 5px;
 }
 
+.calendar-label-week {
+	margin-bottom: 17px;
+}
+
+.calendar-label-date {
+	margin-top: 5px;
+}
+
 .calendar-label-month.calendar-label-phase-a {
-	background-color: blue;
-	color: white;
+	background-color: @color-selected;
+	color: @color-white;
+//	text-transform: @uppercase;
 }
 
 .calendar-label-month.calendar-label-phase-b {
-	background-color: white;
-	color: blue;
+	background-color: @color-white;
+	color: @color-selected;
+//	text-transform: @uppercase;
 }
 
 .calendar-label-month:after {
