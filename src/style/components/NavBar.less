@@ -5,6 +5,20 @@ nav {
 	z-index: 10;
 }
 
+.nav-button {
+	background-color: green;
+	width: @width-circle;
+	height: @width-circle;
+	line-height: @width-circle;
+	border-radius: 20%;
+	text-align: center;
+	font-family: @font-number;
+	font-size: @button-number;
+	font-weight: @regular;
+	display: inline-block;
+	margin-right: 5px;
+}
+
 .nav-dashbutton {
 	background: @color-white;
 	width: @programbarWidth;
@@ -17,4 +31,8 @@ nav {
 	background: @color-unselected;
 	width: (@programbarWidth / 2);
 	height: (@programbarWidth / 2);
+}
+
+.nav-current-position, .nav-program-number, .nav-program-title-top {
+	display: inline-block;
 }

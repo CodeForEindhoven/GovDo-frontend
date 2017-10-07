@@ -14,7 +14,7 @@ var ProgramNav = function(){
 
 					}
 				},[
-					vm.program() ? [
+					(vm.page()=== 0 && vm.program()) ? [
 						m(".programnav-program-number", m(Numbering, {node: vm.program()})),
 						m(".programnav-program-title-top", vm.program().value())
 					] : [],

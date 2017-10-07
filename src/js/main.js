@@ -22,3 +22,8 @@ function cheatToEditor(){
 	vm.page(0);
 	m.redraw();
 }
+
+function cheatToLogin(){
+	vm.login(1);
+	m.redraw();
+}

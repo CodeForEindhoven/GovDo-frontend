@@ -2,6 +2,7 @@ var Login = function(){
 
 	var username = "";
 	var password = "";
+	var error = false;
 
 	return {
 		view: function(vnode){
@@ -19,11 +20,15 @@ var Login = function(){
 									value: username
 								}),
 								m(".login-popup-message", "Vul uw e-mailadres in om het wachtwoord te ontvangen"),
+								(error) ? m(".login-popup-error-message", "Onbekend email adres") : [],
 
 								m(".button", {
 									onclick: function(){
 										if(username==="admin"){
+											error = false;
 											vm.login(2);
+										} else {
+											error = true;
 										}
 									}
 								},"Verder"),
@@ -44,12 +49,16 @@ var Login = function(){
 									value: password
 								}),
 								m(".login-popup-message", "Kopieer het tijdelijke wachtwoord uit uw email."),
+								(error) ? m(".login-popup-error-message", "Onbekend wachtwoord") : [],
 
 								m(".button", {
 									onclick: function(){
 										if(password==="test"){
+											error = false;
 											vm.login(0);
 											vm.user({user:username,pass:password});
+										} else {
+											error = true;
 										}
 									}
 								},"Inloggen"),

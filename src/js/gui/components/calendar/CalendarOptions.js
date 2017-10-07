@@ -20,16 +20,16 @@ var CalendarOptions = function(){
 						}
 					}, "Tijdlijn"),
 				]),
-				
+
 				m(".calendar-options",[
 					m(".calendar-sub-navigation",[
 						m(".sub-navigation-label", "Kalender controle"),
 					]),
-				
+
 					m(".calendar-options",[
 						m(".optionbar-option", {
 							onclick: function(){
-								vnode.attrs.setDate(new Date());
+								vnode.attrs.setDate(FuzzyDate.prevMonth(new Date()));
 							}
 						}, "Deze Week"),
 
@@ -47,7 +47,7 @@ var CalendarOptions = function(){
 						}, "Maanden"),
 					]),
 				]),
-				
+
 			]);
 		}
 	};
