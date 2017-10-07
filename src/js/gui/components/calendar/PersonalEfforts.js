@@ -8,7 +8,7 @@ var PersonalEfforts = function(){
 			},[
 				vm.person()("effort", function(effort){
 					return m(".personal-efforts-effort", [
-						m(Numbering, {node: effort, whole: true}),
+						m(Numbering, {node: effort, whole: true, disabled: (effort("startdate").value()==="_/_/_")}),
 						m(".personal-efforts-effort-details", [
 							m(".personal-efforts-effort-name", effort.value()),
 							m(".personal-efforts-effort-date", [
