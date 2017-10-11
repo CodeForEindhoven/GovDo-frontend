@@ -31,14 +31,17 @@ input {
 	resize: vertical;
 } // Box style is .box-editor-style
 
-.input, .dropdown-value, .datepicker-date .datepicker-section {
+.typing-area {
 	background-color: @color-background;
 	padding-bottom: 5px;
 	border-bottom: @border-box-1 solid @color-selected;
 	margin-bottom: 20px;
-	cursor: pointer;
-	
+//	cursor: pointer;
 	.default-text-monospace ();
+}
+
+.input, .dropdown-value, .datepicker-date .datepicker-section {
+	.typing-area ();
 }
 
 .editor-peoplelist .input {

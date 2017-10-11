@@ -19,25 +19,27 @@ var Login = function(){
 									onchange: m.withAttr("value", function(v) {username = v;}),
 									value: username
 								}),
-								m(".login-popup-message", "Vul uw e-mailadres in om het wachtwoord te ontvangen"),
-								(error) ? m(".login-popup-error-message", "Onbekend email adres") : [],
+								m(".login-popup-message.body-text", "Vul uw e-mailadres in om het wachtwoord te ontvangen"),
+								(error) ? m(".login-popup-error-message.body-text", "Onbekend email adres") : [],
 
-								m(".button", {
-									onclick: function(){
-										if(username==="admin"){
-											error = false;
-											vm.login(2);
-										} else {
-											error = true;
+								m(".login-buttons", [
+									m(".button", {
+										onclick: function(){
+											if(username==="admin"){
+												error = false;
+												vm.login(2);
+											} else {
+												error = true;
+											}
 										}
-									}
-								},"Verder"),
+									},"Verder"),
 
-								m(".button", {
-									onclick: function(){
-										vm.login(-1);
-									}
-								},"Anuleer"),
+									m(".button", {
+										onclick: function(){
+											vm.login(-1);
+										}
+									},"Anuleer"),
+								]),
 							];
 						} else if(vm.login() === 2){
 							return [
@@ -48,26 +50,28 @@ var Login = function(){
 									onchange: m.withAttr("value", function(v) {password = v;}),
 									value: password
 								}),
-								m(".login-popup-message", "Kopieer het tijdelijke wachtwoord uit uw email."),
-								(error) ? m(".login-popup-error-message", "Onbekend wachtwoord") : [],
+								m(".login-popup-message.body-text", "Kopieer het tijdelijke wachtwoord uit uw email."),
+								(error) ? m(".login-popup-error-message.body-text", "Onbekend wachtwoord") : [],
 
-								m(".button", {
-									onclick: function(){
-										if(password==="test"){
-											error = false;
-											vm.login(0);
-											vm.user({user:username,pass:password});
-										} else {
-											error = true;
+								m(".login-buttons", [
+									m(".button", {
+										onclick: function(){
+											if(password==="test"){
+												error = false;
+												vm.login(0);
+												vm.user({user:username,pass:password});
+											} else {
+												error = true;
+											}
 										}
-									}
-								},"Inloggen"),
+									},"Inloggen"),
 
-								m(".button", {
-									onclick: function(){
-										vm.login(-1);
-									}
-								},"Anuleer"),
+									m(".button", {
+										onclick: function(){
+											vm.login(-1);
+										}
+									},"Anuleer"),
+								]),
 							];
 						}
 					})(),

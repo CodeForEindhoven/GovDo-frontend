@@ -6,6 +6,20 @@
 	height: 100vh;
 }
 
+.login-popup .button {
+	width: 47%;
+}
+
+.login-buttons {
+	position: absolute;
+	top: 300px;
+	width: 89%;
+}
+
+.login-popup .button + .button {
+	margin-left: 8px;
+}
+
 .login-overlay-fullscreen {
     position: absolute;
     width: 100%;
@@ -19,18 +33,47 @@
     z-index: 999999999;
     background-color: @color-background;
     position: absolute;
-    width: 300px;
+    width: 275px;
     height: 400px;
     left: calc(50% - 150px);
     top: calc(50% - 200px);
-    padding: 10px;
+    padding: 13px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .login-popup-title {
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 }
 
 .login-popup-email {
 	background-color: @color-background;
 	width: 100%;
+	padding-left: 3px;
+	padding-right: 3px;
+	.typing-area ();
+}
+
+.login-popup-error-message.body-text {
+	margin-top: 15px;
+	color: @color-selected;	
+}
+
+.login-popup-message, .login-popup-forgotten {
+	margin-top: 20px;
+}
+
+//.login-popup-message + .button, .login-popup-error-message + .button {
+//	margin-top: 80px;
+//}
+
+.login-popup-forgotten {
+	.default-text-regular ();
+	color: @color-selected;
+	font-size: 13px;
+	line-height: 17px;
+	
+	position: absolute;
+	bottom: 15px;
+	padding-right: 20px;
 }
