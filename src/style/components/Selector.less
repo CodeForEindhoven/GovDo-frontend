@@ -121,11 +121,9 @@
 }
 
 .programdetails-mission {
+	.default-text-light ();
 	font-size: @main-text;
-	line-height: @line-height;
-	font-weight: @light;
 	margin-top: 15px;
-	max-height: 300px;
 	transition: max-height 0.3s;
 	overflow: hidden;
 }
@@ -153,7 +151,7 @@
 
 
 
-.selector-selected-title, {
+.selector-selected-title {
 	.default-text-regular ();
 }
 
@@ -175,17 +173,12 @@
 }
 
 .selector-selected-subheader {
-	font-weight: @regular;
-	color: @color-editable;
 	margin-bottom: 3px;
-	letter-spacing: @letter-spacing;
-	word-spacing: @word-spacing;
 }
 
 .selector-selected-description {
 	padding-right: 13px;
 	margin-bottom: 25px;
-	.default-text-light ();
 }
 
 // Arrow
@@ -214,26 +207,8 @@
 // Date
 .selector-selected-period-label {
 	margin-right: 6px;
-	color: @color-selected;
 }
 
 .date-display + .selector-selected-period-label {
 	margin-left: 20px;
-}
-
-// State empty
-.state-empty {
- 	color: @color-sketch;
- 	font-weight: @light;
-}
-
-.state-empty:before {
-  	content: '– ';
- 	color: @color-sketch;
- 	font-weight: @light;
-}
-
-// kpi
-.kpi {
-	font-weight: @light;
 }

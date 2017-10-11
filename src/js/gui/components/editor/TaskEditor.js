@@ -3,7 +3,7 @@ var TaskEditor = function(){
 		view: function(vnode){
 			return m(".efforteditor",[
 				m(".editor-section",[
-					m(".editor-section-title", "Beschrijving"),
+					m(".editor-section-title.title", "Beschrijving"),
 					m(".editor-row",[
 						m(".editor-column",[
 							m(".editor-subtitle", [
@@ -36,7 +36,7 @@ var TaskEditor = function(){
 					])
 				]),
 				m(".editor-section",[
-					m(".editor-section-title", "Resultaten"),
+					m(".editor-section-title.title", "Resultaten"),
 					m(".editor-row",[
 						m(".editor-column",[
 							m(".editor-subtitle", [

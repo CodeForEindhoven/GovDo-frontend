@@ -7,11 +7,11 @@ var EffortEditor = function(){
 			return m(".efforteditor",[
 
 				m(".editor-section",[
-					m(".editor-section-title", "Beschrijving"),
+					m(".editor-section-title.title", "Beschrijving"),
 
 					m(".editor-row",[
 						m(".editor-column",[
-							m(".editor-subtitle", [
+							m(".editor-subtitle.subtitle", [
 								m("span", "Inspanning titel"),
 								m(InfoBox, {
 									content: "Kies een korte en herkenbare titel"
@@ -27,7 +27,7 @@ var EffortEditor = function(){
 						]),
 
 						m(".editor-column",[
-							m(".editor-subtitle", [
+							m(".editor-subtitle.subtitle", [
 								m("span", "Type"),
 								m(InfoBox, {
 									content: m("ul", [
@@ -50,7 +50,7 @@ var EffortEditor = function(){
 
 					m(".editor-row",[
 						m(".editor-column",[
-							m(".editor-subtitle", [
+							m(".editor-subtitle.subtitle", [
 								m("span", "Beoogd Effect"),
 								m(InfoBox, {
 									content: m("",[
@@ -72,7 +72,7 @@ var EffortEditor = function(){
 						]),
 
 						m(".editor-column",[
-							m(".editor-subtitle", [
+							m(".editor-subtitle.subtitle", [
 								m("span", "Eindproduct"),
 								m(InfoBox, {
 									content: m("",[
@@ -96,10 +96,10 @@ var EffortEditor = function(){
 				]),
 
 				m(".editor-section",[
-					m(".editor-section-title", "Positionering"),
+					m(".editor-section-title.title", "Positionering"),
 
 					m(".editor-subtitle-header",[
-							m(".editor-subtitle", [
+							m(".editor-subtitle.subtitle", [
 								m("span", "Gedeelde Opgaven"),
 								m(InfoBox, {
 									content: m("",[
@@ -125,11 +125,11 @@ var EffortEditor = function(){
 				]),
 
 				m(".editor-section",[
-					m(".editor-section-title", "Mensen"),
+					m(".editor-section-title.title", "Mensen"),
 
 					//Opdrachtgevers
 					m(".editor-subtitle-header",[
-							m(".editor-subtitle", [
+							m(".editor-subtitle.subtitle", [
 								m("span", "Opdrachtgevers"),
 								m(InfoBox, {
 									content: m("",[
@@ -182,7 +182,7 @@ var EffortEditor = function(){
 
 					//Team
 					m(".editor-subtitle-header",[
-							m(".editor-subtitle", [
+							m(".editor-subtitle.subtitle", [
 								m("span", "Team"),
 								m(InfoBox, {
 									content: m("",[
@@ -230,8 +230,8 @@ var EffortEditor = function(){
 
 				//Planning
 				m(".editor-section",[
-					m(".editor-section-title", "Planning"),
-					m(".editor-subtitle", [
+					m(".editor-section-title.title", "Planning"),
+					m(".editor-subtitle.subtitle", [
 						m("span", "Periode"),
 						m(InfoBox, {
 							content: m("",[
@@ -241,7 +241,7 @@ var EffortEditor = function(){
 					]),
 
 					m(".editor-selection-date",[
-						m("span", "van"),
+						m("span.body-text", "van"),
 						m(DatePicker,{
 							value: vm.edit()("startdate").value(),
 							onchange: function(e){
@@ -252,7 +252,7 @@ var EffortEditor = function(){
 					]),
 
 					m(".editor-selection-date",[
-						m("span", "t/m"),
+						m("span.body-text", "t/m"),
 						m(DatePicker,{
 							value: vm.edit()("enddate").value(),
 							onchange: function(e){
@@ -318,7 +318,7 @@ var PeopleListEditor = function(){
 						return m(".editor-peoplelist-person", [
 
 							//name
-							m("span.editor-peoplelist-person-name", person.value()),
+							m("span.editor-peoplelist-person-name.body-text", person.value()),
 
 							m(DropDown, {
 								value: vnode.attrs.roles.selected(person),
@@ -407,7 +407,7 @@ var ConnectionEditor = function(){
 							m(Numbering, {node: parent, whole: true}),
 							//m(".button-number.editor-connections-parent-number", parent("program")("order").value()),
 							//m(".button-number.editor-connections-parent-number", parent("order").value()),
-							m(".editor-connections-parent-name", parent.value()),
+							m(".editor-connections-parent-name.body-text", parent.value()),
 							(vm.edit()("task",function(e){return e;}).length > 1) ? m("span.editor-connections-parent-remove", {
 								onclick: function(){
 									ptrn.speculativeUnrelate(vm.edit(), parent);

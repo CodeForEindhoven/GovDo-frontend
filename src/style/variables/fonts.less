@@ -1,3 +1,5 @@
+@import "variables/colors.less";
+
 @font-base: 'Graphik', sans-serif;
 @font-number: 'Space Mono', monospace;
 @font-size: 15px;
@@ -46,7 +48,6 @@
 @selected-text-title-line-height: (@main-text + 10px); //for the selector
 //@selected-text-title-word-spacing: (@main-text / 22.35); //for the selector
 
-
 .default-text-light {
 	font-weight: @light;
 	font-size: @main-text;
@@ -77,6 +78,40 @@
 	word-spacing: @word-spacing;
 	color: @color-editable;
 }
+
+// Typographic elements and status
+.title {
+	.default-text-regular ();
+	font-size: 20px;
+}
+
+.subtitle {
+	.default-text-regular ();
+	color: @color-selected;
+}
+
+.body-text {
+	.default-text-light ();
+	color: @color-black;
+}
+
+// State empty
+.state-empty {
+ 	color: @color-sketch;
+ 	.default-text-light ();
+}
+
+.state-empty:before {
+  	content: '– ';
+ 	color: @color-sketch;
+ 	.default-text-light ();
+}
+
+// kpi
+.kpi {
+	.default-text-light ();
+}
+
 
 // Over write part of .default-text in order to have smaller type
 // Also used for the sub-navigation

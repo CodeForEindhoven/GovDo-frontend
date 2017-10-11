@@ -9,7 +9,7 @@ var Login = function(){
 			return vm.login() > 0 ? m(".login",[
 				m(".login-overlay-fullscreen"),
 				m(".login-popup", [
-					m(".login-popup-title", "Welkom bij Planlab"),
+					m(".login-popup-title.title", "Welkom bij Planlab"),
 					(function(){
 						if(vm.login() === 1){
 							return [

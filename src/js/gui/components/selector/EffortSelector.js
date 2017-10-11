@@ -56,24 +56,24 @@ var EffortSelector = function(){
 
 									m(".selector-hidden",[
 										m(".selector-selected-type", emptyState(viewModels.typeNames[effort("type").value()], m(".state-empty", "Nog geen type"))),
-										m(".selector-selected-subheader", "Beoogd Effect"),
-										m(".selector-selected-description", effort("description").value().emptyState(m(".effortselector-description-state.state-empty", "Nog geen beoogd effect"))),
-										m(".selector-selected-subheader", "Eindproduct"),
-										m(".selector-selected-description", effort("endproduct").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen eindproduct"))),
-										m(".selector-selected-subheader", "Mensen"),
-										m(".selector-selected-description", effort("person", function(person){
-											return m(".selector-selected-peoplelist", {
+										m(".selector-selected-subheader.subtitle", "Beoogd Effect"),
+										m(".selector-selected-description.body-text", effort("description").value().emptyState(m(".effortselector-description-state.state-empty", "Nog geen beoogd effect"))),
+										m(".selector-selected-subheader.subtitle", "Eindproduct"),
+										m(".selector-selected-description.body-text", effort("endproduct").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen eindproduct"))),
+										m(".selector-selected-subheader.subtitle", "Mensen"),
+										m(".selector-selected-description.body-text", effort("person", function(person){
+											return m(".selector-selected-peoplelist.body-text", {
 												onclick: function(){
 													vm.person(person);
 													vm.page(1);
 												}
 											}, person.value());
 										}).emptyState(m(".selector-selected-description.state-empty", "Nog geen mensen"))),
-										m(".selector-selected-subheader", "Periode"),
-										m(".selector-selected-description", [
-											m("span.selector-selected-period-label", "van"),
+										m(".selector-selected-subheader.subtitle", "Periode"),
+										m(".selector-selected-description.body-text", [
+											m("span.selector-selected-period-label.body-text", "van"),
 											m(DateDisplay, {date: effort("startdate").value()}),
-											m("span.selector-selected-period-label", "t/m"),
+											m("span.selector-selected-period-label.body-text", "t/m"),
 											m(DateDisplay, {date: effort("enddate").value()}),
 										])
 
