@@ -35,11 +35,13 @@ var LinearCalendar = function(){
 	};
 
 	function setCurrentDate(date, scale){
-		p.opentime =  FuzzyDate.getMonday(date);
+
 		p.scale = scale;
 		if(scale===1){
+			p.opentime =  FuzzyDate.getMonday(date);
 			p.closetime =  FuzzyDate.nextKwarter(p.opentime);
 		} else {
+			p.opentime = FuzzyDate.getFirstDayOfMonth(date);
 			p.closetime =  FuzzyDate.nextYear(p.opentime);
 		}
 
