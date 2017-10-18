@@ -46,7 +46,7 @@ var TaskSelector = function(){
 											onclick: function(){
 												vm.edit(task);
 											}
-										}, m("i.material-icons","build")),
+										}, m(Icon, {name: "edit"})),
 									]),
 
 									(task("means").value() !== "")?[

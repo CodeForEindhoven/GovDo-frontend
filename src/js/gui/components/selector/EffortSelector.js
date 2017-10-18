@@ -50,7 +50,7 @@ var EffortSelector = function(){
 											onclick: function(){
 												vm.edit(effort);
 											}
-										}, m("i.material-icons","build")),
+										}, m(Icon, {name: "edit"})),
 									]),
 
 
