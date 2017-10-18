@@ -19,18 +19,21 @@ var Login = function(){
 									onchange: m.withAttr("value", function(v) {username = v;}),
 									value: username
 								}),
-								m(".login-popup-message.body-text", "Vul uw e-mailadres in om het wachtwoord te ontvangen"),
 								(error) ? m(".login-popup-error-message.body-text", "Onbekend email adres") : [],
+								//m(".login-popup-message.body-text", "Vul uw e-mailadres in om het wachtwoord te ontvangen"),
 
 								m(".login-buttons", [
 									m(".button", {
 										onclick: function(){
-											if(username==="admin"){
-												error = false;
-												vm.login(2);
-											} else {
-												error = true;
-											}
+											ptrn.loginuser(username, function(succes){
+												if(succes){
+													error = false;
+													vm.login(2);
+												} else {
+													error = true;
+												}
+												m.redraw();
+											});
 										}
 									},"Verder"),
 
@@ -38,31 +41,34 @@ var Login = function(){
 										onclick: function(){
 											vm.login(-1);
 										}
-									},"Anuleer"),
+									},"Annuleer"),
 								]),
 							];
 						} else if(vm.login() === 2){
 							return [
 								m(".login-popup-email", username),
+								m(".login-popup-message.body-text", "We hebben u een email gestuurd met een tijdelijk wachtwoord. Controleer alstublieft uw inbox."),
 								m("input.login-popup-email", {
-									placeholder: "Wachtwoord",
+									placeholder: "Uw tijdelijke wachtwoord",
 									oninput: m.withAttr("value", function(v) {password = v;}),
 									onchange: m.withAttr("value", function(v) {password = v;}),
 									value: password
 								}),
-								m(".login-popup-message.body-text", "Kopieer het tijdelijke wachtwoord uit uw email."),
-								(error) ? m(".login-popup-error-message.body-text", "Onbekend wachtwoord") : [],
+								(error) ? m(".login-popup-error-message.body-text", "Dit wachtwoord is onbekend, probeer opnieuw...") : [],
 
 								m(".login-buttons", [
 									m(".button", {
 										onclick: function(){
-											if(password==="test"){
-												error = false;
-												vm.login(0);
-												vm.user({user:username,pass:password});
-											} else {
-												error = true;
-											}
+											ptrn.loginpass(username, password, function(succes){
+												if(succes){
+													error = false;
+													vm.login(0);
+													vm.user({user:username,pass:password});
+												} else {
+													error = true;
+												}
+												m.redraw();
+											});
 										}
 									},"Inloggen"),
 
@@ -70,7 +76,7 @@ var Login = function(){
 										onclick: function(){
 											vm.login(-1);
 										}
-									},"Anuleer"),
+									},"Annuleer"),
 								]),
 							];
 						}

@@ -409,13 +409,29 @@ var ptrn =  (function(){
 		//}
 	}
 
+	function loginUser(user, callback){
+		request("POST", "user/hash", {
+			name: user
+		}, function(resp){
+			callback(resp.succes);
+		});
+	}
+
+	function loginPass(user, pass, callback){
+		request("POST", "user/check", {
+			name: user,
+			pass: pass
+		}, function(resp){
+			callback(resp.succes);
+		});
+	}
+
 
 	/*PUBLIC INTERFACE*/
 	query.transact = transact;
 
 	query.compare = compare;
 	query.log = log;
-
 
 	query.create = create;
 	query.findorcreate = findorcreate;
@@ -424,6 +440,11 @@ var ptrn =  (function(){
 	query.speculativeRelate = speculativeRelate;
 	query.speculativeUnrelate = speculativeUnrelate;
 	query.loadall = pulldump;
+
+	//quey login
+	query.loginuser = loginUser;
+	query.loginpass = loginPass;
+
 	//query.push = push;
 	return query;
 })();
