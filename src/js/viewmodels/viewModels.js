@@ -1,9 +1,15 @@
 var viewModels = {};
 
 var vm = (function(){
-	var loginPopup = 0;
+	var loginPopup = -1;
 	var currentPage = 0;
-	var currentUser = {user:"",pass:""};
+
+	var currentUser = {user:"", pass:""};
+	var storedUser = localStorage.getItem('planlabuser');
+	if(storedUser){
+		currentUser = JSON.parse(storedUser);
+		loginPopup = 0;
+	}
 
 
 	var currentProgram;
@@ -27,9 +33,13 @@ var vm = (function(){
 			}
 			return loginPopup;
 		},
+		logout: function(){
+			localStorage.removeItem('planlabuser');
+		},
 		user: function(i){
 			if(i !== undefined){
 				currentUser = i;
+				localStorage.setItem('planlabuser', JSON.stringify(i));
 			}
 			return currentUser;
 		},

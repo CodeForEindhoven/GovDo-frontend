@@ -237,3 +237,8 @@ FuzzyDate.getMonday = function(date){
 	var r = new Date(d.setDate(diff));
 	return new Date(r.getFullYear(), r.getMonth(), r.getDate());
 };
+
+FuzzyDate.getFirstDayOfMonth = function(date){
+	var d = new Date(date);
+	return new Date(d.getFullYear(), d.getMonth(), 1);
+};
