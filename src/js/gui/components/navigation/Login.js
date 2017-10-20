@@ -59,11 +59,16 @@ var Login = function(){
 								m(".login-buttons", [
 									m(".button", {
 										onclick: function(){
-											ptrn.loginpass(username, password, function(succes){
+											ptrn.loginpass(username, password, function(succes, node, role){
 												if(succes){
 													error = false;
 													vm.login(0);
-													vm.user({user:username,pass:password});
+													vm.user({
+														user:username,
+														pass:password,
+														node: node,
+														role: role
+													});
 												} else {
 													error = true;
 												}

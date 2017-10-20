@@ -422,7 +422,7 @@ var ptrn =  (function(){
 			name: user,
 			pass: pass
 		}, function(resp){
-			callback(resp.succes);
+			callback(resp.succes, resp.node, resp.role);
 		});
 	}
 
