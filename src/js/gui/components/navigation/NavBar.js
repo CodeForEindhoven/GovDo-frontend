@@ -40,6 +40,18 @@ var NavBar = function(){
 						//m(".nav-button", m(Icon, {name: "meeting-2"})),
 						m(".nav-program-title-top", vm.person().value())
 					] : [],
+				]),
+
+				m(".nav-user", [
+					(vm.login()===0) ? [
+						m(".nav-user-name", vm.user().user)
+					] : [
+						m(".nav-user-login", {
+							onclick: function(){
+								vm.login(1);
+							}
+						}, "login")
+					]
 				])
 				//m(SearchBar)
 			]);
