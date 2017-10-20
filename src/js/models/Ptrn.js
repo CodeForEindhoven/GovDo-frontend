@@ -181,6 +181,10 @@ var ptrn =  (function(){
 	function query(q, callback, subset){
 		var selection;
 
+		if(!subset){
+			subset = atoms;
+		}
+
 		var words = q.split(/ (.+)/);
 		var first = words[0];
 
@@ -188,8 +192,8 @@ var ptrn =  (function(){
 			var id = parseInt(first.substring(1));
 			selection = [];
 			var found = subset.find(function(a){
-				return a.oid === id;
-			})	;
+				return a && a.oid === id;
+			});
 			if(found) selection.push(found);
 		} else {
 			var type = first.split(":");

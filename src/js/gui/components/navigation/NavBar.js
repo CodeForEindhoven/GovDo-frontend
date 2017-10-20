@@ -7,7 +7,7 @@ var NavBar = function(){
 				m(".nav-button", {
 					onclick: function(){
 						console.log("click");
-						//vm.page(0);
+						vm.page(2);
 					}
 				}, m(Icon, {name: "general"})),
 
@@ -44,7 +44,11 @@ var NavBar = function(){
 
 				m(".nav-user", [
 					(vm.login()===0) ? [
-						m(".nav-user-name", vm.user().user)
+						m(".nav-user-name", {
+							onclick: function(){
+								vm.page(4);
+							}
+						}, ptrn("#"+vm.user().node).value() )
 					] : [
 						m(".nav-user-login", {
 							onclick: function(){
