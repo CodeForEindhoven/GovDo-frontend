@@ -8,7 +8,7 @@ var Icon = function(){
 			}
 
 			return m("img.icon", {
-				src: "/icons/planlab-icon-"+vnode.attrs.name+((neg||hov)?"-neg":"")+".svg",
+				src: "/icons/planlab-icon-"+vnode.attrs.name+((neg||hov)?"-hover":"")+".svg",
 				onmouseover: function(){
 					hov = true;
 					m.redraw();
