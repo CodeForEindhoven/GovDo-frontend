@@ -26,7 +26,7 @@ var PersonalEfforts = function(){
 									vm.effort(effort);
 									vm.page(0);
 								}
-							}, m(Icon, {name: "general"})),
+							}, m(Icon, {name: "general-small"})),
 							
 							m(".personal-efforts-view", {
 								onclick: function(){
@@ -36,7 +36,7 @@ var PersonalEfforts = function(){
 									vm.effort(effort);
 									vm.page(0);
 								}
-							}, m(Icon, {name: "programma"})),
+							}, m(Icon, {name: "programma-small"})),
 							
 							m(".personal-efforts-view", {
 								onclick: function(){
@@ -46,7 +46,7 @@ var PersonalEfforts = function(){
 									vm.effort(effort);
 									vm.page(0);
 								}
-							}, m(Icon, {name: "kalendar"})),
+							}, m(Icon, {name: "kalendar-small"})),
 						]),
 					]);
 				})
