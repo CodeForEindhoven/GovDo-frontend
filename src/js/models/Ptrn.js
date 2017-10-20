@@ -430,7 +430,7 @@ var ptrn =  (function(){
 		});
 	}
 
-	function users(users, callback){
+	function users(callback){
 		request("GET", "users", {
 		}, function(resp){
 			callback(resp);
