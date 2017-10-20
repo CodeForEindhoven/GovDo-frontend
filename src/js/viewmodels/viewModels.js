@@ -4,7 +4,7 @@ var vm = (function(){
 	var loginPopup = -1;
 	var currentPage = 0;
 
-	var currentUser = {user:"", pass:""};
+	var currentUser = {user:"", pass:"", node: -1, role: 0};
 	var storedUser = localStorage.getItem('planlabuser');
 	if(storedUser){
 		currentUser = JSON.parse(storedUser);

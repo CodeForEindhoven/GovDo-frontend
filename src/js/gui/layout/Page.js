@@ -13,6 +13,15 @@ var Page = function(){
 				//Calendar View
 				(vm.page() === 1) ? m(CalendarPage) : [],
 
+				//Dashboard View
+				(vm.page() === 2) ? m(DashboardPage) : [],
+
+				//Feedback View
+				(vm.page() === 3) ? m(CalendarPage) : [],
+
+				//Admin View
+				(vm.page() === 4) ? m(AdminPage) : [],
+
 				m(".layout-overlay", m(Login)),
 			];
 		}
