@@ -2,6 +2,7 @@
 @import "variables/fonts.less";
 @width-circle: 38px;
 @width-circle-small: 28px;
+@border-2: 2px;
 
 .numbering {
 	display: inline-block;
@@ -37,9 +38,22 @@
 	font-weight: @regular;
 }
 
+.numbering:hover .numbering-number-small {
+	background-color: @color-selected;
+	cursor: pointer;
+}
+
+.numbering.state-disabled:hover .numbering-number-small {
+	background-color: @color-background;
+	cursor: auto;
+}
+
 .state-disabled .numbering-number-small {
-	background-color: @color-unselected;
-	color: black;
+	width: (@width-circle-small - @border-2);
+	height: (@width-circle-small - @border-2);
+	background-color: @color-background;
+	border: @border-2 solid @color-grey;
+	color: @color-grey;
 }
 
 .numbering-number-small + .numbering-number-small {

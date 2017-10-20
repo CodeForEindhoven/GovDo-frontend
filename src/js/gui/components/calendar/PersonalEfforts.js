@@ -26,7 +26,27 @@ var PersonalEfforts = function(){
 									vm.effort(effort);
 									vm.page(0);
 								}
-							},"view in editor"),
+							}, m(Icon, {name: "general"})),
+							
+							m(".personal-efforts-view", {
+								onclick: function(){
+									console.log(effort("task").value());
+									vm.program(effort("task")("program"));
+									vm.task(effort("task"));
+									vm.effort(effort);
+									vm.page(0);
+								}
+							}, m(Icon, {name: "programma"})),
+							
+							m(".personal-efforts-view", {
+								onclick: function(){
+									console.log(effort("task").value());
+									vm.program(effort("task")("program"));
+									vm.task(effort("task"));
+									vm.effort(effort);
+									vm.page(0);
+								}
+							}, m(Icon, {name: "kalendar"})),
 						]),
 					]);
 				})

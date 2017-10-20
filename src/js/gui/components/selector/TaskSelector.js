@@ -11,11 +11,7 @@ var TaskSelector = function(){
 										createnew.task();
 									}
 								}, "add"),
-								//m("i.material-icons", {}, "import_export"),
 								m(Icon, {name: "info"}),
-								//m(".material-icons", [
-								//	m(Icon, {name: "info"}),
-								//]),
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
