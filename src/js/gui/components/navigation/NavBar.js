@@ -50,7 +50,7 @@ var NavBar = function(){
 							onclick: function(){
 								vm.login(1);
 							}
-						}, "login")
+						}, m(Icon, {name: "personal"})),
 					]
 				])
 				//m(SearchBar)
