@@ -430,6 +430,13 @@ var ptrn =  (function(){
 		});
 	}
 
+	function users(users, callback){
+		request("GET", "users", {
+		}, function(resp){
+			callback(resp);
+		});
+	}
+
 
 	/*PUBLIC INTERFACE*/
 	query.transact = transact;
@@ -448,6 +455,7 @@ var ptrn =  (function(){
 	//quey login
 	query.loginuser = loginUser;
 	query.loginpass = loginPass;
+	query.users = users;
 
 	//query.push = push;
 	return query;

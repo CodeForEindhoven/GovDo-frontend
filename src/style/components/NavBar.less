@@ -9,6 +9,7 @@ nav {
 	width: @width-circle;
 	height: @width-circle;
 	display: inline-block;
+	position: relative;
 }
 
 nav .nav-button .icon {
@@ -52,4 +53,21 @@ nav .nav-button + .nav-button {
 	height: 38px;
 	float: right;
 	cursor: pointer;
+}
+
+.nav-tooltip {
+	.sub-navigation();
+	
+	visibility: hidden;
+	position: absolute;
+
+	z-index: 1;
+	opacity: 0;
+	transition: opacity 0.2s 0.5s;
+}
+
+:hover > .nav-tooltip {
+	visibility: visible;
+	opacity: 1;
+	//transition: opacity 0.1s;
 }

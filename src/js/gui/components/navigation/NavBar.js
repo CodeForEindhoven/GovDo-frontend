@@ -8,26 +8,35 @@ var NavBar = function(){
 					onclick: function(){
 						console.log("click");
 						vm.page(2);
-					}
-				}, m(Icon, {name: "general"})),
+					},
+				}, [
+					m(Icon, {name: "general"}),
+					m(".nav-tooltip", "statistieken")
+				]),
 
 				m(".nav-button", {
 					onclick: function(){
 						vm.page(0);
 					}
-				}, m(Icon, {
-					name: "programma",
-					selected: vm.page()===0
-				})),
+				}, [
+					m(Icon, {
+						name: "programma",
+						selected: vm.page()===0
+					}),
+					m(".nav-tooltip", "Doelenboom")
+				]),
 
 				m(".nav-button", {
 					onclick: function(){
 						vm.page(1);
 					}
-				}, m(Icon, {
-					name: "kalendar",
-					selected: vm.page()===1
-				})),
+				}, [
+					m(Icon, {
+						name: "kalendar",
+						selected: vm.page()===1
+					}),
+					m(".nav-tooltip", "Kalender")
+				]),
 
 				//m(ProgramNav),
 
