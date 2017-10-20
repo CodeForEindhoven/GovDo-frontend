@@ -12,7 +12,10 @@ var TaskSelector = function(){
 									}
 								}, "add"),
 								//m("i.material-icons", {}, "import_export"),
-								m("i.material-icons", {}, "info_outline")
+								m(Icon, {name: "info"}),
+								//m(".material-icons", [
+								//	m(Icon, {name: "info"}),
+								//]),
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [

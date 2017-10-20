@@ -9,7 +9,9 @@
 
 .numbering-number {
 	display: inline-block;
-	background-color: @color-unselected;
+//	background-color: @color-unselected;
+	background-color: @color-grey;
+	color: @color-white;
 	width: @width-circle;
 	height: @width-circle;
 	line-height: @width-circle;
@@ -22,7 +24,8 @@
 
 .numbering-number-small {
 	display: inline-block;
-	background-color: @color-selected;
+//	background-color: @color-selected;
+	background-color: @color-grey;
 	width: @width-circle-small;
 	height: @width-circle-small;
 	line-height: @width-circle-small;
@@ -43,7 +46,7 @@
 	margin-left: 4px;
 }
 
-.state-selectable:hover .numbering-number, .state-selected .numbering-number, .editor-connectionlist-item:hover .numbering-number {
+.state-selectable:hover .numbering-number, .state-selected .numbering-number, .editor-connectionlist-item:hover .numbering-number, .editor-header .numbering-number {
 	background-color: @color-selected;
 	color: @color-white;
 	-webkit-font-smoothing: subpixel-antialiased;
