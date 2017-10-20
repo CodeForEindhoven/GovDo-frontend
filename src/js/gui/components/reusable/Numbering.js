@@ -5,7 +5,9 @@ var Numbering = function(){
 			var type = element.type();
 
 			if(!vnode.attrs.whole || type === "program"){
-				return m(".numbering", [
+				return m(".numbering", {
+					class: vnode.attrs.selected ? "state-selected" : ""
+				}, [
 					m(".numbering-number", element("order").value()),
 				]);
 			} else if(type === "task") {

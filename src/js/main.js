@@ -15,6 +15,7 @@ function cheatToCalendar(){
 }
 
 function cheatToEditor(){
+	vm.login(0);
 	vm.program(ptrn("program"));
 	vm.task(ptrn("program task"));
 	vm.effort(ptrn("program task effort"));
