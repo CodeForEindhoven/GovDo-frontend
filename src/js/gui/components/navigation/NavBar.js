@@ -36,6 +36,10 @@ var NavBar = function(){
 						m(".nav-program-number", m(Numbering, {node: vm.program(), selected: true})),
 						m(".nav-program-title-top", vm.program().value())
 					] : [],
+					(vm.page()=== 1 && vm.person()) ? [
+						//m(".nav-button", m(Icon, {name: "meeting-2"})),
+						m(".nav-program-title-top", vm.person().value())
+					] : [],
 				])
 				//m(SearchBar)
 			]);
