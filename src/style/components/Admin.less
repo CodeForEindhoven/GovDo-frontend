@@ -1,19 +1,57 @@
 .admin {
-	height: 100%;
+	height: calc(100% - 15px);
+	margin-left: 58px;
 }
 
 .admin-users {
 	height: 100%;
 	overflow-y: scroll;
+	padding-bottom: 50px;
+    box-sizing: border-box;
 }
 
 .admin-label {
 	.sub-navigation();
 	display: inline-block;
-	width: 20%;
+	width: 25%;
+	padding-left: 5px;
 }
 
-.admin-user-value{
+
+
+.admin-user {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.state-editing .admin-user {
+	color: @color-unselected;
+}
+
+.state-editable .admin-user:hover {
+	background: #d5d4dc;
+}
+
+
+.admin-user-edit {
+	padding-top: 22px;
+	padding-bottom: 10px;
+}
+
+.admin-user-value {
 	display: inline-block;
 	width: 20%;
+	margin-right: 5%;
+	padding-left: 5px;
+}
+
+.admin-user-button {
+	visibility: hidden;
+	display: inline-block;
+	cursor: pointer;
+	color: @color-selected;
+}
+
+.state-editable .admin-user:hover > .admin-user-button, .admin-user-edit > .admin-user-button {
+	visibility: visible;
 }

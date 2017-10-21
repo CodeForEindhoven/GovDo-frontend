@@ -421,6 +421,16 @@ var ptrn =  (function(){
 		});
 	}
 
+	function updateUser(userid, name, role, callback){
+		request("POST", "user/set", {
+			id: userid,
+			name: name,
+			role: role,
+		}, function(resp){
+			if(callback) callback(resp);
+		});
+	}
+
 	function loginUser(user, callback){
 		request("POST", "user/hash", {
 			name: user
@@ -463,6 +473,7 @@ var ptrn =  (function(){
 
 	//quey login
 	query.adduser = addUser;
+	query.updateuser = updateUser;
 	query.loginuser = loginUser;
 	query.loginpass = loginPass;
 	query.getusers = getusers;

@@ -4,7 +4,7 @@ var AdminPage = function(){
 			return [
 				m(".layout-optionbar", [
 					m(".optionbar", [
-						m(".sub-navigation-label", "Administratie"),
+						m(".sub-navigation-label", "Functioneel Beheer"),
 						m(".optionbar-option", {}, "Gebruikers"),
 					])
 				]),
