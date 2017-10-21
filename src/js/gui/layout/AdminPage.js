@@ -9,7 +9,7 @@ var AdminPage = function(){
 					])
 				]),
 				m(".layout-workspace", [
-					m("div", "adminpage")
+					m(AdminUsers)
 				])
 			];
 		}

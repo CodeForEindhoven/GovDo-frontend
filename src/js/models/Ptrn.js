@@ -413,6 +413,14 @@ var ptrn =  (function(){
 		//}
 	}
 
+	function addUser(userid, callback){
+		request("POST", "user/add", {
+			id: userid
+		}, function(resp){
+			if(callback) callback(resp);
+		});
+	}
+
 	function loginUser(user, callback){
 		request("POST", "user/hash", {
 			name: user
@@ -430,9 +438,10 @@ var ptrn =  (function(){
 		});
 	}
 
-	function users(callback){
+	function getusers(callback){
 		request("GET", "users", {
 		}, function(resp){
+			userlist = resp;
 			callback(resp);
 		});
 	}
@@ -453,9 +462,10 @@ var ptrn =  (function(){
 	query.loadall = pulldump;
 
 	//quey login
+	query.adduser = addUser;
 	query.loginuser = loginUser;
 	query.loginpass = loginPass;
-	query.users = users;
+	query.getusers = getusers;
 
 	//query.push = push;
 	return query;

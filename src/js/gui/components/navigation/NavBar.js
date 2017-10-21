@@ -53,11 +53,11 @@ var NavBar = function(){
 
 				m(".nav-user", [
 					(vm.login()===0) ? [
-						m(".nav-user-name", {
+						m(".nav-user-login", {
 							onclick: function(){
 								vm.page(4);
 							}
-						}, ptrn("#"+vm.user().node).value() )
+						}, m(Icon, {name: "personal", selected: true} )) //ptrn("#"+vm.user().node).value()
 					] : [
 						m(".nav-user-login", {
 							onclick: function(){
