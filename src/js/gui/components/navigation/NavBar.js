@@ -8,26 +8,35 @@ var NavBar = function(){
 					onclick: function(){
 						console.log("click");
 						vm.page(2);
-					}
-				}, m(Icon, {name: "general"})),
+					},
+				}, [
+					m(Icon, {name: "general"}),
+					m(".nav-tooltip", "statistieken")
+				]),
 
 				m(".nav-button", {
 					onclick: function(){
 						vm.page(0);
 					}
-				}, m(Icon, {
-					name: "programma",
-					selected: vm.page()===0
-				})),
+				}, [
+					m(Icon, {
+						name: "programma",
+						selected: vm.page()===0
+					}),
+					m(".nav-tooltip", "Doelenboom")
+				]),
 
 				m(".nav-button", {
 					onclick: function(){
 						vm.page(1);
 					}
-				}, m(Icon, {
-					name: "kalendar",
-					selected: vm.page()===1
-				})),
+				}, [
+					m(Icon, {
+						name: "kalendar",
+						selected: vm.page()===1
+					}),
+					m(".nav-tooltip", "Kalender")
+				]),
 
 				//m(ProgramNav),
 
@@ -44,11 +53,11 @@ var NavBar = function(){
 
 				m(".nav-user", [
 					(vm.login()===0) ? [
-						m(".nav-user-name", {
+						m(".nav-user-login", {
 							onclick: function(){
 								vm.page(4);
 							}
-						}, ptrn("#"+vm.user().node).value() )
+						}, m(Icon, {name: "personal", selected: true} )) //ptrn("#"+vm.user().node).value()
 					] : [
 						m(".nav-user-login", {
 							onclick: function(){
