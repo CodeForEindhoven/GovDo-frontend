@@ -55,7 +55,6 @@
 }
 
 .selectorlist-item {
-	cursor: pointer;
 	position: relative;
 }
 
@@ -68,7 +67,7 @@
 }
 
 .state-selected .selectorlist-item-content {
-	margin-bottom: 65px;
+	margin-bottom: 10px;
 }
 
 .selectorlist-item + .selectorlist-item {
@@ -142,6 +141,7 @@
 .state-selected .selector-hidden {
 	opacity: 1;
 	display: block;
+	margin-left: 10px;
 }
 
 .drag-over {
@@ -153,6 +153,7 @@
 
 .selector-selected-title {
 	.default-text-regular ();
+	cursor: pointer;
 }
 
 // The title is divided in two part: the first is .selector-selected-title
@@ -166,10 +167,13 @@
 	display: inline;
 }
 
-.selectorlist-item-options + .selector-hidden, // valid for the opgaven
 .selector-selected-title-means + .selector-hidden,
 .selector-selected-type + .selector-selected-subheader { // valid for inspanningen
 	margin-top: 50px;
+}
+
+.selector-hidden + .selector-selected-subheader { // valid for the opgaven
+	padding-top: 50px;
 }
 
 .selector-selected-subheader {
