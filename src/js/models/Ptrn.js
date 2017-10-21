@@ -406,6 +406,7 @@ var ptrn =  (function(){
 		};
 		xhttp.open(type, api+url, true);
 		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.setRequestHeader("Authorization", "Basic "+btoa(":"+vm.user().pass));
 		xhttp.send(JSON.stringify(data));
 
 		//if (xhttp.readyState == 4 && xhttp.status == 200) {
