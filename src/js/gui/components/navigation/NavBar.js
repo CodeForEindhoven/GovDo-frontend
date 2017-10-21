@@ -11,7 +11,7 @@ var NavBar = function(){
 					},
 				}, [
 					m(Icon, {name: "general"}),
-					m(".nav-tooltip", "statistieken")
+					m(".nav-tooltip", "Statistieken")
 				]),
 
 				m(".nav-button", {
