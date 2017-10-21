@@ -1,7 +1,7 @@
 @import "variables/colors.less";
 @import "variables/fonts.less";
 @border-box-1: 1px;
-@border-radius-2: 2px; 
+@border-radius-2: 2px;
 
 
 input, textarea, select, a {
@@ -95,7 +95,7 @@ input {
 .editor-connections-parents {
 	margin-top: (@margin-bottom-editor-items / 7);
 	margin-bottom: 20px;
-	
+
 	font-weight: @regular;
 	font-size: @main-text;
 	line-height: @line-height;
@@ -162,7 +162,7 @@ input {
 	border-radius: @border-radius-2;
 	margin-bottom: 20px;
 	//padding: 7px;
-	
+
 	font-family: 'Space Mono', monospace;
 	font-size: @column-date-font-size;
 	line-height: 20px;
@@ -173,6 +173,11 @@ input {
 .item-list, .dropdown {
 	.default-text-monospace ();
 }
+
+.dropdown {
+	cursor: pointer;
+}
+
 
 .item-list:hover {
 	color: @color-white;
