@@ -99,14 +99,14 @@ var EffortEditor = function(){
 					m(".editor-section-title.title", "Positionering"),
 
 					m(".editor-subtitle-header",[
-							m(".editor-subtitle.subtitle", [
-								m("span", "Gedeelde Opgaven"),
-								m(InfoBox, {
-									content: m("",[
-										m("span", "Sommige inspanningen worden gedeeld door meerdere programma's"),
-									])
-								})
-							]),
+						m(".editor-subtitle.subtitle", [
+							m("span", "Gedeelde Opgaven"),
+							m(InfoBox, {
+								content: m("",[
+									m("span", "Sommige inspanningen worden gedeeld door meerdere programma's"),
+								])
+							})
+						]),
 
 						m(".icons-header", [
 							m("i.material-icons", {

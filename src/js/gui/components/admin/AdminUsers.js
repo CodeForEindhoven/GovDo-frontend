@@ -1,33 +1,41 @@
 var AdminUsers = function(){
 	var users = [];
 	var editmode = false;
+	var editing = -1;
+	var scrolldown = false;
 
-	function onchange(){
+	function adduser(){
+		ptrn.create("person", "", function(u){
+			ptrn.adduser(u.id(), function(){
+				editing = u.id();
+				editmode = true;
+				scrolldown = true;
+				redrawlist();
+			});
+
+		});
+	}
+
+	function redrawlist(){
 		ptrn.getusers(function(resp){
 			users = resp;
-			editmode = false;
 			m.redraw();
 		});
 	}
-	onchange();
+	redrawlist();
 
 	return {
 		view: function(vnode){
 			return m(".admin",[
 				m(".admin-header",[
 					m(".admin-title.subtitle", [
-						m("span", "Gebruikers"),
-						m(InfoBox, {
-							content: m("",[
-								m("span", "Gebruikers kunnen inloggen met de onderstaande email adressen"),
-							])
-						})
+						m("span", "Gebruikers")
 					]),
 
 					m(".icons-header", [
 						m("i.material-icons", {
 							onclick: function(e){
-								
+								adduser();
 							}
 						},"add")
 					]),
@@ -40,12 +48,24 @@ var AdminUsers = function(){
 				]),
 				m(".admin-users",{
 					class: editmode ? "state-editing": "state-editable",
+					onupdate: function(vnode){
+						if(scrolldown){
+							vnode.dom.scrollTop = vnode.dom.scrollHeight;
+							scrolldown = false;
+						}
+					}
 				}, users.map(function(user){
 					return m(AdminUser, {
+						editing: editing,
 						user: user,
-						onchange: onchange,
-						onedit: function(){
+						onchange: function(){
+							editmode = false;
+							editing = -1;
+							redrawlist();
+						},
+						onedit: function(id){
 							editmode = true;
+							editing = id;
 						}
 					});
 				}))
@@ -54,15 +74,6 @@ var AdminUsers = function(){
 	};
 };
 
-/*
-.sort(function(a,b){
-	var an = ptrn("#"+a.node).value();
-	var bn = ptrn("#"+b.node).value();
-	if(an < bn) return -1;
-	if(an > bn) return 1;
-	return 0;
-})
-*/
 
 var AdminUser = function(){
 	var edit = false;
@@ -73,6 +84,7 @@ var AdminUser = function(){
 			var user = vnode.attrs.user;
 			if(tempmail===undefined) tempmail = user.name;
 			if(temprole===undefined) temprole = user.role;
+			edit = (vnode.attrs.editing === user.node);
 
 			return edit ? m(".admin-user-edit", [
 				m("input.input.admin-user-value", {
@@ -100,17 +112,17 @@ var AdminUser = function(){
 					onclick: function(){
 						ptrn.updateuser(user.node, tempmail, temprole, vnode.attrs.onchange);
 						ptrn.transact();
-						edit = false;
+						//edit = false;
 					}
 				}, "Opslaan"),
 			]) : m(".admin-user", [
 				m(".admin-user-value", ptrn("#"+user.node).value()),
 				m(".admin-user-value", user.name),
-				m(".admin-user-value", (user.role===0)?"Beheerder":""),
+				m(".admin-user-value", (user.role===0) ? "Beheerder":""),
 				m(".admin-user-button", {
 					onclick: function(){
-						edit = true;
-						vnode.attrs.onedit();
+						//edit = true;
+						vnode.attrs.onedit(user.node);
 					}
 				}, "Bewerk"),
 			]);
