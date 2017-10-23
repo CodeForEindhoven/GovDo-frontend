@@ -55,13 +55,17 @@ var DashboardDistribution = function(){
 						series.map(function(y, x){
 							var w = (p.w-p.m) / series.length;
 							var h = p.h-p.m;
+							var yl = y;
 							y = (y/seriesTop)*h;
 
 							return [
-								m("rect.distribution-rect", {
-									x:x*w+p.m, y:h-y, width:w, height:y,
-									class: (x===0) ? "dragon":""
-								}),
+								m("g",[
+									m("rect.distribution-rect", {
+										x:x*w+p.m, y:h-y, width:w, height:y,
+										class: (x===0) ? "dragon":""
+									}),
+									m("text.distribution-label-value", {x:x*w+(w/2)+p.m, y:h-y+15}, yl),
+								]),
 								m("text.distribution-label-x", {x:x*w+(w/2)+p.m, y:h+15}, x)
 							];
 						}),
