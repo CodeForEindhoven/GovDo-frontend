@@ -122,7 +122,20 @@ var DashboardPage = function(){
 							label: "Verdeling van aantal mensen over programma's",
 							labelx: "mensen",
 							labely: "programma's",
-						})
+						}),
+
+						m(DashboardHistogram, {
+							series: ptrn("program", function(p){return [p.value(), p("task", function(e){return e}).length]}).sort(function(a,b){return b[1]-a[1]}),
+							label: "Aantal opgaven per programma",
+						}),
+						m(DashboardHistogram, {
+							series: ptrn("program", function(p){return [p.value(), p("task effort", function(e){return e}).length]}).sort(function(a,b){return b[1]-a[1]}),
+							label: "Aantal inspanningen per programma",
+						}),
+						m(DashboardHistogram, {
+							series: ptrn("program", function(p){return [p.value(), p("task effort person", function(e){return e}).length]}).sort(function(a,b){return b[1]-a[1]}),
+							label: "Aantal personen per programma",
+						}),
 					]),
 				])
 			];
