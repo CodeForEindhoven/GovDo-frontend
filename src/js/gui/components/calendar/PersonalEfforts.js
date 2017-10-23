@@ -20,27 +20,24 @@ var PersonalEfforts = function(){
 							m(".personal-efforts-effort-type", emptyState(viewModels.typeNames[effort("type").value()], m(".effortselector-type-state.state-empty", "Nog geen type"))),
 							m(".personal-efforts-view", {
 								onclick: function(){
-									console.log(effort("task").value());
 									vm.program(effort("task")("program"));
 									vm.task(effort("task"));
 									vm.effort(effort);
 									vm.page(0);
 								}
 							}, m(Icon, {name: "general-small"})),
-							
+
 							m(".personal-efforts-view", {
 								onclick: function(){
-									console.log(effort("task").value());
 									vm.program(effort("task")("program"));
 									vm.task(effort("task"));
 									vm.effort(effort);
 									vm.page(0);
 								}
 							}, m(Icon, {name: "programma-small"})),
-							
+
 							m(".personal-efforts-view", {
 								onclick: function(){
-									console.log(effort("task").value());
 									vm.program(effort("task")("program"));
 									vm.task(effort("task"));
 									vm.effort(effort);

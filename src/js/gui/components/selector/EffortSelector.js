@@ -29,7 +29,7 @@ var EffortSelector = function(){
 						vm.task()("effort", function(effort){
 							return m(".state-selectable.selectorlist-item", {
 								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==-1?"mode-sketch":""),
-								
+
 							},[
 								m(".selectorlist-item-number", [
 									m(Numbering, {node: effort}),
@@ -64,12 +64,15 @@ var EffortSelector = function(){
 									m(".selector-selected-description.body-text", effort("endproduct").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen eindproduct"))),
 									m(".selector-selected-subheader.subtitle", "Mensen"),
 									m(".selector-selected-description.body-text", effort("person", function(person){
-										return m(".selector-selected-peoplelist.body-text", {
-											onclick: function(){
-												vm.person(person);
-												vm.page(1);
-											}
-										}, person.value());
+										return m(".selector-selected-peoplelist.body-text", [
+											m("span.selector-selected-peoplelist-person", person.value()),
+											m("span.selector-selected-peoplelist-icons", {
+												onclick: function(){
+													vm.person(person);
+													vm.page(1);
+												}
+											}, m(Icon, {name: "kalendar-small"})),
+										]);
 									}).emptyState(m(".selector-selected-description.state-empty", "Nog geen mensen"))),
 									m(".selector-selected-subheader.subtitle", "Periode"),
 									m(".selector-selected-description.body-text", [
