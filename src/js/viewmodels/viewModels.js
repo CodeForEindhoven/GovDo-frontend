@@ -17,10 +17,19 @@ var vm = (function(){
 	var currentEffort;
 	var currentPerson;
 
+	var currentConnection = false;
+
 
 	var currentEditor;
 
 	return {
+		connecting: function(i){
+			if(i !== undefined){
+				currentConnection = i;
+				m.redraw();
+			}
+			return currentConnection;
+		},
 		page: function(i){
 			if(i !== undefined){
 				currentPage = i;

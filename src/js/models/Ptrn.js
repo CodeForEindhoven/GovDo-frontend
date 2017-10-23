@@ -398,9 +398,11 @@ var ptrn =  (function(){
 	function request(type, url, data, callback){
 		var api = config.api_endpoint;
 		var xhttp = new XMLHttpRequest();
+		vm.connecting(true);
 
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
+				vm.connecting(false);
 				callback(JSON.parse(this.responseText));
 			}
 		};

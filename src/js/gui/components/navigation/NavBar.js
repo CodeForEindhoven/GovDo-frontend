@@ -13,7 +13,7 @@ var NavBar = function(){
 						name: "general",
 						selected: vm.page()===2
 					}),
-					m(".nav-tooltip", "Statistieken")
+					m(".nav-tooltip", "Dashboard")
 				]),
 
 				m(".nav-button", {
@@ -53,20 +53,28 @@ var NavBar = function(){
 					] : [],
 				]),
 
-				m(".nav-user", [
-					(vm.login()===0) ? [
-						m(".nav-user-login", {
-							onclick: function(){
-								vm.page(4);
-							}
-						}, m(Icon, {name: "personal", selected: true} )) //ptrn("#"+vm.user().node).value()
-					] : [
-						m(".nav-user-login", {
-							onclick: function(){
-								vm.login(1);
-							}
-						}, m(Icon, {name: "personal"})),
-					]
+				m(".nav-right", [
+					m(".nav-connecting", vm.connecting() ? [
+						m("span", "laden "),
+						m(".smallloading", "")
+					] : []),
+
+					//User Icon
+					m(".nav-user", [
+						(vm.login()===0) ? [
+							m(".nav-user-login", {
+								onclick: function(){
+									vm.page(4);
+								}
+							}, m(Icon, {name: "personal", selected: true} )) //ptrn("#"+vm.user().node).value()
+						] : [
+							m(".nav-user-login", {
+								onclick: function(){
+									vm.login(1);
+								}
+							}, m(Icon, {name: "personal"})),
+						]
+					])
 				])
 				//m(SearchBar)
 			]);
