@@ -6,11 +6,13 @@ var NavBar = function(){
 
 				m(".nav-button", {
 					onclick: function(){
-						console.log("click");
 						vm.page(2);
 					},
 				}, [
-					m(Icon, {name: "general"}),
+					m(Icon, {
+						name: "general",
+						selected: vm.page()===2
+					}),
 					m(".nav-tooltip", "Statistieken")
 				]),
 
