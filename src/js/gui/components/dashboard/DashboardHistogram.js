@@ -20,9 +20,9 @@ var DashboardHistogram = function(){
 					vnode.attrs.series.map(function(set){
 						return m(".histogram-set",[
 							m(".histogram-set-label", set[0]),
-							m(".histogram-set-value", m(".histogram-set-value-bar", {
+							m(".histogram-set-value", (set[1]>0) ? m(".histogram-set-value-bar", {
 								style: "width:"+((set[1]/seriesTop)*100)+"%;"
-							}, set[1])),
+							}, set[1] ):[]),
 						]);
 					})
 				]),
