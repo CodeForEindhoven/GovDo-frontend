@@ -3,6 +3,7 @@ ptrn("effort", function(e){
 	ptrn.create("enddate", "_/_/_", function(a){ptrn.relate(e,a);});
 });
 
+//
 ptrn("person", function(e){
 	ptrn.createrelate("role", "leader", e, function(){
 	ptrn.createrelate("role", "aclient", e, function(){
@@ -10,6 +11,7 @@ ptrn("person", function(e){
 	});});});
 });
 
+//
 ptrn("person", function(e){
 	ptrn.createrelate("role", "leader", e, function(){
 	ptrn.createrelate("role", "aclient", e, function(){
@@ -17,11 +19,13 @@ ptrn("person", function(e){
 	});});});
 });
 
+//
 ptrn("person", function(e){
 	ptrn.create("role", "aclient", function(a){ptrn.relate(e,a);});
 	ptrn.create("role", "bclient", function(a){ptrn.relate(e,a);});
 });
 
+//
 ptrn("role", function(role){
 	var person = role("person");
 	if(person.id()>0){
@@ -36,3 +40,12 @@ for(var i=0; i<people.length; i++){
 	console.log(people[i].value());
 	ptrn.speculativeRelate(roles[i], people[i]);
 }
+
+//
+ptrn("effort", function(effort){
+	var l = effort("person", function(e){return e}).length;
+	console.log(l);
+	if(l===1){
+		ptrn.speculativeRelate(effort, effort("person role:leader"));
+	}
+})

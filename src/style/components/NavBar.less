@@ -5,6 +5,11 @@ nav {
 	z-index: 10;
 }
 
+.programnav {
+	display: inline-block;
+	width: 35vw;
+}
+
 .nav-button {
 	width: @width-circle;
 	height: @width-circle;
@@ -41,6 +46,8 @@ nav .nav-button + .nav-button {
 .nav-current-position {
 	vertical-align: top;
 	margin-left: 15px;
+	width: calc(100% - 210px);
+	cursor: pointer;
 }
 
 .nav-program-title-top {
