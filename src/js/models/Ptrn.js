@@ -115,6 +115,31 @@ var ptrn =  (function(){
 		});
 	}
 
+	//builds a list of atoms from a searchterm
+	function find(value, subset){
+		if(!subset){
+			subset = atoms;
+		}
+
+		//optimised for speed
+		//var results = [];
+		//for(var i=0; i<subset.length; i++){
+		//	var atom = subset[i];
+		//	if ((!atom.value && !atom.value[0].drop) && (atom.value[0].value.toLowerCase().indexOf(value.toLowerCase())>-1)) {
+		//		results.push(atom);
+		//	}
+
+		//	if (results.length>20){
+		//		i = subset.length;
+		//	}
+		//}
+		//return results;
+
+		return subset.filter(function(atom){
+			return (!atom.value[0].drop) && (atom.value[0].value.toLowerCase().indexOf(value.toLowerCase())>-1);
+		});
+	}
+
 	//builds a list of atoms from relations
 	function selectRelations(id){
 		var results = [];
@@ -195,6 +220,9 @@ var ptrn =  (function(){
 				return a && a.oid === id;
 			});
 			if(found) selection.push(found);
+		} else if(first.charAt(0)==="*") {
+			var search = first.substring(1);
+			selection = find(search, subset);
 		} else {
 			var type = first.split(":");
 			var value = "?";
@@ -462,7 +490,7 @@ var ptrn =  (function(){
 
 	/*PUBLIC INTERFACE*/
 	query.transact = transact;
-
+	query.find = find;
 	query.compare = compare;
 	query.log = log;
 
