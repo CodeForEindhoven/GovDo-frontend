@@ -54,7 +54,9 @@ var AdminUsers = function(){
 							scrolldown = false;
 						}
 					}
-				}, users.map(function(user){
+				}, users.filter(function(user){
+					return user.node>-5;
+				}).map(function(user){
 					return m(AdminUser, {
 						editing: editing,
 						user: user,

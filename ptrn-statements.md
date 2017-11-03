@@ -34,6 +34,7 @@ ptrn("role", function(role){
 	}
 });
 
+//
 var roles = ptrn("role", function(r){return r;});
 var people = ptrn("person", function(r){return r;});
 for(var i=0; i<people.length; i++){
@@ -49,3 +50,8 @@ ptrn("effort", function(effort){
 		ptrn.speculativeRelate(effort, effort("person role:leader"));
 	}
 })
+
+//create accounts
+ptrn("person", function(person){
+	ptrn.adduser(person.id(), function(){});
+});

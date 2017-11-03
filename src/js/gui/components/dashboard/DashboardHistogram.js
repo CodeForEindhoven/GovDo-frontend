@@ -16,13 +16,13 @@ var DashboardHistogram = function(){
 			});
 			return [
 				m(".dashboard-histogram", [
-					m(".histogram-name", vnode.attrs.label),
+					//m(".histogram-name", vnode.attrs.label),
 					vnode.attrs.series.map(function(set){
 						return m(".histogram-set",[
-							m(".histogram-set-label", set[0]),
 							m(".histogram-set-value", (set[1]>0) ? m(".histogram-set-value-bar", {
 								style: "width:"+((set[1]/seriesTop)*100)+"%;"
 							}, set[1] ):[]),
+							m(".histogram-set-label", set[0]),
 						]);
 					})
 				]),
