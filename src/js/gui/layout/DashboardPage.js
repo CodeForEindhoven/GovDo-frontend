@@ -1,15 +1,53 @@
 var DashboardPage = function(){
-	var queryA = "task effort person";
-	var queryB = "effort";
+	var count = 1;
+	var list = 0;
+
+	var query = [
+		{
+			list: "program",
+			count: ["program", "task", "task effort", "task effort person"],
+		},
+		{
+			list: "task",
+			count: ["program", "task", "effort", "effort person"],
+		},
+		{
+			list: "effort",
+			count: ["task program", "task", "effort", "person"],
+		},
+		{
+			list: "person",
+			count: ["effort task program", "effort task", "effort", "person"],
+		}
+	];
 	return {
 		view: function(vnode){
 			return [
-				m(".layout-optionbar", "Aantal inspanningen per persoon"),
+				m(".layout-optionbar", [
+
+				]),
 				m(".layout-workspace", [
 					m(".dashboard-statistics", [
-						m(".dashboard-query", ""),
+						m(".dashboard-query", [
+							m("span", "Aantal "),
+							m(DropDown, {
+								value: count,
+								options: ["programma's", "opgaven", "inspanningen", "personen"],
+								onchange: function(v){
+									count = v;
+								}
+							}),
+							m("span", " per "),
+							m(DropDown, {
+								value: list,
+								options: ["programma", "opgave", "inspanning", "persoon"],
+								onchange: function(v){
+									list = v;
+								}
+							}),
+						]),
 						m(DashboardHistogram, {
-							series: ptrn(queryA, function(p){return [p.value(), p(queryB, function(e){return e;}).length];}).sort(function(a,b){return b[1]-a[1];}),
+							series: ptrn(query[list].list, function(p){return [p.value(), p(query[list].count[count], function(e){return e;}).length];}).sort(function(a,b){return b[1]-a[1];}),
 							label: "Aantal personen per programma",
 						}),
 

@@ -75,25 +75,36 @@ g:hover > text.distribution-label-value {
 .dashboard-histogram {
 	font-family: @font-number;
 	font-size: 0.8em;
+	margin-left: 15%;
 }
+
 
 .histogram-set-label {
 	display: inline-block;
-	width: 400px;
-	text-align: right;
 	padding: 3px;
+	margin-left: 10px;
+	font-family: @font-base;
 }
 
 .histogram-set-value-bar {
 	background-color: @color-selected;
 	color: @color-white;
-	padding: 3px;
+	padding: 7px;
+	margin-bottom: 1px;
 	box-sizing: border-box;
+	display: inline-block;
+	text-align: left;
+}
+
+.histogram-set-value-bar-null {
+    padding: 7px;
+    margin-bottom: 1px;
+    box-sizing: border-box;
 }
 
 .histogram-set-value {
+	text-align: right;
 	display: inline-block;
 	width: 400px;
-	text-align: right;
 	background-color: @color-white;
 }

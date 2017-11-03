@@ -1,6 +1,5 @@
 var TodoList = function(){
 
-
 	//If the person is the leader of any efforts of type project
 	function isLeader(){
 		return ptrn("#"+vm.user().node+" role:leader effort type:0 effort", function(ef){
