@@ -60,7 +60,11 @@ var Feedback = function(){
 									setCurrentEffort(effort);
 								}
 							}, [
-								m(Numbering, {node: effort, whole: true, selected: ptrn.compare(currentEffort, effort)}),
+								m(Numbering, {
+									node: effort, whole: true,
+									selected: ptrn.compare(currentEffort, effort),
+									disabled: (effort("feedback:"+feedbackid).id()===-1)
+								}),
 								m(".admin-feedback-list-effort-name", effort.value()),
 							]);
 						})
@@ -118,7 +122,7 @@ var FeedbackQuestion = function(){
 	return {
 		view: function(vnode){
 			var currentFeedback = vnode.attrs.currentFeedback;
-			
+
 			return m(".editor-row",[
 				m(".editor-column",[
 					m(".editor-subtitle.subtitle", [
