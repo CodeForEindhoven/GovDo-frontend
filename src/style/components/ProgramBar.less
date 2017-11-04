@@ -11,11 +11,29 @@
 	position: absolute;
 	left: 0px;
 	width: 35vw;
-	height: calc(100vh - 70px);
+	height: calc(100vh - 51px);
+//	height: calc(100vh - 70px);
 	z-index: 9999999;
-	padding-top: 18px;
+//	padding-top: 18px;
 	background-color: #ECF0F1;
 	overflow-y: scroll;
+}
+
+.programnav-searchbar {
+	position: fixed;
+	background-color: @color-background;
+	width: calc(35vw - 15px);
+	height: 60px;
+	
+	-webkit-box-shadow: 0px 18px 10px -4px rgba(236,240,241,1);
+	-moz-box-shadow: 0px 18px 10px -4px rgba(236,240,241,1);
+	box-shadow: 0px 18px 10px -4px rgba(236,240,241,1);
+}
+
+.programnav-popup input {
+	margin-top: 15px;
+	margin-left: 10px;
+	width: 90%;
 }
 
 .programnav-program {
@@ -57,13 +75,13 @@
 }
 
 .programnav-domain {
-	margin-top: ((@programbarWidth - @width-circle) / 2);
+	margin-top: 75px;
 	margin-left: ((@programbarWidth - @width-circle) / 2);
 }
 
-.programnav-domain + .programnav-domain {
-	margin-top: 65px;
-}
+//.programnav-domain + .programnav-domain {
+//	margin-top: 65px;
+//}
 
 //:hover > .programbar-domain:last-child {
 //	padding-bottom: (@width-circle / 2.5);
