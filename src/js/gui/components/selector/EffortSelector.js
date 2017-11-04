@@ -2,6 +2,19 @@ var EffortSelector = function(){
 	var scrollstore = 0;
 	//var dragover;
 
+	function selection(callback){
+		if(vm.focus().type()==="program"){
+			return vm.task()("effort", callback);
+		} else if(vm.focus().type()==="person"){
+			//return vm.person()("effort #"+vm.task().id()+" effort", callback);
+			return vm.task()("effort", function(e){return e;})
+				.filter(function(e){
+					return (e("#"+vm.person().id()).id()>-1);
+				})
+				.map(callback);
+		}
+	}
+
 	return {
 		view: function(vnode){
 			if(vm.task()){
@@ -26,7 +39,7 @@ var EffortSelector = function(){
 							vnode.dom.scrollTop = scrollstore;
 						}
 					},m(".selectorlist-back", [
-						vm.task()("effort", function(effort){
+						selection(function(effort){
 							return m(".state-selectable.selectorlist-item", {
 								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==-1?"mode-sketch":""),
 
@@ -66,12 +79,22 @@ var EffortSelector = function(){
 									m(".selector-selected-description.body-text", effort("person", function(person){
 										return m(".selector-selected-peoplelist.body-text", [
 											m("span.selector-selected-peoplelist-person", person.value()),
-											m("span.selector-selected-peoplelist-icons", {
-												onclick: function(){
-													vm.person(person);
-													vm.page(1);
-												}
-											}, m(Icon, {name: "kalendar-small"})),
+											m("span.selector-selected-peoplelist-icons", [
+												m("span", {
+													onclick: function(){
+														vm.focus(person);
+														vm.person(person);
+														vm.page(0);
+													}
+												}, m(Icon, {name: "programma-small"})),
+												m("span", {
+													onclick: function(){
+														vm.focus(person);
+														vm.person(person);
+														vm.page(1);
+													}
+												}, m(Icon, {name: "kalendar-small"}))
+											])
 										]);
 									}).emptyState(m(".selector-selected-description.state-empty", "Nog geen mensen"))),
 									m(".selector-selected-subheader.subtitle", "Periode"),

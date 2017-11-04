@@ -1,4 +1,13 @@
 var TaskSelector = function(){
+
+	function selection(callback){
+		if(vm.focus().type()==="program"){
+			return vm.program()("task", callback);
+		} else if(vm.focus().type()==="person"){
+			return vm.person()("effort task", callback);
+		}
+	}
+
 	return {
 		view: function(vnode){
 			if(vm.program()){
@@ -15,10 +24,10 @@ var TaskSelector = function(){
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
-						vm.program()("task", function(task){
+						selection(function(task){
 							return m(".state-selectable.selectorlist-item", {
 								class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()==-1?"mode-sketch":""),
-								
+
 							},[
 								m(".selectorlist-item-number", [
 									m(Numbering, {node: task}),

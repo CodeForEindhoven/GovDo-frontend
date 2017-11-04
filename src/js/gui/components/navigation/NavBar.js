@@ -51,14 +51,14 @@ var NavBar = function(){
 							dropdownstate = !dropdownstate;
 						}
 					},[
-						(vm.page()=== 0 && vm.program()) ? [
-							m(".nav-program-number", m(Numbering, {node: vm.program(), selected: true})),
-							m(".nav-program-title-top", vm.program().value())
-						] : [],
-						(vm.page()=== 1 && vm.person()) ? [
+						//(vm.page()=== 0 && vm.program()) ? [
+							(vm.focus().type()!=="person") ? m(".nav-program-number", m(Numbering, {node: vm.focus(), selected: true})) : [],
+							m(".nav-program-title-top", vm.focus().value())
+						//] : [],
+						//(vm.page()=== 1 && vm.person()) ? [
 							//m(".nav-button", m(Icon, {name: "meeting-2"})),
-							m(".nav-program-title-top", vm.person().value())
-						] : [],
+						//	m(".nav-program-title-top", vm.person().value())
+						//] : [],
 					]),
 					m("i.material-icons.programnav-dropdown", dropdownstate ? "arrow_drop_up" : "arrow_drop_down"),
 				]),

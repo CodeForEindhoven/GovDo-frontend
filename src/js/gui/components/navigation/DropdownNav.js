@@ -13,7 +13,7 @@ var DropdownNav = function(){
 
 			return [
 				vnode.attrs.state ? m(".programnav-popup", {},[
-					
+
 					m(".programnav-searchbar",[
 						m("input",{
 							placeholder: "Zoeken naar ...",
@@ -28,7 +28,8 @@ var DropdownNav = function(){
 					(page===-1) ? m(".programnav-domain",[
 						ptrn("*"+search, function(result){
 							//count++;
-							return m(".state-selectable.programnav-program", {
+							return m(".state-selectable.programnav-searchresult", {
+								class: "searchresult-"+result.type(),
 								onclick: function(){
 									if(result.type()==="program"){
 										vm.program(result);
@@ -57,8 +58,8 @@ var DropdownNav = function(){
 
 								}
 							},[
-								m(".programnav-program-number", m(Numbering, {whole: true, node: result})),
-								m(".programnav-program-title", result.value()),
+								m(".programnav-searchresult-number", m(Numbering, {whole: true, node: result})),
+								m(".programnav-searchresult-title", result.value()),
 								//m(".programbar-program-mission", program.mission)
 							]);
 						}),
@@ -75,6 +76,7 @@ var DropdownNav = function(){
 										class: (ptrn.compare(vm.program(),program))?"state-selected":"",
 										onclick: function(){
 											vm.program(program);
+											vm.focus(program);
 											vm.page(0);
 											vnode.attrs.onpick();
 										}
@@ -102,7 +104,8 @@ var DropdownNav = function(){
 										class: (ptrn.compare(vm.person(),person))?"state-selected":"",
 										onclick: function(){
 											vm.person(person);
-											vm.page(1);
+											vm.focus(person);
+											//vm.page(1);
 											vnode.attrs.onpick();
 										}
 									},[
