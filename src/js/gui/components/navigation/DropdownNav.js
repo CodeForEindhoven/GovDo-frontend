@@ -76,7 +76,7 @@ var DropdownNav = function(){
 								m(".programnav-domain-name", domain.value()),
 								domain("program", function(program){
 									//count++;
-									return m(".state-selectable.programnav-program", {
+									return m(".state-selectable.programnav-program.default", {
 										class: (ptrn.compare(vm.program(),program))?"state-selected":"",
 										onclick: function(){
 											vm.program(program);
