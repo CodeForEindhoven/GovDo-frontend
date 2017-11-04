@@ -1,5 +1,6 @@
 var AdminPage = function(){
 	var currentPage = 0;
+	var currentFeedback = -1;
 	return {
 		view: function(vnode){
 			return [
@@ -27,12 +28,13 @@ var AdminPage = function(){
 					])
 				]),
 				m(".layout-workspace", [
-					(currentPage===0) ? m(TodoList, {onfeedback: function(){
+					(currentPage===0) ? m(TodoList, {onfeedback: function(s){
 						currentPage = 3;
+						currentFeedback = s.value();
 					}}) : [],
 					(currentPage===1) ? m(TodoList) : [],
 					(currentPage===2) ? m(AdminUsers) : [],
-					(currentPage===3) ? m(Feedback) : [],
+					(currentPage===3) ? m(Feedback, {session: currentFeedback}) : [],
 				])
 			];
 		}

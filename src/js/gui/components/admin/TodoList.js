@@ -7,6 +7,12 @@ var TodoList = function(){
 		}).length > 0;
 	}
 
+	function hasDoneSession(session){
+		return (ptrn("#"+vm.user().node+" role:leader effort type:0 effort", function(ef){
+			return ef("feedback:"+session.value()).id();
+		}).indexOf(-1)<0);
+	}
+
 	return {
 		view: function(vnode){
 			return m(".admin",[
@@ -16,11 +22,14 @@ var TodoList = function(){
 					]),
 					isLeader() ? m(".admin-tasks",[
 						//(FuzzyDate.currentWeek(new Date())%2===0)
-						m(".admin-tasks-feedback", {
-							onclick: function(){
-								vnode.attrs.onfeedback();
-							}
-						}, "Voortgang week 52")
+						ptrn("feedbacksession", function(session){
+							return m(".admin-tasks-feedback", {
+								class: hasDoneSession(session) ? "state-done":"",
+								onclick: function(){
+									vnode.attrs.onfeedback(session);
+								}
+							}, "Voortgang "+session.value());
+						}).reverse()
 					]) : []
 				])
 			]);

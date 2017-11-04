@@ -1,6 +1,6 @@
 var Feedback = function(){
 	var currentEffort;
-	var feedbackid = "test";
+	var feedbackid = "-1";
 
 	function setCurrentEffort(eff){
 		currentEffort = eff;
@@ -40,7 +40,8 @@ var Feedback = function(){
 
 	return {
 		view: function(vnode){
-
+			feedbackid = vnode.attrs.session;
+			
 			if(currentEffort===undefined){
 				setCurrentEffort(ptrn("#"+vm.user().node+" role:leader effort type:0 effort"));
 			}

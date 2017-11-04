@@ -7,7 +7,7 @@ var MultipleChoice = function(){
 						vnode.attrs.onchange(0);
 					}
 				},m(Icon, {
-					name: "feedback-top-small",
+					name: "feedback-top",
 					selected: (vnode.attrs.value===0)
 				})),
 				m(".mulitiplechoice-choice", {
@@ -15,7 +15,7 @@ var MultipleChoice = function(){
 						vnode.attrs.onchange(1);
 					}
 				},m(Icon, {
-					name: "feedback-middle-small",
+					name: "feedback-middle",
 					selected: (vnode.attrs.value===1)
 				})),
 				m(".mulitiplechoice-choice", {
@@ -23,7 +23,7 @@ var MultipleChoice = function(){
 						vnode.attrs.onchange(2);
 					}
 				},m(Icon, {
-					name: "feedback-low-small",
+					name: "feedback-low",
 					selected: (vnode.attrs.value===2)
 				})),
 			]);
