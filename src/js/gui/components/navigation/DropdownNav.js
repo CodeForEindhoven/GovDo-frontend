@@ -13,15 +13,17 @@ var DropdownNav = function(){
 
 			return [
 				vnode.attrs.state ? m(".programnav-popup", {},[
+					
+					m(".programnav-searchbar",[
+						m("input",{
+							placeholder: "Zoeken naar ...",
+							value: search,
+							oninput: m.withAttr("value", function(v) {
+								search = v;
 
-					m("input",{
-						placeholder: "Zoeken naar ...",
-						value: search,
-						oninput: m.withAttr("value", function(v) {
-							search = v;
-
-						})
-					}),
+							})
+						}),
+					]),
 
 					(page===-1) ? m(".programnav-domain",[
 						ptrn("*"+search, function(result){
