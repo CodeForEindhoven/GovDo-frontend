@@ -30,6 +30,11 @@ var DropdownNav = function(){
 						.filter(function(result){
 							return (["program", "task", "effort", "person"].indexOf(result.type())>-1);
 						})
+						.sort(function(a,b){
+							var indexA = ["person", "program", "task", "effort"].indexOf(a.type());
+							var indexB = ["person", "program", "task", "effort"].indexOf(b.type());
+							return indexA-indexB;
+						})
 						.map(function(result){
 							//count++;
 							return m(".state-selectable.programnav-searchresult", {
