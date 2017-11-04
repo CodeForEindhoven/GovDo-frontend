@@ -1,6 +1,8 @@
 var Feedback = function(){
 	var currentEffort;
 	var feedbackid = "-1";
+	var scrolltotop = false;
+	var save = false;
 
 	function setCurrentEffort(eff){
 		currentEffort = eff;
@@ -37,11 +39,29 @@ var Feedback = function(){
 		}
 	}
 
+	function next(){
+
+		var list = ptrn("#"+vm.user().node+" role:leader effort type:0 effort", function(effort){return effort;});
+		var currentindex = list.map(function(effort){
+			return effort.id();
+		}).indexOf(currentEffort.id());
+
+
+
+		if((currentindex+1)<list.length){
+			scrolltotop = true;
+			setCurrentEffort(list[currentindex+1]);
+		} else {
+			scrolltotop = true;
+			save = true;
+		}
+
+	}
 
 	return {
 		view: function(vnode){
 			feedbackid = vnode.attrs.session;
-			
+
 			if(currentEffort===undefined){
 				setCurrentEffort(ptrn("#"+vm.user().node+" role:leader effort type:0 effort"));
 			}
@@ -58,19 +78,38 @@ var Feedback = function(){
 						ptrn("#"+vm.user().node+" role:leader effort type:0 effort", function(effort){
 							return m(".admin-feedback-list-effort",{
 								onclick: function(){
+									scrolltotop = true;
+									save = false;
 									setCurrentEffort(effort);
+									ptrn.transact();
 								}
 							}, [
 								m(Numbering, {
 									node: effort, whole: true,
-									selected: ptrn.compare(currentEffort, effort),
+									selected: (!save) && ptrn.compare(currentEffort, effort),
 									disabled: (effort("feedback:"+feedbackid).id()===-1)
 								}),
 								m(".admin-feedback-list-effort-name", effort.value()),
 							]);
-						})
+						}),
+						m(".admin-feedback-list-done", {
+							class: save? "state-selected":"",
+							onclick: function(){
+								save = true;
+							}
+						}, "opslaan en verzenden")
 					]),
-					m(".admin-feedback-questions.layout-thickcolumn",[
+
+
+					//feedback questions
+					m(".admin-feedback-questions.layout-thickcolumn",{
+						onupdate: function(vnode){
+							if(scrolltotop){
+								scrolltotop = false;
+								vnode.dom.scrollTop = 0;
+							}
+						}
+					}, (!save) ? [
 						m(".editor-section",[
 							m(".editor-section-title.title", "Algemene Toelichting"),
 							m(".editor-row",[
@@ -110,6 +149,24 @@ var Feedback = function(){
 							m(FeedbackQuestion, {currentFeedback: currentEffort("feedback:"+feedbackid), label: "Planning", name: "planning"}),
 							m(FeedbackQuestion, {currentFeedback: currentEffort("feedback:"+feedbackid), label: "Stakeholders", name: "stakeholders"}),
 							m(FeedbackQuestion, {currentFeedback: currentEffort("feedback:"+feedbackid), label: "Randvoorwaarden", name: "conditions"}),
+						]),
+
+						m(".editor-section",[
+							m(".save-button", {
+								onclick: function(){
+									ptrn.transact();
+									next();
+								}
+							}, "Verder"),
+						]),
+					] : [
+						m(".editor-section",[
+							m(".editor-section-title.title", "Je hebt de voortgangsrapportage ingevuld."),
+							m(".save-button", {
+								onclick: function(){
+									vnode.attrs.onsave();
+								}
+							}, "Opslaan"),
 						]),
 					])
 				])

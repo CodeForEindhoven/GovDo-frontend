@@ -34,7 +34,12 @@ var AdminPage = function(){
 					}}) : [],
 					(currentPage===1) ? m(TodoList) : [],
 					(currentPage===2) ? m(AdminUsers) : [],
-					(currentPage===3) ? m(Feedback, {session: currentFeedback}) : [],
+					(currentPage===3) ? m(Feedback, {
+						session: currentFeedback,
+						onsave: function(){
+							currentPage = 0;
+						}
+					}) : [],
 				])
 			];
 		}
