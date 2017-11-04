@@ -34,10 +34,12 @@
 	width: 90%;
 }
 
-.programnav-program {
+.programnav-searchresult, .programnav-program {
 	cursor: pointer;
 	margin-bottom: 10px;
 	position: relative;
+	
+	margin-bottom: 35px;
 }
 
 .programnav-program-number {
@@ -58,16 +60,21 @@
 	margin-right: 25px;
 }
 
-.programnav-program-title {
+.programnav-searchresult-title, .programnav-program-title {
 	.default-text-regular ();
 	font-size: @font-size;
 	line-height: 20px;
 	
 	display: inline-block;
 	position: absolute;
-	left: 110px;
-	top: 0;
+	left: 55px;
+	top: 7px;
 }
+
+.programnav-searchresult-title {
+	left: 110px;
+}
+
 
 .programnav-program-mission {
 	margin-left: 40px;
