@@ -25,9 +25,7 @@
 	width: calc(35vw - 15px);
 	height: 60px;
 	
-	-webkit-box-shadow: 0px 18px 10px -4px rgba(236,240,241,1);
-	-moz-box-shadow: 0px 18px 10px -4px rgba(236,240,241,1);
-	box-shadow: 0px 18px 10px -4px rgba(236,240,241,1);
+	.shadow-hover();
 }
 
 .programnav-popup input {
@@ -36,9 +34,12 @@
 	width: 90%;
 }
 
-.programnav-program {
+.programnav-searchresult, .programnav-program {
 	cursor: pointer;
 	margin-bottom: 10px;
+	position: relative;
+	
+	margin-bottom: 35px;
 }
 
 .programnav-program-number {
@@ -59,10 +60,21 @@
 	margin-right: 25px;
 }
 
-.programnav-program-title {
-	margin-left: 10px;
+.programnav-searchresult-title, .programnav-program-title {
+	.default-text-regular ();
+	font-size: @font-size;
+	line-height: 20px;
+	
 	display: inline-block;
+	position: absolute;
+	left: 55px;
+	top: 7px;
 }
+
+.programnav-searchresult-title {
+	left: 110px;
+}
+
 
 .programnav-program-mission {
 	margin-left: 40px;
