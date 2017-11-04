@@ -23,7 +23,16 @@ var PersonalEfforts = function(){
 				}
 			},[
 				selection(function(effort){
-					return m(".personal-efforts-effort", [
+					return (vm.focus().type()==="effort") ?
+					m(".personal-efforts-effort", [
+						m(".personal-efforts-effort-details", [
+							m(".personal-efforts-effort-name", effort.value()),
+							//m(".personal-efforts-effort-type", emptyState(viewModels.typeNames[effort("type").value()], m(".effortselector-type-state.state-empty", "Nog geen type"))),
+							m(NavWidget, {node: effort})
+						]),
+					])
+					:
+					m(".personal-efforts-effort", [
 						m(Numbering, {node: effort, whole: true, disabled: (effort("startdate").value()==="_/_/_")}),
 						m(".personal-efforts-effort-details", [
 							m(".personal-efforts-effort-name", effort.value()),
@@ -34,35 +43,7 @@ var PersonalEfforts = function(){
 								m(DateDisplay, {date: effort("enddate").value()}),
 							]),
 							m(".personal-efforts-effort-type", emptyState(viewModels.typeNames[effort("type").value()], m(".effortselector-type-state.state-empty", "Nog geen type"))),
-							m(".personal-efforts-view", {
-								onclick: function(){
-									vm.program(effort("task")("program"));
-									vm.task(effort("task"));
-									vm.effort(effort);
-									vm.focus(effort);
-									vm.page(0);
-								}
-							}, m(Icon, {name: "general-small"})),
-
-							m(".personal-efforts-view", {
-								onclick: function(){
-									vm.program(effort("task")("program"));
-									vm.task(effort("task"));
-									vm.effort(effort);
-									vm.focus(effort);
-									vm.page(0);
-								}
-							}, m(Icon, {name: "programma-small"})),
-
-							m(".personal-efforts-view", {
-								onclick: function(){
-									vm.program(effort("task")("program"));
-									vm.task(effort("task"));
-									vm.effort(effort);
-									vm.focus(effort);
-									vm.page(1);
-								}
-							}, m(Icon, {name: "kalendar-small"})),
+							m(NavWidget, {node: effort})
 						]),
 					]);
 				})

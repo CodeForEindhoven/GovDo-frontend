@@ -79,22 +79,7 @@ var EffortSelector = function(){
 									m(".selector-selected-description.body-text", effort("person", function(person){
 										return m(".selector-selected-peoplelist.body-text", [
 											m("span.selector-selected-peoplelist-person", person.value()),
-											m("span.selector-selected-peoplelist-icons", [
-												m("span", {
-													onclick: function(){
-														vm.focus(person);
-														vm.person(person);
-														vm.page(0);
-													}
-												}, m(Icon, {name: "programma-small"})),
-												m("span", {
-													onclick: function(){
-														vm.focus(person);
-														vm.person(person);
-														vm.page(1);
-													}
-												}, m(Icon, {name: "kalendar-small"}))
-											])
+											m("span.selector-selected-peoplelist-icons", [m(NavWidget, {node: person})])
 										]);
 									}).emptyState(m(".selector-selected-description.state-empty", "Nog geen mensen"))),
 									m(".selector-selected-subheader.subtitle", "Periode"),

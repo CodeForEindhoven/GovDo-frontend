@@ -25,6 +25,21 @@ function mapDatePosition(p, date){
 }
 
 var LinearCalendar = function(){
+	function selection(callback){
+		if(vm.focus().type()==="program"){
+			return vm.program()("task effort", callback);
+
+		} else if(vm.focus().type()==="task"){
+			return vm.task()("effort", callback);
+
+		} else if(vm.focus().type()==="effort"){
+			return callback(vm.effort());
+
+		} else if(vm.focus().type()==="person"){
+			return vm.person()("effort", callback);
+		}
+	}
+
 	//var opentime, closetime;
 	var p = {
 		w:100, h:100,
@@ -95,7 +110,7 @@ var LinearCalendar = function(){
 				},[
 					m(CalendarLines, {p: p}),
 					m(CalendarTodayLine, {p: p}),
-					vm.person()("effort", function(effort){
+					selection(function(effort){
 						hcount++;
 						return m(CalendarTimeLine, {p: p, offsetTop: vnode.attrs.scrollTop, top: hcount, effort: effort});
 					})
