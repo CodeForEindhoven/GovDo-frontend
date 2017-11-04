@@ -26,33 +26,37 @@ var DropdownNav = function(){
 					]),
 
 					(page===-1) ? m(".programnav-domain",[
-						ptrn("*"+search, function(result){
+						ptrn("*"+search, function(result){return result;})
+						.filter(function(result){
+							return (["program", "task", "effort", "person"].indexOf(result.type())>-1);
+						})
+						.map(function(result){
 							//count++;
 							return m(".state-selectable.programnav-searchresult", {
 								class: "searchresult-"+result.type(),
 								onclick: function(){
 									if(result.type()==="program"){
 										vm.program(result);
-										vm.page(0);
+										vm.focus(result);
 										vnode.attrs.onpick();
 									}
 									if(result.type()==="task"){
 										vm.program(result("program"));
 										vm.task(result);
-										vm.page(0);
+										vm.focus(result);
 										vnode.attrs.onpick();
 									}
 									if(result.type()==="effort"){
 										vm.program(result("task program"));
 										vm.task(result("task"));
 										vm.effort(result);
-										vm.page(0);
+										vm.focus(result);
 										vnode.attrs.onpick();
 									}
 
 									if(result.type()==="person"){
 										vm.person(result);
-										vm.page(1);
+										vm.focus(result);
 										vnode.attrs.onpick();
 									}
 

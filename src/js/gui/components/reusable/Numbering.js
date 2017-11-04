@@ -23,12 +23,8 @@ var Numbering = function(){
 					m(".numbering-number-small", element("task")("order").value()),
 					m(".numbering-number-small", element("order").value()),
 				]);
-			} else if(type === "person") {
-				return m(".numbering", {
-					class: (vnode.attrs.disabled ? "state-disabled " : " ") + (vnode.attrs.selected ? "state-selected" : "")
-				},[
-					m(".numbering-icon", m(Icon, {name:"personal"})),
-				]);
+			} else {
+				return [];
 			}
 		}
 	};
