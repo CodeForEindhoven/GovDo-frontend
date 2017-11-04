@@ -73,6 +73,7 @@ var DropdownNav = function(){
 										class: (ptrn.compare(vm.program(),program))?"state-selected":"",
 										onclick: function(){
 											vm.program(program);
+											vm.focus(program);
 											vm.page(0);
 											vnode.attrs.onpick();
 										}
@@ -100,7 +101,8 @@ var DropdownNav = function(){
 										class: (ptrn.compare(vm.person(),person))?"state-selected":"",
 										onclick: function(){
 											vm.person(person);
-											vm.page(1);
+											vm.focus(person);
+											//vm.page(1);
 											vnode.attrs.onpick();
 										}
 									},[

@@ -11,6 +11,7 @@ var vm = (function(){
 		loginPopup = 0;
 	}
 
+	var currentFocus;
 
 	var currentProgram;
 	var currentTask;
@@ -86,6 +87,12 @@ var vm = (function(){
 				currentPerson = i;
 			}
 			return currentPerson;
+		},
+		focus : function(i){
+			if(i !== undefined){
+				currentFocus = i;
+			}
+			return currentFocus;
 		},
 		edit: function(i){
 
