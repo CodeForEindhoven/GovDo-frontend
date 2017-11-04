@@ -6,6 +6,11 @@ var NavWidget = function(){
 			vm.effort(node);
 			vm.focus(node);
 		}
+
+		if(node.type()==="person"){
+			vm.person(node);
+			vm.focus(node);
+		}
 	}
 
 	return {
@@ -18,14 +23,14 @@ var NavWidget = function(){
 					}
 				}, m(Icon, {name: "general-small"})),
 
-				m(".personal-efforts-view", {
+				m(".navwidget-view", {
 					onclick: function(){
 						focus(vnode.attrs.node);
 						vm.page(0);
 					}
 				}, m(Icon, {name: "programma-small"})),
 
-				m(".personal-efforts-view", {
+				m(".navwidget-view", {
 					onclick: function(){
 						focus(vnode.attrs.node);
 						vm.page(1);
