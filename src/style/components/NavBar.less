@@ -7,7 +7,7 @@ nav {
 
 .programnav {
 	display: inline-block;
-	width: 35vw;
+	width: 50vw;
 }
 
 .nav-button {
@@ -48,12 +48,15 @@ nav .nav-button + .nav-button {
 	margin-left: 15px;
 	width: calc(100% - 210px);
 	cursor: pointer;
+	position: relative;
 }
 
 .nav-program-title-top {
 	font-size: @selected-text-title;
 	margin-left: 20px;
-	line-height: @width-circle;
+	line-height: 28px;
+	position: absolute;
+	top: 5px;
 }
 
 .nav-current-position, .nav-program-number, .nav-program-title-top {
