@@ -10,7 +10,7 @@ var TaskSelector = function(){
 
 	return {
 		view: function(vnode){
-			if(vm.program()){
+			if(vm.focus()){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Opgaven"),
