@@ -104,8 +104,8 @@ var DropdownNav = function(){
 										class: (ptrn.compare(vm.person(),person))?"state-selected":"",
 										onclick: function(){
 											vm.person(person);
+											vm.closeall();
 											vm.focus(person);
-											//vm.page(1);
 											vnode.attrs.onpick();
 										}
 									},[

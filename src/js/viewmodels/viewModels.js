@@ -94,6 +94,11 @@ var vm = (function(){
 			}
 			return currentFocus;
 		},
+		closeall: function(){
+			currentEffort = undefined;
+			currentTask = undefined;
+			currentProgram = undefined;
+		},
 		edit: function(i){
 
 			if(i !== undefined){
