@@ -97,7 +97,7 @@ var Feedback = function(){
 							onclick: function(){
 								save = true;
 							}
-						}, "opslaan en verzenden")
+						}, "Opslaan en verzenden")
 					]),
 
 

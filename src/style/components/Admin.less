@@ -9,6 +9,12 @@
 .admin-header {
 	padding-left: 10px;
 	display: inline-block;
+	width: 35%;
+	margin-bottom: 15px;
+}
+
+.admin-header .icons-header {
+	margin-top: -20px;
 }
 
 .admin-header::after{
@@ -16,16 +22,14 @@
 	display: block;
 	clear: both;
 }
-.admin-title {
-
-}
 
 .admin-tasks-feedback{
 	cursor: pointer;
+	color: @color-selected;
 }
 
 .admin-tasks-feedback.state-done {
-	color: green;
+	color: @color-black;
 }
 
 .admin-users {
@@ -78,7 +82,7 @@
 	visibility: hidden;
 	display: inline-block;
 	cursor: pointer;
-	color: @color-white;
+	color: @color-selected;
 }
 
 .state-editable .admin-user:hover > .admin-user-button, .admin-user-edit > .admin-user-button {
