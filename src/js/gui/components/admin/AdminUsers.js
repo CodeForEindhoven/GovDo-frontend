@@ -126,7 +126,7 @@ var AdminUser = function(){
 						//edit = true;
 						vnode.attrs.onedit(user.node);
 					}
-				}, "Bewerk"),
+				}, m(Icon, {name: "edit-white"})),
 			]);
 		}
 	};
