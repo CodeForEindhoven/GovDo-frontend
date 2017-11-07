@@ -1,12 +1,12 @@
 @import "variables/colors.less";
 @import "variables/fonts.less";
 
-::selection { 
-	background-color: @selection; 
+::selection {
+	background-color: @selection;
 }
 
-::-moz-selection { 
-	background-color: @selection; 
+::-moz-selection {
+	background-color: @selection;
 }
 
 body {
@@ -40,4 +40,8 @@ input {
 	padding-left: 10px;
 	box-sizing: border-box;
 	font-size: @column-date-font-size;
+}
+
+.state-selectable {
+	cursor: pointer;
 }

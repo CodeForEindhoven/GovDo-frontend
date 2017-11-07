@@ -64,7 +64,7 @@ var NavBar = function(){
 					},[
 						//(vm.page()=== 0 && vm.program()) ? [
 							(vm.focus().type()!=="person") ? m(".nav-program-number", m(Numbering, {node: vm.focus(), selected: true})) : [],
-							m(".nav-program-title-top", vm.focus().value())
+							m(".nav-program-title-top", ((vm.page()===4) ? ptrn("#"+vm.user().node).value() : vm.focus().value()))
 						//] : [],
 						//(vm.page()=== 1 && vm.person()) ? [
 							//m(".nav-button", m(Icon, {name: "meeting-2"})),

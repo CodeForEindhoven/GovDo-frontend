@@ -76,7 +76,7 @@ var Feedback = function(){
 				m(".admin-feedback",[
 					m(".admin-feedback-list.layout-thincolumn",[
 						ptrn("#"+vm.user().node+" role:leader effort type:0 effort", function(effort){
-							return m(".admin-feedback-list-effort",{
+							return m(".admin-feedback-list-effort.state-selectable",{
 								onclick: function(){
 									scrolltotop = true;
 									save = false;

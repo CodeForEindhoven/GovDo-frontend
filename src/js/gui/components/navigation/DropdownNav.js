@@ -48,14 +48,14 @@ var DropdownNav = function(){
 									if(result.type()==="task"){
 										vm.program(result("program"));
 										vm.task(result);
-										vm.focus(result);
+										vm.focus(vm.program());
 										vnode.attrs.onpick();
 									}
 									if(result.type()==="effort"){
 										vm.program(result("task program"));
 										vm.task(result("task"));
 										vm.effort(result);
-										vm.focus(result);
+										vm.focus(vm.program());
 										vnode.attrs.onpick();
 									}
 

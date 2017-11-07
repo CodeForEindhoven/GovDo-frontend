@@ -25,7 +25,7 @@
 	width: calc(35vw - 15px);
 	height: 60px;
 	z-index: 1;
-	
+
 	.shadow-hover();
 }
 
@@ -40,9 +40,10 @@
 	position: relative;
 }
 
-//.programnav-searchresult.searchresult-program, //.programnav-searchresult.searchresult-task, .programnav-searchresult.searchresult-effort 
+//.programnav-searchresult.searchresult-program, //.programnav-searchresult.searchresult-task, .programnav-searchresult.searchresult-effort
 .programnav-searchresult {
 	.list-item-small();
+	clear: both;
 }
 
 .state-selectable.programnav-program.default .programnav-program-title {
@@ -86,11 +87,12 @@
 .programnav-searchresult-title {
 	.default-text-regular ();
 	font-size: @font-size;
-	
+
 	display: inline-block;
 	vertical-align: top;
-	width: 50%;
-	margin-left: 20px;
+	width: calc(100% - 155px);
+	margin-right: 30px;
+	float: right;
 }
 
 .programnav-searchresult-title {

@@ -39,10 +39,27 @@ var FeedbackResults = function(){
 					return m(".dashboard-feedbacks-session",[
 						m(".dashboard-feedbacks-session-name",session.name),
 						m(".dashboard-feedbacks-session-values",[
-							(session.values[0] > 0) ? m(".dashboard-feedbacks-session-value.feedback-color-a",{style: "height:"+((session.values[0]/session.totals)*100)+"%;"}, m(Icon, {name: "feedback-top-small"})) : [],
-							(session.values[1] > 0) ? m(".dashboard-feedbacks-session-value.feedback-color-b",{style: "height:"+((session.values[1]/session.totals)*100)+"%;"}, m(Icon, {name: "feedback-middle-small"})) : [],
-							(session.values[2] > 0) ? m(".dashboard-feedbacks-session-value.feedback-color-c",{style: "height:"+((session.values[2]/session.totals)*100)+"%;"}, m(Icon, {name: "feedback-low-small"})) : [],
-							(session.values[""] > 0) ? m(".dashboard-feedbacks-session-value.feedback-color-d",{style: "height:"+((session.values[""]/session.totals)*100)+"%;"},"-") : [],
+							(session.values[0] > 0) ? m(".dashboard-feedbacks-session-value.feedback-color-a",{
+								style: "height:"+((session.values[0]/session.totals)*100)+"%;"
+							}, [
+								m(Icon, {name: "feedback-top-white-small"}),
+								m("span", ((session.values[0]/session.totals)*100).toFixed(1)+"%")
+							]) : [],
+							(session.values[1] > 0) ? m(".dashboard-feedbacks-session-value.feedback-color-b",{
+								style: "height:"+((session.values[1]/session.totals)*100)+"%;"
+							}, [
+								m(Icon, {name: "feedback-low-white-small"}),
+								m("span", ((session.values[1]/session.totals)*100).toFixed(1)+"%")
+							]) : [],
+							(session.values[2] > 0) ? m(".dashboard-feedbacks-session-value.feedback-color-c",{
+								style: "height:"+((session.values[2]/session.totals)*100)+"%;"
+							}, [
+								m(Icon, {name: "feedback-middle-white-small"}),
+								m("span", ((session.values[2]/session.totals)*100).toFixed(1)+"%")
+							]) : [],
+							(session.values[""] > 0) ? m(".dashboard-feedbacks-session-value.feedback-color-d",{
+								style: "height:"+((session.values[""]/session.totals)*100)+"%;"
+							},"") : [],
 						]),
 					]);
 				})
