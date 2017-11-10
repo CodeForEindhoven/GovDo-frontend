@@ -16,12 +16,17 @@ var DashboardPage = function(){
 								onclick: function(){currentPage = 1;},
 								class: (currentPage===1)? "state-selected":""
 							}, "Voortgang"),
+							m(".optionbar-option", {
+								onclick: function(){currentPage = 2;},
+								class: (currentPage===2)? "state-selected":""
+							}, "Overzicht"),
 						]),
 					])
 				]),
 				m(".layout-workspace", [
 					(currentPage===0) ? m(Statistics) : [],
-					(currentPage===1) ? m(FeedbackResults) : []
+					(currentPage===1) ? m(FeedbackResults) : [],
+					(currentPage===2) ? m(GeneralStatus) : []
 				])
 			];
 		}
