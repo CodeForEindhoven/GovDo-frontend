@@ -28,6 +28,23 @@ var HoursCalendar = function(){
 		m.redraw();
 	}
 
+	function setDate(vnode, updown){
+		if(p.scale===1){
+			if(updown){
+				vnode.attrs.setDate(FuzzyDate.nextWeek(p.opentime));
+			} else {
+				vnode.attrs.setDate(FuzzyDate.prevWeek(p.opentime));
+			}
+		} else {
+			if(updown){
+				vnode.attrs.setDate(FuzzyDate.nextMonth(p.opentime));
+			} else {
+				vnode.attrs.setDate(FuzzyDate.prevMonth(p.opentime));
+			}
+		}
+
+	}
+
 	return {
 		view: function(vnode){
 			setCurrentDate(vnode.attrs.currentDate, vnode.attrs.currentScale);
@@ -47,6 +64,7 @@ var HoursCalendar = function(){
 					}
 				},[
 					m(CalendarGrid, {p: p}),
+					m(CalendarHours, {p: p}),
 				]),
 				m(CalendarLabels, {
 					p: p,
@@ -59,21 +77,45 @@ var HoursCalendar = function(){
 	};
 };
 
-var CalendarLines = function(){
+var CalendarHours = function(){
+
+	var colors = ["red", "green", "blue", "purple"];
 	return {
 		view: function(vnode){
-			var grid = [];
+
+			//starting date
+			var monday =  vnode.attrs.p.opentime;
+
+			//map hours to objects
+			var hours = ptrn("hours", function(hourstring){
+				return HoursSpent.Parse(hourstring.value());
+			});
+
+			//margin and width
 			var mrg = vnode.attrs.p.margin;
 			var w = (vnode.attrs.p.w-mrg*2)/12;
-			var h = vnode.attrs.p.h;
-			for(var i=0; i<13; i++){
-				grid.push(m("line.calendar-lines", {
-					x1:i*w+mrg, y1:0,
-					x2:i*w+mrg, y2: h
-				}));
-			}
 
-			return grid;
+			return ArrayFromRange(0, 11).map(function(week){
+				var startWeek = monday;
+				var offset = 0;
+				var count = -1;
+
+				var blocks = hours.map(function(hour){
+					count++;
+					if(FuzzyDate.inRange(hour.start, hour.end, startWeek)){
+						var h = hour.hours*(vnode.attrs.p.h/40);
+						offset+=h;
+						return m("rect.calendar-block", {fill:colors[count], x: week*w+mrg+0.5, y:vnode.attrs.p.h-offset, width: w+0.5, height: h});
+					} else {
+						return [];
+					}
+				});
+
+				//update to next week
+				monday = FuzzyDate.nextWeek(monday);
+
+				return blocks;
+			});
 		}
 	};
 };

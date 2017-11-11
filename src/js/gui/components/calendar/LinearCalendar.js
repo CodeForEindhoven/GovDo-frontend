@@ -131,16 +131,17 @@ var CalendarLabels = function(){
 
 	function labels(vnode){
 		var monday =  vnode.attrs.p.opentime;
+		var phase = 0;
 
 
 		if(vnode.attrs.p.scale===1){
 			var month = -1;
-			var phase = 0;
 
 			return ArrayFromRange(0,11).map(function(offset){
 				var currentWeek = FuzzyDate.currentWeek(monday);
 				var showmonth = "";
 
+				//get labels and colors
 				if(month !== monday.getMonth()){
 					month = monday.getMonth();
 					showmonth = months[monday.getMonth()];
@@ -158,7 +159,6 @@ var CalendarLabels = function(){
 			});
 		} else {
 			var year = -1;
-			var phase = 0;
 
 			return ArrayFromRange(0,11).map(function(offset){
 				var showyear = "";

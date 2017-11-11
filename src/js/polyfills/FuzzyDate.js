@@ -92,8 +92,8 @@ FuzzyDate.toRange = function(string){
 		}
 
 	} else if(date[0].p){
+		var y = date[0].value;
 		if(date[1].value){
-			var y = date[0].value;
 			if(date[1].value==="1k"){
 				a = new Date(y+"/1/1");
 				b = new Date(y+"/3/30");
@@ -171,10 +171,13 @@ FuzzyDate.toReadableString = function(string){
 };
 
 FuzzyDate.inRange = function(start, end, input){
-	var startdate = FuzzyDate.toArray(start);
-	var enddate = FuzzyDate.toArray(end);
-	var inputdate = FuzzyDate.toArray(input);
-	return false;
+	var rangeA = FuzzyDate.toRange(start);
+	var rangeB = FuzzyDate.toRange(end);
+
+	var startDate = rangeA[0];
+	var endDate = rangeB[1] ? rangeB[1] : rangeB[0];
+
+	return (input > startDate && input < endDate);
 };
 
 FuzzyDate.currentWeek = function(date){
