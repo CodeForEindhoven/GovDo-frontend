@@ -112,7 +112,11 @@ var CalendarHours = function(){
 				});
 
 				//update to next week
-				monday = FuzzyDate.nextWeek(monday);
+				if(vnode.attrs.p.scale===1){
+					monday = FuzzyDate.nextWeek(monday);
+				} else {
+					monday = FuzzyDate.nextMonth(monday);
+				}
 
 				return blocks;
 			});
@@ -129,7 +133,7 @@ var CalendarGrid = function(){
 			var h = vnode.attrs.p.h/40;
 			for(var i=0; i<12; i++){
 				for(var j=0; j<40; j++){
-					grid.push(m("rect.calendar-grid", {x:i*w+2+mrg, y:j*h+2, width:w-2, height: h-2}));
+					grid.push(m("rect.calendar-grid", {x:i*w+1+mrg, y:j*h+1, width:w-1, height: h-1}));
 				}
 			}
 
