@@ -78,8 +78,6 @@ var HoursCalendar = function(){
 };
 
 var CalendarHours = function(){
-
-	var colors = ["red", "green", "blue", "purple"];
 	return {
 		view: function(vnode){
 
@@ -105,7 +103,7 @@ var CalendarHours = function(){
 					if(FuzzyDate.inRange(hour.start, hour.end, startWeek)){
 						var h = hour.hours*(vnode.attrs.p.h/40);
 						offset+=h;
-						return m("rect.calendar-block", {fill:colors[count], x: week*w+mrg+0.5, y:vnode.attrs.p.h-offset, width: w+0.5, height: h});
+						return m("rect.calendar-block", {class: "color-"+(count%4), x: week*w+mrg+0.5, y:vnode.attrs.p.h-offset, width: w+0.5, height: h});
 					} else {
 						return [];
 					}
