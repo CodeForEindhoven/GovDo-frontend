@@ -38,9 +38,21 @@ var PersonalEfforts = function(){
 							m(".personal-efforts-effort-name", effort.value()),
 							m(".personal-efforts-effort-date", [
 								m("span", "van"),
-								m(DateDisplay, {date: effort("startdate").value()}),
+								m(DateDisplay, {
+									onclick: function(date){
+										vnode.attrs.setDate(date[0]);
+									},
+									date: effort("startdate").value()
+								}),
 								m("span", "t/m"),
-								m(DateDisplay, {date: effort("enddate").value()}),
+								m(DateDisplay, {
+									onclick: function(date){
+										var d = date[0];
+										if(date[1]){ d = date[1]; }
+										vnode.attrs.setDate(d);
+									},
+									date: effort("enddate").value()
+								}),
 							]),
 							m(".personal-efforts-effort-type", emptyState(viewModels.typeNames[effort("type").value()], m(".effortselector-type-state.state-empty", "Nog geen type"))),
 							m(NavWidget, {node: effort})

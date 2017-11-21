@@ -5,7 +5,9 @@ var CalendarPage = function(){
 	var currentView = 2;
 
 	function setDate(date){
-		currentDate = date;
+		if(date !== undefined){
+			currentDate = date;
+		}
 	}
 
 	function setScale(s){
@@ -28,7 +30,8 @@ var CalendarPage = function(){
 				})),
 				m(".layout-workspace", [
 					m(".layout-thincolumn",  m(PersonalEfforts, {
-						onscroll: function(e){scrollTop = e;}
+						onscroll: function(e){scrollTop = e;},
+						setDate: setDate
 					})),
 
 					m(".layout-thickcolumn", [
