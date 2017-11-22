@@ -5,7 +5,7 @@ var HoursCalendar = function(){
 		scale: 1,
 		margin: 2,
 		opentime: 0,
-		closetime: 0
+		closetime: 0,
 	};
 
 	function setCurrentDate(date, scale){
@@ -80,7 +80,7 @@ var HoursCalendar = function(){
 var CalendarHours = function(){
 	return {
 		view: function(vnode){
-
+			var gridheight = vm.person()("contract").value();
 			//starting date
 			var monday =  vnode.attrs.p.opentime;
 
@@ -105,7 +105,7 @@ var CalendarHours = function(){
 						hour.hours = parseInt(hour.hours);
 						totalhours += hour.hours;
 
-						var h = hour.hours*(vnode.attrs.p.h/40);
+						var h = hour.hours*(vnode.attrs.p.h/gridheight);
 						offset+=h;
 
 						return m("rect.calendar-block", {class: "color-"+(count%4), x: week*w+mrg+0.5, y:vnode.attrs.p.h-offset, width: w+0.5, height: h});
@@ -114,7 +114,7 @@ var CalendarHours = function(){
 					}
 				});
 
-				if(totalhours > 40) {
+				if(totalhours > gridheight) {
 					blocks.push(m("rect.calendar-block-overshoot", {x: week*w+mrg+0.5, y:0, width: w+0.5, height: vnode.attrs.p.h/80}));
 				}
 
@@ -135,11 +135,12 @@ var CalendarGrid = function(){
 	return {
 		view: function(vnode){
 			var grid = [];
+			var gridheight = vm.person()("contract").value();
 			var mrg = vnode.attrs.p.margin;
 			var w = (vnode.attrs.p.w-mrg*2)/12;
-			var h = vnode.attrs.p.h/40;
+			var h = vnode.attrs.p.h/gridheight;
 			for(var i=0; i<12; i++){
-				for(var j=0; j<40; j++){
+				for(var j=0; j<gridheight; j++){
 					grid.push(m("rect.calendar-grid", {x:i*w+1+mrg, y:j*h+1, width:w-1, height: h-1}));
 				}
 			}

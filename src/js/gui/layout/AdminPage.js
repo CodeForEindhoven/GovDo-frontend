@@ -15,7 +15,7 @@ var AdminPage = function(){
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 1;},
 								class: (currentPage===1)? "state-selected":""
-							}, "Contract"),
+							}, "Instellingen"),
 						]),
 
 						(vm.user().role === 0) ? m(".optionbar-section", [
@@ -32,7 +32,7 @@ var AdminPage = function(){
 						currentPage = 3;
 						currentFeedback = s.value();
 					}}) : [],
-					(currentPage===1) ? m(TodoList) : [],
+					(currentPage===1) ? m(Contract) : [],
 					(currentPage===2) ? m(AdminUsers) : [],
 					(currentPage===3) ? m(Feedback, {
 						session: currentFeedback,
