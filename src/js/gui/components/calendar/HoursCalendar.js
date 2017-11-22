@@ -85,7 +85,7 @@ var CalendarHours = function(){
 			var monday =  vnode.attrs.p.opentime;
 
 			//map hours to objects
-			var hours = ptrn("hours", function(hourstring){
+			var hours = vm.focus()("effort hours", function(hourstring){
 				return HoursSpent.Parse(hourstring.value());
 			});
 
@@ -96,18 +96,27 @@ var CalendarHours = function(){
 			return ArrayFromRange(0, 11).map(function(week){
 				var startWeek = monday;
 				var offset = 0;
+				var totalhours = 0;
 				var count = -1;
 
 				var blocks = hours.map(function(hour){
 					count++;
 					if(FuzzyDate.inRange(hour.start, hour.end, startWeek)){
+						hour.hours = parseInt(hour.hours);
+						totalhours += hour.hours;
+
 						var h = hour.hours*(vnode.attrs.p.h/40);
 						offset+=h;
+
 						return m("rect.calendar-block", {class: "color-"+(count%4), x: week*w+mrg+0.5, y:vnode.attrs.p.h-offset, width: w+0.5, height: h});
 					} else {
 						return [];
 					}
 				});
+
+				if(totalhours > 40) {
+					blocks.push(m("rect.calendar-block-overshoot", {x: week*w+mrg+0.5, y:0, width: w+0.5, height: vnode.attrs.p.h/80}));
+				}
 
 				//update to next week
 				if(vnode.attrs.p.scale===1){

@@ -15,5 +15,5 @@ HoursSpent.Parse = function(string){
 };
 
 HoursSpent.toString = function(o){
-	return FuzzyDate.toString(o.start)+"-"+FuzzyDate.toString(o.end)+"-"+o.hours + (o.period ? ("-"+o.period.length[0]+"-"+o.period.length[1]+"-"+o.period.every[0]+"-"+o.period.every[1]) : "");
+	return o.start+"-"+o.end+"-"+o.hours + (o.period ? ("-"+o.period.length[0]+"-"+o.period.length[1]+"-"+o.period.every[0]+"-"+o.period.every[1]) : "");
 };

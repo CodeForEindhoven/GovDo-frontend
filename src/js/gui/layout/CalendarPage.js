@@ -31,7 +31,8 @@ var CalendarPage = function(){
 				m(".layout-workspace", [
 					m(".layout-thincolumn",  m(PersonalEfforts, {
 						onscroll: function(e){scrollTop = e;},
-						setDate: setDate
+						setDate: setDate,
+						currentView: currentView
 					})),
 
 					m(".layout-thickcolumn", [

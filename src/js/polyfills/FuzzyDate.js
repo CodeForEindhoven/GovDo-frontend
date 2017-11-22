@@ -153,6 +153,10 @@ FuzzyDate.toString = function(date){
 	return (y+"/"+m+"/"+d);
 };
 
+FuzzyDate.StringfromDate = function(date){
+	return (date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate());
+};
+
 FuzzyDate.toReadableString = function(string){
 	var date = FuzzyDate.toArray(string);
 	var readable = "";
@@ -189,6 +193,12 @@ FuzzyDate.currentWeek = function(date){
 	var week1 = new Date(date.getFullYear(), 0, 4);
 	// Adjust to Thursday in week 1 and count number of weeks from date to week1.
 	return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+};
+
+FuzzyDate.currentYear = function(date){
+	date = new Date(date.getTime());
+	date.setHours(0, 0, 0, 0);
+	return date.getFullYear();
 };
 
 FuzzyDate.nextWeek = function(date){
@@ -244,4 +254,15 @@ FuzzyDate.getMonday = function(date){
 FuzzyDate.getFirstDayOfMonth = function(date){
 	var d = new Date(date);
 	return new Date(d.getFullYear(), d.getMonth(), 1);
+};
+
+FuzzyDate.getDateOfWeek = function(w, y) {
+	var simple = new Date(y, 0, 1 + (w - 1) * 7);
+	var dow = simple.getDay();
+	var ISOweekStart = simple;
+	if (dow <= 4)
+		ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+	else
+		ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+	return ISOweekStart;
 };

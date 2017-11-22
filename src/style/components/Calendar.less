@@ -177,3 +177,49 @@ circle.calendar-timeline {
 .calendar-block.color-3 {
     fill: #83D900;
 }
+
+.calendar-block-overshoot {
+    fill: #FF0000;
+}
+
+
+
+//Dateweek selector
+span.dateweek-selector {
+    position: relative;
+}
+
+.dateweek-selector-dropdown {
+    position: absolute;
+    width: 200px;
+    background: wheat;
+    padding: 20px;
+    word-wrap: break-word;
+}
+
+.dateweek-selector-dropdown {
+    position: absolute;
+    width: 320px;
+    background: @color-background;
+    padding: 20px;
+    z-index: 10000;
+    word-wrap: break-word;
+    border: 1px @color-selected solid;
+}
+
+.dateweek-selector-dropdown-week {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    background: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 21px;
+    text-align: center;
+}
+
+.dateweek-selector-dropdown-week.state-selected, .dateweek-selector-dropdown-week:hover {
+    background: @color-selected;
+    color: @color-white;
+}
