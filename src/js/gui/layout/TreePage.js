@@ -5,7 +5,7 @@ var TreePage = function(){
 			return [
 				m(".layout-optionbar", [
 					m(".optionbar", [
-						m(".optionbar-section", [
+						(vm.focus().type()==="program") ? m(".optionbar-section", [
 							m(".sub-navigation-label", "Doelenboom"),
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 0;},
@@ -15,18 +15,17 @@ var TreePage = function(){
 								onclick: function(){currentPage = 1;},
 								class: (currentPage===1)? "state-selected":""
 							}, "Opgaven & Inspanningen"),
-						]),
+						]) : [],
 					])
 				]),
 				m(".layout-workspace", [
-					(currentPage===0) ? [
+					((vm.focus().type()==="program") && currentPage===0) ? [
 						m(".layout-column", m(MissionVision)),
 						m(".layout-column", m(TeamList)),
-					] : [],
-					(currentPage===1) ? [
+					] : [
 						m(".layout-column",  m(TaskSelector)),
 						m(".layout-column", m(EffortSelector)),
-					] : [],
+					],
 
 					m(".layout-right", m(Editor))
 				])

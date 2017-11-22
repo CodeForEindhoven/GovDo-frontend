@@ -7,7 +7,7 @@ var Editor = function(){
 				//Header
 				m(".editor-header",[
 					vm.edit() ? m(Numbering, {node: vm.edit()}) : [],
-					m("span", "Inspanningen Editor"),
+					m("span", "Editor"),
 					m(".icons-header .close-button", {
 						onclick: function(){
 							ptrn.transact();
