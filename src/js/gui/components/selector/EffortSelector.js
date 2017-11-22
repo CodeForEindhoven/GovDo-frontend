@@ -5,6 +5,10 @@ var EffortSelector = function(){
 	function selection(callback){
 		if(vm.focus().type()==="program"){
 			return vm.task()("effort", callback);
+		} else if(vm.focus().type()==="task"){
+			return vm.task()("effort", callback);
+		} else if(vm.focus().type()==="effort"){
+			return [callback(vm.focus())];
 		} else if(vm.focus().type()==="person"){
 			//return vm.person()("effort #"+vm.task().id()+" effort", callback);
 			return vm.task()("effort", function(e){return e;})

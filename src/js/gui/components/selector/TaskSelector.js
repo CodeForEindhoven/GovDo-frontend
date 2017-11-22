@@ -1,13 +1,5 @@
 var TaskSelector = function(){
 
-	function selection(callback){
-		if(vm.focus().type()==="program"){
-			return vm.program()("task", callback);
-		} else if(vm.focus().type()==="person"){
-			return vm.person()("effort task", callback);
-		}
-	}
-
 	return {
 		view: function(vnode){
 			if(vm.focus()){
@@ -24,24 +16,38 @@ var TaskSelector = function(){
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
-						((vm.focus().type()==="program") ?
-							vm.program()("task", function(task){
-								return m(TaskSelectorItem,{task: task});
-							})
-							:
-							vm.person()("effort task program", function(program){
-								return m(".selector-devider",[
-									m(".selector-subtitle",program.value()),
-									program("task", function(t){return t;})
-										.filter(function(t){
-											return (t("effort #"+vm.person().id()).id()>-1);
-										})
-										.map(function(task){
-											return m(TaskSelectorItem,{task: task});
-										})
-								]);
-							})
-						).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven"))
+						(vm.focus().type()==="program") ? vm.program()("task", function(task){
+							return m(TaskSelectorItem,{task: task});
+						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven"))
+						: [],
+
+						(vm.focus().type()==="task") ? m(TaskSelectorItem,{task: vm.focus()}) : [],
+
+						(vm.focus().type()==="effort") ? vm.focus()("task program", function(program){
+							return m(".selector-devider",[
+								m(".selector-subtitle",program.value()),
+								program("task", function(t){return t;})
+									.filter(function(t){
+										return (t("#"+vm.focus().id()).id()>-1);
+									})
+									.map(function(task){
+										return m(TaskSelectorItem,{task: task});
+									})
+							]);
+						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven")) : [],
+
+						(vm.focus().type()==="person") ? vm.person()("effort task program", function(program){
+							return m(".selector-devider",[
+								m(".selector-subtitle",program.value()),
+								program("task", function(t){return t;})
+									.filter(function(t){
+										return (t("effort #"+vm.person().id()).id()>-1);
+									})
+									.map(function(task){
+										return m(TaskSelectorItem,{task: task});
+									})
+							]);
+						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven")) : []
 					])),
 				]);
 			} else {
