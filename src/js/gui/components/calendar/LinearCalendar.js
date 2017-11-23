@@ -12,12 +12,12 @@ function mapDatePosition(p, date){
 	var time = date.getTime();
 
 	//if over boundries
-	if(time < opentime) {
-		return 0;
-	}
-	if(time > closetime) {
-		return width;
-	}
+	//if(time < opentime) {
+	//	return 0;
+	//}
+	//if(time > closetime) {
+	//	return width;
+	//}
 
 	//calculate positions
 	var ratio = width / openlength;

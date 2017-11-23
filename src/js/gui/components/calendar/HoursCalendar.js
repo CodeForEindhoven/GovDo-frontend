@@ -65,6 +65,8 @@ var HoursCalendar = function(){
 				},[
 					m(CalendarGrid, {p: p}),
 					m(CalendarHours, {p: p}),
+					m(CalendarThisWeekLine, {p: p}),
+
 				]),
 				m(CalendarLabels, {
 					p: p,
@@ -146,6 +148,25 @@ var CalendarGrid = function(){
 			}
 
 			return grid;
+		}
+	};
+};
+
+var CalendarThisWeekLine = function(){
+	return {
+		view: function(vnode){
+			var h = vnode.attrs.p.h;
+			var mrg = vnode.attrs.p.margin;
+			var w = (vnode.attrs.p.w-mrg*2)/12;
+			var x = mapDatePosition(vnode.attrs.p, FuzzyDate.getMonday(new Date()));
+
+			
+
+			return m("rect.calendar-todayline", {
+				x:x, y:0,
+				width:w+1, height: h
+			});
+
 		}
 	};
 };

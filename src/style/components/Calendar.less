@@ -22,6 +22,15 @@
 	vertical-align: top;
 }
 
+.personal-efforts-effort-date {
+    margin-bottom: 5px;
+}
+
+.personal-efforts-effort-date-add {
+    margin-bottom: 5px;
+    color: @color-selected;
+}
+
 //.personal-efforts-effort-name + .personal-efforts-effort-date {
 //	margin-top: 2px;
 //}
@@ -185,6 +194,12 @@ circle.calendar-timeline {
 
 
 //Dateweek selector
+.dateweek-selector-date {
+    .default-text-monospace ();
+	padding: 5px;
+	border-bottom: 1px solid @color-selected;
+}
+
 span.dateweek-selector {
     position: relative;
 }
@@ -222,4 +237,9 @@ span.dateweek-selector {
 .dateweek-selector-dropdown-week.state-selected, .dateweek-selector-dropdown-week:hover {
     background: @color-selected;
     color: @color-white;
+}
+
+rect.calendar-todayline {
+    fill: white;
+    fill-opacity: 0.5;
 }
