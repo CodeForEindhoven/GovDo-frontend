@@ -25,7 +25,14 @@ var PersonalEfforts = function(){
 				selection(function(effort){
 					return (vm.focus().type()==="effort") ?
 					//list of people
-					m(".personal-efforts-effort.state-selectable", [
+					m(".personal-efforts-effort.state-selectable", {
+						class: (ptrn.compare(vm.hover(), effort)) ? "state-selected":"",
+						onmouseover: function(){
+							vm.hover(effort);
+							m.redraw();
+						},
+						onmouseout: vm.unhover
+					}, [
 						m(".personal-efforts-effort-details", [
 							m(".personal-efforts-effort-name", effort.value()),
 							//m(".personal-efforts-effort-type", emptyState(viewModels.typeNames[effort("type").value()], m(".effortselector-type-state.state-empty", "Nog geen type"))),
@@ -34,13 +41,20 @@ var PersonalEfforts = function(){
 					])
 					:
 					//list of efforts
-					m(".personal-efforts-effort.state-selectable", [
+					m(".personal-efforts-effort.state-selectable", {
+						class: (ptrn.compare(vm.hover(), effort)) ? "state-selected":"",
+						onmouseover: function(){
+							vm.hover(effort);
+							m.redraw();
+						},
+						onmouseout: vm.unhover
+					},  [
 						m(Numbering, {node: effort, whole: true, disabled: (effort("startdate").value()==="_/_/_")}),
 						m(".personal-efforts-effort-details", [
 							m(".personal-efforts-effort-name", effort.value()),
 
 							//show dates
-							(vnode.attrs.currentView === 1) ? [
+							(vnode.attrs.currentView === 1 && vm.focus().type()==="person") ? [
 								//block view
 								effort("hours", function(hours){
 									var parsedhours = HoursSpent.Parse(hours.value());

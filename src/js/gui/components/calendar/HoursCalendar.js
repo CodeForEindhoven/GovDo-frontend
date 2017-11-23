@@ -87,9 +87,48 @@ var CalendarHours = function(){
 			var monday =  vnode.attrs.p.opentime;
 
 			//map hours to objects
-			var hours = vm.focus()("effort hours", function(hourstring){
-				return HoursSpent.Parse(hourstring.value());
-			});
+			//var hours = vm.focus()("effort hours", function(hourstring){
+			//	return HoursSpent.Parse(hourstring.value());
+			//});
+			var hours;
+			if(vm.focus().type()==="person"){
+				hours = vm.focus()("effort", function(effort){
+					return {
+						effort: effort,
+						hours: effort("hours", function(hourstring){
+							return HoursSpent.Parse(hourstring.value());
+						})
+					};
+				});
+			} else if(vm.focus().type()==="effort"){
+				hours = vm.focus()("hours", function(hourstring){
+					return {
+						effort: hourstring("person"),
+						hours: [HoursSpent.Parse(hourstring.value())]
+					};
+				}).reduce(function(reduced, hour){
+					var found = reduced.find(function(other){
+						return ptrn.compare(other.effort, hour.effort);
+					});
+
+					if(found){
+						found.hours = found.hours.concat(hour.hours);
+					} else {
+						reduced.push(hour);
+					}
+					return reduced;
+				},[]);
+			} else if(vm.focus().type()==="program") {
+				hours = vm.focus()("task effort", function(effort){
+					return {
+						effort: effort,
+						hours: effort("hours", function(hourstring){
+							return HoursSpent.Parse(hourstring.value());
+						})
+					};
+				});
+			}
+
 
 			//margin and width
 			var mrg = vnode.attrs.p.margin;
@@ -101,19 +140,29 @@ var CalendarHours = function(){
 				var totalhours = 0;
 				var count = -1;
 
-				var blocks = hours.map(function(hour){
-					count++;
-					if(FuzzyDate.inRange(hour.start, hour.end, startWeek)){
-						hour.hours = parseInt(hour.hours);
-						totalhours += hour.hours;
+				var blocks = hours.map(function(effort){
+					if(effort.hours.length>0) {count++;}
+					return effort.hours.map(function(hour){
+						if(FuzzyDate.inRange(hour.start, hour.end, startWeek)){
+							hour.hours = parseInt(hour.hours);
+							totalhours += hour.hours;
 
-						var h = hour.hours*(vnode.attrs.p.h/gridheight);
-						offset+=h;
+							var h = hour.hours*(vnode.attrs.p.h/gridheight);
+							offset+=h;
 
-						return m("rect.calendar-block", {class: "color-"+(count%4), x: week*w+mrg+0.5, y:vnode.attrs.p.h-offset, width: w+0.5, height: h});
-					} else {
-						return [];
-					}
+							return m("rect.calendar-block", {
+								class: "color-"+(count%4) + " " + ((ptrn.compare(vm.hover(), effort.effort)) ? "state-selected":""),
+								x: week*w+mrg+0.5, y:vnode.attrs.p.h-offset, width: w+0.5, height: h,
+								onmouseover: function(){
+									vm.hover(effort.effort);
+									m.redraw();
+								},
+								onmouseout: vm.unhover
+							});
+						} else {
+							return [];
+						}
+					});
 				});
 
 				if(totalhours > gridheight) {
@@ -160,7 +209,7 @@ var CalendarThisWeekLine = function(){
 			var w = (vnode.attrs.p.w-mrg*2)/12;
 			var x = mapDatePosition(vnode.attrs.p, FuzzyDate.getMonday(new Date()));
 
-			
+
 
 			return m("rect.calendar-todayline", {
 				x:x, y:0,

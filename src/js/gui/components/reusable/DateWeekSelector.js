@@ -6,7 +6,6 @@ var DateWeekSelector = function(){
 	return {
 		view: function(vnode){
 			var date = FuzzyDate.toRange(vnode.attrs.date);
-			console.log(date);
 			if(date[0]){
 				if(!currentyear){currentyear = FuzzyDate.currentYear(date[0]);}
 				if(!currentweek){currentweek = FuzzyDate.currentWeek(date[0]);}

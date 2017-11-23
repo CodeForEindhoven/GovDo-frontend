@@ -18,6 +18,8 @@ var vm = (function(){
 	var currentEffort;
 	var currentPerson;
 
+	var currentHover;
+
 	var currentConnection = false;
 
 
@@ -87,6 +89,15 @@ var vm = (function(){
 				currentPerson = i;
 			}
 			return currentPerson;
+		},
+		hover : function(i){
+			if(i !== undefined){
+				currentHover = i;
+			}
+			return currentHover;
+		},
+		unhover: function(){
+			currentHover = undefined;
 		},
 		focus : function(i){
 			if(i !== undefined){
