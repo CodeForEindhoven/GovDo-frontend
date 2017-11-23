@@ -92,14 +92,23 @@ var CalendarHours = function(){
 			//});
 			var hours;
 			if(vm.focus().type()==="person"){
-				hours = vm.focus()("effort", function(effort){
+				hours = vm.focus()("hours", function(hourstring){
 					return {
-						effort: effort,
-						hours: effort("hours", function(hourstring){
-							return HoursSpent.Parse(hourstring.value());
-						})
+						effort: hourstring("effort"),
+						hours: [HoursSpent.Parse(hourstring.value())]
 					};
-				});
+				}).reduce(function(reduced, hour){
+					var found = reduced.find(function(other){
+						return ptrn.compare(other.effort, hour.effort);
+					});
+
+					if(found){
+						found.hours = found.hours.concat(hour.hours);
+					} else {
+						reduced.push(hour);
+					}
+					return reduced;
+				},[]);
 			} else if(vm.focus().type()==="effort"){
 				hours = vm.focus()("hours", function(hourstring){
 					return {

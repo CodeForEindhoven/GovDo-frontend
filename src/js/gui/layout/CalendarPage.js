@@ -18,6 +18,8 @@ var CalendarPage = function(){
 		currentView = s;
 	}
 
+	
+
 	return {
 		view: function(vnode){
 			return [
