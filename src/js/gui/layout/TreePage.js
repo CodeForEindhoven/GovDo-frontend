@@ -21,7 +21,7 @@ var TreePage = function(){
 				m(".layout-workspace", [
 					((vm.focus().type()==="program") && currentPage===0) ? [
 						m(".layout-column", m(MissionVision)),
-						m(".layout-column", m(TeamList)),
+						m(".layout-column", m(ProgramTeam)),
 					] : [
 						m(".layout-column",  m(TaskSelector)),
 						m(".layout-column", m(EffortSelector)),

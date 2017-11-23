@@ -1,4 +1,4 @@
-var TeamList = function(){
+var ProgramTeam = function(){
 
 	return {
 		view: function(vnode){

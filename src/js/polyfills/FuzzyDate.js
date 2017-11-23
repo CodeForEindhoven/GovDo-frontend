@@ -181,7 +181,7 @@ FuzzyDate.inRange = function(start, end, input){
 	var startDate = rangeA[0];
 	var endDate = rangeB[1] ? rangeB[1] : rangeB[0];
 
-	return (input > startDate && input < endDate);
+	return (input >= startDate && input <= endDate);
 };
 
 FuzzyDate.currentWeek = function(date){

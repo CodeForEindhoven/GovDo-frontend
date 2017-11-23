@@ -14,6 +14,14 @@ var MissionVision = function(){
 				m(".mission-mission body-text", vm.program()("mission").value()),
 
 
+				m(".mission-title", [
+					m("span", "Programma Leider"),
+				]),
+				m(".mission-mission body-text", vm.program()("role:leader person", function(a){
+					return m("", a.value());
+				}))
+
+
 			]);
 		}
 	};

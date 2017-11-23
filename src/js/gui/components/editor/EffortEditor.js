@@ -320,14 +320,14 @@ var PeopleListEditor = function(){
 							//name
 							m("span.editor-peoplelist-person-name.body-text", person.value()),
 
-							m(DropDown, {
+							(!vnode.attrs.noroles) ? m(DropDown, {
 								value: vnode.attrs.roles.selected(person),
 								options: vnode.attrs.roles.options,
 								novalue: vnode.attrs.roles.novalue,
 								onchange: function(e){
 									vnode.attrs.roles.onchange(e, person);
 								}
-							}),
+							}) : [],
 
 							//deletebutton
 							m("span.editor-peoplelist-person-remove", {

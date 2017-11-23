@@ -1,7 +1,7 @@
 var DateWeekSelector = function(){
 	var dropdown = false;
-	var currentyear = FuzzyDate.currentYear(new Date());
-	var currentweek = FuzzyDate.currentWeek(new Date());
+	var currentyear;
+	var currentweek;
 
 	return {
 		view: function(vnode){
@@ -10,6 +10,9 @@ var DateWeekSelector = function(){
 			if(date[0]){
 				if(!currentyear){currentyear = FuzzyDate.currentYear(date[0]);}
 				if(!currentweek){currentweek = FuzzyDate.currentWeek(date[0]);}
+			} else {
+				currentyear = FuzzyDate.currentYear(new Date());
+				currentweek = FuzzyDate.currentWeek(new Date());
 			}
 
 
