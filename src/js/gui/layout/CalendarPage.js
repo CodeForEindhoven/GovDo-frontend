@@ -2,7 +2,7 @@ var CalendarPage = function(){
 	var scrollTop = 0;
 	var currentDate = FuzzyDate.prevMonth(new Date());
 	var currentScale = 1;
-	var currentView = 2;
+	var currentView = 1;
 
 	function setDate(date){
 		if(date !== undefined){
@@ -18,7 +18,7 @@ var CalendarPage = function(){
 		currentView = s;
 	}
 
-	
+
 
 	return {
 		view: function(vnode){

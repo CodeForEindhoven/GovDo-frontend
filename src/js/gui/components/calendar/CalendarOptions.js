@@ -18,7 +18,7 @@ var CalendarOptions = function(){
 						onclick: function(){
 							vnode.attrs.setView(2);
 						}
-					}, "Tijdlijn"),
+					}, "Deadlines"),
 				]),
 
 				m(".calendar-options",[

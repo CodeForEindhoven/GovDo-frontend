@@ -40,8 +40,9 @@ var GeneralStatus = function(){
 						m(".dashboard-general-program-name", program.value()),
 						m(".dashboard-general-tasks", program("task", function(task){
 							return m(".dashboard-general-task",[
+								m(".dashboard-general-task-number",task("order").value()),
 								task("effort", function(effort){
-									return m(".dashboard-general-effort","");
+									return m(".dashboard-general-effort",effort("order").value());
 								})
 							]);
 						}))

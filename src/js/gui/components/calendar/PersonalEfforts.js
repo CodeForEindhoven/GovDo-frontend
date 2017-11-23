@@ -163,8 +163,8 @@ var DateEditor = function(){
 						}),
 						m("span", {
 							onclick: function(){
-								ptrn.speculativeUnrelate(hours, effort.effort);
-								ptrn.speculativeUnrelate(hours, vm.person());
+								ptrn.speculativeUnrelate(hours, vnode.attrs.element.effort);
+								ptrn.speculativeUnrelate(hours, vm.focus());
 							}
 						},"x")
 					]);
@@ -172,9 +172,9 @@ var DateEditor = function(){
 
 				m(".personal-efforts-effort-date-add", {
 					onclick: function(){
-						ptrn.create("hours", effort.effort("startdate").value()+"-"+effort.effort("enddate").value()+"-0-0-w-0-w", function(newhours){
-							ptrn.relate(newhours, effort.effort);
-							ptrn.relate(newhours, vm.person());
+						ptrn.create("hours", vnode.attrs.element.effort("startdate").value()+"-"+vnode.attrs.element.effort("enddate").value()+"-0-0-w-0-w", function(newhours){
+							ptrn.relate(newhours, vnode.attrs.element.effort);
+							ptrn.relate(newhours, vm.focus());
 						});
 					}
 				},"uren toevoegen")
