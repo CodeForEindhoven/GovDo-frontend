@@ -46,7 +46,7 @@ var Editor = function(){
 								}
 							})(),
 
-	//						m(".editor-buttons",[
+							m(".editor-buttons",[
 
 	//							// Save button
 	//							m(".save-button", {
@@ -55,13 +55,17 @@ var Editor = function(){
 	//								}
 	//							},(/*viewModels.editMode.savingState()*/false)?"Opslaan...":"Opslaan"),
 
-	//							//Delete item
-	//							m(".button-delete", {
-	//								onclick: function(){
-	//									vm.edit.delete();
-	//								}
-	//							},"Verwijder"),
-	//						]),
+								//Delete item
+								m(".button-delete", {
+									onclick: function(){
+										if (confirm("Weet je zeker dat je '"+vm.edit().value()+"' wil verwijderen?") === true) {
+											vm.edit().drop();
+											vm.editClose();
+											ptrn.transact();
+										}
+									}
+								},"Verwijder"),
+							]),
 						]);
 					}
 					return [];

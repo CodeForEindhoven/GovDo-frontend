@@ -73,7 +73,7 @@ var ptrn =  (function(){
 		var bid = b.id();
 
 		var found = relations.filter(function(relation){
-			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
+			return (!relation.drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
 		});
 		console.log("relate");
 		console.log(found);
@@ -88,7 +88,7 @@ var ptrn =  (function(){
 		var bid = b.id();
 
 		var found = relations.filter(function(relation){
-			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
+			return (!relation.drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
 		});
 		console.log("unrelate");
 		console.log(found);
@@ -111,7 +111,7 @@ var ptrn =  (function(){
 			subset = atoms;
 		}
 		return subset.filter(function(atom){
-			return (!atom.value[0].drop) && ((type==="?" || type===atom.type) && (value==="?" || value===atom.value[0].value));
+			return (atom) && (!atom.drop) && ((type==="?" || type===atom.type) && (value==="?" || value===atom.value[0].value));
 		});
 	}
 
@@ -125,7 +125,7 @@ var ptrn =  (function(){
 		//var results = [];
 		//for(var i=0; i<subset.length; i++){
 		//	var atom = subset[i];
-		//	if ((!atom.value && !atom.value[0].drop) && (atom.value[0].value.toLowerCase().indexOf(value.toLowerCase())>-1)) {
+		//	if ((!atom.value && !atom.drop) && (atom.value[0].value.toLowerCase().indexOf(value.toLowerCase())>-1)) {
 		//		results.push(atom);
 		//	}
 
@@ -136,7 +136,7 @@ var ptrn =  (function(){
 		//return results;
 
 		return subset.filter(function(atom){
-			return (!atom.value[0].drop) && (atom.value[0].value.toLowerCase().indexOf(value.toLowerCase())>-1);
+			return (!atom.drop) && (atom.value[0].value.toLowerCase().indexOf(value.toLowerCase())>-1);
 		});
 	}
 
@@ -145,7 +145,7 @@ var ptrn =  (function(){
 		var results = [];
 		if(relationmap[id]){
 			results = relationmap[id].filter(function(rel){
-				return (!rel.value[0].drop);
+				return (!rel.drop);
 			}).map(function(rel){
 				if(rel.value[0].aid===id){
 					return atoms[rel.value[0].bid];
@@ -156,7 +156,7 @@ var ptrn =  (function(){
 		return results;
 		/*
 		var results = relations.filter(function(relation){
-			return (!relation.value[0].drop) && (relation.value[0].aid === id || relation.value[0].bid === id);
+			return (!relation.drop) && (relation.value[0].aid === id || relation.value[0].bid === id);
 		}).map(function(relation){
 			if(relation.value[0].aid === id){
 				return atoms[relation.value[0].bid];
@@ -187,7 +187,7 @@ var ptrn =  (function(){
 		updaterelations.filter(function(rel){
 			return (rel.value[0].tid===-1);
 		}).map(function(rel){
-			if(rel.value[0].drop){
+			if(rel.drop){
 				unrelate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
 			} else {
 				relate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
@@ -379,8 +379,8 @@ var ptrn =  (function(){
 	}
 
 	function drop(id){
-		request("DELETE", "drop/"+id, {}, function(elem){
-			atoms[elem.id].value.unshift({
+		request("POST", "drop/"+id, {}, function(elem){
+			atoms[elem.tid].value.unshift({
 				tid: elem.tid,
 				drop: true
 			});
