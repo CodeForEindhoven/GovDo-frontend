@@ -27,7 +27,15 @@ var Contract = function(){
 							m.redraw();
 						}
 					}),
-					m("span", "uur per week")
+					m("span", "uur per week, waarvan"),
+					m(NumberRoller, {
+						value: parseInt(ptrn("#"+vm.user().node+" plannable").value()),
+						oninput: function(inpt){
+							ptrn("#"+vm.user().node+" plannable").update(inpt);
+							m.redraw();
+						}
+					}),
+					m("span", "uur inplanbaar")
 				])
 			]);
 		}

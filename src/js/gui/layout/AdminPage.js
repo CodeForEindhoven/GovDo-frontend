@@ -25,6 +25,16 @@ var AdminPage = function(){
 								class: (currentPage===2)? "state-selected":""
 							}, "Gebruikers"),
 						]) : [],
+						m(".optionbar-section", [
+							m(".sub-navigation-label", ""),
+							m(".optionbar-option", {
+								onclick: function(){
+									vm.logout();
+									vm.page(0);
+									m.redraw();
+								},
+							}, "Uitloggen"),
+						]),
 					])
 				]),
 				m(".layout-workspace", [

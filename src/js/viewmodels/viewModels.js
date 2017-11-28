@@ -47,6 +47,8 @@ var vm = (function(){
 		},
 		logout: function(){
 			localStorage.removeItem('planlabuser');
+			currentUser = {user:"", pass:"", node: -1, role: 0};
+			loginPopup = -1;
 		},
 		user: function(i){
 			if(i !== undefined){

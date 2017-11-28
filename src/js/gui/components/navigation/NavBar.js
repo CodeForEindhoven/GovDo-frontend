@@ -103,7 +103,7 @@ var NavBar = function(){
 								onclick: function(){
 									vm.login(1);
 								}
-							}, m(Icon, {name: "personal"})),
+							}, m(Icon, {name: "personal", selected: false})),
 						]
 					])
 				])

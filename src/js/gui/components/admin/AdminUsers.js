@@ -7,6 +7,8 @@ var AdminUsers = function(){
 	function adduser(){
 		ptrn.create("person", "", function(u){
 			ptrn.adduser(u.id(), function(){
+				ptrn.createrelate("contract", "40", u);
+				ptrn.createrelate("plannable", "40", u);
 				editing = u.id();
 				editmode = true;
 				scrolldown = true;

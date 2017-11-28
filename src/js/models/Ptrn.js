@@ -46,41 +46,62 @@ var ptrn =  (function(){
 	/*STORE*/
 	var atoms = [];
 	var relations = [];
+	var storageAge = 0;
+
 	//type map
 	var typemap = {};
 	var relationmap = {};
 
 	function createRelation(aid, bid, tid){
-		var newrel = {
-			value: [
-				{
-					tid: tid,
-					aid: aid,
-					bid: bid,
-				}
-			]
-		};
-		relations.push(newrel);
 
-		if(!relationmap[aid]){relationmap[aid] = [];}
-		relationmap[aid].push(newrel);
-		if(!relationmap[bid]){relationmap[bid] = [];}
-		relationmap[bid].push(newrel);
+		var found = relations.filter(function(relation){
+			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
+		});
+
+
+		if(found.length === 0){
+			var newrel = {
+				value: [
+					{
+						tid: tid,
+						aid: aid,
+						bid: bid,
+					}
+				]
+			};
+			relations.push(newrel);
+
+			if(!relationmap[aid]){relationmap[aid] = [];}
+			relationmap[aid].push(newrel);
+			if(!relationmap[bid]){relationmap[bid] = [];}
+			relationmap[bid].push(newrel);
+
+		} else {
+			found[0].tid = tid;
+		}
+
+	}
+
+	function deleteRelation(aid, bid){
+
+		relations = relations.filter(function(relation){
+			return !(((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid)));
+		});
+
+		relationmap[aid] = relationmap[aid].filter(function(o){
+			return (o.value[0].bid!==bid);
+		});
+
+		relationmap[bid] = relationmap[bid].filter(function(o){
+			return (o.value[0].aid!==aid);
+		});
 	}
 
 	function speculativeRelate(a,b){
 		var aid = a.id();
 		var bid = b.id();
 
-		var found = relations.filter(function(relation){
-			return (!relation.drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
-		});
-		console.log("relate");
-		console.log(found);
-
-		if(found.length === 0){
-			createRelation(aid, bid, -1);
-		}
+		createRelation(aid, bid, -1);
 	}
 
 	function speculativeUnrelate(a,b){
@@ -101,6 +122,14 @@ var ptrn =  (function(){
 				bid: bid,
 			});
 		}
+
+		relationmap[aid] = relationmap[aid].filter(function(id){
+			return (id!==bid);
+		});
+
+		relationmap[bid] = relationmap[bid].filter(function(id){
+			return (id!==aid);
+		});
 	}
 
 	//builds a list of atoms based on matches
@@ -145,7 +174,7 @@ var ptrn =  (function(){
 		var results = [];
 		if(relationmap[id]){
 			results = relationmap[id].filter(function(rel){
-				return (!rel.drop);
+				return (!rel.value[0].drop);
 			}).map(function(rel){
 				if(rel.value[0].aid===id){
 					return atoms[rel.value[0].bid];
@@ -180,14 +209,8 @@ var ptrn =  (function(){
 			return (rel.value[0].tid===-1);
 		});
 
-		relations = relations.filter(function(rel){
-			return (rel.value[0].tid!==-1);
-		});
-
-		updaterelations.filter(function(rel){
-			return (rel.value[0].tid===-1);
-		}).map(function(rel){
-			if(rel.drop){
+		updaterelations.map(function(rel){
+			if(rel.value[0].drop===true){
 				unrelate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
 			} else {
 				relate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
@@ -293,6 +316,8 @@ var ptrn =  (function(){
 					]
 				};
 
+				if(elem.tid > storageAge){storageAge = elem.tid;}
+
 				if(!typemap[elem.type]){typemap[elem.type] = [];}
 				typemap[elem.type].push(elem.id);
 
@@ -300,8 +325,66 @@ var ptrn =  (function(){
 
 			data.relations.map(function(rel){
 				createRelation(rel.aid, rel.bid, rel.tid);
+				if(rel.tid > storageAge){storageAge = rel.tid;}
 			});
 
+			function runupdatedump(){
+				window.setTimeout(function(){
+					updatedump(runupdatedump);
+				}, 2000);
+			}
+			updatedump(runupdatedump);
+
+			callback();
+		});
+	}
+
+	function updatedump(callback){
+		request("GET", "dump/"+storageAge, {}, function(data){
+			data.nodes.map(function(elem){
+				if(elem.tid > storageAge){storageAge = elem.tid;}
+
+				if(elem.del === 1){
+					atoms.splice(elem.id, 1);
+					relations = relations.filter(function(relation){
+						return !((relation.value[0].aid === elem.id) || (relation.value[0].aid === elem.id));
+					});
+				} else {
+					atoms[elem.id] = {
+						oid: elem.id,
+						type: elem.type,
+						value: [
+							{
+								tid: elem.tid,
+								value: elem.value
+							}
+						],
+					};
+
+
+
+					if(!typemap[elem.type]){typemap[elem.type] = [];}
+					if(!typemap[elem.type].find(function(o){
+						return o === elem.id;
+					})){
+						typemap[elem.type].push(elem.id);
+					}
+				}
+			});
+
+			data.relations.map(function(rel){
+
+				if(rel.del>0){
+					deleteRelation(rel.aid, rel.bid);
+					if(rel.del > storageAge){storageAge = rel.del;}
+				} else {
+					createRelation(rel.aid, rel.bid, rel.tid);
+					if(rel.tid > storageAge){storageAge = rel.tid;}
+				}
+
+			});
+			m.redraw();
+			console.log(storageAge);
 			callback();
 		});
 	}
