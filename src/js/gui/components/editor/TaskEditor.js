@@ -57,16 +57,16 @@ var TaskEditor = function(){
 				]),
 
 				m(".editor-section.editor-section-end",[
-					m(".status-content",[
-						m(Toggle, {
-							value: parseInt(vm.edit()("mode").value()),
-							label_sketch: "Voorstel",
-							label_definitive: "Goedgekeurd",
-							onchange: function(v){
-								vm.edit()("mode").update(v);
-							}
-						}),
-					]),
+					//m(".status-content",[
+					//	m(Toggle, {
+					//		value: parseInt(vm.edit()("mode").value()),
+					//		label_sketch: "Voorstel",
+					//		label_definitive: "Goedgekeurd",
+					//		onchange: function(v){
+					//			vm.edit()("mode").update(v);
+					//		}
+					//	}),
+					//]),
 				]),
 			]);
 		}

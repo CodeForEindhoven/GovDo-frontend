@@ -60,6 +60,11 @@ var EffortSelector = function(){
 									m(".selector-selected-title", {
 									}, effort.value()),
 
+									m(".selectorlist-item-labels",[
+										(effort('mode').value()==-1) ? m(".selectorlist-item-label-position", "Concept") : [],
+										(effort('mode').value()==-2) ? m(".selectorlist-item-label-position", "In afwachting") : [],
+									]),
+
 									m(".selectorlist-item-options",[
 										m(".selectorlist-item-options-position", [
 											m("i.material-icons.selectorlist-item-option","keyboard_arrow_down"),
