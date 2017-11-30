@@ -124,6 +124,43 @@ var EffortEditor = function(){
 					}),
 				]),
 
+				//Planning
+				m(".editor-section",[
+					m(".editor-section-title.title", "Planning"),
+					m(".editor-subtitle.subtitle", [
+						m("span", "Periode"),
+						m(InfoBox, {
+							content: m("",[
+								m("span", "Als er geen precieze datum bekend is, geef dan alleen een schatting"),
+							])
+						})
+					]),
+
+					m(".editor-selection-date",[
+						m("span.body-text", "van"),
+						m(DatePicker,{
+							value: vm.edit()("startdate").value(),
+							onchange: function(e){
+								console.log("update: "+e);
+								vm.edit()("startdate").update(e);
+							}
+						})
+					]),
+
+					m(".editor-selection-date",[
+						m("span.body-text", "t/m"),
+						m(DatePicker,{
+							value: vm.edit()("enddate").value(),
+							onchange: function(e){
+								console.log("update: "+e);
+								vm.edit()("enddate").update(e);
+							}
+						})
+					]),
+				]),
+
+
+				//Mensen
 				m(".editor-section",[
 					m(".editor-section-title.title", "Mensen"),
 
@@ -201,6 +238,7 @@ var EffortEditor = function(){
 					]),
 
 					m(PeopleListEditor, {
+						state: stateTeam,
 						peoplelist: vm.edit()("person", function(a){return a;}),
 						roles: {
 							selected: function(person){
@@ -218,53 +256,21 @@ var EffortEditor = function(){
 						},
 						onadd: function(v){
 							ptrn.speculativeRelate(vm.edit(), v);
+							ptrn.create("hours", "~/_/_-~/_/_-0-0-w-0-w", function(newhours){
+								ptrn.relate(newhours, vm.edit());
+								ptrn.relate(newhours, v);
+							});
 							stateTeam = false;
 						},
 						ondelete: function(v){
 							ptrn.speculativeUnrelate(vm.edit(), v);
 						},
-						state: stateTeam
+
+						planhours: true,
 					}),
 				]),
 
-
-				//Planning
-				m(".editor-section",[
-					m(".editor-section-title.title", "Planning"),
-					m(".editor-subtitle.subtitle", [
-						m("span", "Periode"),
-						m(InfoBox, {
-							content: m("",[
-								m("span", "Als er geen precieze datum bekend is, geef dan alleen een schatting"),
-							])
-						})
-					]),
-
-					m(".editor-selection-date",[
-						m("span.body-text", "van"),
-						m(DatePicker,{
-							value: vm.edit()("startdate").value(),
-							onchange: function(e){
-								console.log("update: "+e);
-								vm.edit()("startdate").update(e);
-							}
-						})
-					]),
-
-					m(".editor-selection-date",[
-						m("span.body-text", "t/m"),
-						m(DatePicker,{
-							value: vm.edit()("enddate").value(),
-							onchange: function(e){
-								console.log("update: "+e);
-								vm.edit()("enddate").update(e);
-							}
-						})
-					]),
-
-
-				]),
-
+				//Acceptance Process
 				m(".editor-section.editor-section-end",[
 					m(".status-content",[
 						m(Toggle, {
@@ -316,11 +322,21 @@ var PeopleListEditor = function(){
 					]),
 
 					vnode.attrs.peoplelist.map(function(person){
+						var plannedhours = person("hours",function(h){return h;}).filter(function(h){return h("#"+vm.edit().id()).id()>-1;});
+						var parsedhours;
+						if(plannedhours[0]){
+							parsedhours = HoursSpent.Parse(plannedhours[0].value());
+						} else {
+							parsedhours = undefined;
+						}
+
+
 						return m(".editor-peoplelist-person", [
 
 							//name
 							m("span.editor-peoplelist-person-name.body-text", person.value()),
 
+							//roles
 							(!vnode.attrs.noroles) ? m(DropDown, {
 								value: vnode.attrs.roles.selected(person),
 								options: vnode.attrs.roles.options,
@@ -330,6 +346,19 @@ var PeopleListEditor = function(){
 								}
 							}) : [],
 
+							//hours
+							(vnode.attrs.planhours) ? [
+								m(NumberRoller, {
+									value: (parsedhours) ? parseInt(parsedhours.hours) : "~",
+									oninput: function(value){
+										parsedhours.hours = ""+value;
+										plannedhours[0].update(HoursSpent.toString(parsedhours));
+										m.redraw();
+									}
+								}),
+								m("span", "uur per week")
+							] : [],
+
 							//deletebutton
 							m("span.editor-peoplelist-person-remove", {
 								onclick: function(){vnode.attrs.ondelete(person);}
@@ -337,6 +366,18 @@ var PeopleListEditor = function(){
 
 						]);
 					}),
+					(vnode.attrs.planhours) ? [
+						m("span", "totaal "),
+						m("span", vnode.attrs.peoplelist.reduce(function(total, person){
+							var plannedhours = person("hours",function(h){return h;}).filter(function(h){return h("#"+vm.edit().id()).id()>-1;});
+							if(plannedhours[0]){
+								var parsedhours = HoursSpent.Parse(plannedhours[0].value());
+								return total + parseInt(parsedhours.hours);
+							} else {
+								return total;
+							}
+						}, 0))
+					] : []
 			]);
 		}
 	};
