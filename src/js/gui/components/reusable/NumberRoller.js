@@ -8,7 +8,6 @@ var NumberRoller = function(){
 			return m("input.numberroller", {
 				value: (newValue!==undefined) ? newValue : vnode.attrs.value,
 				oninput: function(e){
-					console.log(e);
 					newValue = e.target.value;
 					vnode.attrs.oninput(newValue);
 				},
