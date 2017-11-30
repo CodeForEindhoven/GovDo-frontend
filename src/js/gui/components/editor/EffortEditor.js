@@ -332,7 +332,6 @@ var PeopleListEditor = function(){
 						} else {
 							parsedhours = undefined;
 						}
-						console.log(parsedhours);
 
 
 						return m(".editor-peoplelist-person", [
