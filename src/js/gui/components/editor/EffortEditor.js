@@ -157,6 +157,9 @@ var EffortEditor = function(){
 							}
 						})
 					]),
+
+					m(".editor-section-totals", FuzzyDate.toWeekRange(vm.edit()("startdate").value(),vm.edit()("enddate").value())[0]),
+					m(".editor-section-totals", FuzzyDate.toWeekRange(vm.edit()("startdate").value(),vm.edit()("enddate").value())[1])
 				]),
 
 
@@ -329,6 +332,7 @@ var PeopleListEditor = function(){
 						} else {
 							parsedhours = undefined;
 						}
+						console.log(parsedhours);
 
 
 						return m(".editor-peoplelist-person", [
@@ -356,7 +360,26 @@ var PeopleListEditor = function(){
 										m.redraw();
 									}
 								}),
-								m("span", "uur per week")
+								m("span", "uur per week, "),
+
+								m(NumberRoller, {
+									value: (parsedhours) ? parseInt(parsedhours.period.length) : "~",
+									oninput: function(value){
+										parsedhours.period.length = ""+value;
+										plannedhours[0].update(HoursSpent.toString(parsedhours));
+										m.redraw();
+									}
+								}),
+								m("span", "weken iedere "),
+								m(NumberRoller, {
+									value: (parsedhours) ? parseInt(parsedhours.period.every) : "~",
+									oninput: function(value){
+										parsedhours.period.every = ""+value;
+										plannedhours[0].update(HoursSpent.toString(parsedhours));
+										m.redraw();
+									}
+								}),
+								m("span", "weken")
 							] : [],
 
 							//deletebutton

@@ -119,6 +119,21 @@ FuzzyDate.toRange = function(string){
 	return [a,b];
 };
 
+FuzzyDate.toWeekRange = function(start, end){
+	var startRange = FuzzyDate.toRange(start);
+	var endRange = FuzzyDate.toRange(end);
+
+	var lowerStart = startRange[0];
+	var upperStart = startRange[1]? startRange[1]: startRange[0];
+	var lowerEnd = endRange[0];
+	var upperEnd = endRange[1]? endRange[1]: endRange[0];
+
+	return [
+		Math.round((lowerEnd-upperStart)/(1000*60*60*24*7)),
+		Math.round((upperEnd-lowerStart)/(1000*60*60*24*7)),
+	];
+};
+
 FuzzyDate.toArray = function(string){
 	var date = [];
 	var d = string.split("/");
