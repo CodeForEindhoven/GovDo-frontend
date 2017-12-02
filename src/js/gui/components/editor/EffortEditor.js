@@ -259,7 +259,7 @@ var EffortEditor = function(){
 						},
 						onadd: function(v){
 							ptrn.speculativeRelate(vm.edit(), v);
-							ptrn.create("hours", "~/_/_-~/_/_-0-0-w-0-w", function(newhours){
+							ptrn.create("hours", "~/_/_-~/_/_-0-~-w-0-w", function(newhours){
 								ptrn.speculativeRelate(newhours, vm.edit());
 								ptrn.speculativeRelate(newhours, v);
 							});
@@ -351,6 +351,7 @@ var PeopleListEditor = function(){
 
 							//hours
 							(vnode.attrs.planhours) ? [
+								m("span", "uur per week: "),
 								m(NumberRoller, {
 									value: (parsedhours) ? parseInt(parsedhours.hours) : "~",
 									oninput: function(value){
@@ -359,26 +360,42 @@ var PeopleListEditor = function(){
 										m.redraw();
 									}
 								}),
-								m("span", "uur per week, "),
 
-								m(NumberRoller, {
-									value: (parsedhours) ? parseInt(parsedhours.period.length) : "~",
-									oninput: function(value){
-										parsedhours.period.length = ""+value;
+								m("span", {
+									onclick: function(){
+										if(parsedhours.period.length[0]==="~"){
+											parsedhours.period.length[0] = "1";
+											parsedhours.period.every[0] = "2";
+										} else {
+											parsedhours.period.length[0] = "~";
+										}
+
 										plannedhours[0].update(HoursSpent.toString(parsedhours));
+										console.log(plannedhours[0].value());
 										m.redraw();
 									}
-								}),
-								m("span", "weken iedere "),
-								m(NumberRoller, {
-									value: (parsedhours) ? parseInt(parsedhours.period.every) : "~",
-									oninput: function(value){
-										parsedhours.period.every = ""+value;
-										plannedhours[0].update(HoursSpent.toString(parsedhours));
-										m.redraw();
-									}
-								}),
-								m("span", "weken")
+								}, (parsedhours && parsedhours.period.length[0]==="~") ? "regelmatig" : "onregelmatig"),
+
+								(parsedhours && parsedhours.period.length[0]!=="~") ? m(".editor-peoplelist-person-hours", [
+									m(NumberRoller, {
+										value: (parsedhours) ? parseInt(parsedhours.period.length[0]) : "~",
+										oninput: function(value){
+											parsedhours.period.length[0] = ""+value;
+											plannedhours[0].update(HoursSpent.toString(parsedhours));
+											m.redraw();
+										}
+									}),
+									m("span", "weken iedere "),
+									m(NumberRoller, {
+										value: (parsedhours) ? parseInt(parsedhours.period.every[0]) : "~",
+										oninput: function(value){
+											parsedhours.period.every[0] = ""+value;
+											plannedhours[0].update(HoursSpent.toString(parsedhours));
+											m.redraw();
+										}
+									}),
+									m("span", "weken")
+								]) : []
 							] : [],
 
 							//deletebutton
