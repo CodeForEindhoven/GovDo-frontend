@@ -70,19 +70,34 @@ var ptrn2 = (function(){
 			return atoms[aid];
 		};
 
+		pub.createatom = function(tid, type, value){
+			return pub.writeatom(atomCount++, tid, type, value);
+		};
+
 		pub.dropatom = function(aid, tid){
 			atoms[aid].value.push({
 				tid: tid,
 				drop: true
 			});
+			atoms[aid].value.sort(function(a,b){
+				return Math.abs(b.tid)-Math.abs(a.tid);
+			});
 			pub.unmaptypeatom(atoms[aid].type, atoms[aid]);
+			return atoms[aid];
 		};
 
-		pub.createatom = function(tid, type, value){
-			return pub.writeatom(atomCount++, tid, type, value);
-		};
+		pub.writerelation = function(tid, aid, bid, value){
 
-		pub.writerelation = function(rid, tid, aid, bid, value){
+			//if relation exists use that
+			var found = relations.find(function(rel){
+				return ((rel.aid===aid && rel.bid===bid) || (rel.aid===bid && rel.bid===aid));
+			});
+			if(found){
+				rid = found.rid;
+			} else {
+				rid = relationCount++;
+			}
+
 			if(!relations[rid]) {
 				relations[rid] = {
 					rid: rid,
@@ -109,10 +124,6 @@ var ptrn2 = (function(){
 				pub.unmaprelation(aid, bid);
 			}
 			return relations[rid];
-		};
-
-		pub.createrelation = function(tid, aid, bid, value){
-			return pub.writerelation(relationCount++, tid, aid, bid, value);
 		};
 
 		//maps
@@ -209,9 +220,15 @@ var ptrn2 = (function(){
 			});
 		};
 
-		pub.relate = function(aid, bid){
+		pub.relate = function(aid, bid, value){
 			storage.transact(function(tid){
-				return storage.relate(tid, aid, bid, value);
+				return storage.writerelation(tid, aid, bid, value);
+			});
+		};
+
+		pub.dropatom = function(aid){
+			storage.transact(function(tid){
+				return storage.dropatom(aid, tid);
 			});
 		};
 
@@ -239,21 +256,50 @@ var ptrn2 = (function(){
 			}
 		};
 
-		pub.relate = function(aid, bid){
+		pub.relate = function(aid, bid, value){
 			storage.speculativetransact(function(tid){
-				return storage.relate(tid, aid, bid, value);
+				return storage.writerelation(tid, aid, bid, value);
+			});
+		};
+
+		pub.dropatom = function(aid){
+			storage.speculativetransact(function(tid){
+				return storage.dropatom(aid, tid);
 			});
 		};
 
 		pub.publish = function(){
-			return storage.getspeculativetransactions().map(function(t){
-				if(t.node.aid){
+			network.publish(storage.getspeculativetransactions().map(function(t){
+				console.log(t);
+				if(t.node.rid !== undefined){
 					return {
-						transaction: "atom",
-						value: t.value.value
+						transaction: "relate",
+						value: t.value.value,
+						aid: t.node.aid,
+						bid: t.node.bid
 					};
+				} else {
+					if(t.node.value.length===1){
+						return {
+							transaction: "create",
+							value: t.value.value
+						};
+					} else {
+						if(t.value.drop){
+							return {
+								transaction: "drop",
+								aid: t.node.aid,
+							};
+						} else {
+							return {
+								transaction: "update",
+								aid: t.node.aid,
+								value: t.value.value,
+							};
+						}
+					}
 				}
-			});
+			}));
 		};
 
 		return pub;
@@ -316,33 +362,41 @@ var ptrn2 = (function(){
 	var network = (function(){
 		var pub = {};
 		var callbacks = {
-			ontransact: []
+			onpublish: []
 		};
 
-		pub.transact = function(value){
-			callbacks.ontransact.map(function(c){
+		pub.publish = function(value){
+			callbacks.onpublish.map(function(c){
 				c(value);
 			});
 		};
 
-		pub.ontransact = function(callback){
-			callbacks.ontransact.push(callback);
+		pub.onpublish = function(callback){
+			callbacks.onpublish.push(callback);
 		};
 
 		return pub;
 	})();
 
-	network.ontransact(function(transaction){
+	network.onpublish(function(transaction){
 		console.log(transaction);
 	});
 
 	transactor.createatom("cheese", "blue");
 	transactor.createatom("cheese", "green");
+	transactor.relate(0,1, true);
+	speculator.updateatom(1, "cheese", "test");
+
 	speculator.createatom("cheese", "purple");
 	speculator.updateatom(2, "cheese", "test");
-	speculator.updateatom(1, "cheese", "test");
-	console.log(speculator.publish());
+	speculator.relate(1,2, true);
+	speculator.relate(0,1, false);
+	speculator.dropatom(1);
+
+	speculator.publish();
 
 
 	console.log(selector.getatomsbytype("cheese"));
+
+	return query;
 })();
