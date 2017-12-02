@@ -2,7 +2,7 @@ var Editor = function(){
 	return {
 		view: function(vnode){
 			return m(".editor",{
-				class: (vm.edit() ? "state-edit": "state-hidden") + " " + ((vm.edit() && vm.edit().type()==="effort") ? "editor-right": "editor-left")
+				class: (vm.edit() ? "state-edit": "state-hidden") + " " + ((vm.edit() && vm.edit().type()!=="task") ? "editor-right": "editor-left")
 			}, [
 				//Header
 				m(".editor-header",[

@@ -260,8 +260,8 @@ var EffortEditor = function(){
 						onadd: function(v){
 							ptrn.speculativeRelate(vm.edit(), v);
 							ptrn.create("hours", "~/_/_-~/_/_-0-0-w-0-w", function(newhours){
-								ptrn.relate(newhours, vm.edit());
-								ptrn.relate(newhours, v);
+								ptrn.speculativeRelate(newhours, vm.edit());
+								ptrn.speculativeRelate(newhours, v);
 							});
 							stateTeam = false;
 						},
