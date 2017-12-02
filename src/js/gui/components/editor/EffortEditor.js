@@ -188,6 +188,7 @@ var EffortEditor = function(){
 					]),
 
 					m(PeopleListEditor, {
+						classname: "client-editor",
 						peoplelist: vm.edit()("role:aclient person", function(a){return a;}).concat(vm.edit()("role:bclient person", function(a){return a;})),
 						roles: {
 							selected: function(person){
@@ -241,6 +242,7 @@ var EffortEditor = function(){
 					]),
 
 					m(PeopleListEditor, {
+						classname: "team-editor",
 						state: stateTeam,
 						peoplelist: vm.edit()("person", function(a){return a;}),
 						roles: {
@@ -301,7 +303,7 @@ var PeopleListEditor = function(){
 	return {
 		view: function(vnode){
 			return m(".editor-peoplelist", {
-					class: vnode.attrs.state ? "":"state-hidden"
+					class: vnode.attrs.classname+" "+(vnode.attrs.state ? "":"state-hidden")
 				}, [
 					m("input.input.editor-peoplelist-searchbar", {
 						class: vnode.attrs.state ? "":"state-hidden",
@@ -325,11 +327,11 @@ var PeopleListEditor = function(){
 					]),
 
 
-					m(".editor-peoplelist-navigation",[
+					(vnode.attrs.peoplelist.length > 0 ) ? m(".editor-peoplelist-navigation",[
 						//m(".editor-peoplelist-section.sub-navigation-label", "Jaar"),
 						(vnode.attrs.planhours) ? m(".editor-peoplelist-section.sub-navigation-label", "Uur per week") : [],
 						(!vnode.attrs.noroles) ? m(".editor-peoplelist-section.sub-navigation-label", "Positie") : [],
-					]),
+					]) : [],
 
 					vnode.attrs.peoplelist.map(function(person){
 						var plannedhours = person("hours",function(h){return h;}).filter(function(h){return h("#"+vm.edit().id()).id()>-1;});
@@ -436,7 +438,7 @@ var PeopleListEditor = function(){
 
 						]);
 					}),
-					(vnode.attrs.planhours) ?
+					((vnode.attrs.peoplelist.length > 0 ) && vnode.attrs.planhours) ?
 						m(".total-hours", [
 						m(".title-total", "Totaal uur"),
 						m(".total-hours-counting", vnode.attrs.peoplelist.reduce(function(total, person){
