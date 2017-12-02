@@ -45,7 +45,7 @@ var EffortSelector = function(){
 					},m(".selectorlist-back", [
 						selection(function(effort){
 							return m(".state-selectable.selectorlist-item", {
-								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==-1?"mode-sketch":""),
+								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==="0"?"":"mode-sketch"),
 
 							},[
 								m(".selectorlist-item-number", [
@@ -62,7 +62,7 @@ var EffortSelector = function(){
 
 									m(".selectorlist-item-labels",[
 										(effort('mode').value()==-1) ? m(".selectorlist-item-label-position", "Concept") : [],
-										(effort('mode').value()==-2) ? m(".selectorlist-item-label-position", "In afwachting") : [],
+										(effort('mode').value()==-2) ? m(".selectorlist-item-label-position", "Voorgelegd") : [],
 									]),
 
 									m(".selectorlist-item-options",[
