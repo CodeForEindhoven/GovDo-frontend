@@ -429,9 +429,10 @@ var PeopleListEditor = function(){
 
 						]);
 					}),
-					(vnode.attrs.planhours) ? [
-						m("span", "totaal "),
-						m("span", vnode.attrs.peoplelist.reduce(function(total, person){
+					(vnode.attrs.planhours) ? 
+						m(".total-hours", [
+						m(".title-total", "Totaal uur"),
+						m(".total-hours-counting", vnode.attrs.peoplelist.reduce(function(total, person){
 							var plannedhours = person("hours",function(h){return h;}).filter(function(h){return h("#"+vm.edit().id()).id()>-1;});
 							if(plannedhours[0]){
 								var parsedhours = HoursSpent.Parse(plannedhours[0].value());
@@ -440,7 +441,7 @@ var PeopleListEditor = function(){
 								return total;
 							}
 						}, 0))
-					] : []
+					]) : []
 			]);
 		}
 	};
