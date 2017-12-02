@@ -328,7 +328,7 @@ var PeopleListEditor = function(){
 					m(".editor-peoplelist-navigation",[
 						//m(".editor-peoplelist-section.sub-navigation-label", "Jaar"),
 						(vnode.attrs.planhours) ? m(".editor-peoplelist-section.sub-navigation-label", "Uur per week") : [],
-						m(".editor-peoplelist-section.sub-navigation-label", "Positie"),
+						(!vnode.attrs.noroles) ? m(".editor-peoplelist-section.sub-navigation-label", "Positie") : [],
 					]),
 
 					vnode.attrs.peoplelist.map(function(person){
