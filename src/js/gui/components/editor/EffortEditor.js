@@ -324,6 +324,13 @@ var PeopleListEditor = function(){
 							})
 					]),
 
+
+					m(".editor-peoplelist-navigation",[
+						//m(".editor-peoplelist-section.sub-navigation-label", "Jaar"),
+						(vnode.attrs.planhours) ? m(".editor-peoplelist-section.sub-navigation-label", "Uur per week") : [],
+						m(".editor-peoplelist-section.sub-navigation-label", "Positie"),
+					]),
+
 					vnode.attrs.peoplelist.map(function(person){
 						var plannedhours = person("hours",function(h){return h;}).filter(function(h){return h("#"+vm.edit().id()).id()>-1;});
 						var parsedhours;
@@ -429,7 +436,7 @@ var PeopleListEditor = function(){
 
 						]);
 					}),
-					(vnode.attrs.planhours) ? 
+					(vnode.attrs.planhours) ?
 						m(".total-hours", [
 						m(".title-total", "Totaal uur"),
 						m(".total-hours-counting", vnode.attrs.peoplelist.reduce(function(total, person){
