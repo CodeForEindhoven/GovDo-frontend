@@ -27,14 +27,15 @@ var AdminPage = function(){
 						]) : [],
 						m(".optionbar-section", [
 							m(".sub-navigation-label", ""),
-							m(".optionbar-option.logout", {
-								onclick: function(){
-									vm.logout();
-									vm.page(0);
-									m.redraw();
-								},
-							}, "Uitloggen"),
 						]),
+
+						m(".optionbar-option.logout", {
+							onclick: function(){
+								vm.logout();
+								vm.page(0);
+								m.redraw();
+							},
+						}, "Uitloggen"),
 					])
 				]),
 				m(".layout-workspace", [

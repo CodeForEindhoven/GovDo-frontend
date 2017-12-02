@@ -50,8 +50,10 @@ var ProgramEditor = function(){
 								}
 							}),
 						]),
+					]),
 
-						m(".editor-column",[
+					m(".editor-row",[
+						//m(".editor-column",[
 							//Opdrachtgevers
 							m(".editor-subtitle-header",[
 								m(".editor-subtitle.subtitle", [
@@ -98,7 +100,7 @@ var ProgramEditor = function(){
 								},
 								state: stateLeader
 							}),
-						])
+						//])
 					])
 				]),
 			]);

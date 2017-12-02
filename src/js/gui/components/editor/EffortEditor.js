@@ -338,20 +338,9 @@ var PeopleListEditor = function(){
 							//name
 							m("span.editor-peoplelist-person-name.body-text", person.value()),
 
-							//roles
-							(!vnode.attrs.noroles) ? m(DropDown, {
-								value: vnode.attrs.roles.selected(person),
-								options: vnode.attrs.roles.options,
-								novalue: vnode.attrs.roles.novalue,
-								onchange: function(e){
-									vnode.attrs.roles.onchange(e, person);
-								}
-							}) : [],
-
 							//hours
 							(vnode.attrs.planhours) ? [
 								m(".editor-hours-week", [
-									m("span", "uur per week: "),
 									m(NumberRoller, {
 										value: (parsedhours) ? parseInt(parsedhours.hours) : "~",
 										oninput: function(value){
@@ -422,6 +411,16 @@ var PeopleListEditor = function(){
 									}),
 								]) : []
 							] : [],
+
+							//roles
+							(!vnode.attrs.noroles) ? m(DropDown, {
+								value: vnode.attrs.roles.selected(person),
+								options: vnode.attrs.roles.options,
+								novalue: vnode.attrs.roles.novalue,
+								onchange: function(e){
+									vnode.attrs.roles.onchange(e, person);
+								}
+							}) : [],
 
 							//deletebutton
 							m("span.editor-peoplelist-person-remove", {

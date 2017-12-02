@@ -90,21 +90,21 @@ var NavBar = function(){
 					] : []),
 
 					//User Icon
-					m(".nav-user", [
+					m(".nav-user", {
+						onclick: function(){
+							if(vm.login()===0){
+								vm.page(4);
+							} else {
+								vm.login(1);
+							}
+						}
+					}, [
 						(vm.login()===0) ? [
-							m(".nav-user-login", {
-								onclick: function(){
-									vm.page(4);
-								}
-							}, m(Icon, {name: "personal", selected: true} )),
+							m(".nav-user-login", m(Icon, {name: "personal", selected: true} )),
 							m(".nav-user-name", ptrn("#"+vm.user().node).value()),
 							(hasTodos()>0) ? m(".nav-user-todo",hasTodos()) : [] //ptrn("#"+vm.user().node).value()
 						] : [
-							m(".nav-user-login", {
-								onclick: function(){
-									vm.login(1);
-								}
-							}, m(Icon, {name: "personal", selected: false})),
+							m(".nav-user-login", m(Icon, {name: "personal", selected: false})),
 						]
 					])
 				])
