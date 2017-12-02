@@ -152,7 +152,7 @@ var createnew = {
 				ptrn.createrelate("endproduct", "", e, function(){
 				ptrn.createrelate("type", "", e, function(){
 				ptrn.createrelate("order", effortcount, e, function(){
-				ptrn.createrelate("mode", "", e, function(){
+				ptrn.createrelate("mode", "-1", e, function(){
 				ptrn.createrelate("startdate", "_/_/_", e, function(){
 				ptrn.createrelate("enddate", "_/_/_", e, function(){
 					vm.edit(e);
