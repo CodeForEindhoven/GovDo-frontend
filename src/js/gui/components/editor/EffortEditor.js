@@ -333,7 +333,6 @@ var PeopleListEditor = function(){
 							parsedhours = undefined;
 						}
 
-
 						return m(".editor-peoplelist-person", [
 
 							//name
@@ -392,11 +391,11 @@ var PeopleListEditor = function(){
 										novalue: ["weken"],
 										onchange: function(e){
 											if(e===0){
-												parsedhours.period.length[1] = "w";
-											} else {
 												parsedhours.period.length[1] = "m";
+											} else {
+												parsedhours.period.length[1] = "w";
 											}
-											plannedhours[1].update(HoursSpent.toString(parsedhours));
+											plannedhours[0].update(HoursSpent.toString(parsedhours));
 										}
 									}),
 									m("span", " iedere "),
@@ -414,9 +413,9 @@ var PeopleListEditor = function(){
 										novalue: ["weken"],
 										onchange: function(e){
 											if(e===0){
-												parsedhours.period.every[1] = "w";
-											} else {
 												parsedhours.period.every[1] = "m";
+											} else {
+												parsedhours.period.every[1] = "w";
 											}
 											plannedhours[0].update(HoursSpent.toString(parsedhours));
 										}
