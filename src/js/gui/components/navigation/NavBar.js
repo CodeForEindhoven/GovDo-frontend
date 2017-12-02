@@ -3,7 +3,7 @@ var NavBar = function(){
 	var dropdownstate = false;
 
 	function hasTodos(){
-		return ptrn("feedbacksession", function(session){
+		var count = ptrn("feedbacksession", function(session){
 			return (ptrn("#"+vm.user().node+" role:leader effort type:0 effort", function(ef){
 				return ef("feedback:"+session.value()).id();
 			}).indexOf(-1)<0);
@@ -11,6 +11,11 @@ var NavBar = function(){
 			if(!elem) org++;
 			return org;
 		},0);
+
+
+		count += ptrn("#"+vm.user().node+" role:leader program task effort mode:-2", function(m){return m("effort");}).length;
+
+		return count;
 	}
 
 	return {
