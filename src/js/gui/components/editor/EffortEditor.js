@@ -248,7 +248,7 @@ var EffortEditor = function(){
 								return (person("role:leader #"+vm.edit().id()).id()>0) ? 0 : -1;
 							},
 							options:["Trekker"],
-							novalue: "-",
+							novalue: "Teamlid",
 							onchange: function(e, p){
 								if(e===0){
 									ptrn.speculativeRelate(vm.edit(), p("role:leader"));
@@ -374,7 +374,7 @@ var PeopleListEditor = function(){
 											console.log(plannedhours[0].value());
 										m.redraw();
 									}
-								}, (parsedhours && parsedhours.period.length[0]==="~") ? "Regelmatig" : "Onregelmatig"),
+								}, (parsedhours && parsedhours.period.length[0]==="~") ? "Doorlopend" : "Piek belasting"),
 
 								(parsedhours && parsedhours.period.length[0]!=="~") ? m(".editor-peoplelist-person-hours", [
 									m(NumberRoller, {

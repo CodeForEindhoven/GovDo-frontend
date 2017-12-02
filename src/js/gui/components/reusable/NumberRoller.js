@@ -8,8 +8,11 @@ var NumberRoller = function(){
 			return m("input.numberroller", {
 				value: (newValue!==undefined) ? newValue : vnode.attrs.value,
 				oninput: function(e){
-					newValue = e.target.value;
-					vnode.attrs.oninput(newValue);
+					newValue = parseInt(e.target.value);
+					if(isNaN(newValue)){
+						newValue = 0;
+					}
+					vnode.attrs.oninput(""+newValue);
 				},
 				onmousedown: function(e){
 					var currentValue = vnode.attrs.value;
