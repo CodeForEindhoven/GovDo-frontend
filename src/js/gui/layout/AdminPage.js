@@ -27,7 +27,7 @@ var AdminPage = function(){
 						]) : [],
 						m(".optionbar-section", [
 							m(".sub-navigation-label", ""),
-							m(".optionbar-option", {
+							m(".optionbar-option.logout", {
 								onclick: function(){
 									vm.logout();
 									vm.page(0);
