@@ -92,3 +92,30 @@
 .admin-tasks-feedback {
 	margin-top: 10px;
 }
+
+.admin-title.subtitle {
+	margin-bottom: 4px;
+	white-space: normal;
+}
+
+.admin-title.subtitle + .admin-title.subtitle, 
+.admin-tasks-approval + .admin-title.subtitle {
+	margin-top: 30px;
+}
+
+.admin-tasks-approval {
+	white-space: normal;
+	cursor: pointer;
+}
+
+.admin-tasks-approval:hover {
+	color: @color-selected;
+}
+
+.admin-tasks-approval + .admin-tasks-approval {
+	margin-top: 8px;
+}
+
+.logout:hover {
+	color: @color-red;
+}
