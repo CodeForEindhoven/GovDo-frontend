@@ -40,6 +40,11 @@ var ptrn2 = (function(){
 			return atom;
 		};
 
+		pub.undospeculativetransactions = function(){
+			speculativetransactions.map(function(t){
+			});
+		};
+
 		pub.writeatom = function(aid, tid, type, value){
 			if(!atoms[aid]) {
 				atoms[aid] = {
@@ -266,6 +271,10 @@ var ptrn2 = (function(){
 			storage.speculativetransact(function(tid){
 				return storage.dropatom(aid, tid);
 			});
+		};
+
+		pub.reset = function(){
+			storage.undospeculativetransactions();
 		};
 
 		pub.publish = function(){

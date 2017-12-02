@@ -385,7 +385,20 @@ var PeopleListEditor = function(){
 											m.redraw();
 										}
 									}),
-									m("span", "weken iedere "),
+									m(DropDown, {
+										value: parsedhours.period.length[1] === "w",
+										options: ["maanden"],
+										novalue: ["weken"],
+										onchange: function(e){
+											if(e===0){
+												parsedhours.period.length[1] = "w";
+											} else {
+												parsedhours.period.length[1] = "m";
+											}
+											plannedhours[1].update(HoursSpent.toString(parsedhours));
+										}
+									}),
+									m("span", " iedere "),
 									m(NumberRoller, {
 										value: (parsedhours) ? parseInt(parsedhours.period.every[0]) : "~",
 										oninput: function(value){
@@ -394,7 +407,19 @@ var PeopleListEditor = function(){
 											m.redraw();
 										}
 									}),
-									m("span", "weken")
+									m(DropDown, {
+										value: parsedhours.period.every[1] === "w",
+										options: ["maanden"],
+										novalue: ["weken"],
+										onchange: function(e){
+											if(e===0){
+												parsedhours.period.every[1] = "w";
+											} else {
+												parsedhours.period.every[1] = "m";
+											}
+											plannedhours[1].update(HoursSpent.toString(parsedhours));
+										}
+									}),
 								]) : []
 							] : [],
 
