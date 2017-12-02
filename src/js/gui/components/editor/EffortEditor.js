@@ -351,17 +351,18 @@ var PeopleListEditor = function(){
 
 							//hours
 							(vnode.attrs.planhours) ? [
-								m("span", "uur per week: "),
-								m(NumberRoller, {
-									value: (parsedhours) ? parseInt(parsedhours.hours) : "~",
-									oninput: function(value){
-										parsedhours.hours = ""+value;
-										plannedhours[0].update(HoursSpent.toString(parsedhours));
-										m.redraw();
-									}
-								}),
-
-								m("span", {
+								m(".editor-hours-week", [
+									m("span", "uur per week: "),
+									m(NumberRoller, {
+										value: (parsedhours) ? parseInt(parsedhours.hours) : "~",
+										oninput: function(value){
+											parsedhours.hours = ""+value;
+											plannedhours[0].update(HoursSpent.toString(parsedhours));
+											m.redraw();
+										}
+									}),
+								]),	
+								m(".switch-frequency", {
 									onclick: function(){
 										if(parsedhours.period.length[0]==="~"){
 											parsedhours.period.length[0] = "1";
@@ -374,7 +375,7 @@ var PeopleListEditor = function(){
 										console.log(plannedhours[0].value());
 										m.redraw();
 									}
-								}, (parsedhours && parsedhours.period.length[0]==="~") ? "regelmatig" : "onregelmatig"),
+								}, (parsedhours && parsedhours.period.length[0]==="~") ? "Regelmatig" : "Onregelmatig"),
 
 								(parsedhours && parsedhours.period.length[0]!=="~") ? m(".editor-peoplelist-person-hours", [
 									m(NumberRoller, {
@@ -385,7 +386,7 @@ var PeopleListEditor = function(){
 											m.redraw();
 										}
 									}),
-									m("span", "weken iedere "),
+									m("span", "Weken iedere "),
 									m(NumberRoller, {
 										value: (parsedhours) ? parseInt(parsedhours.period.every[0]) : "~",
 										oninput: function(value){
@@ -394,7 +395,7 @@ var PeopleListEditor = function(){
 											m.redraw();
 										}
 									}),
-									m("span", "weken")
+									m("span", "Weken")
 								]) : []
 							] : [],
 

@@ -115,7 +115,7 @@
 }
 
 .editor-typeselect-type-name {
-	font-weight: @semibold;
+	.default-text-regular ();
 }
 
 .editor-typeselect-type-timespan-subtitle {
@@ -191,6 +191,26 @@
 	margin-bottom: 16px;
 }
 
+.editor-peoplelist-person-hours {
+	margin-left: 35%;
+}
+
+.editor-hours-week {
+	display: inline-block;
+//	width: 20%;
+	position: absolute;
+	right: 30%;
+}
+
+.switch-frequency {
+	position: absolute;
+	left: 73%;
+	display: inline-block;
+//	margin-left: 40px;
+	cursor: pointer;
+	color: @color-selected;
+}
+
 // People
 .editor-peoplelist-finder {
 	width: 50%;
@@ -219,7 +239,7 @@
 }
 
 span + .dropdown {
-	margin-right: 20px;
+	margin-right: 80px;
 }
 
 .dropdown-value.novalue {
