@@ -55,3 +55,7 @@ ptrn("effort", function(effort){
 ptrn("person", function(person){
 	ptrn.adduser(person.id(), function(){});
 });
+
+//create contracts
+ptrn("person", function(p){ptrn.createrelate("contract", "40", p);})
+ptrn("person", function(p){ptrn.createrelate("plannable", "40", p);})

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "./node_modules/.bin/http-server ./src",
     "build": "node build.js",
-	"less": "./node_modules/.bin/lessc ./src/style/main.less ./src/style/main.css",
+    "less": "./node_modules/.bin/lessc ./src/style/main.less ./src/style/main.css",
     "watch": "./node_modules/.bin/nodemon --config nodemon.json build.js"
   },
   "repository": {

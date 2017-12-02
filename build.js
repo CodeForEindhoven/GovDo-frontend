@@ -12,6 +12,7 @@ compressor.minify({
 
 		"./src/js/models/Models.js",
 		"./src/js/models/Ptrn.js",
+		"./src/js/models/Ptrn2.js",
 
 		"./src/js/viewmodels/viewModels.js",
 		"./src/js/viewmodels/typeName.js",
