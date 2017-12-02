@@ -97,6 +97,7 @@ var NavBar = function(){
 									vm.page(4);
 								}
 							}, m(Icon, {name: "personal", selected: true} )),
+							m(".nav-user-name", ptrn("#"+vm.user().node).value()),
 							(hasTodos()>0) ? m(".nav-user-todo",hasTodos()) : [] //ptrn("#"+vm.user().node).value()
 						] : [
 							m(".nav-user-login", {

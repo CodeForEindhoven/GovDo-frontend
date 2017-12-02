@@ -361,7 +361,7 @@ var PeopleListEditor = function(){
 											m.redraw();
 										}
 									}),
-								]),	
+								]),
 								m(".switch-frequency", {
 									onclick: function(){
 										if(parsedhours.period.length[0]==="~"){
@@ -372,7 +372,7 @@ var PeopleListEditor = function(){
 										}
 
 										plannedhours[0].update(HoursSpent.toString(parsedhours));
-										console.log(plannedhours[0].value());
+											console.log(plannedhours[0].value());
 										m.redraw();
 									}
 								}, (parsedhours && parsedhours.period.length[0]==="~") ? "Regelmatig" : "Onregelmatig"),
@@ -387,7 +387,7 @@ var PeopleListEditor = function(){
 										}
 									}),
 									m(DropDown, {
-										value: parsedhours.period.length[1] === "w",
+										value: (parsedhours.period.length[1] === "w") ? -1 : 0,
 										options: ["maanden"],
 										novalue: ["weken"],
 										onchange: function(e){
@@ -409,7 +409,7 @@ var PeopleListEditor = function(){
 										}
 									}),
 									m(DropDown, {
-										value: parsedhours.period.every[1] === "w",
+										value: (parsedhours.period.every[1] === "w") ? -1 : 0,
 										options: ["maanden"],
 										novalue: ["weken"],
 										onchange: function(e){
@@ -418,7 +418,7 @@ var PeopleListEditor = function(){
 											} else {
 												parsedhours.period.every[1] = "m";
 											}
-											plannedhours[1].update(HoursSpent.toString(parsedhours));
+											plannedhours[0].update(HoursSpent.toString(parsedhours));
 										}
 									}),
 								]) : []
