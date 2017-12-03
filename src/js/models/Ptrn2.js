@@ -30,7 +30,7 @@ var ptrn = (function(){
 
 		pub.speculativetransact = function(callback){
 			var atom = {
-				tid: -(transactions.length+speculativetransactions.length),
+				tid: (transactions.length+speculativetransactions.length+10001),
 				time: new Date()
 			};
 
@@ -83,8 +83,8 @@ var ptrn = (function(){
 			}
 			//update rels
 			relations = relations.map(function(rel){
-				if(rel.aid<0){rel.aid = updates.speculativeids[rel.aid];}
-				if(rel.bid<0){rel.bid = updates.speculativeids[rel.bid];}
+				if(rel.aid>10000){rel.aid = updates.speculativeids[rel.aid];}
+				if(rel.bid>10000){rel.bid = updates.speculativeids[rel.bid];}
 				return rel;
 			});
 		};
@@ -121,8 +121,8 @@ var ptrn = (function(){
 
 		pub.createatom = function(tid, type, value){
 			var aid = atomCount++;
-			if(tid<0){
-				aid = -(aid);
+			if(tid>10000){
+				aid = (aid+10001);
 			}
 			return pub.writeatom(aid, tid, type, value);
 		};
@@ -247,6 +247,7 @@ var ptrn = (function(){
 			}
 		};
 
+		/*
 		pub.getatomsbytype = function(type){
 			return typemap[type];
 		};
@@ -264,6 +265,7 @@ var ptrn = (function(){
 				return b.type === type;
 			});
 		};
+		*/
 
 		pub.log = function(){
 			console.log(speculativetransactions);
@@ -311,14 +313,14 @@ var ptrn = (function(){
 					speculativeids[t.aid] = newtransaction.node.aid;
 					return newtransaction;
 				} else if(t.transaction === "update") {
-					if(t.aid < 0) {t.aid = speculativeids[t.aid];}
+					if(t.aid > 10000) {t.aid = speculativeids[t.aid];}
 					return pub.updateatom(t.aid, t.value);
 				} else if(t.transaction === "drop") {
-					if(t.aid < 0) {t.aid = speculativeids[t.aid];}
+					if(t.aid > 10000) {t.aid = speculativeids[t.aid];}
 					return pub.dropatom(t.aid);
 				} else if(t.transaction === "relate") {
-					if(t.aid < 0) {t.aid = speculativeids[t.aid];}
-					if(t.bid < 0) {t.bid = speculativeids[t.bid];}
+					if(t.aid > 10000) {t.aid = speculativeids[t.aid];}
+					if(t.bid > 10000) {t.bid = speculativeids[t.bid];}
 					return pub.relate(t.aid, t.bid, t.value);
 				}
 			});
@@ -378,7 +380,7 @@ var ptrn = (function(){
 		};
 
 		pub.updateatom = function(aid, value){
-			if(storage.getatom(aid).value[0].tid<0){
+			if(storage.getatom(aid).value[0].tid>10000){
 				return storage.overwriteatom(aid, value);
 			} else {
 				storage.speculativetransact(function(tid){
@@ -495,6 +497,7 @@ var ptrn = (function(){
 
 		pub.getatomsbytype = function(type, sub){
 			var s = set(sub);
+			console.log(s);
 			return s.filter(function(atom){
 				return atom.type===type;
 			});
@@ -508,9 +511,26 @@ var ptrn = (function(){
 
 		};
 
-		pub.getrelationsbytype = function(atom, type){
-			return storage.getrelationsbytype(atom.id(), type).map(function(atom){
-				return atomfactory.produce(atom);
+		pub.getatomrelations = function(atom){
+			if(storage.getrelations()[atom.aid]){
+				return storage.getrelations()[atom.aid].map(function(rid){
+					return storage.getatoms()[rid];
+				});
+			}
+			return [];
+		};
+
+		pub.getsubsetrelations = function(subset){
+
+			var relations = subset.map(function(atom){
+				return pub.getatomrelations(atom);
+			}).reduce(function(a,b){
+				return a.concat(b);
+			},[]);
+
+			//remove doubles
+			return relations.filter(function(item, pos) {
+				return (item && relations.indexOf(item) == pos);
 			});
 		};
 
@@ -551,22 +571,28 @@ var ptrn = (function(){
 
 			}
 
-			if(callback){
-				return selection.map(function(atom){
-					return callback(atomfactory.produce(atom));
-				});
-			} else {
-				if(selection.length > 0){
-					return atomfactory.produce(selection[0]);
+			if(words.length===1 || first.charAt(0)==="*"){
+			//if its not a long query
+				if(callback){
+					return selection.map(function(atom){
+						return callback(atomfactory.produce(atom));
+					});
+				} else {
+					if(selection.length > 0){
+						return atomfactory.produce(selection[0]);
+					}
+					return atomfactory.produce({
+						aid: -1,
+						type: "",
+						value: [{
+							tid: -1,
+							value: ""
+						}]
+					});
 				}
-				return atomfactory.produce({
-					aid: -1,
-					type: "",
-					value: [{
-						tid: -1,
-						value: ""
-					}]
-				});
+			} else {
+				var relations = selector.getsubsetrelations(selection);
+				return query(words[1], callback, relations);
 			}
 		};
 
