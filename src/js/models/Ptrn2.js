@@ -76,7 +76,11 @@ var ptrn2 = (function(){
 		};
 
 		pub.createatom = function(tid, type, value){
-			return pub.writeatom(atomCount++, tid, type, value);
+			var aid = atomCount++;
+			if(tid<0){
+				aid = -aid;
+			}
+			return pub.writeatom(aid, tid, type, value);
 		};
 
 		pub.dropatom = function(aid, tid){
@@ -92,7 +96,6 @@ var ptrn2 = (function(){
 		};
 
 		pub.writerelation = function(tid, aid, bid, value){
-
 			//if relation exists use that
 			var found = relations.find(function(rel){
 				return ((rel.aid===aid && rel.bid===bid) || (rel.aid===bid && rel.bid===aid));
@@ -214,27 +217,51 @@ var ptrn2 = (function(){
 		var pub = {};
 
 		pub.createatom = function(type, value){
-			storage.transact(function(tid){
+			return storage.transact(function(tid){
 				return storage.createatom(tid, type, value);
 			});
 		};
 
-		pub.updateatom = function(aid, type, value){
-			storage.transact(function(tid){
-				return storage.writeatom(aid, tid, type, value);
+		pub.updateatom = function(aid, value){
+			return storage.transact(function(tid){
+				return storage.writeatom(aid, tid, "", value);
 			});
 		};
 
 		pub.relate = function(aid, bid, value){
-			storage.transact(function(tid){
+			return storage.transact(function(tid){
 				return storage.writerelation(tid, aid, bid, value);
 			});
 		};
 
 		pub.dropatom = function(aid){
-			storage.transact(function(tid){
+			return storage.transact(function(tid){
 				return storage.dropatom(aid, tid);
 			});
+		};
+
+		pub.consume = function(transactions){
+			var speculativeids = {};
+			var newtransactions = transactions.map(function(t){
+				var newtransaction;
+				if(t.transaction === "create") {
+					newtransaction = pub.createatom(t.type, t.value);
+					speculativeids[t.aid] = newtransaction.node.aid;
+					return newtransaction;
+				} else if(t.transaction === "update") {
+					if(t.aid < 0) {t.aid = speculativeids[t.aid];}
+					return pub.updateatom(t.aid, t.value);
+				} else if(t.transaction === "drop") {
+					if(t.aid < 0) {t.aid = speculativeids[t.aid];}
+					return pub.dropatom(t.aid);
+				} else if(t.transaction === "relate") {
+					if(t.aid < 0) {t.aid = speculativeids[t.aid];}
+					if(t.bid < 0) {t.bid = speculativeids[t.bid];}
+					return pub.relate(t.aid, t.bid);
+				}
+			});
+			console.log(speculativeids);
+			console.log(newtransactions);
 		};
 
 		return pub;
@@ -251,12 +278,12 @@ var ptrn2 = (function(){
 			});
 		};
 
-		pub.updateatom = function(aid, type, value){
+		pub.updateatom = function(aid, value){
 			if(storage.getatom(aid).value[0].tid<0){
 				return storage.overwriteatom(aid, value);
 			} else {
 				storage.speculativetransact(function(tid){
-					return storage.writeatom(aid, tid, type, value);
+					return storage.writeatom(aid, tid, "", value);
 				});
 			}
 		};
@@ -279,7 +306,6 @@ var ptrn2 = (function(){
 
 		pub.publish = function(){
 			network.publish(storage.getspeculativetransactions().map(function(t){
-				console.log(t);
 				if(t.node.rid !== undefined){
 					return {
 						transaction: "relate",
@@ -291,7 +317,9 @@ var ptrn2 = (function(){
 					if(t.node.value.length===1){
 						return {
 							transaction: "create",
-							value: t.value.value
+							value: t.value.value,
+							type: t.node.type,
+							aid: t.node.aid
 						};
 					} else {
 						if(t.value.drop){
@@ -389,21 +417,21 @@ var ptrn2 = (function(){
 
 	network.onpublish(function(transaction){
 		console.log(transaction);
+		transactor.consume(transaction);
 	});
 
 	transactor.createatom("cheese", "blue");
 	transactor.createatom("cheese", "green");
 	transactor.relate(0,1, true);
-	speculator.updateatom(1, "cheese", "test");
+	speculator.updateatom(1, "test");
 
 	speculator.createatom("cheese", "purple");
-	speculator.updateatom(2, "cheese", "test");
-	speculator.relate(1,2, true);
+	speculator.updateatom(-2, "test");
+	speculator.relate(1,-2, true);
 	speculator.relate(0,1, false);
 	speculator.dropatom(1);
 
 	speculator.publish();
-
 
 	console.log(selector.getatomsbytype("cheese"));
 
