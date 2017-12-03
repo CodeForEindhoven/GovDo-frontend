@@ -1,4 +1,4 @@
-var ptrn2 = (function(){
+var ptrn = (function(){
 
 	//storage, is responsible for quickly storing and retreiving data
 	var storage = (function(){
@@ -40,8 +40,48 @@ var ptrn2 = (function(){
 			return atom;
 		};
 
-		pub.undospeculativetransactions = function(){
-			speculativetransactions.map(function(t){
+		pub.reifyspeculativetransactions = function(updates){
+			//update transactions
+			speculativetransactions.map(function(transaction, count){
+				transaction.node.value = transaction.node.value.map(function(v){
+					if(v.tid===transaction.tid){
+						v.tid = updates.newtransactions[count].tid;
+					}
+					return v;
+				});
+				transaction.tid = updates.newtransactions[count].tid;
+				transaction.time = updates.newtransactions[count].time;
+
+				transactions[transaction.tid] = transaction;
+			});
+			speculativetransactions = [];
+
+			for(var i in updates.speculativeids){
+				var oldid = parseInt(i);
+				var newid = updates.speculativeids[i];
+
+				//update all aid in atoms
+				var hold = JSON.parse(JSON.stringify(atoms[oldid]));
+				hold.aid = newid;
+				delete atoms[oldid];
+				atoms[newid] = hold;
+
+				//relationmap
+				var holdmap = JSON.parse(JSON.stringify(relationmap[oldid]));
+				delete relationmap[oldid];
+				relationmap[newid] = holdmap;
+				relationmap[newid].map(function(other){
+					relationmap[other] = relationmap[other].map(function(self){
+						if(self===oldid){return newid;}
+						return self;
+					});
+				});
+			}
+			//update rels
+			relations = relations.map(function(rel){
+				if(rel.aid<0){rel.aid = updates.speculativeids[rel.aid];}
+				if(rel.bid<0){rel.bid = updates.speculativeids[rel.bid];}
+				return rel;
 			});
 		};
 
@@ -78,7 +118,7 @@ var ptrn2 = (function(){
 		pub.createatom = function(tid, type, value){
 			var aid = atomCount++;
 			if(tid<0){
-				aid = -aid;
+				aid = -(aid);
 			}
 			return pub.writeatom(aid, tid, type, value);
 		};
@@ -183,6 +223,10 @@ var ptrn2 = (function(){
 			return speculativetransactions;
 		};
 
+		pub.gettransactions = function(){
+			return transactions;
+		};
+
 		pub.getatom = function(aid){
 			if(atoms[aid] && !atoms[aid].value[0].drop){
 				return atoms[aid];
@@ -257,11 +301,50 @@ var ptrn2 = (function(){
 				} else if(t.transaction === "relate") {
 					if(t.aid < 0) {t.aid = speculativeids[t.aid];}
 					if(t.bid < 0) {t.bid = speculativeids[t.bid];}
-					return pub.relate(t.aid, t.bid);
+					return pub.relate(t.aid, t.bid, t.value);
 				}
 			});
 			console.log(speculativeids);
 			console.log(newtransactions);
+			return {
+				speculativeids: speculativeids,
+				newtransactions: newtransactions
+			};
+		};
+
+		pub.publish = function(){
+			return storage.gettransactions().map(function(t){
+				if(t.node.rid !== undefined){
+					return {
+						transaction: "relate",
+						value: t.value.value,
+						aid: t.node.aid,
+						bid: t.node.bid
+					};
+				} else {
+					if(t.node.value.length===1){
+						return {
+							transaction: "create",
+							value: t.value.value,
+							type: t.node.type,
+							aid: t.node.aid
+						};
+					} else {
+						if(t.value.drop){
+							return {
+								transaction: "drop",
+								aid: t.node.aid,
+							};
+						} else {
+							return {
+								transaction: "update",
+								aid: t.node.aid,
+								value: t.value.value,
+							};
+						}
+					}
+				}
+			});
 		};
 
 		return pub;
@@ -300,8 +383,8 @@ var ptrn2 = (function(){
 			});
 		};
 
-		pub.reset = function(){
-			storage.undospeculativetransactions();
+		pub.reify = function(updates){
+			storage.reifyspeculativetransactions(updates);
 		};
 
 		pub.publish = function(){
@@ -393,6 +476,10 @@ var ptrn2 = (function(){
 			var words = q.split(/ (.+)/);
 			var first = words[0];
 		};
+
+		q.consume = transactor.consume;
+		q.dump = transactor.publish;
+		return q;
 	})();
 
 	//network, responsible for syncing with the backend
@@ -417,23 +504,32 @@ var ptrn2 = (function(){
 
 	network.onpublish(function(transaction){
 		console.log(transaction);
-		transactor.consume(transaction);
+		m.request({
+			method: "POST",
+			url: config.api_endpoint+"/transact",
+			data: transaction
+		})
+		.then(function(result) {
+			speculator.reify(result);
+		});
 	});
 
-	transactor.createatom("cheese", "blue");
-	transactor.createatom("cheese", "green");
-	transactor.relate(0,1, true);
-	speculator.updateatom(1, "test");
+	m.request({
+		method: "GET",
+		url: config.api_endpoint+"/dump",
+	})
+	.then(function(result) {
+		transactor.consume(result);
+		console.log(selector.getatomsbytype("cheese")[1].value());
+	});
+//	speculator.createatom("cheese", "red");
+//	speculator.createatom("cheese", "purple");
+//	speculator.updateatom(-1, "blue");
+//	speculator.relate(-0,-1, true);
+//
+//	speculator.publish();
 
-	speculator.createatom("cheese", "purple");
-	speculator.updateatom(-2, "test");
-	speculator.relate(1,-2, true);
-	speculator.relate(0,1, false);
-	speculator.dropatom(1);
 
-	speculator.publish();
-
-	console.log(selector.getatomsbytype("cheese"));
 
 	return query;
 })();
