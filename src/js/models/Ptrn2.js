@@ -449,7 +449,8 @@ var ptrn = (function(){
 
 		pub.produce = function(atom){
 			var a = function(q, callback){
-
+				var subset = selector.getatomrelations(atom);
+				return query(q, callback, subset);
 			};
 
 			a.value = function(){
