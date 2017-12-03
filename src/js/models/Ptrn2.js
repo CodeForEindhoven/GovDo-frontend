@@ -231,6 +231,14 @@ var ptrn = (function(){
 			return transactions;
 		};
 
+		pub.getatoms = function(){
+			return atoms;
+		};
+
+		pub.getrelations = function(){
+			return relationmap;
+		};
+
 		pub.getatom = function(aid){
 			if(atoms[aid] && !atoms[aid].value[0].drop){
 				return atoms[aid];
@@ -433,29 +441,6 @@ var ptrn = (function(){
 		return pub;
 	})();
 
-	//selector, responsible for getting data from storage and transforming to public api
-	var selector = (function(){
-		var pub = {};
-
-		pub.getatombyid = function(id){
-			return atomfactory.produce(storage.getatom(id));
-		};
-
-		pub.getatomsbytype = function(type){
-			return storage.getatomsbytype(type).map(function(atom){
-				return atomfactory.produce(atom);
-			});
-		};
-
-		pub.getrelationsbytype = function(atom, type){
-			return storage.getrelationsbytype(atom.id(), type).map(function(atom){
-				return atomfactory.produce(atom);
-			});
-		};
-
-		return pub;
-	})();
-
 	//responsible for transforming individual atoms to public api
 	var atomfactory = (function(){
 		var pub = {};
@@ -486,11 +471,103 @@ var ptrn = (function(){
 		return pub;
 	})();
 
+	//selector, responsible for getting data from storage and transforming to public api
+	var selector = (function(){
+		var pub = {};
+
+		function set(sub){
+			if(sub){
+				return sub;
+			} else {
+				return storage.getatoms().filter(function(atom){
+					return (!atom.value[0].drop);
+				});
+			}
+		}
+
+		pub.getatombyid = function(id, sub){
+			var s = set(sub);
+			if(s[id]) {
+				return [s[id]];
+			}
+			return [];
+		};
+
+		pub.getatomsbytype = function(type, sub){
+			var s = set(sub);
+			return s.filter(function(atom){
+				return atom.type===type;
+			});
+		};
+
+		pub.getatomsbytypevalue = function(type, value, sub){
+			var s = set(sub);
+			return s.filter(function(atom){
+				return (atom.type===type && atom.value[0].value===value);
+			});
+
+		};
+
+		pub.getrelationsbytype = function(atom, type){
+			return storage.getrelationsbytype(atom.id(), type).map(function(atom){
+				return atomfactory.produce(atom);
+			});
+		};
+
+		pub.search = function(searchterm){
+			var s = set();
+			return s.filter(function(atom){
+				return (atom.value[0].value.toLowerCase().indexOf(searchterm.toLowerCase())>-1);
+			});
+		};
+
+		return pub;
+	})();
+
 	//query
 	var query = (function(){
-		var q = function(input, callback){
-			var words = q.split(/ (.+)/);
+		var q = function(input, callback, subset){
+			var words = input.split(/ (.+)/);
 			var first = words[0];
+
+			var selection = [];
+
+
+			if(first.charAt(0)==="#"){
+				var id = parseInt(first.substring(1));
+				selection = selector.getatombyid(id, subset);
+			} else if(first.charAt(0)==="*") {
+				var search = input.substring(1);
+				selection = selector.search(search);
+			} else {
+				var typevalue = first.split(":");
+				var type = typevalue[0];
+				if(typevalue.length===1){
+					selection = selector.getatomsbytype(type, subset);
+				} else {
+					var value = typevalue[1];
+					selection = selector.getatomsbytypevalue(type, value, subset);
+				}
+
+			}
+
+			if(callback){
+				return selection.map(function(atom){
+					return callback(atomfactory.produce(atom));
+				});
+			} else {
+				if(selection.length > 0){
+					return atomfactory.produce(selection[0]);
+				}
+				return atomfactory.produce({
+					aid: -1,
+					type: "",
+					value: [{
+						tid: -1,
+						value: ""
+					}]
+				});
+			}
 		};
 
 		q.consume = transactor.consume;
