@@ -405,7 +405,7 @@ var ptrn = (function(){
 			return storage.reifyspeculativetransactions(updates);
 		};
 
-		pub.publish = function(){
+		pub.publish = function(callback){
 			network.publish(storage.getspeculativetransactions().map(function(t){
 				if(t.node.rid !== undefined){
 					return {
@@ -437,7 +437,7 @@ var ptrn = (function(){
 						}
 					}
 				}
-			}));
+			}), callback);
 		};
 
 		return pub;
@@ -490,10 +490,13 @@ var ptrn = (function(){
 
 		pub.getatombyid = function(id, sub){
 			var s = set(sub);
-			if(s[id]) {
-				return [s[id]];
-			}
-			return [];
+			var found = s.filter(function(atom){
+				return atom.aid === id;
+			});
+			//if(found) {
+			//	return [s[id]];
+			//}
+			return found;
 		};
 
 		pub.getatomsbytype = function(type, sub){
@@ -556,6 +559,7 @@ var ptrn = (function(){
 
 			if(first.charAt(0)==="#"){
 				var id = parseInt(first.substring(1));
+				console.log("id", id, subset);
 				selection = selector.getatombyid(id, subset);
 			} else if(first.charAt(0)==="*") {
 				var search = input.substring(1);
@@ -634,7 +638,9 @@ var ptrn = (function(){
 		};
 		q.speculativeRelate = q.relate;
 		q.speculativeUnrelate = q.unrelate;
-		//q.loadall = pulldump;
+		q.compare = function(a,b){
+			return (a && b && a.id()===b.id());
+		};
 
 		return q;
 	})();
@@ -646,9 +652,9 @@ var ptrn = (function(){
 			onpublish: []
 		};
 
-		pub.publish = function(value){
+		pub.publish = function(value, callback){
 			callbacks.onpublish.map(function(c){
-				c(value);
+				c(value, callback);
 			});
 		};
 
@@ -659,7 +665,7 @@ var ptrn = (function(){
 		return pub;
 	})();
 
-	network.onpublish(function(transaction){
+	network.onpublish(function(transaction, callback){
 		m.request({
 			method: "POST",
 			url: config.api_endpoint+"/transact",
@@ -667,16 +673,84 @@ var ptrn = (function(){
 		})
 		.then(function(result) {
 			speculator.reify(result);
+			if(callback){callback();}
 		});
 	});
 
-	m.request({
-		method: "GET",
-		url: config.api_endpoint+"/dump",
-	})
-	.then(function(result) {
-		transactor.consume(result);
-	});
+	query.onload = function(callback){
+		m.request({
+			method: "GET",
+			url: config.api_endpoint+"/dump",
+		})
+		.then(function(result) {
+			transactor.consume(result);
+			callback();
+		});
+	};
+
+
+	query.adduser = function(userid, callback){
+		m.request({
+			method:"POST",
+			url: config.api_endpoint+"user/add",
+			data: {
+				id: userid
+			}
+		}).then(function(resp){
+			if(callback) callback(resp);
+		});
+	};
+
+	query.updateuser = function(userid, name, role, callback){
+		m.request({
+			method:"POST",
+			url: config.api_endpoint+"user/set",
+			data: {
+				id: userid,
+				name: name,
+				role: role,
+			}
+		}).then(function(resp){
+			if(callback) callback(resp);
+		});
+	};
+
+	query.loginuser = function(user, callback){
+		m.request({
+			method:"POST",
+			url: config.api_endpoint+"user/hash",
+			data: {
+				name: user
+			}
+		}).then( function(resp){
+			callback(resp.succes);
+		});
+	};
+
+	query.loginpass = function(user, pass, callback){
+		m.request({
+			method:"POST",
+			url: config.api_endpoint+"user/check",
+			data: {
+				name: user,
+				pass: pass
+			}
+		}).then( function(resp){
+			callback(resp.succes, resp.node, resp.role);
+		});
+	};
+
+	query.getusers = function(callback){
+		m.request({
+			method:"GET",
+			url: config.api_endpoint+"users",
+			data: {},
+		}).then( function(resp){
+			userlist = resp;
+			callback(resp);
+		});
+	};
+
 //	speculator.createatom("cheese", "red");
 //	speculator.createatom("cheese", "purple");
 //	speculator.updateatom(-1, "blue");

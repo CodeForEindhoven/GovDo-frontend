@@ -33,16 +33,16 @@ var MagicLogin = function(){
 };
 
 //check for major updates
-//ptrn.loadall(function(){
-//	vm.program(ptrn("program"));
-//	vm.person(ptrn("person"));
-//	vm.focus(vm.program());
-//
-//	m.route(document.body, "/", {
-//		"/": Page,
-//		"/magic": MagicLogin
-//	});
-//});
+ptrn.onload(function(){
+	vm.program(ptrn("program"));
+	//vm.person(ptrn("person"));
+	vm.focus(vm.program());
+
+	m.route(document.body, "/", {
+		"/": Page,
+		"/magic": MagicLogin
+	});
+});
 
 function cheatToCalendar(){
 	vm.program(ptrn("program"));
