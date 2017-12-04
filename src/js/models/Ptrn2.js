@@ -304,6 +304,18 @@ var ptrn = (function(){
 			});
 		};
 
+		pub.sync = function(newtransactions){
+			var transactions = storage.gettransactions();
+			newtransactions = newtransactions.filter(function(t, count){
+				return transactions.find(function(o){
+					return (o.tid === count);
+				}) === undefined;
+			});
+
+			//console.log("newtransactions", transactions, newtransactions);
+			pub.consume(newtransactions);
+		};
+
 		pub.consume = function(transactions){
 			var speculativeids = {};
 			var newtransactions = transactions.map(function(t){
@@ -682,9 +694,24 @@ var ptrn = (function(){
 		})
 		.then(function(result) {
 			transactor.consume(result);
+			query.sync();
 			callback();
 		});
 	};
+
+	query.sync = function(){
+		m.request({
+			method: "GET",
+			url: config.api_endpoint+"/dump",
+		})
+		.then(function(result) {
+			transactor.sync(result);
+			m.redraw();
+		});
+
+		window.setTimeout(query.sync, 5000);
+	};
+
 
 
 	query.adduser = function(userid, callback){
