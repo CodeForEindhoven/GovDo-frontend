@@ -501,7 +501,6 @@ var ptrn = (function(){
 
 		pub.getatomsbytype = function(type, sub){
 			var s = set(sub);
-			console.log(s);
 			return s.filter(function(atom){
 				return atom.type===type;
 			});
@@ -559,7 +558,6 @@ var ptrn = (function(){
 
 			if(first.charAt(0)==="#"){
 				var id = parseInt(first.substring(1));
-				console.log("id", id, subset);
 				selection = selector.getatombyid(id, subset);
 			} else if(first.charAt(0)==="*") {
 				var search = input.substring(1);
