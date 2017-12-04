@@ -4,7 +4,10 @@ var EffortSelector = function(){
 
 	function selection(callback){
 		if(vm.focus().type()==="program"){
-			return vm.task()("effort", callback);
+			return vm.task()("effort", function(effort){return effort;})
+			.sort(function(a,b){
+				return parseInt(a("order").value()) - parseInt(b("order").value());
+			}).map(callback);
 		} else if(vm.focus().type()==="task"){
 			return vm.task()("effort", callback);
 		} else if(vm.focus().type()==="effort"){
@@ -16,6 +19,23 @@ var EffortSelector = function(){
 					return (e("#"+vm.person().id()).id()>-1);
 				})
 				.map(callback);
+		}
+	}
+
+	function shiftItem(item, dir){
+		var taskcount = vm.task()("effort", function(a){return a;}).length;
+		var currentorder = item("order");
+		var other = vm.task()("effort", function(task){
+			return task;
+		}).filter(function(task){
+			return (task("order").value() === (parseInt(currentorder.value())+dir));
+		})[0];
+		if(other){
+			ptrn.unrelate(item, currentorder);
+			ptrn.relate(item, other("order"));
+			ptrn.unrelate(other, other("order"));
+			ptrn.relate(other, currentorder);
+			ptrn.transact();
 		}
 	}
 
@@ -67,8 +87,16 @@ var EffortSelector = function(){
 
 									m(".selectorlist-item-options",[
 										m(".selectorlist-item-options-position", [
-											m("i.material-icons.selectorlist-item-option","keyboard_arrow_down"),
-											m("i.material-icons.selectorlist-item-option","keyboard_arrow_up"),
+											m("i.material-icons.selectorlist-item-option",{
+												onclick: function(e){
+													shiftItem(effort, 1);
+												}
+											},"keyboard_arrow_down"),
+											m("i.material-icons.selectorlist-item-option",{
+												onclick: function(e){
+													shiftItem(effort, -1);
+												}
+											},"keyboard_arrow_up"),
 										]),
 										m(".selectorlist-item-option.button-edit-small",{
 											onclick: function(){

@@ -138,7 +138,7 @@ var createnew = {
 				ptrn.createrelate("means", "", t, function(){
 				ptrn.createrelate("kpi", "", t, function(){
 				ptrn.createrelate("order", taskcount, t, function(){
-				ptrn.createrelate("mode", "-1", t, function(){
+				ptrn.createrelate("mode", "0", t, function(){
 					vm.edit(t);
 				});});});});
 			});

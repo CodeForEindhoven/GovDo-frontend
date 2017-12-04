@@ -16,7 +16,10 @@ var TaskSelector = function(){
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
-						(vm.focus().type()==="program") ? vm.program()("task", function(task){
+						(vm.focus().type()==="program") ? vm.program()("task", function(task){return task;})
+						.sort(function(a,b){
+							return parseInt(a("order").value()) - parseInt(b("order").value());
+						}).map(function(task){
 							return m(TaskSelectorItem,{task: task});
 						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven"))
 						: [],
@@ -58,6 +61,25 @@ var TaskSelector = function(){
 };
 
 var TaskSelectorItem = function(){
+
+	function shiftItem(item, dir){
+		var taskcount = vm.program()("task", function(a){return a;}).length;
+		var currentorder = item("order");
+		var other = vm.program()("task", function(task){
+			return task;
+		}).filter(function(task){
+			return (task("order").value() === (parseInt(currentorder.value())+dir));
+		})[0];
+		console.log(other);
+		if(other){
+			ptrn.unrelate(item, currentorder);
+			ptrn.relate(item, other("order"));
+			ptrn.unrelate(other, other("order"));
+			ptrn.relate(other, currentorder);
+			ptrn.transact();
+		}
+	}
+
 	return {
 		view: function(vnode){
 			var task = vnode.attrs.task;
@@ -82,8 +104,16 @@ var TaskSelectorItem = function(){
 					m(".selector-selected-title", task.value()),
 					m(".selectorlist-item-options",[
 						m(".selectorlist-item-options-position", [
-							m("i.material-icons.selectorlist-item-option","keyboard_arrow_down"),
-							m("i.material-icons.selectorlist-item-option","keyboard_arrow_up"),
+							m("i.material-icons.selectorlist-item-option",{
+								onclick: function(e){
+									shiftItem(task, 1);
+								}
+							},"keyboard_arrow_down"),
+							m("i.material-icons.selectorlist-item-option",{
+								onclick: function(e){
+									shiftItem(task, -1);
+								}
+							},"keyboard_arrow_up"),
 						]),
 						m(".selectorlist-item-option.button-edit-small",{
 							onclick: function(){
