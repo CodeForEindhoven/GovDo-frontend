@@ -279,7 +279,7 @@ var EffortEditor = function(){
 				m(".editor-section.editor-section-end",[
 					m(".status-content",[
 						m(Toggle, {
-							value: parseInt(vm.edit()("mode").value()),
+							value: vm.edit()("mode").value(),
 							label_sketch: "Concept",
 							label_submitted: "Voorleggen",
 							label_definitive: "Goedgekeurd",

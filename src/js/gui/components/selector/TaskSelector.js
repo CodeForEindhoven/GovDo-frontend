@@ -84,7 +84,7 @@ var TaskSelectorItem = function(){
 		view: function(vnode){
 			var task = vnode.attrs.task;
 			return m(".state-selectable.selectorlist-item", {
-				class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()==-1?"mode-sketch":""),
+				class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()=="-1"?"mode-sketch":""),
 			},[
 				m(".selectorlist-item-number", [
 					m(Numbering, {node: task}),
