@@ -3,6 +3,7 @@ var ptrn = (function(){
 	//storage, is responsible for quickly storing and retreiving data
 	var storage = (function(){
 
+		var age = 0;
 		var pub = {};
 
 		var transactions = [];
@@ -16,12 +17,21 @@ var ptrn = (function(){
 		var typemap = {};
 		var relationmap = {};
 
+		pub.setage = function(a){
+			if(a>age){age=a;}
+		};
+
+		pub.getage = function(){
+			return age;
+		};
+
 		pub.transact = function(callback){
 			var atom = {
 				tid: transactions.length,
 				time: new Date()
 			};
 
+			pub.setage(atom.tid);
 			atom.node = callback(atom.tid);
 			atom.value = atom.node.value[0];
 			transactions.push(atom);
@@ -51,7 +61,7 @@ var ptrn = (function(){
 				});
 				transaction.tid = updates.newtransactions[count].tid;
 				transaction.time = updates.newtransactions[count].time;
-
+				pub.setage(transaction.tid);
 				transactions[transaction.tid] = transaction;
 			});
 			speculativetransactions = [];
@@ -619,6 +629,7 @@ var ptrn = (function(){
 
 		/*PUBLIC INTERFACE*/
 		q.transact = speculator.publish;
+		q.getage = storage.getage;
 		//q.find = find;
 		//q.compare = compare;
 		q.log = storage.log;
@@ -704,14 +715,24 @@ var ptrn = (function(){
 	query.sync = function(){
 		m.request({
 			method: "GET",
-			url: config.api_endpoint+"/dump",
+			url: config.api_endpoint+"/",
 		})
 		.then(function(result) {
-			transactor.sync(result);
-			m.redraw();
-		});
 
-		window.setTimeout(query.sync, 5000);
+			if(result.transactions > storage.getage()){
+				m.request({
+					method: "GET",
+					url: config.api_endpoint+"/dump",
+				})
+				.then(function(result) {
+					transactor.sync(result);
+					m.redraw();
+					window.setTimeout(query.sync, 5000);
+				});
+			} else {
+				window.setTimeout(query.sync, 2000);
+			}
+		});
 	};
 
 
