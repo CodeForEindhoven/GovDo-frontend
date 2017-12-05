@@ -7,12 +7,12 @@ var TaskSelector = function(){
 					m(".selector-header", [
 						m("span", "Opgaven"),
 							m(".icons-header", [
+								m("span.selector-tooltip", "Nieuwe Opgave"),
 								m("i.material-icons", {
 									onclick: function(){
 										createnew.task();
 									}
 								}, "add"),
-								m(Icon, {name: "info"}),
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
@@ -70,7 +70,6 @@ var TaskSelectorItem = function(){
 		}).filter(function(task){
 			return (task("order").value() === (parseInt(currentorder.value())+dir));
 		})[0];
-		console.log(other);
 		if(other){
 			ptrn.unrelate(item, currentorder);
 			ptrn.relate(item, other("order"));
@@ -80,28 +79,32 @@ var TaskSelectorItem = function(){
 		}
 	}
 
+	function selectItem(task){
+		if(vm.edit() && vm.edit().type()==="effort"){
+			vm.editClose();
+			if(!ptrn.compare(vm.task(), task)){
+				vm.task(task);
+			}
+		} else {
+			vm.task(task);
+		}
+	}
+
 	return {
 		view: function(vnode){
 			var task = vnode.attrs.task;
 			return m(".state-selectable.selectorlist-item", {
 				class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()=="-1"?"mode-sketch":""),
 			},[
-				m(".selectorlist-item-number", [
+				m(".selectorlist-item-number",  {
+					onclick: function(){selectItem(task);},
+				}, [
 					m(Numbering, {node: task}),
 				]),
 				m(".selectorlist-item-content", {
-					onclick: function(){
-						if(vm.edit() && vm.edit().type()==="effort"){
-							vm.editClose();
-							if(!ptrn.compare(vm.task(), task)){
-								vm.task(task);
-							}
-						} else {
-							vm.task(task);
-						}
-					},
+					onclick: function(){selectItem(task);},
 				}, [
-					m(".selector-selected-title", task.value()),
+					m(".selector-selected-title", task.value().emptyState(m(".selectorlist-state.state-empty", "Opgave zonder titel"))),
 					m(".selectorlist-item-options",[
 						m(".selectorlist-item-options-position", [
 							m("i.material-icons.selectorlist-item-option",{

@@ -46,13 +46,12 @@ var EffortSelector = function(){
 					m(".selector-header", [
 						m("span", "Inspanningen"),
 							m(".icons-header", [
+								m("span.selector-tooltip", "Nieuwe Inspanning"),
 								m("i.material-icons", {
 									onclick: function(){
 										createnew.effort();
 									}
-								}, "add"),
-								//m("i.material-icons", {}, "import_export"),
-								m(Icon, {name: "info"}),
+								}, "add")
 							]),
 					]),
 					m(".selectorlist", {
@@ -66,9 +65,12 @@ var EffortSelector = function(){
 						selection(function(effort){
 							return m(".state-selectable.selectorlist-item", {
 								class: (ptrn.compare(vm.effort(),effort)?"state-selected":"") + " " +(effort('mode').value()==="0"?"":"mode-sketch"),
-
 							},[
-								m(".selectorlist-item-number", [
+								m(".selectorlist-item-number", {
+									onclick: function(){
+										vm.effort(effort);
+									},
+								}, [
 									m(Numbering, {node: effort}),
 								]),
 								m(".selectorlist-item-content", {
@@ -76,9 +78,7 @@ var EffortSelector = function(){
 										vm.effort(effort);
 									},
 								}, [
-
-									m(".selector-selected-title", {
-									}, effort.value()),
+									m(".selector-selected-title", effort.value().emptyState(m(".selectorlist-state.state-empty", "Inspanning zonder titel"))),
 
 									m(".selectorlist-item-labels",[
 										(effort('mode').value()==-1) ? m(".selectorlist-item-label-position", "Concept") : [],
