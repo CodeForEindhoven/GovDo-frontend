@@ -5,10 +5,13 @@ var vm = (function(){
 	var currentPage = 0;
 
 	var currentUser = {user:"", pass:"", node: -1, role: 0};
-	var storedUser = localStorage.getItem('planlabuser');
-	if(storedUser){
-		currentUser = JSON.parse(storedUser);
-		loginPopup = 0;
+
+	if (typeof(Storage) !== "undefined") {
+		var storedUser = localStorage.getItem('planlabuser');
+		if(storedUser){
+			currentUser = JSON.parse(storedUser);
+			loginPopup = 0;
+		}
 	}
 
 	var currentFocus;
@@ -46,14 +49,22 @@ var vm = (function(){
 			return loginPopup;
 		},
 		logout: function(){
-			localStorage.removeItem('planlabuser');
-			currentUser = {user:"", pass:"", node: -1, role: 0};
-			loginPopup = -1;
+			if (typeof(Storage) !== "undefined") {
+				localStorage.removeItem('planlabuser');
+				currentUser = {user:"", pass:"", node: -1, role: 0};
+				loginPopup = -1;
+			} else {
+				console.log("no localstorage");
+			}
 		},
 		user: function(i){
 			if(i !== undefined){
 				currentUser = i;
-				localStorage.setItem('planlabuser', JSON.stringify(i));
+				if (typeof(Storage) !== "undefined") {
+					localStorage.setItem('planlabuser', JSON.stringify(i));
+				} else {
+					console.log("no localstorage");
+				}
 			}
 			return currentUser;
 		},
