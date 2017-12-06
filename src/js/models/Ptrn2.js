@@ -564,7 +564,7 @@ var ptrn = (function(){
 		pub.search = function(searchterm){
 			var s = set();
 			return s.filter(function(atom){
-				return (atom.value[0].value.toLowerCase().indexOf(searchterm.toLowerCase())>-1);
+				return (String(atom.value[0].value).toLowerCase().indexOf(searchterm.toLowerCase())>-1);
 			});
 		};
 
