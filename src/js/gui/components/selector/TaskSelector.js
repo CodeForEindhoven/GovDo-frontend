@@ -131,7 +131,10 @@ var TaskSelectorItem = function(){
 				]),
 				m(".selector-hidden",[
 					m(".selector-selected-subheader", "Indicator"),
-					m(".selector-selected-description.kpi", task("kpi").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator")))
+					task("kpi", function(kpi){
+						return m(".selector-selected-description.kpi", "- "+task("kpi").value());
+					}).emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator"))
+					//m(".selector-selected-description.kpi", task("kpi").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator")))
 				])
 			]);
 		}
