@@ -7,16 +7,19 @@ var TaskSelector = function(){
 					m(".selector-header", [
 						m("span", "Opgaven"),
 							m(".icons-header", [
+								m("span.selector-tooltip", "Nieuwe Opgave"),
 								m("i.material-icons", {
 									onclick: function(){
 										createnew.task();
 									}
 								}, "add"),
-								m(Icon, {name: "info"}),
 							]),
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
-						(vm.focus().type()==="program") ? vm.program()("task", function(task){
+						(vm.focus().type()==="program") ? vm.program()("task", function(task){return task;})
+						.sort(function(a,b){
+							return parseInt(a("order").value()) - parseInt(b("order").value());
+						}).map(function(task){
 							return m(TaskSelectorItem,{task: task});
 						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven"))
 						: [],
@@ -58,32 +61,62 @@ var TaskSelector = function(){
 };
 
 var TaskSelectorItem = function(){
+
+	function shiftItem(item, dir){
+		var taskcount = vm.program()("task", function(a){return a;}).length;
+		var currentorder = item("order");
+		var other = vm.program()("task", function(task){
+			return task;
+		}).filter(function(task){
+			return (task("order").value() === (parseInt(currentorder.value())+dir));
+		})[0];
+		if(other){
+			ptrn.unrelate(item, currentorder);
+			ptrn.relate(item, other("order"));
+			ptrn.unrelate(other, other("order"));
+			ptrn.relate(other, currentorder);
+			ptrn.transact();
+		}
+	}
+
+	function selectItem(task){
+		if(vm.edit() && vm.edit().type()==="effort"){
+			vm.editClose();
+			if(!ptrn.compare(vm.task(), task)){
+				vm.task(task);
+			}
+		} else {
+			vm.task(task);
+		}
+	}
+
 	return {
 		view: function(vnode){
 			var task = vnode.attrs.task;
 			return m(".state-selectable.selectorlist-item", {
-				class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()==-1?"mode-sketch":""),
+				class: (ptrn.compare(vm.task(),task)?"state-selected":"") +" "+ (task("mode").value()=="-1"?"mode-sketch":""),
 			},[
-				m(".selectorlist-item-number", [
+				m(".selectorlist-item-number",  {
+					onclick: function(){selectItem(task);},
+				}, [
 					m(Numbering, {node: task}),
 				]),
 				m(".selectorlist-item-content", {
-					onclick: function(){
-						if(vm.edit() && vm.edit().type()==="effort"){
-							vm.editClose();
-							if(!ptrn.compare(vm.task(), task)){
-								vm.task(task);
-							}
-						} else {
-							vm.task(task);
-						}
-					},
+					onclick: function(){selectItem(task);},
 				}, [
-					m(".selector-selected-title", task.value()),
+					m(".selector-selected-title", task.value().emptyState(m(".selectorlist-state.state-empty", "Opgave zonder titel"))),
 					m(".selectorlist-item-options",[
 						m(".selectorlist-item-options-position", [
-							m("i.material-icons.selectorlist-item-option","keyboard_arrow_down"),
-							m("i.material-icons.selectorlist-item-option","keyboard_arrow_up"),
+							m("i.material-icons.selectorlist-item-option",{
+								onclick: function(e){
+									shiftItem(task, 1);
+								}
+							},"keyboard_arrow_down"),
+							m("i.material-icons.selectorlist-item-option",{
+								onclick: function(e){
+									shiftItem(task, -1);
+								}
+							},"keyboard_arrow_up"),
 						]),
 						m(".selectorlist-item-option.button-edit-small",{
 							onclick: function(){
@@ -98,7 +131,10 @@ var TaskSelectorItem = function(){
 				]),
 				m(".selector-hidden",[
 					m(".selector-selected-subheader", "Indicator"),
-					m(".selector-selected-description.kpi", task("kpi").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator")))
+					task("kpi", function(kpi){
+						return m(".selector-selected-description.kpi", "- "+kpi.value());
+					}).emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator"))
+					//m(".selector-selected-description.kpi", task("kpi").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator")))
 				])
 			]);
 		}

@@ -8,13 +8,14 @@ var TreePage = function(){
 						(vm.focus().type()==="program") ? m(".optionbar-section", [
 							m(".sub-navigation-label", "Doelenboom"),
 							m(".optionbar-option", {
-								onclick: function(){currentPage = 0;},
-								class: (currentPage===0)? "state-selected":""
-							}, "Missie & Team"),
-							m(".optionbar-option", {
 								onclick: function(){currentPage = 1;},
 								class: (currentPage===1)? "state-selected":""
 							}, "Opgaven & Inspanningen"),
+
+							m(".optionbar-option", {
+								onclick: function(){currentPage = 0;},
+								class: (currentPage===0)? "state-selected":""
+							}, "Missie & Team"),
 						]) : [],
 					])
 				]),

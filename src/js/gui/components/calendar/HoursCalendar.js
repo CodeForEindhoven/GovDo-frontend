@@ -95,6 +95,8 @@ var CalendarHours = function(){
 				hours = vm.focus()("hours", function(hourstring){
 					return {
 						effort: hourstring("effort"),
+						startdate: hourstring("effort")("startdate").value(),
+						enddate: hourstring("effort")("enddate").value(),
 						hours: [HoursSpent.Parse(hourstring.value())]
 					};
 				}).reduce(function(reduced, hour){
@@ -113,6 +115,8 @@ var CalendarHours = function(){
 				hours = vm.focus()("hours", function(hourstring){
 					return {
 						effort: hourstring("person"),
+						startdate: hourstring("effort")("startdate").value(),
+						enddate: hourstring("effort")("enddate").value(),
 						hours: [HoursSpent.Parse(hourstring.value())]
 					};
 				}).reduce(function(reduced, hour){
@@ -131,6 +135,8 @@ var CalendarHours = function(){
 				hours = vm.focus()("task effort", function(effort){
 					return {
 						effort: effort,
+						startdate: effort("startdate").value(),
+						enddate: effort("enddate").value(),
 						hours: effort("hours", function(hourstring){
 							return HoursSpent.Parse(hourstring.value());
 						})
@@ -152,7 +158,7 @@ var CalendarHours = function(){
 				var blocks = hours.map(function(effort){
 					if(effort.hours.length>0) {count++;}
 					return effort.hours.map(function(hour){
-						if(FuzzyDate.inRange(hour.start, hour.end, startWeek)){
+						if(FuzzyDate.inRange(effort.startdate, effort.enddate, startWeek)){
 							hour.hours = parseInt(hour.hours);
 							totalhours += hour.hours;
 

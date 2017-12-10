@@ -125,7 +125,6 @@ var DateVisible = function(){
 	};
 };
 
-
 var DateEditor = function(){
 	return {
 		view: function(vnode){
@@ -134,40 +133,7 @@ var DateEditor = function(){
 
 				vnode.attrs.element.hours.map(function(hours){
 					var parsedhours = HoursSpent.Parse(hours.value());
-					return m(".personal-efforts-effort-date", [
-						m(NumberRoller, {
-							value: parseInt(parsedhours.hours),
-							oninput: function(value){
-								parsedhours.hours = ""+value;
-								hours.update(HoursSpent.toString(parsedhours));
-								m.redraw();
-							}
-						}),
-						m("span", " uur, van"),
-						m(DateWeekSelector, {
-							oninput: function(date){
-								parsedhours.start = date;
-								hours.update(HoursSpent.toString(parsedhours));
-								m.redraw();
-							},
-							date: parsedhours.start
-						}),
-						m("span", "t/m"),
-						m(DateWeekSelector, {
-							oninput: function(date){
-								parsedhours.end = date;
-								hours.update(HoursSpent.toString(parsedhours));
-								m.redraw();
-							},
-							date: parsedhours.end
-						}),
-						m("span", {
-							onclick: function(){
-								ptrn.speculativeUnrelate(hours, vnode.attrs.element.effort);
-								ptrn.speculativeUnrelate(hours, vm.focus());
-							}
-						},"x")
-					]);
+					return m(".personal-efforts-effort-date", parseInt(parsedhours.hours));
 				}),
 
 				m(".personal-efforts-effort-date-add", {
@@ -182,3 +148,61 @@ var DateEditor = function(){
 		}
 	};
 };
+
+//var DateEditor = function(){
+//	return {
+//		view: function(vnode){
+//			console.log(vnode.attrs);
+//			return [
+//
+//				vnode.attrs.element.hours.map(function(hours){
+//					var parsedhours = HoursSpent.Parse(hours.value());
+//					return m(".personal-efforts-effort-date", [
+//						m(NumberRoller, {
+//							value: parseInt(parsedhours.hours),
+//							oninput: function(value){
+//								parsedhours.hours = ""+value;
+//								hours.update(HoursSpent.toString(parsedhours));
+//								m.redraw();
+//							}
+//						}),
+//						m("span", " uur, van"),
+//						m(DateWeekSelector, {
+//							oninput: function(date){
+//								parsedhours.start = date;
+//								hours.update(HoursSpent.toString(parsedhours));
+//								m.redraw();
+//							},
+//							date: parsedhours.start
+//						}),
+//						m("span", "t/m"),
+//						m(DateWeekSelector, {
+//							oninput: function(date){
+//								parsedhours.end = date;
+//								hours.update(HoursSpent.toString(parsedhours));
+//								m.redraw();
+//							},
+//							date: parsedhours.end
+//						}),
+//						m("span", {
+//							onclick: function(){
+//								ptrn.speculativeUnrelate(hours, vnode.attrs.element.effort);
+//								ptrn.speculativeUnrelate(hours, vm.focus());
+//							}
+//						},"x")
+//					]);
+//				}),
+//
+//				m(".personal-efforts-effort-date-add", {
+//					onclick: function(){
+//						ptrn.create("hours", vnode.attrs.element.effort("startdate").value()+"-"+vnode.attrs.element.effort("enddate").value()+"-0-0-w-0-w", function(newhours){
+//							ptrn.relate(newhours, vnode.attrs.element.effort);
+//							ptrn.relate(newhours, vm.focus());
+//						});
+//					}
+//				},"uren toevoegen")
+//			];
+//		}
+//	};
+//};
+//

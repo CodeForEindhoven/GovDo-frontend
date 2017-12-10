@@ -33,7 +33,7 @@ var MagicLogin = function(){
 };
 
 //check for major updates
-ptrn.loadall(function(){
+ptrn.onload(function(){
 	vm.program(ptrn("program"));
 	vm.person(ptrn("person"));
 	vm.focus(vm.program());

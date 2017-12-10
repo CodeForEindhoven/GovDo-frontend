@@ -4,7 +4,7 @@ var CalendarOptions = function(){
 			return m(".optionbar.calendar-optionbar",[
 				m(".calendar-options",[
 					m(".calendar-sub-navigation",[
-						m(".sub-navigation-label", "Tijdlijnweergave"),
+						m(".sub-navigation-label", "Weergave"),
 					]),
 					m(".optionbar-option", {
 						class: (vnode.attrs.currentView===1) ? "state-selected":"",
@@ -23,7 +23,7 @@ var CalendarOptions = function(){
 
 				m(".calendar-options",[
 					m(".calendar-sub-navigation",[
-						m(".sub-navigation-label", "Kalender controle"),
+						m(".sub-navigation-label", "Ga Naar"),
 					]),
 
 					m(".calendar-options",[
@@ -33,18 +33,18 @@ var CalendarOptions = function(){
 							}
 						}, "Deze Week"),
 
-						m(".optionbar-option", {
-							class: (vnode.attrs.currentScale===1) ? "state-selected":"",
-							onclick: function(){
-								vnode.attrs.setScale(1);
-							}
-						}, "Weken"),
-						m(".optionbar-option", {
-							class: (vnode.attrs.currentScale===2) ? "state-selected":"",
-							onclick: function(){
-								vnode.attrs.setScale(2);
-							}
-						}, "Maanden"),
+						//m(".optionbar-option", {
+						//	class: (vnode.attrs.currentScale===1) ? "state-selected":"",
+						//	onclick: function(){
+						//		vnode.attrs.setScale(1);
+						//	}
+						//}, "Weken"),
+						//m(".optionbar-option", {
+						//	class: (vnode.attrs.currentScale===2) ? "state-selected":"",
+						//	onclick: function(){
+						//		vnode.attrs.setScale(2);
+						//	}
+						//}, "Maanden"),
 					]),
 				]),
 

@@ -17,7 +17,7 @@
 	cursor: pointer;
 	background-color: @color-background;
 	color: @color-black;
-	
+
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 5px;
@@ -76,15 +76,9 @@
 
 
 .button-edit-small {
-	.button-edit();
-	//width: @width-circle;
-	width: 16px;
-	height: 20px;
-	line-height: 20px;
-	font-size: 0.6em;
-	border: 0;
-
 	background-color: @color-background;
+	padding: 10px;
+	border-radius: 50%;
 }
 
 // All Icons
@@ -135,10 +129,14 @@
 	cursor: pointer;
 	color:@color-selected;
 	padding: 2px;
+	border-radius: 50%;
+	padding: 5px;
+	margin-left: 5px;
 }
 
 .selector-header .material-icons:hover {
 	color: @color-black;
+	background-color: @color-white;
 }
 
 div.icons-header .material-icons + .material-icons {
@@ -147,6 +145,21 @@ div.icons-header .material-icons + .material-icons {
 
 .selector-header .material-icons + .material-icons, .editor-header .material-icons + .material-icons, .editor-header .save-button + .material-icons {
  	margin-left: 10px;
+}
+
+.icon-button i {
+	padding: 5px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.icon-button:hover i {
+	background-color: white;
+}
+
+.icon-button-hint {
+	visibility: hidden;
+	.sub-navigation();
 }
 
  // To hide info

@@ -279,7 +279,7 @@ var EffortEditor = function(){
 				m(".editor-section.editor-section-end",[
 					m(".status-content",[
 						m(Toggle, {
-							value: parseInt(vm.edit()("mode").value()),
+							value: vm.edit()("mode").value(),
 							label_sketch: "Concept",
 							label_submitted: "Voorleggen",
 							label_definitive: "Goedgekeurd",
@@ -374,7 +374,7 @@ var PeopleListEditor = function(){
 									}
 								}, (parsedhours && parsedhours.period.length[0]==="~") ? "Doorlopend" : "Piek belasting"),
 
-								(parsedhours && parsedhours.period.length[0]!=="~") ? m(".editor-peoplelist-person-hours", [
+								/*(parsedhours && parsedhours.period.length[0]!=="~") ? m(".editor-peoplelist-person-hours", [
 									m(NumberRoller, {
 										value: (parsedhours) ? parseInt(parsedhours.period.length[0]) : "~",
 										oninput: function(value){
@@ -418,7 +418,7 @@ var PeopleListEditor = function(){
 											plannedhours[0].update(HoursSpent.toString(parsedhours));
 										}
 									}),
-								]) : []
+								]) : []*/
 							] : [],
 
 							//roles

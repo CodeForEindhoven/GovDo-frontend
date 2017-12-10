@@ -31,6 +31,19 @@
 	margin-right: 24px;
 }
 
+.selector-tooltip {
+	.sub-navigation();
+	text-transform: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.2s 0.5s;
+}
+
+:hover > .selector-tooltip {
+	visibility: visible;
+	opacity: 1;
+}
+
 .selector .selector-header, .programdetails {
 	margin-left: (@width-circle + 9px);
 }
@@ -84,6 +97,8 @@
 	vertical-align: top;
 	display: inline-block;
 	margin-left: 20px;
+	min-width: calc(100% - 20px);
+	min-height: 40px;
 }
 
 .selector-devider .selector-subtitle {
@@ -218,6 +233,10 @@
 .selector-selected-description {
 	padding-right: 13px;
 	margin-bottom: 25px;
+}
+
+.selector-selected-description.kpi {
+	margin-bottom: 0px;
 }
 
 // Arrow

@@ -6,16 +6,34 @@ var AdminUsers = function(){
 
 	function adduser(){
 		ptrn.create("person", "", function(u){
-			ptrn.adduser(u.id(), function(){
-				ptrn.createrelate("contract", "40", u);
-				ptrn.createrelate("plannable", "40", u);
-				editing = u.id();
-				editmode = true;
-				scrolldown = true;
-				redrawlist();
+			ptrn.createrelate("role", "leader", u);
+			ptrn.createrelate("role", "aclient", u);
+			ptrn.createrelate("role", "bclient", u);
+			ptrn.createrelate("contract", "40", u);
+			ptrn.createrelate("plannable", "40", u);
+			ptrn.transact(function(){
+				ptrn.adduser(u.id(), function(){
+					editing = u.id();
+					editmode = true;
+					scrolldown = true;
+					redrawlist();
+				});
 			});
-
 		});
+
+//		ptrn.create("person", "", function(u){
+//			ptrn.adduser(u.id(), function(){
+//				ptrn.createrelate("role", "leader", u);
+//				ptrn.createrelate("role", "aclient", u);
+//				ptrn.createrelate("role", "bclient", u);
+//				ptrn.createrelate("contract", "40", u);
+//				ptrn.createrelate("plannable", "40", u);
+//				editing = u.id();
+//				editmode = true;
+//				scrolldown = true;
+//				redrawlist();
+//			});
+//		});
 	}
 
 	function redrawlist(){

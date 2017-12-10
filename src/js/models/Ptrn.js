@@ -1,4 +1,4 @@
-var ptrn =  (function(){
+var ptrnold =  (function(){
 
 	/*ATOM FACTORY*/
 	function produceAtom(atom){
