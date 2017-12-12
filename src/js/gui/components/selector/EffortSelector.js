@@ -86,9 +86,11 @@ var EffortSelector = function(){
 									]),
 
 									m(".selectorlist-item-options",[
-										m(".selectorlist-item-options-position", [
+										(vm.focus().type()==="program") ? m(".selectorlist-item-options-position", [
 											m(".selectorlist-item-option.icon-button-grey",{
 												onclick: function(e){
+													e.stopPropagation();
+													window.event.cancelBubble = true;
 													shiftItem(effort, 1);
 												}
 											},[
@@ -97,13 +99,15 @@ var EffortSelector = function(){
 											]),
 											m(".selectorlist-item-option.icon-button-grey",{
 												onclick: function(e){
+													e.stopPropagation();
+													window.event.cancelBubble = true;
 													shiftItem(effort, -1);
 												}
 											},[
 												m("i.material-icons","keyboard_arrow_up"),
 												m("span.selector-tooltip-bottom", "Volgorde veranderen"),
 											]),
-										]),
+										]) : [],
 										m(".selectorlist-item-option.icon-button-grey.selectorlist-item-option-edit",{
 											onclick: function(){
 												vm.edit(effort);

@@ -76,10 +76,12 @@ var TaskSelectorItem = function(){
 			ptrn.unrelate(other, other("order"));
 			ptrn.relate(other, currentorder);
 			ptrn.transact();
+			//vm.task(item);
 		}
 	}
 
 	function selectItem(task){
+		console.log("select");
 		if(vm.edit() && vm.edit().type()==="effort"){
 			vm.editClose();
 			if(!ptrn.compare(vm.task(), task)){
@@ -106,10 +108,13 @@ var TaskSelectorItem = function(){
 				}, [
 					m(".selector-selected-title", task.value().emptyState(m(".selectorlist-state.state-empty", "Opgave zonder titel"))),
 					m(".selectorlist-item-options",[
-						m(".selectorlist-item-options-position", [
+						(vm.focus().type()==="program") ? m(".selectorlist-item-options-position", [
 							m(".selectorlist-item-option.icon-button-grey",{
 								onclick: function(e){
+									e.stopPropagation();
+									window.event.cancelBubble = true;
 									shiftItem(task, 1);
+									return false;
 								}
 							},[
 								m("i.material-icons","keyboard_arrow_down"),
@@ -117,13 +122,16 @@ var TaskSelectorItem = function(){
 							]),
 							m(".selectorlist-item-option.icon-button-grey",{
 								onclick: function(e){
+									e.stopPropagation();
+									window.event.cancelBubble = true;
 									shiftItem(task, -1);
+									return false;
 								}
 							},[
 								m("i.material-icons","keyboard_arrow_up"),
 								m("span.selector-tooltip-bottom", "Volgorde veranderen"),
 							]),
-						]),
+						]) : [],
 						m(".selectorlist-item-option.icon-button-grey.selectorlist-item-option-edit",{
 							onclick: function(){
 								vm.edit(task);
