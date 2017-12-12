@@ -107,22 +107,31 @@ var TaskSelectorItem = function(){
 					m(".selector-selected-title", task.value().emptyState(m(".selectorlist-state.state-empty", "Opgave zonder titel"))),
 					m(".selectorlist-item-options",[
 						m(".selectorlist-item-options-position", [
-							m("i.material-icons.selectorlist-item-option",{
+							m(".selectorlist-item-option.icon-button-grey",{
 								onclick: function(e){
 									shiftItem(task, 1);
 								}
-							},"keyboard_arrow_down"),
-							m("i.material-icons.selectorlist-item-option",{
+							},[
+								m("i.material-icons","keyboard_arrow_down"),
+								m("span.selector-tooltip-bottom", "Volgorde veranderen"),
+							]),
+							m(".selectorlist-item-option.icon-button-grey",{
 								onclick: function(e){
 									shiftItem(task, -1);
 								}
-							},"keyboard_arrow_up"),
+							},[
+								m("i.material-icons","keyboard_arrow_up"),
+								m("span.selector-tooltip-bottom", "Volgorde veranderen"),
+							]),
 						]),
-						m(".selectorlist-item-option.button-edit-small",{
+						m(".selectorlist-item-option.icon-button-grey.selectorlist-item-option-edit",{
 							onclick: function(){
 								vm.edit(task);
 							}
-						}, m(Icon, {name: "edit"})),
+						}, [
+							m(Icon, {name: "edit"}),
+							m("span.selector-tooltip-bottom", "Opgave bewerken"),
+						]),
 					]),
 					(task("means").value() !== "")?[
 						m("span.selector-selected-title-means-label", m("i.material-icons .selector-selected-arrow", "arrow_forward")),

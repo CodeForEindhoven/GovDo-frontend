@@ -87,22 +87,31 @@ var EffortSelector = function(){
 
 									m(".selectorlist-item-options",[
 										m(".selectorlist-item-options-position", [
-											m("i.material-icons.selectorlist-item-option",{
+											m(".selectorlist-item-option.icon-button-grey",{
 												onclick: function(e){
 													shiftItem(effort, 1);
 												}
-											},"keyboard_arrow_down"),
-											m("i.material-icons.selectorlist-item-option",{
+											},[
+												m("i.material-icons","keyboard_arrow_down"),
+												m("span.selector-tooltip-bottom", "Volgorde veranderen"),
+											]),
+											m(".selectorlist-item-option.icon-button-grey",{
 												onclick: function(e){
 													shiftItem(effort, -1);
 												}
-											},"keyboard_arrow_up"),
+											},[
+												m("i.material-icons","keyboard_arrow_up"),
+												m("span.selector-tooltip-bottom", "Volgorde veranderen"),
+											]),
 										]),
-										m(".selectorlist-item-option.button-edit-small",{
+										m(".selectorlist-item-option.icon-button-grey.selectorlist-item-option-edit",{
 											onclick: function(){
 												vm.edit(effort);
 											}
-										}, m(Icon, {name: "edit"})),
+										}, [
+											m(Icon, {name: "edit"}),
+											m("span.selector-tooltip-bottom", "Inspanning bewerken"),
+										]),
 									]),
 
 								]),

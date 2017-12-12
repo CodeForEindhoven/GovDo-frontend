@@ -39,7 +39,15 @@
 	transition: opacity 0.2s 0.5s;
 }
 
-:hover > .selector-tooltip {
+.selector-tooltip-bottom {
+	.selector-tooltip();
+	position: absolute;
+	top: 33px;
+	left: 0px;
+	width: 200%;
+}
+
+:hover > .selector-tooltip, :hover > .selector-tooltip-bottom {
 	visibility: visible;
 	opacity: 1;
 }
@@ -159,8 +167,8 @@
 	margin-right: 10px;
 }
 
-.selectorlist-item-option.button-edit-small {
-	background-color: @color-white;
+.selectorlist-item-option-edit {
+	vertical-align: top;
 }
 
 // Program Mission

@@ -147,14 +147,18 @@ div.icons-header .material-icons + .material-icons {
  	margin-left: 10px;
 }
 
-.icon-button i {
+.icon-button i, .icon-button img, .icon-button-grey i, .icon-button-grey img {
 	padding: 5px;
 	border-radius: 50%;
 	cursor: pointer;
 }
 
-.icon-button:hover i {
+.icon-button:hover i,.icon-button:hover img {
 	background-color: white;
+}
+
+.icon-button-grey:hover i,.icon-button-grey:hover img {
+	background-color: @color-background;
 }
 
 .icon-button-hint {
