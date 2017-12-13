@@ -484,7 +484,10 @@ var ConnectionEditor = function(){
 	return {
 		view: function(vnode){
 			return [
+
+				//Selector of connections
 				vnode.attrs.state ? m(".editor-connectionlist.box-editor-style", [
+					//Programs
 					m(".editor-connectionlist-list", [
 						ptrn("program", function(program){
 							return m(".editor-connectionlist-item.item-list",{
@@ -496,13 +499,20 @@ var ConnectionEditor = function(){
 							]);
 						})
 					]),
+					//Tasks
 					m(".editor-connectionlist-list", [
 						selectedProgram ? selectedProgram("task", function(task){
 							return m(".editor-connectionlist-item.item-list",{
 								class: ptrn.compare(selectedTask,task)?"state-selected":"",
 								onclick: function(){
 									selectedTask = task;
-									ptrn.speculativeRelate(vm.edit(), task);
+
+									if(vm.edit()("related").id() < 0){
+										ptrn.createrelate("related", "", vm.edit());
+									}
+
+									ptrn.speculativeRelate(vm.edit()("related"), task);
+
 									selectedProgram = undefined;
 									selectedTask = undefined;
 									vnode.attrs.onchange();
@@ -516,19 +526,20 @@ var ConnectionEditor = function(){
 					])
 				]) : [],
 
+				//list all the connections
 				m(".editor-connections-parents", [
-					vm.edit()("task", function(parent){
+					vm.edit()("related task", function(parent){
 						return m(".editor-connections-parent.state-selected",[
 							m(Numbering, {node: parent, whole: true}),
-							//m(".button-number.editor-connections-parent-number", parent("program")("order").value()),
-							//m(".button-number.editor-connections-parent-number", parent("order").value()),
 							m(".editor-connections-parent-name.body-text", parent.value()),
-							(vm.edit()("task",function(e){return e;}).length > 1) ? m("span.editor-connections-parent-remove", {
+
+							//(vm.edit()("task",function(e){return e;}).length > 1) ?
+							m("span.editor-connections-parent-remove", {
 								onclick: function(){
-									ptrn.speculativeUnrelate(vm.edit(), parent);
+									ptrn.speculativeUnrelate(vm.edit()("related"), parent);
 									vnode.attrs.onchange();
 								}
-							}, "Verwijderen") : [],
+							}, "Verwijderen"), //: [],
 						]);
 					})
 				])
