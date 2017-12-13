@@ -101,7 +101,6 @@ var DropdownNav = function(){
 											//m(".programbar-program-mission", program.mission)
 										]);
 									}),
-
 								]);
 							}),
 

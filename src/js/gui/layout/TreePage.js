@@ -5,7 +5,7 @@ var TreePage = function(){
 			return [
 				m(".layout-optionbar", [
 					m(".optionbar", [
-						(vm.focus().type()==="program") ? m(".optionbar-section", [
+						(vm.focus() && vm.focus().type()==="program") ? m(".optionbar-section", [
 							m(".sub-navigation-label", "Doelenboom"),
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 1;},
@@ -20,7 +20,10 @@ var TreePage = function(){
 					])
 				]),
 				m(".layout-workspace", [
-					((vm.focus().type()==="program") && currentPage===0) ? [
+					(vm.focus()===undefined) ? [
+						m(HomepageSelector)
+					] : [],
+					((vm.focus() && vm.focus().type()==="program") && currentPage===0) ? [
 						m(".layout-column", m(MissionVision)),
 						m(".layout-column", m(ProgramTeam)),
 					] : [

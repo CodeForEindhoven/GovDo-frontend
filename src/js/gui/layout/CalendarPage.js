@@ -22,7 +22,7 @@ var CalendarPage = function(){
 
 	return {
 		view: function(vnode){
-			return [
+			return (vm.focus()) ? [
 				m(".layout-optionbar", m(CalendarOptions, {
 					currentScale: currentScale,
 					currentView: currentView,
@@ -54,7 +54,7 @@ var CalendarPage = function(){
 							})
 					])
 				])
-			];
+			] : [];
 		}
 	};
 };
