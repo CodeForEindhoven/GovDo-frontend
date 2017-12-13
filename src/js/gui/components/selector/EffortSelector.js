@@ -30,14 +30,14 @@ var EffortSelector = function(){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Inspanningen"),
-						m(".icons-header", [
+						(vm.focus().type()==="program") ? m(".icons-header", [
 							m("span.selector-tooltip", "Nieuwe Inspanning"),
 							m("i.material-icons", {
 								onclick: function(){
 									createnew.effort();
 								}
 							}, "add")
-						]),
+						]) : [],
 					]),
 					m(".selectorlist", {
 						onbeforeupdate: function(vnode, old){
@@ -49,7 +49,7 @@ var EffortSelector = function(){
 					}, m(".selectorlist-back", [
 						selection(function(effort){
 							return m(EffortSelectorItem, {effort: effort});
-						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen inspanningen")),
+						}).emptyState(m(EffortSelectorEmptyState)),
 
 						(vm.focus().type()==="program" && vm.task()("related", function(e){return e;}).length > 0) ? [
 							m(".selector-subtitle", "Gerelateerd"),
@@ -62,6 +62,21 @@ var EffortSelector = function(){
 			} else {
 				return [];
 			}
+		}
+	};
+};
+
+var EffortSelectorEmptyState = function(){
+	return {
+		view: function(vnode){
+			return m(".selectorlist-emptystate",[
+				m(".selectorlist-emptystate-message", vm.task().value()+" heeft nog geen inspanningen."),
+				m(".selectorlist-emptystate-button.button",{
+					onclick: function(){
+						createnew.effort();
+					}
+				},"Nieuwe inspanning"),
+			]);
 		}
 	};
 };

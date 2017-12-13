@@ -6,14 +6,15 @@ var TaskSelector = function(){
 				return m(".selector",[
 					m(".selector-header", [
 						m("span", "Opgaven"),
-							m(".icons-header", [
-								m("span.selector-tooltip", "Nieuwe Opgave"),
-								m("i.material-icons", {
-									onclick: function(){
-										createnew.task();
-									}
-								}, "add"),
-							]),
+
+						(vm.focus().type()==="program") ? m(".icons-header", [
+							m("span.selector-tooltip", "Nieuwe Opgave"),
+							m("i.material-icons", {
+								onclick: function(){
+									createnew.task();
+								}
+							}, "add"),
+						]) : [],
 					]),
 					m(".selectorlist", m(".selectorlist-back", [
 						(vm.focus().type()==="program") ? vm.program()("task", function(task){return task;})
@@ -21,7 +22,7 @@ var TaskSelector = function(){
 							return parseInt(a("order").value()) - parseInt(b("order").value());
 						}).map(function(task){
 							return m(TaskSelectorItem,{task: task});
-						}).emptyState(m(".selectorlist-state.state-empty", "Nog geen opgaven"))
+						}).emptyState(m(TaskSelectorEmptyState))
 						: [],
 
 						(vm.focus().type()==="task") ? m(TaskSelectorItem,{task: vm.focus()}) : [],
@@ -56,6 +57,21 @@ var TaskSelector = function(){
 			} else {
 				return [];
 			}
+		}
+	};
+};
+
+var TaskSelectorEmptyState = function(){
+	return {
+		view: function(vnode){
+			return m(".selectorlist-emptystate",[
+				m(".selectorlist-emptystate-message", vm.program().value()+" heeft nog geen opgaven. Begin door een nieuwe opgave te maken."),
+				m(".selectorlist-emptystate-button.button",{
+					onclick: function(){
+						createnew.task();
+					}
+				},"Nieuwe opgave"),
+			]);
 		}
 	};
 };
