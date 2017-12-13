@@ -34,9 +34,7 @@ var MagicLogin = function(){
 
 //check for major updates
 ptrn.onload(function(){
-	//vm.program(ptrn("program"));
-	//vm.person(ptrn("person"));
-	//vm.focus(vm.program());
+	vm.person(ptrn("person"));
 
 	m.route(document.body, "/", {
 		"/": Page,
