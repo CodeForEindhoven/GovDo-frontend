@@ -71,7 +71,6 @@ var ptrn = (function(){
 				var newid = updates.speculativeids[i];
 
 				//update all aid in atoms
-				//var hold = JSON.parse(JSON.stringify(atoms[oldid]));
 
 
 				atoms[newid] = atoms[oldid];
@@ -99,6 +98,10 @@ var ptrn = (function(){
 			});
 		};
 
+		pub.clearspeculativetransactions = function(){
+			speculativetransactions = [];
+		};
+
 		pub.writeatom = function(aid, tid, type, value){
 			if(!atoms[aid]) {
 				atoms[aid] = {
@@ -122,6 +125,15 @@ var ptrn = (function(){
 			return atoms[aid];
 		};
 
+		pub.unupdateatom = function(aid, tid){
+			atoms[aid].value = atoms[aid].value.filter(function(v){
+				return v.tid !== tid;
+			});
+			atoms[aid].value.sort(function(a,b){
+				return Math.abs(b.tid)-Math.abs(a.tid);
+			});
+		};
+
 		pub.overwriteatom = function(aid, value){
 			if(atoms[aid]) {
 				atoms[aid].value[0].value = value;
@@ -135,6 +147,11 @@ var ptrn = (function(){
 				aid = (aid+10001);
 			}
 			return pub.writeatom(aid, tid, type, value);
+		};
+
+		pub.uncreateatom = function(tid, type, value){
+			var aid = atomCount--;
+			delete atoms[aid];
 		};
 
 		pub.dropatom = function(aid, tid){
@@ -462,6 +479,31 @@ var ptrn = (function(){
 			}), callback);
 		};
 
+		pub.clear = function(callback){
+			//rollback
+			console.log(storage.getspeculativetransactions());
+			storage.getspeculativetransactions().reverse().map(function(t){
+				if(t.node.rid !== undefined){
+					//if it's a relation
+					storage.writerelation(t.tid, t.node.aid, t.node.bid, !t.value.value);
+				} else {
+					//if it's a creation
+					if(t.node.value[t.node.value.length-1].tid === t.value.tid){
+						storage.uncreateatom(t.tid);
+					} else {
+						if(t.value.drop){
+							//if it's a drop
+							storage.unupdateatom(t.node.aid, t.tid);
+						} else {
+							//if it's an update
+							storage.unupdateatom(t.node.aid, t.tid);
+						}
+					}
+				}
+			});
+			storage.clearspeculativetransactions();
+		};
+
 		return pub;
 	})();
 
@@ -661,6 +703,8 @@ var ptrn = (function(){
 		};
 		q.speculativeRelate = q.relate;
 		q.speculativeUnrelate = q.unrelate;
+		q.unSpeculate = speculator.clear;
+
 		q.compare = function(a,b){
 			return (a && b && a.id()===b.id());
 		};

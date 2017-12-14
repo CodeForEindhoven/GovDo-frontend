@@ -20,6 +20,7 @@ var vm = (function(){
 	var currentTask;
 	var currentEffort;
 	var currentPerson;
+	var currentCreate;
 
 	var currentHover;
 
@@ -87,6 +88,9 @@ var vm = (function(){
 			}
 			return currentTask;
 		},
+		taskClose : function(i){
+			currentTask = undefined;
+		},
 		effort : function(i){
 			if(i !== undefined){
 				if(ptrn.compare(currentEffort, i)){
@@ -96,6 +100,9 @@ var vm = (function(){
 				}
 			}
 			return currentEffort;
+		},
+		effortClose : function(i){
+			currentEffort = undefined;
 		},
 		person : function(i){
 			if(i !== undefined){
@@ -118,13 +125,21 @@ var vm = (function(){
 			}
 			return currentFocus;
 		},
+		create : function(i){
+			if(i !== undefined){
+				currentCreate = i;
+			}
+			return currentCreate;
+		},
+		createClose : function(i){
+			currentCreate = undefined;
+		},
 		closeall: function(){
 			currentEffort = undefined;
 			currentTask = undefined;
 			currentProgram = undefined;
 		},
 		edit: function(i){
-
 			if(i !== undefined){
 				if(loginPopup === 0){
 					currentEditor = i;
@@ -150,7 +165,8 @@ var createnew = {
 				ptrn.createrelate("kpi", "", t, function(){
 				ptrn.createrelate("order", taskcount, t, function(){
 				ptrn.createrelate("mode", "0", t, function(){
-					vm.edit(t);
+					vm.taskClose();
+					vm.create(t);
 				});});});});
 			});
 		}
@@ -166,7 +182,8 @@ var createnew = {
 				ptrn.createrelate("mode", "-1", e, function(){
 				ptrn.createrelate("startdate", "_/_/_", e, function(){
 				ptrn.createrelate("enddate", "_/_/_", e, function(){
-					vm.edit(e);
+					vm.effortClose();
+					vm.create(e);
 				});});});});});});});
 			});
 		}

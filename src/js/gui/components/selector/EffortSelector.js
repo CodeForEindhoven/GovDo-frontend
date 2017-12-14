@@ -22,8 +22,6 @@ var EffortSelector = function(){
 		}
 	}
 
-
-
 	return {
 		view: function(vnode){
 			if(vm.task()){
@@ -48,7 +46,11 @@ var EffortSelector = function(){
 						}
 					}, m(".selectorlist-back", [
 						selection(function(effort){
-							return m(EffortSelectorItem, {effort: effort});
+							if(ptrn.compare(vm.create(), effort)) {
+								return m(CreateEffortSelectorItem,{effort: effort});
+							} else {
+								return m(EffortSelectorItem,{effort: effort});
+							}
 						}).emptyState(m(EffortSelectorEmptyState)),
 
 						(vm.focus().type()==="program" && vm.task()("related", function(e){return e;}).length > 0) ? [
@@ -181,6 +183,91 @@ var EffortSelectorItem = function(){
 						m(DateDisplay, {date: effort("enddate").value()}),
 					])
 				])
+			]);
+		}
+	};
+};
+
+var CreateEffortSelectorItem = function(){
+	return {
+		view: function(vnode){
+			var effort = vnode.attrs.effort;
+			return m(".state-selectable.selectorlist-item", {
+				class: "state-selected",
+			},[
+				m(".selectorlist-item-number", {
+					onclick: function(){
+						vm.effort(effort);
+					},
+				}, [
+					m(Numbering, {node: effort, whole: vnode.attrs.related}),
+				]),
+				m(".selectorlist-item-content",  [
+					//title
+					m("input.selector-selected-title", {
+						value: effort.value(),
+						oninput: function(e){
+							effort.update(e.target.value);
+						},
+						oncreate: function(vnode){
+							vnode.dom.focus();
+						},
+						placeholder: "Inspanning Titel invoeren"
+					}),
+					m(".button", {
+						onclick: function(){
+							vm.createClose();
+							vm.edit(effort);
+						}
+					},"Meer opties"),
+					m(".button", {
+						onclick: function(){
+							vm.createClose();
+							ptrn.transact();
+							vm.effort(effort);
+						}
+					},"Opslaan"),
+					m(".button", {
+						onclick: function(){
+							ptrn.unSpeculate();
+							vm.createClose();
+						}
+					},"Annuleren"),
+
+					//Options
+					m(".selectorlist-item-options",[
+						(vm.focus().type()==="program") ? m(".selectorlist-item-options-position", [
+							m(".selectorlist-item-option.icon-button-grey",{
+								onclick: function(e){
+									e.stopPropagation();
+									window.event.cancelBubble = true;
+									shiftItem(effort, 1);
+								}
+							},[
+								m("i.material-icons","keyboard_arrow_down"),
+								m("span.selector-tooltip-bottom", "Volgorde veranderen"),
+							]),
+							m(".selectorlist-item-option.icon-button-grey",{
+								onclick: function(e){
+									e.stopPropagation();
+									window.event.cancelBubble = true;
+									shiftItem(effort, -1);
+								}
+							},[
+								m("i.material-icons","keyboard_arrow_up"),
+								m("span.selector-tooltip-bottom", "Volgorde veranderen"),
+							]),
+						]) : [],
+						m(".selectorlist-item-option.icon-button-grey.selectorlist-item-option-edit",{
+							onclick: function(){
+								vm.edit(effort);
+							}
+						}, [
+							m(Icon, {name: "edit"}),
+							m("span.selector-tooltip-bottom", "Inspanning bewerken"),
+						]),
+					]),
+				]),
 			]);
 		}
 	};

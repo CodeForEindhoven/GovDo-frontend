@@ -21,7 +21,12 @@ var TaskSelector = function(){
 						.sort(function(a,b){
 							return parseInt(a("order").value()) - parseInt(b("order").value());
 						}).map(function(task){
-							return m(TaskSelectorItem,{task: task});
+							if(ptrn.compare(vm.create(), task)) {
+								return m(CreateTaskSelectorItem,{task: task});
+							} else {
+								return m(TaskSelectorItem,{task: task});
+							}
+
 						}).emptyState(m(TaskSelectorEmptyState))
 						: [],
 
@@ -77,7 +82,6 @@ var TaskSelectorEmptyState = function(){
 };
 
 var TaskSelectorItem = function(){
-
 	function shiftItem(item, dir){
 		var taskcount = vm.program()("task", function(a){return a;}).length;
 		var currentorder = item("order");
@@ -169,6 +173,64 @@ var TaskSelectorItem = function(){
 					}).emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator"))
 					//m(".selector-selected-description.kpi", task("kpi").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator")))
 				])
+			]);
+		}
+	};
+};
+
+var CreateTaskSelectorItem = function(){
+	return {
+		view: function(vnode){
+			var task = vnode.attrs.task;
+			return m(".state-selectable.selectorlist-item", {
+				class: "state-selected",
+			},[
+				m(".selectorlist-item-number",  {
+					onclick: function(){selectItem(task);},
+				}, [
+					m(Numbering, {node: task}),
+				]),
+				m(".selectorlist-item-content", [
+					m("input.selector-selected-title", {
+						value: task.value(),
+						oninput: function(e){
+							task.update(e.target.value);
+						},
+						oncreate: function(vnode){
+							vnode.dom.focus();
+						},
+						placeholder: "Opgave Titel invoeren"
+					}),
+					m(".button", {
+						onclick: function(){
+							vm.createClose();
+							vm.edit(task);
+						}
+					},"Meer opties"),
+					m(".button", {
+						onclick: function(){
+							vm.createClose();
+							ptrn.transact();
+							vm.task(task);
+						}
+					},"Opslaan"),
+					m(".button", {
+						onclick: function(){
+							ptrn.unSpeculate();
+							vm.createClose();
+						}
+					},"Annuleren"),
+					m(".selectorlist-item-options",[
+						//m(".selectorlist-item-option.icon-button-grey.selectorlist-item-option-edit",{
+						//	onclick: function(){
+						//		vm.edit(task);
+						//	}
+						//}, [
+						//	m(Icon, {name: "edit"}),
+						//	m("span.selector-tooltip-bottom", "Opgave bewerken"),
+						//]),
+					]),
+				]),
 			]);
 		}
 	};
