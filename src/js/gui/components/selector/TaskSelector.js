@@ -208,42 +208,13 @@ var CreateTaskSelectorItem = function(){
 
 	return {
 		view: function(vnode){
-			var task = vnode.attrs.task;
-			return [
-				//m(".dropdown-outside", {
-				//	onclick: function(){close(task);}
-				//}),
-				m(".state-selectable.selectorlist-item", {
-					class: "state-selected",
-				},[
-					m(".selectorlist-item-number",  {
-						onclick: function(){selectItem(task);},
-					}, [
-						m(Numbering, {node: task}),
-					]),
-					m(".selectorlist-item-content", [
-						m("input.selector-selected-title", {
-							value: task.value(),
-							oninput: function(e){
-								task.update(e.target.value);
-							},
-							oncreate: function(vnode){
-								vnode.dom.focus();
-							},
-							placeholder: "Opgave Titel invoeren"
-						}),
-						m(".button.selector-inplace-editor-button", {
-							onclick: function(){more(task);}
-						},"Meer opties"),
-						m(".button.selector-inplace-editor-button", {
-							onclick: function(){save(task);}
-						},"Opslaan"),
-						m(".button.selector-inplace-editor-button.selector-inplace-editor-button-cancel", {
-							onclick: function(){close(task);}
-						},"Annuleren"),
-					]),
-				])
-			];
+			return m(InplaceEditor,{
+				placeholder: "Opgave titel invoeren",
+				element: vnode.attrs.task,
+				onclose: close,
+				onsave: save,
+				onmore: more
+			});
 		}
 	};
 };
