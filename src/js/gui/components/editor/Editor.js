@@ -56,7 +56,7 @@ var Editor = function(){
 								}
 							}
 						}, [
-							m("span.selector-tooltip", "Wijzigingen annuleren"),
+							m("span.icon-button-hint", "Wijzigingen annuleren"),
 							m("i.material-icons", "close"),
 						]),
 					])
