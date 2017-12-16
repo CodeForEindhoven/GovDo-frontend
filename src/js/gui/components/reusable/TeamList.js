@@ -4,14 +4,15 @@ var TeamList = function(){
 		view: function(vnode){
 			return m(".personlist", ptrn("program", function(team){
 				return m(".personlist-team",{
-					//oncreate: function(t){
-					//		return function(vnode){
-					//			if(ptrn.compare(vm.program(), team)){
-					//				console.log(team.value());
-					//				vnode.dom.scrollIntoView(true);
-					//			}
-					//		};
-					//}(team) //focus onto current team;
+					oncreate: function(t){
+							return function(vnode){
+								if(ptrn.compare(vm.program(), team)){
+									//console.log(team.value());
+									var offset = vnode.dom.offsetTop;
+									vnode.dom.parentNode.scrollTop = offset;
+								}
+							};
+					}(team) //focus onto current team;
 				},[
 					m(".personlist-teamname", team.value()),
 					team("task effort person", function(person){
@@ -23,7 +24,7 @@ var TeamList = function(){
 							person.value(),
 							m("i.material-icons .person-list-add-button", "add"),
 						]);
-					}).emptyState(m(".personlist-team-emptystate.state-empty", ""))
+					}).emptyState(m(".personlist-team-emptystate.state-empty", "nog geen toegewezen team"))
 				]);
 			}));
 		}

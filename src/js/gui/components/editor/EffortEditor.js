@@ -318,6 +318,7 @@ var PeopleListEditor = function(){
 							onchange: m.withAttr("value", function(v) {value = v;}),
 							value: value,
 						}),
+						m("i.material-icons.editor-peoplelist-searchbar-icon", "search"),
 						m(".editor-peoplelist-finder.box-editor-style", [
 							(value.length > 0)?
 								m(FilteredPeopleList, {
