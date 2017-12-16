@@ -44,7 +44,7 @@ var NavBar = function(){
 						}
 					}, [
 						m(Icon, {
-							name: "programma",
+							name: "programma-cloud",
 							selected: vm.page()===0
 						}),
 						m(".nav-tooltip", "Doelenboom")

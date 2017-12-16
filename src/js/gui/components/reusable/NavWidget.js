@@ -28,7 +28,7 @@ var NavWidget = function(){
 						focus(vnode.attrs.node);
 						vm.page(0);
 					}
-				}, m(Icon, {name: "programma-small"})),
+				}, m(Icon, {name: "programma-cloud-small"})),
 
 				m(".navwidget-view", {
 					onclick: function(){
