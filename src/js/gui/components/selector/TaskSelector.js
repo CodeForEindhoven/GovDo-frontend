@@ -179,59 +179,42 @@ var TaskSelectorItem = function(){
 };
 
 var CreateTaskSelectorItem = function(){
+	function close(task){
+		var close = true;
+		if(task.value().length > 0){
+			if (confirm("Wijzigingen niet opslaan?") === true) {
+				ptrn.unSpeculate();
+			} else {
+				close = false;
+			}
+		}
+
+		if(close){
+			ptrn.unSpeculate();
+			vm.createClose();
+		}
+	}
+
+	function save(task){
+		vm.createClose();
+		ptrn.transact();
+		vm.task(task);
+	}
+
+	function more(task){
+		vm.createClose();
+		vm.edit(task);
+	}
+
 	return {
 		view: function(vnode){
-			var task = vnode.attrs.task;
-			return m(".state-selectable.selectorlist-item", {
-				class: "state-selected",
-			},[
-				m(".selectorlist-item-number",  {
-					onclick: function(){selectItem(task);},
-				}, [
-					m(Numbering, {node: task}),
-				]),
-				m(".selectorlist-item-content", [
-					m("input.selector-selected-title", {
-						value: task.value(),
-						oninput: function(e){
-							task.update(e.target.value);
-						},
-						oncreate: function(vnode){
-							vnode.dom.focus();
-						},
-						placeholder: "Opgave Titel invoeren"
-					}),
-					m(".button", {
-						onclick: function(){
-							vm.createClose();
-							vm.edit(task);
-						}
-					},"Meer opties"),
-					m(".button", {
-						onclick: function(){
-							vm.createClose();
-							ptrn.transact();
-							vm.task(task);
-						}
-					},"Opslaan"),
-					m(".button", {
-						onclick: function(){
-							ptrn.unSpeculate();
-							vm.createClose();
-						}
-					},"Annuleren"),
-					m(".selectorlist-item-options",[
-						//m(".selectorlist-item-option.icon-button-grey.selectorlist-item-option-edit",{
-						//	onclick: function(){
-						//		vm.edit(task);
-						//	}
-						//}, [
-						//	m(Icon, {name: "edit"}),
-						//	m("span.selector-tooltip-bottom", "Opgave bewerken"),
-						//]),
-					]),
-				]),
-			]);
+			return m(InplaceEditor,{
+				placeholder: "Opgave titel invoeren",
+				element: vnode.attrs.task,
+				onclose: close,
+				onsave: save,
+				onmore: more
+			});
 		}
 	};
 };

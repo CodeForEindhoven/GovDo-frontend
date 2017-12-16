@@ -102,7 +102,7 @@
 .icon {
 	width: 14px;
 	height: 14px;
-	height: auto;
+	//height: auto;
 }
 
 .icon:hover {
@@ -163,7 +163,18 @@ div.icons-header .material-icons + .material-icons {
 
 .icon-button-hint {
 	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.2s 0.5s;
+
+	vertical-align: middle;
+	margin: 10px;
+
 	.sub-navigation();
+}
+
+.icon-button:hover .icon-button-hint {
+	visibility: visible;
+	opacity: 1;
 }
 
  // To hide info

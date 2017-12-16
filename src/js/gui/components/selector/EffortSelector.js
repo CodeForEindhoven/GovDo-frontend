@@ -189,86 +189,43 @@ var EffortSelectorItem = function(){
 };
 
 var CreateEffortSelectorItem = function(){
+
+	function close(effort){
+		var close = true;
+		if(effort.value().length > 0){
+			if (confirm("Wijzigingen niet opslaan?") === true) {
+				ptrn.unSpeculate();
+			} else {
+				close = false;
+			}
+		}
+
+		if(close){
+			ptrn.unSpeculate();
+			vm.createClose();
+		}
+	}
+
+	function save(effort){
+		vm.createClose();
+		ptrn.transact();
+		vm.effort(effort);
+	}
+
+	function more(effort){
+		vm.createClose();
+		vm.edit(effort);
+	}
+
 	return {
 		view: function(vnode){
-			var effort = vnode.attrs.effort;
-			return m(".state-selectable.selectorlist-item", {
-				class: "state-selected",
-			},[
-				m(".selectorlist-item-number", {
-					onclick: function(){
-						vm.effort(effort);
-					},
-				}, [
-					m(Numbering, {node: effort, whole: vnode.attrs.related}),
-				]),
-				m(".selectorlist-item-content",  [
-					//title
-					m("input.selector-selected-title", {
-						value: effort.value(),
-						oninput: function(e){
-							effort.update(e.target.value);
-						},
-						oncreate: function(vnode){
-							vnode.dom.focus();
-						},
-						placeholder: "Inspanning Titel invoeren"
-					}),
-					m(".button", {
-						onclick: function(){
-							vm.createClose();
-							vm.edit(effort);
-						}
-					},"Meer opties"),
-					m(".button", {
-						onclick: function(){
-							vm.createClose();
-							ptrn.transact();
-							vm.effort(effort);
-						}
-					},"Opslaan"),
-					m(".button", {
-						onclick: function(){
-							ptrn.unSpeculate();
-							vm.createClose();
-						}
-					},"Annuleren"),
-
-					//Options
-					m(".selectorlist-item-options",[
-						(vm.focus().type()==="program") ? m(".selectorlist-item-options-position", [
-							m(".selectorlist-item-option.icon-button-grey",{
-								onclick: function(e){
-									e.stopPropagation();
-									window.event.cancelBubble = true;
-									shiftItem(effort, 1);
-								}
-							},[
-								m("i.material-icons","keyboard_arrow_down"),
-								m("span.selector-tooltip-bottom", "Volgorde veranderen"),
-							]),
-							m(".selectorlist-item-option.icon-button-grey",{
-								onclick: function(e){
-									e.stopPropagation();
-									window.event.cancelBubble = true;
-									shiftItem(effort, -1);
-								}
-							},[
-								m("i.material-icons","keyboard_arrow_up"),
-								m("span.selector-tooltip-bottom", "Volgorde veranderen"),
-							]),
-						]) : [],
-						m(".selectorlist-item-option.icon-button-grey.selectorlist-item-option-edit",{
-							onclick: function(){
-								vm.edit(effort);
-							}
-						}, [
-							m(Icon, {name: "edit"}),
-							m("span.selector-tooltip-bottom", "Inspanning bewerken"),
-						]),
-					]),
-				]),
-			]);
+			return m(InplaceEditor,{
+				placeholder: "Inspanning titel invoeren",
+				element: vnode.attrs.effort,
+				onclose: close,
+				onsave: save,
+				onmore: more
+			});
 		}
 	};
 };

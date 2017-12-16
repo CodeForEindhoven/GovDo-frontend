@@ -4,7 +4,7 @@
 @margin-status-button: 1%;
 
 .editor {
-	width: calc(55% - 10px);
+	width: calc(100% - 10px);
 	height: 100%;
 	font-size: @main-text;
 	background-color: @color-background;
@@ -45,6 +45,12 @@
 .editor-header .icons-header {
 	cursor: pointer;
 	margin-right: -2px;
+	text-transform: none;
+}
+
+.icons-header .button, .icons-header .close-button {
+	display: inline-block;
+	margin-left: 10px;
 }
 
 .editor-subtitle-header .material-icons {
@@ -161,8 +167,9 @@
 
 .editor-section {
 	border-right: 3px @color-selected solid;
-	padding-right: 40px;
-	padding-bottom: 180px;
+	padding-right: 25%;
+	padding-left: 25%;
+	padding-bottom: 80px;
 	position: relative;
 }
 
@@ -210,7 +217,7 @@
 
 .total-hours {
 	margin-top: 30px;
-	color: @color-selected;
+	//color: @color-selected;
 }
 
 .title-total, .total-hours-counting {
@@ -219,17 +226,13 @@
 
 .total-hours-counting {
 	position: absolute;
-	left: 35%;
+	left: 43.5%;
 }
 
 // People
 .editor-peoplelist-navigation {
 	padding-left: 35%;
 	margin-bottom: 15px;
-}
-
-.client-editor .editor-peoplelist-navigation {
-	padding-left: 52%;
 }
 
 .editor-peoplelist-section.sub-navigation-label {
@@ -242,7 +245,7 @@
 }
 
 .editor-peoplelist-finder {
-	width: 50%;
+	width: 100%;
 }
 
 .editor-peoplelist.client-editor .dropdown {
@@ -252,6 +255,10 @@
 //.editor-peoplelist.client-editor .box-editor-style {
 //	margin-left: 35%;
 //}
+
+.editor-title-editor .box-editor-style {
+	height: 80px;
+}
 
 //Dropdown
 

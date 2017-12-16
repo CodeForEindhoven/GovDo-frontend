@@ -4,12 +4,12 @@ var TaskEditor = function(){
 			return m(".efforteditor",[
 				m(".editor-section",[
 					m(".editor-section-title.title", "Beschrijving"),
-					m(".editor-row",[
+					m(".editor-row.editor-title-editor",[
 						m(".editor-column",[
 							m(".editor-subtitle", [
 								m("span", "Opgave titel"),
 								m(InfoBox, {
-									content: "Een opgave is een doel"
+									content: "Een opgave, doel of 'wolkje'"
 								})
 							]),
 							m(TextArea, {
@@ -21,9 +21,9 @@ var TaskEditor = function(){
 						]),
 						m(".editor-column",[
 							m(".editor-subtitle", [
-								m("span", "Door"),
+								m("span", "door..."),
 								m(InfoBox, {
-									content: "Hoe wordt dit doel bereikt?"
+									content: "Je opgave wordt geformuleerd als '... door ...'."
 								})
 							]),
 							m(TextArea, {
@@ -44,21 +44,16 @@ var TaskEditor = function(){
 								m(InfoBox, {
 									content: "Een indicator geeft meetbaar aan of het doel gehaald wordt"
 								}),
-								m(".icons-header.icon-button", [
+
+								m("span.icon-button.icons-header", [
+									m("span.icon-button-hint", "Nieuwe indicator toevoegen"),
 									m("i.material-icons", {
 										onclick: function(e){
 											ptrn.createrelate("kpi", "", vm.edit());
 										}
-									},"add")
-								]),
+									},"add"),
+								])
 							]),
-
-							//m(TextArea, {
-							//	value: vm.edit()("kpi").value(),
-							//	onchange: function(v){
-							//		vm.edit()("kpi").update(v);
-							//	}
-							//}),
 							m(KPIEditor, {})
 						//]),
 					]),
@@ -105,7 +100,7 @@ var KPIEditor = function(){
 								kpi.drop();
 							}
 						},"close"),
-						m("span.icon-button-hint", "verwijderen")
+						m("span.icon-button-hint", "Verwijderen")
 					])
 				]);
 			});

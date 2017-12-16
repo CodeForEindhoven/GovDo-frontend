@@ -504,6 +504,10 @@ var ptrn = (function(){
 			storage.clearspeculativetransactions();
 		};
 
+		pub.hasspeculations = function(){
+			return (storage.getspeculativetransactions().length > 0);
+		};
+
 		return pub;
 	})();
 
@@ -704,6 +708,7 @@ var ptrn = (function(){
 		q.speculativeRelate = q.relate;
 		q.speculativeUnrelate = q.unrelate;
 		q.unSpeculate = speculator.clear;
+		q.hasSpeculations = speculator.hasspeculations;
 
 		q.compare = function(a,b){
 			return (a && b && a.id()===b.id());

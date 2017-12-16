@@ -13,21 +13,53 @@ var Editor = function(){
 						(vm.edit().type()==="task") ? "Opgave Editor" :  [],
 						(vm.edit().type()==="program") ? "Programma Editor" : []
 					]),
-					m(".icons-header .close-button", {
-						onclick: function(){
-							ptrn.transact();
-							if(vm.edit().type()==="effort"){
-								vm.effort(vm.edit());
-							} else if(vm.edit().type()==="task"){
-								vm.task(vm.edit());
-							} else if(vm.edit().type()==="program"){
-								vm.program(vm.edit());
+
+
+					m(".icons-header", [
+						m(".button", {
+							onclick: function(){
+								ptrn.transact();
+								if(vm.edit().type()==="effort"){
+									vm.effort(vm.edit());
+								} else if(vm.edit().type()==="task"){
+									vm.task(vm.edit());
+								} else if(vm.edit().type()==="program"){
+									vm.program(vm.edit());
+								}
+								vm.editClose();
 							}
-							vm.editClose();
-						}
-					}, [
-						m("i.material-icons", "close"),
-					]),
+						}, [
+							"Opslaan"
+						]),
+
+						//close don't save
+						m(".close-button.icon-button", {
+							onclick: function(){
+								var close = true;
+								if(ptrn.hasSpeculations()){
+									if (confirm("Wijzigingen niet opslaan?") === true) {
+										ptrn.unSpeculate();
+									} else {
+										close = false;
+									}
+								}
+
+								if(close){
+									if(vm.edit().type()==="effort"){
+										vm.effort(vm.edit());
+									} else if(vm.edit().type()==="task"){
+										vm.task(vm.edit());
+									} else if(vm.edit().type()==="program"){
+										vm.program(vm.edit());
+									}
+									vm.editClose();
+								}
+							}
+						}, [
+							m("span.icon-button-hint", "Wijzigingen annuleren"),
+							m("i.material-icons", "close"),
+						]),
+					])
 				]) : [],
 
 				//Content

@@ -10,7 +10,7 @@ var EffortEditor = function(){
 					m(".editor-section-title.title", "Beschrijving"),
 
 					m(".editor-row",[
-						m(".editor-column",[
+						m(".editor-column.editor-title-editor",[
 							m(".editor-subtitle.subtitle", [
 								m("span", "Inspanning titel"),
 								m(InfoBox, {
@@ -21,7 +21,6 @@ var EffortEditor = function(){
 								value: vm.edit().value(),
 								onchange: function(v){
 									vm.edit().update(v);
-									//viewModels.editMode.setContent("name", v);
 								}
 							}),
 						]),
@@ -42,7 +41,6 @@ var EffortEditor = function(){
 								type: parseInt(vm.edit()("type").value()),
 								onchange: function(v){
 									vm.edit()("type").update(v);
-									//viewModels.editMode.setContent("type", v);
 								},
 							}),
 						]),
@@ -95,6 +93,7 @@ var EffortEditor = function(){
 					]),
 				]),
 
+				//Positionering
 				m(".editor-section",[
 					m(".editor-section-title.title", "Positionering"),
 
@@ -108,13 +107,14 @@ var EffortEditor = function(){
 							})
 						]),
 
-						m(".icons-header", [
+						m("span.icon-button.icons-header", [
+							m("span.icon-button-hint", state2 ? "Toevoegen annuleren" : "Inspanning aan andere opgave verbinden"),
 							m("i.material-icons", {
 								onclick: function(e){
 									state2 = !state2;
 								}
-							},"add")
-						]),
+							}, state2 ? "close" : "add" ),
+						])
 					]),
 					m(ConnectionEditor, {
 						state: state2,
@@ -158,8 +158,8 @@ var EffortEditor = function(){
 						})
 					]),
 
-					m(".editor-section-totals", FuzzyDate.toWeekRange(vm.edit()("startdate").value(),vm.edit()("enddate").value())[0]),
-					m(".editor-section-totals", FuzzyDate.toWeekRange(vm.edit()("startdate").value(),vm.edit()("enddate").value())[1])
+					//m(".editor-section-totals", FuzzyDate.toWeekRange(vm.edit()("startdate").value(),vm.edit()("enddate").value())[0]),
+					//m(".editor-section-totals", FuzzyDate.toWeekRange(vm.edit()("startdate").value(),vm.edit()("enddate").value())[1])
 				]),
 
 
@@ -178,13 +178,14 @@ var EffortEditor = function(){
 								})
 							]),
 
-						m(".icons-header", [
+						m("span.icon-button.icons-header", [
+							m("span.icon-button-hint", stateClient ? "Toevoegen annuleren" : "Opdrachtgever toevoegen"),
 							m("i.material-icons", {
 								onclick: function(e){
 									stateClient = !stateClient;
 								}
-							},"add")
-						]),
+							}, stateClient ? "close" : "add" ),
+						])
 					]),
 
 					m(PeopleListEditor, {
@@ -232,13 +233,14 @@ var EffortEditor = function(){
 								})
 							]),
 
-						m(".icons-header", [
+						m("span.icon-button.icons-header", [
+							m("span.icon-button-hint", stateTeam ? "Toevoegen annuleren" : "Teamlid toevoegen"),
 							m("i.material-icons", {
 								onclick: function(e){
 									stateTeam = !stateTeam;
 								}
-							},"add")
-						]),
+							}, stateTeam ? "close" : "add" ),
+						])
 					]),
 
 					m(PeopleListEditor, {
@@ -305,27 +307,31 @@ var PeopleListEditor = function(){
 			return m(".editor-peoplelist", {
 					class: vnode.attrs.classname+" "+(vnode.attrs.state ? "":"state-hidden")
 				}, [
-					m("input.input.editor-peoplelist-searchbar", {
-						class: vnode.attrs.state ? "":"state-hidden",
-						placeholder: "Voornaam Achternaam",
-						oninput: m.withAttr("value", function(v) {value = v;}),
-						onchange: m.withAttr("value", function(v) {value = v;}),
-						value: value
-					}),
-					m(".editor-peoplelist-finder.box-editor-style", [
-						(value.length > 0)?
-							m(FilteredPeopleList, {
-								value: value,
-								allownew: true,
-								onadd: function(p){vnode.attrs.onadd(p);},
-								//onnew: function(){onnew(vnode);}
-							})
-						:
-							m(TeamList, {
-								onadd: function(p){vnode.attrs.onadd(p);}
-							})
-					]),
-
+					vnode.attrs.state ? [
+						m("input.input.editor-peoplelist-searchbar", {
+							class: vnode.attrs.state ? "":"state-hidden",
+							oncreate: function(vnode){
+								vnode.dom.focus();
+							},
+							placeholder: "Voornaam Achternaam",
+							oninput: m.withAttr("value", function(v) {value = v;}),
+							onchange: m.withAttr("value", function(v) {value = v;}),
+							value: value,
+						}),
+						m(".editor-peoplelist-finder.box-editor-style", [
+							(value.length > 0)?
+								m(FilteredPeopleList, {
+									value: value,
+									allownew: true,
+									onadd: function(p){vnode.attrs.onadd(p);},
+									//onnew: function(){onnew(vnode);}
+								})
+							:
+								m(TeamList, {
+									onadd: function(p){vnode.attrs.onadd(p);}
+								})
+						]),
+					] : [],
 
 					(vnode.attrs.peoplelist.length > 0 ) ? m(".editor-peoplelist-navigation",[
 						//m(".editor-peoplelist-section.sub-navigation-label", "Jaar"),
@@ -432,9 +438,16 @@ var PeopleListEditor = function(){
 							}) : [],
 
 							//deletebutton
-							m("span.editor-peoplelist-person-remove", {
-								onclick: function(){vnode.attrs.ondelete(person);}
-							}, m("i", {class:"material-icons"}, "close")),
+							//m("span.editor-peoplelist-person-remove", {
+							//	onclick: function(){vnode.attrs.ondelete(person);}
+							//}, m("i", {class:"material-icons"}, "close")),
+
+							m("span.icon-button.editor-peoplelist-person-remove", [
+								m("i.material-icons", {
+									onclick: function(){vnode.attrs.ondelete(person);}
+								},"close"),
+								m("span.icon-button-hint", "Verwijderen")
+							])
 
 						]);
 					}),
@@ -533,13 +546,15 @@ var ConnectionEditor = function(){
 							m(Numbering, {node: parent, whole: true}),
 							m(".editor-connections-parent-name.body-text", parent.value()),
 
-							//(vm.edit()("task",function(e){return e;}).length > 1) ?
-							m("span.editor-connections-parent-remove", {
-								onclick: function(){
-									ptrn.speculativeUnrelate(vm.edit()("related"), parent);
-									vnode.attrs.onchange();
-								}
-							}, "Verwijderen"), //: [],
+							m("span.icon-button.editor-removefrom-list", [
+								m("i.material-icons", {
+									onclick: function(e){
+										ptrn.speculativeUnrelate(vm.edit()("related"), parent);
+										vnode.attrs.onchange();
+									}
+								},"close"),
+								m("span.icon-button-hint", "Verwijderen")
+							])
 						]);
 					})
 				])
