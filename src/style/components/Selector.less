@@ -327,3 +327,33 @@
 	display: inline-block;
 	margin-top: 20px;
 }
+
+//Inplace editor
+input.selector-selected-title {
+	width: 100%;
+	border-bottom: 1px solid @color-selected;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+}
+
+.selector-inplace-editor-button {
+	width: 100px;
+	display: inline-block;
+	background-color: @color-white!important;
+	margin-right: 10px;
+}
+
+.selector-inplace-editor-button:hover {
+	background-color: @color-selected!important;
+}
+
+.selector-inplace-editor-button-cancel {
+	background-color: @color-selected!important;
+	color: @color-white!important;
+	float: right;
+}
+
+.selector-inplace-editor-button-cancel:hover {
+	background-color: @color-white!important;
+	color: @color-selected!important;
+}
