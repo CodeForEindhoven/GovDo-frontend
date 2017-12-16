@@ -9,7 +9,7 @@ var TaskEditor = function(){
 							m(".editor-subtitle", [
 								m("span", "Opgave titel"),
 								m(InfoBox, {
-									content: "Een opgave is een doel"
+									content: "Een opgave, doel of 'wolkje'"
 								})
 							]),
 							m(TextArea, {
@@ -21,9 +21,9 @@ var TaskEditor = function(){
 						]),
 						m(".editor-column",[
 							m(".editor-subtitle", [
-								m("span", "Door"),
+								m("span", "door..."),
 								m(InfoBox, {
-									content: "Hoe wordt dit doel bereikt?"
+									content: "Je opgave wordt geformuleerd als '... door ...'."
 								})
 							]),
 							m(TextArea, {
