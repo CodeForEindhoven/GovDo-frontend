@@ -4,7 +4,7 @@ var TaskEditor = function(){
 			return m(".efforteditor",[
 				m(".editor-section",[
 					m(".editor-section-title.title", "Beschrijving"),
-					m(".editor-row",[
+					m(".editor-row.editor-title-editor",[
 						m(".editor-column",[
 							m(".editor-subtitle", [
 								m("span", "Opgave titel"),

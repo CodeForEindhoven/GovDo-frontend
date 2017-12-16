@@ -10,7 +10,7 @@ var EffortEditor = function(){
 					m(".editor-section-title.title", "Beschrijving"),
 
 					m(".editor-row",[
-						m(".editor-column",[
+						m(".editor-column.editor-title-editor",[
 							m(".editor-subtitle.subtitle", [
 								m("span", "Inspanning titel"),
 								m(InfoBox, {
