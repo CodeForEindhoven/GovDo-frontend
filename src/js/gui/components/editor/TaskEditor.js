@@ -106,9 +106,9 @@ var KPIEditor = function(){
 						m("span.icon-button-hint", "Verwijderen")
 					])
 				]);
-			}).emptyState(m(".button.button-empty-list", {
+			}).emptyState(m(".editor-empty-list",m(".button.button-empty-list", {
 				onclick: vnode.attrs.onadd
-			},"Indicator toevoegen"));
+			},"Indicator toevoegen")));
 		}
 	};
 };

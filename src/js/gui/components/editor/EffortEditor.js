@@ -118,6 +118,9 @@ var EffortEditor = function(){
 					]),
 					m(ConnectionEditor, {
 						state: state2,
+						onopen: function(){
+							state2 = true;
+						},
 						onchange: function(){
 							state2 = false;
 						}
@@ -207,6 +210,10 @@ var EffortEditor = function(){
 								}
 							},
 						},
+						emptystate: "Opdrachtgevers toevoegen",
+						onopen: function(){
+							stateClient = true;
+						},
 						onadd: function(p){
 							ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
 							stateClient = false;
@@ -260,6 +267,10 @@ var EffortEditor = function(){
 									ptrn.speculativeUnrelate(vm.edit(), p("role:leader"));
 								}
 							},
+						},
+						emptystate: "Team samenstellen",
+						onopen: function(){
+							stateTeam = true;
 						},
 						onadd: function(v){
 							ptrn.speculativeRelate(vm.edit(), v);
@@ -451,7 +462,10 @@ var PeopleListEditor = function(){
 							])
 
 						]);
-					}),
+					}).emptyState(!vnode.attrs.state ? m(".editor-empty-list",m(".button.button-empty-list", {
+						onclick: vnode.attrs.onopen
+					},vnode.attrs.emptystate)):[]),
+
 					((vnode.attrs.peoplelist.length > 0 ) && vnode.attrs.planhours) ?
 						m(".total-hours", [
 						m(".title-total", "Totaal uur"),
@@ -557,7 +571,9 @@ var ConnectionEditor = function(){
 								m("span.icon-button-hint", "Verwijderen")
 							])
 						]);
-					})
+					}).emptyState(!vnode.attrs.state ? m(".editor-empty-list",m(".button.button-empty-list", {
+						onclick: vnode.attrs.onopen
+					},"Gedeelde opgaven toevoegen")):[]),
 				])
 			];
 		}
