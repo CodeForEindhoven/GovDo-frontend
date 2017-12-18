@@ -36,7 +36,7 @@ var ProgramEditor = function(){
 						])
 					]),
 					m(".editor-row",[
-						m(".editor-column",[
+						//m(".editor-column",[
 							m(".editor-subtitle", [
 								m("span", "Missie"),
 								m(InfoBox, {
@@ -49,7 +49,7 @@ var ProgramEditor = function(){
 									vm.edit()("mission").update(v);
 								}
 							}),
-						]),
+						//]),
 					]),
 
 					m(".editor-row",[
@@ -66,11 +66,14 @@ var ProgramEditor = function(){
 								]),
 
 								m(".icons-header", [
-									m("i.material-icons", {
-										onclick: function(e){
-											stateLeader = !stateLeader;
-										}
-									},"add")
+									m("span.icon-button.icons-header", [
+										m("span.icon-button-hint", "Nieuwe programma leider toevoegen"),
+										m("i.material-icons", {
+											onclick: function(e){
+												stateLeader = !stateLeader;
+											}
+										},"add"),
+									])
 								]),
 							]),
 
@@ -90,6 +93,10 @@ var ProgramEditor = function(){
 											ptrn.speculativeUnrelate(vm.edit(), p("role:leader"));
 										}
 									},
+								},
+								emptystate: "Programma leider toevoegen",
+								onopen: function(){
+									stateLeader = true;
 								},
 								onadd: function(p){
 									ptrn.speculativeRelate(vm.edit(), p("role:leader"));
