@@ -72,7 +72,8 @@ var EffortSelectorEmptyState = function(){
 	return {
 		view: function(vnode){
 			return m(".selectorlist-emptystate",[
-				m(".selectorlist-emptystate-message", vm.task().value()+" heeft nog geen inspanningen."),
+				m(".selectorlist-emptystate-message-header", "Top! 👍"),
+				m(".selectorlist-emptystate-message", "Deze opgave heeft geen inspanningen. Is er dan écht niets te doen?"),
 				m(".selectorlist-emptystate-button.button",{
 					onclick: function(){
 						createnew.effort();

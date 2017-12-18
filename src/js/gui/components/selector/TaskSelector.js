@@ -70,7 +70,8 @@ var TaskSelectorEmptyState = function(){
 	return {
 		view: function(vnode){
 			return m(".selectorlist-emptystate",[
-				m(".selectorlist-emptystate-message", vm.program().value()+" heeft nog geen opgaven. Begin door een nieuwe opgave te maken."),
+				m(".selectorlist-emptystate-message-header", "Oh, hallo daar! 👋"),
+				m(".selectorlist-emptystate-message", [m("em",vm.program().value())," heeft nog geen opgaven. Begin door een nieuwe opgave te maken."]),
 				m(".selectorlist-emptystate-button.button",{
 					onclick: function(){
 						createnew.task();
