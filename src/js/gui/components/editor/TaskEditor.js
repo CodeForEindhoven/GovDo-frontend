@@ -54,7 +54,9 @@ var TaskEditor = function(){
 									},"add"),
 								])
 							]),
-							m(KPIEditor, {})
+							m(KPIEditor, {onadd: function(e){
+								ptrn.createrelate("kpi", "", vm.edit());
+							}})
 						//]),
 					]),
 				]),
@@ -84,6 +86,7 @@ var KPIEditor = function(){
 				return m(".kpiEdit",[
 					m("span","- "),
 					m("input.input kpi-input", {
+						placeholder: "Indicator titel invoeren",
 						oninput: function(e){
 							kpi.update(e.target.value);
 						},
@@ -103,7 +106,9 @@ var KPIEditor = function(){
 						m("span.icon-button-hint", "Verwijderen")
 					])
 				]);
-			});
+			}).emptyState(m(".button.button-empty-list", {
+				onclick: vnode.attrs.onadd
+			},"Indicator toevoegen"));
 		}
 	};
 };

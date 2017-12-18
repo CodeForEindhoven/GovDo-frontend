@@ -162,12 +162,11 @@ var createnew = {
 			var taskcount = vm.program()("task", function(a){return a;}).length+1;
 			ptrn.createrelate("task", "", vm.program(), function(t){
 				ptrn.createrelate("means", "", t, function(){
-				ptrn.createrelate("kpi", "", t, function(){
 				ptrn.createrelate("order", taskcount, t, function(){
 				ptrn.createrelate("mode", "0", t, function(){
 					vm.taskClose();
 					vm.create(t);
-				});});});});
+				});});});
 			});
 		}
 	},

@@ -6,7 +6,7 @@ var ProgramEditor = function(){
 				m(".editor-section",[
 					m(".editor-section-title.title", "Beschrijving"),
 					m(".editor-row",[
-						m(".editor-column",[
+						m(".editor-column.editor-title-editor",[
 							m(".editor-subtitle", [
 								m("span", "Programma titel"),
 							]),
