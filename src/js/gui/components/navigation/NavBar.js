@@ -8,7 +8,7 @@ var NavBar = function(){
 				return ef("feedback:"+session.value()).id();
 			}).indexOf(-1)<0);
 		}).reduce(function(org, elem){
-			if(!elem) org++;
+			if(elem) org++;
 			return org;
 		},0);
 
@@ -21,11 +21,7 @@ var NavBar = function(){
 	return {
 		view: function(vnode){
 			return m("nav",[
-
 				m(".programnav",[
-
-
-
 					m(".nav-button", {
 						onclick: function(){
 							vm.page(2);
@@ -79,7 +75,12 @@ var NavBar = function(){
 						//	m(".nav-program-title-top", vm.person().value())
 						//] : [],
 					]),
-					//m("i.material-icons.programnav-dropdown", dropdownstate ? "arrow_drop_up" : "arrow_drop_down"),
+					m(".programnav-dropdown-icon", {
+						onclick: function(){
+							dropdownstate = !dropdownstate;
+						}
+					}, m("i.material-icons", dropdownstate ? "keyboard_arrow_up" : "keyboard_arrow_down")),
+					////m("i.material-icons.programnav-dropdown", dropdownstate ? "arrow_drop_up" : "arrow_drop_down"),
 				]),
 
 				m(DropdownNav, {

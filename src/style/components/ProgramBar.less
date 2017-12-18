@@ -11,7 +11,7 @@
     position: absolute;
     left: 223px;
     top: 53px;
-    width: 32vw;
+    width: calc(50% - 300px);
     height: calc(100vh - 53px);
     z-index: 999999999;
     background-color: #e1e6f1;
@@ -148,6 +148,24 @@
 	text-transform: @uppercase;
 	margin-left: 55px;
 	padding-bottom: 30px;
+}
+
+.programnav-dropdown-icon {
+	display: inline-block;
+	vertical-align: top;
+	width: 50px;
+	height: 50px;
+	background: #e1e6f1;
+	text-align: center;
+	line-height: 50px;
+	margin-left: 5px;
+	margin-top: -5px;
+	cursor: pointer;
+}
+
+.programnav-dropdown-icon > .material-icons {
+	font-size: 2em;
+	color: @color-selected;
 }
 
 //.programnav div.programnav-domain:first-child > div.programnav-domain-name:first-child {
