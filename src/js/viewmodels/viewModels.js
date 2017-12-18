@@ -6,13 +6,19 @@ var vm = (function(){
 
 	var currentUser = {user:"", pass:"", node: -1, role: 0};
 
-	if (typeof(Storage) !== "undefined") {
-		var storedUser = localStorage.getItem('planlabuser');
-		if(storedUser){
-			currentUser = JSON.parse(storedUser);
-			loginPopup = 0;
+	try {
+		if (typeof(Storage) !== "undefined") {
+			var storedUser = localStorage.getItem('planlabuser');
+			if(storedUser){
+				currentUser = JSON.parse(storedUser);
+				loginPopup = 0;
+			}
 		}
 	}
+	catch(err) {
+		console.log(err);
+	}
+
 
 	var currentFocus;
 
@@ -50,21 +56,29 @@ var vm = (function(){
 			return loginPopup;
 		},
 		logout: function(){
-			if (typeof(Storage) !== "undefined") {
-				localStorage.removeItem('planlabuser');
-				currentUser = {user:"", pass:"", node: -1, role: 0};
-				loginPopup = -1;
-			} else {
-				console.log("no localstorage");
+			try {
+				if (typeof(Storage) !== "undefined") {
+					localStorage.removeItem('planlabuser');
+					currentUser = {user:"", pass:"", node: -1, role: 0};
+					loginPopup = -1;
+				} else {
+					console.log("no localstorage");
+				}
+			} catch(err) {
+				console.log(err);
 			}
 		},
 		user: function(i){
 			if(i !== undefined){
 				currentUser = i;
-				if (typeof(Storage) !== "undefined") {
-					localStorage.setItem('planlabuser', JSON.stringify(i));
-				} else {
-					console.log("no localstorage");
+				try {
+					if (typeof(Storage) !== "undefined") {
+						localStorage.setItem('planlabuser', JSON.stringify(i));
+					} else {
+						console.log("no localstorage");
+					}
+				} catch(err) {
+					console.log(err);
 				}
 			}
 			return currentUser;
