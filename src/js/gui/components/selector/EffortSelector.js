@@ -79,6 +79,7 @@ var EffortSelectorEmptyState = function(){
 						createnew.effort();
 					}
 				},"Nieuwe inspanning"),
+				m(".selectorlist-emptystate-message", "Klik op de + in de rechterbovenhoek om een nieuwe inspanning toe te voegen"),
 			]);
 		}
 	};
