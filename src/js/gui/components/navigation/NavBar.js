@@ -4,9 +4,14 @@ var NavBar = function(){
 
 	function hasTodos(){
 		var count = ptrn("feedbacksession", function(session){
-			return (ptrn("#"+vm.user().node+" role:leader effort type:0 effort", function(ef){
+			var finds = (ptrn("#"+vm.user().node+" role:leader effort type:0 effort", function(ef){
 				return ef("feedback:"+session.value()).id();
-			}).indexOf(-1)<0);
+			}));
+			if(finds.length>0){
+				return finds.indexOf(-1)<=0;
+			} else {
+				return false;
+			}
 		}).reduce(function(org, elem){
 			if(elem) org++;
 			return org;
