@@ -2,9 +2,16 @@ var DropdownNav = function(){
 	var page = 0;
 	var search = "";
 
+	var vn;
+
+	function onpick(){
+		vn.attrs.onpick();
+		search = "";
+	}
+
 	return {
 		view: function(vnode){
-
+			vn = vnode;
 			if(search.length>0){
 				page = -1;
 			} else {
@@ -15,7 +22,7 @@ var DropdownNav = function(){
 				vnode.attrs.state ? [
 					m("div.dropdown-outside", {
 						onclick: function(){
-							vnode.attrs.onpick();
+							onpick();
 						}
 					}),
 					m(".programnav-popup", {}, [
@@ -26,8 +33,10 @@ var DropdownNav = function(){
 								value: search,
 								oninput: m.withAttr("value", function(v) {
 									search = v;
-
-								})
+								}),
+								oncreate: function(vnode){
+									vnode.dom.focus();
+								}
 							}),
 						]),
 
@@ -49,26 +58,26 @@ var DropdownNav = function(){
 										if(result.type()==="program"){
 											vm.program(result);
 											vm.focus(result);
-											vnode.attrs.onpick();
+											onpick();
 										}
 										if(result.type()==="task"){
 											vm.program(result("program"));
 											vm.task(result);
 											vm.focus(vm.program());
-											vnode.attrs.onpick();
+											onpick();
 										}
 										if(result.type()==="effort"){
 											vm.program(result("task program"));
 											vm.task(result("task"));
 											vm.effort(result);
 											vm.focus(vm.program());
-											vnode.attrs.onpick();
+											onpick();
 										}
 
 										if(result.type()==="person"){
 											vm.person(result);
 											vm.focus(result);
-											vnode.attrs.onpick();
+											onpick();
 										}
 
 									}
@@ -93,7 +102,7 @@ var DropdownNav = function(){
 												vm.program(program);
 												vm.focus(program);
 												vm.page(0);
-												vnode.attrs.onpick();
+												onpick();
 											}
 										},[
 											m(".programnav-program-number", m(Numbering, {node: program})),
@@ -120,7 +129,7 @@ var DropdownNav = function(){
 												vm.person(person);
 												vm.closeall();
 												vm.focus(person);
-												vnode.attrs.onpick();
+												onpick();
 											}
 										},[
 											//m(".programnav-program-number", m(Numbering, {node: program})),
