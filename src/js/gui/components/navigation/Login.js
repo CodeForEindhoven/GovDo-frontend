@@ -16,16 +16,36 @@ var Login = function(){
 		});
 	}
 
+	function verifyPass(){
+		ptrn.loginpass(username, password, function(succes, node, role){
+			if(succes){
+				error = false;
+				vm.login(0);
+				vm.user({
+					user:username,
+					pass:password,
+					node: node,
+					role: role
+				});
+			} else {
+				error = true;
+			}
+			m.redraw();
+		});
+	}
+
 	return {
 		view: function(vnode){
 			return vm.login() > 0 ? m(".login",[
 				m(".login-overlay-fullscreen"),
 				m(".login-popup", [
-					m(".login-popup-title.title", "Welkom bij Planlab"),
+					m(".login-popup-title.title", "Hallo! Welkom bij Planlab 🙋"),
 					(function(){
 						if(vm.login() === 1){
 							return [
 								m("input.login-popup-email", {
+									type: "email",
+									name: "email",
 									placeholder: "E-mail adres",
 									oninput: m.withAttr("value", function(v) {username = v;}),
 									onchange: m.withAttr("value", function(v) {username = v;}),
@@ -46,11 +66,12 @@ var Login = function(){
 										}
 									},"Verder"),
 
-									//m(".button", {
-									//	onclick: function(){
-									//		vm.login(-1);
-									//	}
-									//},"Annuleer"),
+									m(".button", {
+										onclick: function(){
+											vm.login(1);
+											username = "";
+										}
+									},"Annuleer"),
 								]),
 							];
 						} else if(vm.login() === 2){
@@ -61,6 +82,11 @@ var Login = function(){
 									placeholder: "Uw tijdelijke wachtwoord",
 									oninput: m.withAttr("value", function(v) {password = v;}),
 									onchange: m.withAttr("value", function(v) {password = v;}),
+									onkeydown: function(e){
+										if(e.keyCode===13){
+											verifyPass();
+										}
+									},
 									value: password
 								}),
 								(error) ? m(".login-popup-error-message.body-text", "Dit wachtwoord is onbekend, probeer opnieuw...") : [],
@@ -68,26 +94,14 @@ var Login = function(){
 								m(".login-buttons", [
 									m(".button", {
 										onclick: function(){
-											ptrn.loginpass(username, password, function(succes, node, role){
-												if(succes){
-													error = false;
-													vm.login(0);
-													vm.user({
-														user:username,
-														pass:password,
-														node: node,
-														role: role
-													});
-												} else {
-													error = true;
-												}
-												m.redraw();
-											});
+											verifyPass();
 										}
 									},"Inloggen"),
 
 									m(".button", {
 										onclick: function(){
+											username = "";
+											password = "";
 											vm.login(1);
 										}
 									},"Annuleer"),
