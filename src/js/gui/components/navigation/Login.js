@@ -4,6 +4,18 @@ var Login = function(){
 	var password = "";
 	var error = false;
 
+	function verifyName(){
+		ptrn.loginuser(username, function(succes){
+			if(succes){
+				error = false;
+				vm.login(2);
+			} else {
+				error = true;
+			}
+			m.redraw();
+		});
+	}
+
 	return {
 		view: function(vnode){
 			return vm.login() > 0 ? m(".login",[
@@ -17,6 +29,11 @@ var Login = function(){
 									placeholder: "E-mail adres",
 									oninput: m.withAttr("value", function(v) {username = v;}),
 									onchange: m.withAttr("value", function(v) {username = v;}),
+									onkeydown: function(e){
+										if(e.keyCode===13){
+											verifyName();
+										}
+									},
 									value: username
 								}),
 								(error) ? m(".login-popup-error-message.body-text", "Onbekend email adres") : [],
@@ -25,23 +42,15 @@ var Login = function(){
 								m(".login-buttons", [
 									m(".button", {
 										onclick: function(){
-											ptrn.loginuser(username, function(succes){
-												if(succes){
-													error = false;
-													vm.login(2);
-												} else {
-													error = true;
-												}
-												m.redraw();
-											});
+											verifyName();
 										}
 									},"Verder"),
 
-									m(".button", {
-										onclick: function(){
-											vm.login(-1);
-										}
-									},"Annuleer"),
+									//m(".button", {
+									//	onclick: function(){
+									//		vm.login(-1);
+									//	}
+									//},"Annuleer"),
 								]),
 							];
 						} else if(vm.login() === 2){
@@ -79,7 +88,7 @@ var Login = function(){
 
 									m(".button", {
 										onclick: function(){
-											vm.login(-1);
+											vm.login(1);
 										}
 									},"Annuleer"),
 								]),
