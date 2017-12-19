@@ -577,7 +577,7 @@ var ptrn = (function(){
 		pub.getatomsbytypevalue = function(type, value, sub){
 			var s = set(sub);
 			return s.filter(function(atom){
-				return (atom.type===type && atom.value[0].value===value);
+				return (atom.type===type && (atom.value[0].value===value || atom.value[0].value===parseInt(value)));
 			});
 
 		};
