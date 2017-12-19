@@ -22,7 +22,7 @@ var InplaceEditor = function(){
 							},
 							placeholder: vnode.attrs.placeholder
 						}),
-						m(".button.selector-inplace-editor-button", {
+						m(".button.selector-inplace-editor-button.button.selector-inplace-editor-button-options", {
 							onclick: function(){vnode.attrs.onmore(task);}
 						},"Meer opties"),
 						m(".button.selector-inplace-editor-button", {
