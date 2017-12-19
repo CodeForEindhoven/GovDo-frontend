@@ -110,7 +110,7 @@ var Feedback = function(){
 							}
 						}
 					}, (!save) ? [
-						m(".editor-section",[
+						m(".feedback-section",[
 							m(".editor-section-title.title", "Algemene Toelichting"),
 							m(".editor-row",[
 								//m(".editor-column",[
@@ -128,6 +128,8 @@ var Feedback = function(){
 											currentEffort("feedback:"+feedbackid+" positives").update(v);
 										}
 									}),
+								]),
+								m(".editor-column",[
 									m(".editor-subtitle.subtitle", [
 										m("span", "Waar ben je trots op? Wat gaat goed?"),
 									]),
@@ -142,7 +144,7 @@ var Feedback = function(){
 						]),
 
 						//3 choice questions
-						m(".editor-section",[
+						m(".feedback-section",[
 							m(".editor-section-title.title", "Voortgang"),
 							m(FeedbackQuestion, {currentFeedback: currentEffort("feedback:"+feedbackid), label: "Effect", name: "effects"}),
 							m(FeedbackQuestion, {currentFeedback: currentEffort("feedback:"+feedbackid), label: "Producten", name: "products"}),
@@ -151,7 +153,7 @@ var Feedback = function(){
 							m(FeedbackQuestion, {currentFeedback: currentEffort("feedback:"+feedbackid), label: "Randvoorwaarden", name: "conditions"}),
 						]),
 
-						m(".editor-section",[
+						m(".feedback-section",[
 							m(".save-button", {
 								onclick: function(){
 									ptrn.transact();
@@ -160,7 +162,7 @@ var Feedback = function(){
 							}, "Verder"),
 						]),
 					] : [
-						m(".editor-section",[
+						m(".feedback-section",[
 							m(".editor-section-title.title", "Je hebt de voortgangsrapportage ingevuld."),
 							m(".save-button", {
 								onclick: function(){
