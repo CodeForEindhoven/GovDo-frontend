@@ -277,10 +277,16 @@ var EffortEditor = function(){
 						onadd: function(v){
 							if(vm.edit()("#"+v.id()).id() < 0){
 								ptrn.speculativeRelate(vm.edit(), v);
-								ptrn.create("hours", "~/_/_-~/_/_-0-~-w-0-w", function(newhours){
-									ptrn.speculativeRelate(newhours, vm.edit());
-									ptrn.speculativeRelate(newhours, v);
-								});
+
+								//if there were not previous hours
+								if(vm.edit()("hours #"+v.id()).id() < 0){
+									ptrn.create("hours", "~/_/_-~/_/_-0-~-w-0-w", function(newhours){
+										ptrn.speculativeRelate(newhours, vm.edit());
+										ptrn.speculativeRelate(newhours, v);
+									});
+								}
+
+								//if it's the first in the list, make it a leader
 								if(vm.edit()("person", function(e){return e;}).length === 1){
 									ptrn.speculativeRelate(vm.edit(), v("role:leader"));
 								}
