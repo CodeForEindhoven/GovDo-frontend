@@ -101,7 +101,32 @@ var Editor = function(){
 								m(".button-delete", {
 									onclick: function(){
 										if (confirm("Weet je zeker dat je '"+vm.edit().value()+"' wil verwijderen?") === true) {
-											vm.edit().drop();
+
+											var parent;
+											if(vm.edit().type()==="task"){
+												parent = vm.edit()("program");
+												vm.edit().drop();
+												parent("task", function(t){
+													return t;
+												}).sort(function(a,b){
+													return parseInt(a("order").value()) - parseInt(b("order").value());
+												}).map(function(t,c){
+													console.log(t("order").update(c+1));
+												});
+											}
+
+											if(vm.edit().type()==="effort"){
+												parent = vm.edit()("task");
+												vm.edit().drop();
+												parent("effort", function(t){
+													return t;
+												}).sort(function(a,b){
+													return parseInt(a("order").value()) - parseInt(b("order").value());
+												}).map(function(t,c){
+													console.log(t("order").update(c+1));
+												});
+											}
+
 											vm.editClose();
 											ptrn.transact();
 										}

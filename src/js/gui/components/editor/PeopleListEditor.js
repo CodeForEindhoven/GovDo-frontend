@@ -83,52 +83,6 @@ var PeopleListEditor = function(){
 										m.redraw();
 									}
 								}, (parsedhours && parsedhours.period.length[0]==="~") ? "Doorlopend" : "Piek belasting"),
-
-								/*(parsedhours && parsedhours.period.length[0]!=="~") ? m(".editor-peoplelist-person-hours", [
-									m(NumberRoller, {
-										value: (parsedhours) ? parseInt(parsedhours.period.length[0]) : "~",
-										oninput: function(value){
-											parsedhours.period.length[0] = ""+value;
-											plannedhours[0].update(HoursSpent.toString(parsedhours));
-											m.redraw();
-										}
-									}),
-									m(DropDown, {
-										value: (parsedhours.period.length[1] === "w") ? -1 : 0,
-										options: ["maanden"],
-										novalue: ["weken"],
-										onchange: function(e){
-											if(e===0){
-												parsedhours.period.length[1] = "m";
-											} else {
-												parsedhours.period.length[1] = "w";
-											}
-											plannedhours[0].update(HoursSpent.toString(parsedhours));
-										}
-									}),
-									m("span", " iedere "),
-									m(NumberRoller, {
-										value: (parsedhours) ? parseInt(parsedhours.period.every[0]) : "~",
-										oninput: function(value){
-											parsedhours.period.every[0] = ""+value;
-											plannedhours[0].update(HoursSpent.toString(parsedhours));
-											m.redraw();
-										}
-									}),
-									m(DropDown, {
-										value: (parsedhours.period.every[1] === "w") ? -1 : 0,
-										options: ["maanden"],
-										novalue: ["weken"],
-										onchange: function(e){
-											if(e===0){
-												parsedhours.period.every[1] = "m";
-											} else {
-												parsedhours.period.every[1] = "w";
-											}
-											plannedhours[0].update(HoursSpent.toString(parsedhours));
-										}
-									}),
-								]) : []*/
 							] : [],
 
 							//roles
@@ -146,7 +100,53 @@ var PeopleListEditor = function(){
 									onclick: function(){vnode.attrs.ondelete(person);}
 								},"close"),
 								m("span.icon-button-hint", "Verwijderen")
-							])
+							]),
+
+							/*(vnode.attrs.planhours && parsedhours && parsedhours.period.length[0]!=="~") ? m(".editor-peoplelist-person-hours", [
+								m(NumberRoller, {
+									value: (parsedhours) ? parseInt(parsedhours.period.length[0]) : "~",
+									oninput: function(value){
+										parsedhours.period.length[0] = ""+value;
+										plannedhours[0].update(HoursSpent.toString(parsedhours));
+										m.redraw();
+									}
+								}),
+								m(DropDown, {
+									value: (parsedhours.period.length[1] === "w") ? -1 : 0,
+									options: ["maanden"],
+									novalue: ["weken"],
+									onchange: function(e){
+										if(e===0){
+											parsedhours.period.length[1] = "m";
+										} else {
+											parsedhours.period.length[1] = "w";
+										}
+										plannedhours[0].update(HoursSpent.toString(parsedhours));
+									}
+								}),
+								m("span", " iedere "),
+								m(NumberRoller, {
+									value: (parsedhours) ? parseInt(parsedhours.period.every[0]) : "~",
+									oninput: function(value){
+										parsedhours.period.every[0] = ""+value;
+										plannedhours[0].update(HoursSpent.toString(parsedhours));
+										m.redraw();
+									}
+								}),
+								m(DropDown, {
+									value: (parsedhours.period.every[1] === "w") ? -1 : 0,
+									options: ["maanden"],
+									novalue: ["weken"],
+									onchange: function(e){
+										if(e===0){
+											parsedhours.period.every[1] = "m";
+										} else {
+											parsedhours.period.every[1] = "w";
+										}
+										plannedhours[0].update(HoursSpent.toString(parsedhours));
+									}
+								}),
+							]) : []*/
 
 						]);
 					}).emptyState(!vnode.attrs.state ? m(".editor-empty-list",m(".button.button-empty-list", {
