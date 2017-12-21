@@ -69,6 +69,7 @@ var Editor = function(){
 						return m(".editor-content",{
 							onbeforeupdate: function(vnode, old){
 								scrollstore = old.dom.scrollTop;
+								console.log("scrollstore", scrollstore);
 							},
 							onupdate: function(vnode){
 								vnode.dom.scrollTop = scrollstore;
