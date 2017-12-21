@@ -22,6 +22,10 @@ var EffortSelector = function(){
 		}
 	}
 
+	function hasrelated(){
+		return (vm.focus().type()==="program" && vm.task()("related", function(e){return e;}).length > 0);
+	}
+
 	return {
 		view: function(vnode){
 			if(vm.task()){
@@ -44,22 +48,25 @@ var EffortSelector = function(){
 						onupdate: function(vnode){
 							vnode.dom.scrollTop = scrollstore;
 						}
-					}, m(".selectorlist-back", [
-						selection(function(effort){
-							if(ptrn.compare(vm.create(), effort)) {
-								return m(CreateEffortSelectorItem,{effort: effort});
-							} else {
-								return m(EffortSelectorItem,{effort: effort});
-							}
-						}).emptyState(m(EffortSelectorEmptyState)),
-
-						(vm.focus().type()==="program" && vm.task()("related", function(e){return e;}).length > 0) ? [
-							m(".selector-subtitle", "Gerelateerd"),
+					}, [
+						m(".selectorlist-back", {
+							class: hasrelated() ? "selectorlist-back-nostretch" : "",
+						},[
+							selection(function(effort){
+								if(ptrn.compare(vm.create(), effort)) {
+									return m(CreateEffortSelectorItem,{effort: effort});
+								} else {
+									return m(EffortSelectorItem,{effort: effort});
+								}
+							}).emptyState(m(EffortSelectorEmptyState)),
+						]),
+						hasrelated() ? m(".selectorlist-related", [
+							m(".selector-subtitle", "Gerelateerde Inspanningen"),
 							vm.task()("related effort", function(effort){
 								return m(EffortSelectorItem, {effort: effort, related: true});
 							})
-						] : []
-					])),
+						]) : []
+					]),
 				]);
 			} else {
 				return [];
