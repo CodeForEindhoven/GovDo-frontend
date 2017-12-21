@@ -215,7 +215,7 @@ var EffortEditor = function(){
 							stateClient = true;
 						},
 						onadd: function(p){
-							if(vm.edit()("role #"+p.id()).id() < 0){
+							if(vm.edit()("role:bclient #"+p.id()).id() < 0){
 								ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
 							}
 							stateClient = false;
