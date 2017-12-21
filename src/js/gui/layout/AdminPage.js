@@ -7,7 +7,7 @@ var AdminPage = function(){
 				m(".layout-optionbar", [
 					m(".optionbar", [
 						m(".optionbar-section", [
-							m(".sub-navigation-label", "Persoonlijke Gegevens"),
+							m(".sub-navigation-label", "Mijn gegevens"),
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 0;},
 								class: (currentPage===0)? "state-selected":""
@@ -15,7 +15,7 @@ var AdminPage = function(){
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 1;},
 								class: (currentPage===1)? "state-selected":""
-							}, "Instellingen"),
+							}, "Persoonlijke Gegevens"),
 						]),
 
 						(vm.user().role === 0) ? m(".optionbar-section", [
@@ -51,7 +51,8 @@ var AdminPage = function(){
 							currentPage = 0;
 						}
 					}) : [],
-				])
+				]),
+				m(".layout-right", m(Editor))
 			];
 		}
 	};

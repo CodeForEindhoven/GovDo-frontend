@@ -11,7 +11,8 @@ var Editor = function(){
 					m("span", [
 						(vm.edit().type()==="effort") ? "Inspanning Editor" : [],
 						(vm.edit().type()==="task") ? "Opgave Editor" :  [],
-						(vm.edit().type()==="program") ? "Programma Editor" : []
+						(vm.edit().type()==="program") ? "Programma Editor" : [],
+						(vm.edit().type()==="person") ? "Gebruiker Editor" : []
 					]),
 
 
@@ -85,6 +86,8 @@ var Editor = function(){
 									return m(TaskEditor);
 								} else if(vm.edit().type()==="program"){
 									return m(ProgramEditor);
+								} else if(vm.edit().type()==="person"){
+									return m(UserEditor);
 								}
 							})(),
 
@@ -98,7 +101,7 @@ var Editor = function(){
 	//							},(/*viewModels.editMode.savingState()*/false)?"Opslaan...":"Opslaan"),
 
 								//Delete item
-								m(".button-delete", {
+								(vm.edit().type()==="task" || vm.edit().type()==="effort") ? m(".button-delete", {
 									onclick: function(){
 										if (confirm("Weet je zeker dat je '"+vm.edit().value()+"' wil verwijderen?") === true) {
 
@@ -131,7 +134,7 @@ var Editor = function(){
 											ptrn.transact();
 										}
 									}
-								},"Verwijder"),
+								},"Verwijder") : [],
 							]),
 						]);
 					}
