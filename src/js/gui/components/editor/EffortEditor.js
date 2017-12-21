@@ -99,10 +99,10 @@ var EffortEditor = function(){
 
 					m(".editor-subtitle-header",[
 						m(".editor-subtitle.subtitle", [
-							m("span", "Gedeelde Opgaven"),
+							m("span", "Gerelateerde opgaven"),
 							m(InfoBox, {
 								content: m("",[
-									m("span", "Sommige inspanningen worden gedeeld door meerdere programma's"),
+									m("span", "Als een inspanning gedeeld wordt door meerdere programma's kun je dat hier aangeven"),
 								])
 							})
 						]),
@@ -215,7 +215,9 @@ var EffortEditor = function(){
 							stateClient = true;
 						},
 						onadd: function(p){
-							ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
+							if(vm.edit()("role #"+p.id()).id() < 0){
+								ptrn.speculativeRelate(vm.edit(), p("role:aclient"));
+							}
 							stateClient = false;
 						},
 						ondelete: function(p){
@@ -273,11 +275,16 @@ var EffortEditor = function(){
 							stateTeam = true;
 						},
 						onadd: function(v){
-							ptrn.speculativeRelate(vm.edit(), v);
-							ptrn.create("hours", "~/_/_-~/_/_-0-~-w-0-w", function(newhours){
-								ptrn.speculativeRelate(newhours, vm.edit());
-								ptrn.speculativeRelate(newhours, v);
-							});
+							if(vm.edit()("#"+v.id()).id() < 0){
+								ptrn.speculativeRelate(vm.edit(), v);
+								ptrn.create("hours", "~/_/_-~/_/_-0-~-w-0-w", function(newhours){
+									ptrn.speculativeRelate(newhours, vm.edit());
+									ptrn.speculativeRelate(newhours, v);
+								});
+								if(vm.edit()("person", function(e){return e;}).length === 1){
+									ptrn.speculativeRelate(vm.edit(), v("role:leader"));
+								}
+							}
 							stateTeam = false;
 						},
 						ondelete: function(v){
