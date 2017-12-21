@@ -69,20 +69,25 @@ var PeopleListEditor = function(){
 										}
 									}),
 								]),
-								m(".switch-frequency", {
-									onclick: function(){
-										if(parsedhours.period.length[0]==="~"){
-											parsedhours.period.length[0] = "1";
-											parsedhours.period.every[0] = "2";
-										} else {
-											parsedhours.period.length[0] = "~";
-										}
 
-										plannedhours[0].update(HoursSpent.toString(parsedhours));
-											console.log(plannedhours[0].value());
-										m.redraw();
-									}
-								}, (parsedhours && parsedhours.period.length[0]==="~") ? "Doorlopend" : "Piek belasting"),
+								m(PeopleHoursCompare,{
+									person: person,
+								}),
+
+						//		m(".switch-frequency", {
+						//			onclick: function(){
+						//				if(parsedhours.period.length[0]==="~"){
+						//					parsedhours.period.length[0] = "1";
+						//					parsedhours.period.every[0] = "2";
+						//				} else {
+						//					parsedhours.period.length[0] = "~";
+						//				}
+
+						//				plannedhours[0].update(HoursSpent.toString(parsedhours));
+						//					console.log(plannedhours[0].value());
+						//				m.redraw();
+						//			}
+						//		}, (parsedhours && parsedhours.period.length[0]==="~") ? "Doorlopend" : "Piek belasting"),
 							] : [],
 
 							//roles
@@ -166,6 +171,69 @@ var PeopleListEditor = function(){
 							}
 						}, 0))
 					]) : []
+			]);
+		}
+	};
+};
+
+var PeopleHoursCompare = function(){
+
+	function gethours(person){
+		return person("hours", function(hourstring){
+			return {
+				effort: hourstring("effort"),
+				startdate: hourstring("effort")("startdate").value(),
+				enddate: hourstring("effort")("enddate").value(),
+				hours: [HoursSpent.Parse(hourstring.value())]
+			};
+		}).reduce(function(reduced, hour){
+			var found = reduced.find(function(other){
+				return ptrn.compare(other.effort, hour.effort);
+			});
+
+			if(found){
+				found.hours = found.hours.concat(hour.hours);
+			} else {
+				reduced.push(hour);
+			}
+			return reduced;
+		},[]);
+	}
+
+	return {
+		view: function(vnode){
+			var contract = vnode.attrs.person("contract").value();
+			var monday =  FuzzyDate.getMonday(new Date());
+			var hours = gethours(vnode.attrs.person);
+
+			return m(".editor-peoplehours", {},[
+				ArrayFromRange(0, 11).map(function(week){
+					var startWeek = monday;
+					var offset = 0;
+					var totalhours = 0;
+					var count = -1;
+
+					hours.map(function(effort){
+						if(effort.hours.length>0) {count++;}
+						return effort.hours.map(function(hour){
+							if(FuzzyDate.inRange(effort.startdate, effort.enddate, startWeek)){
+								hour.hours = parseInt(hour.hours);
+								totalhours += hour.hours;
+							}
+						});
+					});
+					monday = FuzzyDate.nextWeek(monday);
+
+
+					var percentage = (totalhours / contract) * 100;
+
+					return m(".editor-peoplehours-week",[
+						m(".editor-peoplehours-hours",{
+							style: "height: "+((percentage > 100) ? 100 : percentage)+"%;",
+							class: (percentage > 100) ? "editor-peoplehours-hours-overflow" : ""
+						})
+					]);
+				})
 			]);
 		}
 	};
