@@ -136,14 +136,14 @@ var DateEditor = function(){
 					return m(".personal-efforts-effort-date", parseInt(parsedhours.hours));
 				}),
 
-				m(".personal-efforts-effort-date-add", {
-					onclick: function(){
-						ptrn.create("hours", vnode.attrs.element.effort("startdate").value()+"-"+vnode.attrs.element.effort("enddate").value()+"-0-0-w-0-w", function(newhours){
-							ptrn.relate(newhours, vnode.attrs.element.effort);
-							ptrn.relate(newhours, vm.focus());
-						});
-					}
-				},"uren toevoegen")
+				//m(".personal-efforts-effort-date-add", {
+				//	onclick: function(){
+				//		ptrn.create("hours", vnode.attrs.element.effort("startdate").value()+"-"+vnode.attrs.element.effort("enddate").value()+"-0-0-w-0-w", function(newhours){
+				//			ptrn.relate(newhours, vnode.attrs.element.effort);
+				//			ptrn.relate(newhours, vm.focus());
+				//		});
+				//	}
+				//},"uren toevoegen")
 			];
 		}
 	};

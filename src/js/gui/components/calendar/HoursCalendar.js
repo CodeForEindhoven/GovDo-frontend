@@ -6,6 +6,7 @@ var HoursCalendar = function(){
 		margin: 2,
 		opentime: 0,
 		closetime: 0,
+		gridheight: 40,
 	};
 
 	function setCurrentDate(date, scale){
@@ -28,6 +29,21 @@ var HoursCalendar = function(){
 		m.redraw();
 	}
 
+	function refocus(){
+		if(vm.focus().type()==="person"){
+			p.gridheight = vm.focus()("contract").value();
+		}
+		if(vm.focus().type()==="program"){
+			p.gridheight = vm.focus()("task effort person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+		}
+		if(vm.focus().type()==="task"){
+			p.gridheight = vm.focus()("effort person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+		}
+		if(vm.focus().type()==="effort"){
+			p.gridheight = vm.focus()("person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+		}
+	}
+
 	function setDate(vnode, updown){
 		if(p.scale===1){
 			if(updown){
@@ -47,6 +63,7 @@ var HoursCalendar = function(){
 
 	return {
 		view: function(vnode){
+			refocus();
 			setCurrentDate(vnode.attrs.currentDate, vnode.attrs.currentScale);
 			return m(".calendar",[
 				m("svg",{
@@ -82,7 +99,6 @@ var HoursCalendar = function(){
 var CalendarHours = function(){
 	return {
 		view: function(vnode){
-			var gridheight = vm.person()("contract").value();
 			//starting date
 			var monday =  vnode.attrs.p.opentime;
 
@@ -162,7 +178,7 @@ var CalendarHours = function(){
 							hour.hours = parseInt(hour.hours);
 							totalhours += hour.hours;
 
-							var h = hour.hours*(vnode.attrs.p.h/gridheight);
+							var h = hour.hours*(vnode.attrs.p.h/vnode.attrs.p.gridheight);
 							offset+=h;
 
 							return m("rect.calendar-block", {
@@ -180,7 +196,7 @@ var CalendarHours = function(){
 					});
 				});
 
-				if(totalhours > gridheight) {
+				if(totalhours > vnode.attrs.p.gridheight) {
 					blocks.push(m("rect.calendar-block-overshoot", {x: week*w+mrg+0.5, y:0, width: w+0.5, height: vnode.attrs.p.h/80}));
 				}
 
@@ -201,12 +217,12 @@ var CalendarGrid = function(){
 	return {
 		view: function(vnode){
 			var grid = [];
-			var gridheight = vm.person()("contract").value();
+			//var gridheight = vm.person()("contract").value();
 			var mrg = vnode.attrs.p.margin;
 			var w = (vnode.attrs.p.w-mrg*2)/12;
-			var h = vnode.attrs.p.h/gridheight;
+			var h = vnode.attrs.p.h/vnode.attrs.p.gridheight;
 			for(var i=0; i<12; i++){
-				for(var j=0; j<gridheight; j++){
+				for(var j=0; j<vnode.attrs.p.gridheight; j++){
 					grid.push(m("rect.calendar-grid", {x:i*w+1+mrg, y:j*h+1, width:w-1, height: h-1}));
 				}
 			}
