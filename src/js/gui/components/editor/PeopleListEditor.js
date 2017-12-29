@@ -15,7 +15,6 @@ var PeopleListEditor = function(){
 							},
 							placeholder: "Voornaam Achternaam",
 							oninput: m.withAttr("value", function(v) {value = v;}),
-							onchange: m.withAttr("value", function(v) {value = v;}),
 							value: value,
 						}),
 						m("i.material-icons.editor-peoplelist-searchbar-icon", "search"),
@@ -32,7 +31,9 @@ var PeopleListEditor = function(){
 								})
 							:
 								m(TeamList, {
-									onadd: function(p){vnode.attrs.onadd(p);}
+									onadd: function(p){
+										vnode.attrs.onadd(p);
+									}
 								})
 						]),
 					] : [],
