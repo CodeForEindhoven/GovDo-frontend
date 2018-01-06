@@ -349,21 +349,51 @@ i.material-icons.editor-peoplelist-searchbar-icon {
 	color: grey;
 }
 
+.editor-peoplelist-person-switch-planning {
+	color: @color-selected;
+	cursor: pointer;
+	font-weight: @regular;
+}
+
+.editor-peoplelist-person-switch-planning i {
+	margin-left: 10px;
+}
+
 .editor-peoplehours {
-	display: inline-block;
 	vertical-align: top;
+	margin-bottom: 40px;
+    margin-top: -10px;
 }
 
 //hours
 .editor-peoplehours-week {
 	display: inline-block;
-	width: 7px;
-	height: 30px;
-	background-color: darkgrey;
+	width: 8.25%;
+	border-left: 1px solid white;
+	box-sizing: border-box;
+	height: 150px;
+	background-color: white;
 	position: relative;
 }
 
+.editor-peoplehours-label {
+	position: absolute;
+	position: absolute;
+	top: 100%;
+	margin-top: 5px;
+	font-family: @font-number;
+	font-size: 10px;
+	color: @color-selected;
+}
+
 .editor-peoplehours-hours {
+	background-color: darkgrey;
+	bottom: 0px;
+	position: absolute;
+	width: 100%;
+}
+
+.editor-peoplehours-currenthours {
 	background-color: blue;
 	bottom: 0px;
 	position: absolute;

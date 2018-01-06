@@ -1,9 +1,12 @@
 var PeopleListEditor = function(){
 	var state = false;
 	var value = "";
+	var expandedplanning = [];
 
 	return {
 		view: function(vnode){
+
+
 			return m(".editor-peoplelist", {
 					class: vnode.attrs.classname+" "+(vnode.attrs.state ? "":"state-hidden")
 				}, [
@@ -54,11 +57,10 @@ var PeopleListEditor = function(){
 						}
 
 						return m(".editor-peoplelist-person", [
-
 							//name
 							m("span.editor-peoplelist-person-name.body-text", person.value()),
 
-							//hours
+							//if this editor can plan hours
 							(vnode.attrs.planhours) ? [
 								m(".editor-hours-week", [
 									m(NumberRoller, {
@@ -70,10 +72,27 @@ var PeopleListEditor = function(){
 										}
 									}),
 								]),
+								m("span.editor-peoplelist-person-switch-planning", {
+									onclick: function(){
+										if(expandedplanning.findIndex(function(o){
+											return o === person.value();
+										}) > -1){
+											expandedplanning = expandedplanning.filter(function(o){
+												return o !== person.value();
+											});
+										} else {
+											expandedplanning.push(person.value());
+										}
+										console.log(expandedplanning);
+									}
+								}, [
+									m("span", "Planning"),
+									m("i.material-icons", expandedplanning.findIndex(function(o){
+										return o === person.value();
+									}) > -1 ? "keyboard_arrow_up" : "keyboard_arrow_down")
+								]),
 
-								m(PeopleHoursCompare,{
-									person: person,
-								}),
+
 
 						//		m(".switch-frequency", {
 						//			onclick: function(){
@@ -90,7 +109,6 @@ var PeopleListEditor = function(){
 						//			}
 						//		}, (parsedhours && parsedhours.period.length[0]==="~") ? "Doorlopend" : "Piek belasting"),
 							] : [],
-
 							//roles
 							(!vnode.attrs.noroles) ? m(DropDown, {
 								value: vnode.attrs.roles.selected(person),
@@ -107,6 +125,15 @@ var PeopleListEditor = function(){
 								},"close"),
 								m("span.icon-button-hint", "Verwijderen")
 							]),
+
+							expandedplanning.findIndex(function(o){
+								return o === person.value();
+							}) > -1 ? [
+								m(PeopleHoursCompare,{
+									person: person,
+									parsedhours: parsedhours
+								}),
+							] : []
 
 							/*(vnode.attrs.planhours && parsedhours && parsedhours.period.length[0]!=="~") ? m(".editor-peoplelist-person-hours", [
 								m(NumberRoller, {
@@ -188,7 +215,6 @@ var PeopleListEditor = function(){
 };
 
 var PeopleHoursCompare = function(){
-
 	function gethours(person){
 		return person("hours", function(hourstring){
 			return {
@@ -216,33 +242,50 @@ var PeopleHoursCompare = function(){
 			var contract = vnode.attrs.person("contract").value();
 			var monday =  FuzzyDate.getMonday(new Date());
 			var hours = gethours(vnode.attrs.person);
+			console.log(hours);
 
 			return m(".editor-peoplehours", {},[
 				ArrayFromRange(0, 11).map(function(week){
 					var startWeek = monday;
 					var offset = 0;
 					var totalhours = 0;
+					var currenthours = 0;
 					var count = -1;
 
 					hours.map(function(effort){
+
 						if(effort.hours.length>0) {count++;}
 						return effort.hours.map(function(hour){
 							if(FuzzyDate.inRange(effort.startdate, effort.enddate, startWeek)){
 								hour.hours = parseInt(hour.hours);
+								if(ptrn.compare(effort.effort, vm.edit())){
+									currenthours += hour.hours;
+								}
 								totalhours += hour.hours;
+
 							}
 						});
 					});
+
+					var weeknumber = FuzzyDate.currentWeek(monday);
+					var date =   monday.getDate() + "-" + (monday.getMonth()+1);
+
 					monday = FuzzyDate.nextWeek(monday);
 
 
 					var percentage = (totalhours / contract) * 100;
+					var currentpercentage = (currenthours / contract) * 100;
 
 					return m(".editor-peoplehours-week",[
 						m(".editor-peoplehours-hours",{
 							style: "height: "+((percentage > 100) ? 100 : percentage)+"%;",
 							class: (percentage > 100) ? "editor-peoplehours-hours-overflow" : ""
-						})
+						}),
+						m(".editor-peoplehours-currenthours",{
+							style: "height: "+((currentpercentage > 100) ? 100 : currentpercentage)+"%;",
+							class: (percentage > 100) ? "editor-peoplehours-hours-overflow" : ""
+						}),
+						m(".editor-peoplehours-label", "week " + weeknumber) //+ "(" + date + ")")
 					]);
 				})
 			]);
