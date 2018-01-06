@@ -349,23 +349,12 @@ i.material-icons.editor-peoplelist-searchbar-icon {
 	color: grey;
 }
 
-.button-empty-list {
-	width: 50%;
-	margin-left: 25%;
-	margin-top: 10px;
-}
-
-.editor-empty-list {
-	background-color: #e7e7e7;
-	padding: 10px;
-	padding-bottom: 20px;
-}
-
 .editor-peoplehours {
 	display: inline-block;
 	vertical-align: top;
 }
 
+//hours
 .editor-peoplehours-week {
 	display: inline-block;
 	width: 7px;
@@ -383,4 +372,64 @@ i.material-icons.editor-peoplelist-searchbar-icon {
 
 .editor-peoplehours-hours-overflow {
 	background-color: orange;
+}
+
+//editor empty list
+.button-empty-list {
+	width: 40%;
+	position: absolute;
+	left: 30%;
+	top: calc(50% - 35px);
+}
+
+.editor-empty-list {
+	position: relative;
+	padding: 10px;
+	padding-bottom: 20px;
+}
+
+.editor-empty-list-item {
+	width: 100%;
+	height: 15px;
+	margin-bottom: 18px;
+}
+
+.editor-empty-list-item-item {
+	background-color: @color-emptyplaceholderdark;
+	display: inline-block;
+	height: 14px;
+}
+
+.editor-empty-list-item-name {
+	.editor-empty-list-item-item();
+	width: 40%;
+	margin-right: 50px;
+}
+
+.editor-empty-list-item-name-short {
+	.editor-empty-list-item-item();
+	width: calc(40% - 40px);
+	margin-right: 90px;
+}
+
+.editor-empty-list-item-label {
+	.editor-empty-list-item-item();
+	width: 12%;
+	margin-right: 50px;
+}
+
+.editor-empty-list-item-delete {
+	.editor-empty-list-item-item();
+	width: 15px;
+	margin-right: -4px;
+	float: right;
+}
+
+.editor-empty-list-item-number {
+	.editor-empty-list-item-item();
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 4px;
+	vertical-align: top;
 }

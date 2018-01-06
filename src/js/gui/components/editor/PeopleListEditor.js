@@ -155,9 +155,19 @@ var PeopleListEditor = function(){
 							]) : []*/
 
 						]);
-					}).emptyState(!vnode.attrs.state ? m(".editor-empty-list",m(".button.button-empty-list", {
-						onclick: vnode.attrs.onopen
-					},vnode.attrs.emptystate)):[]),
+					}).emptyState(!vnode.attrs.state ? m(".editor-empty-list",[
+						ArrayFromRange(0,5).map(function(i){
+							return m(".editor-empty-list-item",[
+								m(".editor-empty-list-item-name"+(i%2===1?"-short":""),""),
+								m(".editor-empty-list-item-label",""),
+								m(".editor-empty-list-item-label",""),
+								m(".editor-empty-list-item-delete",""),
+							]);
+						}),
+						m(".button.button-empty-list", {
+							onclick: vnode.attrs.onopen
+						},vnode.attrs.emptystate)
+					]):[]),
 
 					((vnode.attrs.peoplelist.length > 0 ) && vnode.attrs.planhours) ?
 						m(".total-hours", [
