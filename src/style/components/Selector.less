@@ -366,18 +366,23 @@
 }
 
 //Inplace editor
-input.selector-selected-title {
+textarea.selector-selected-title {
 	width: 100%;
+	border: 0 none white;
 	border-bottom: 1px solid @color-selected;
 	margin-bottom: 10px;
-	padding-bottom: 5px;
+	padding: 5px;
+	padding-bottom: 0px;
+	overflow: hidden;
+    outline: none;
+	resize: none;
+	height: 1em;
 }
 
 .selector-inplace-editor-button {
 	width: 20%;
 	display: inline-block;
 	background-color: @color-white!important;
-	margin-right: 10px;
 }
 
 .selector-inplace-editor-button:hover {

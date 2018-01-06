@@ -12,13 +12,42 @@ var InplaceEditor = function(){
 						m(Numbering, {node: task}),
 					]),
 					m(".selectorlist-item-content", [
-						m("input.selector-selected-title", {
+						m("textarea.selector-selected-title", {
+							rows: 1,
 							value: task.value(),
 							oninput: function(e){
 								task.update(e.target.value);
 							},
 							oncreate: function(vnode){
-								vnode.dom.focus();
+								var text = vnode.dom;
+
+								if (window.attachEvent) {
+									observe = function (element, event, handler) {
+									    element.attachEvent('on'+event, handler);
+									};
+								} else {
+									observe = function (element, event, handler) {
+									    element.addEventListener(event, handler, false);
+									};
+								}
+
+								function resize () {
+								    text.style.height = 'auto';
+								    text.style.height = text.scrollHeight+'px';
+								}
+								/* 0-timeout to get the already changed text */
+								function delayedResize () {
+								    window.setTimeout(resize, 0);
+								}
+								observe(text, 'change',  resize);
+								observe(text, 'cut',     delayedResize);
+								observe(text, 'paste',   delayedResize);
+								observe(text, 'drop',    delayedResize);
+								observe(text, 'keydown', delayedResize);
+
+								text.focus();
+								text.select();
+								resize();
 							},
 							placeholder: vnode.attrs.placeholder
 						}),
