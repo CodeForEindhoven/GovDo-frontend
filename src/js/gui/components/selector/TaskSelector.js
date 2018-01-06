@@ -69,17 +69,31 @@ var TaskSelector = function(){
 var TaskSelectorEmptyState = function(){
 	return {
 		view: function(vnode){
-			return m(".selectorlist-emptystate",[
-				m(".selectorlist-emptystate-message-header", "Oh, hallo daar! 👋"),
-				m(".selectorlist-emptystate-message", [m("em",vm.program().value())," heeft nog geen opgaven."]),
-				m(".selectorlist-emptystate-button.button",{
-					onclick: function(){
-						createnew.task();
-					}
-				},"Nieuwe opgave"),
-				m(".selectorlist-emptystate-message", "Klik op de + in de rechterbovenhoek om een nieuwe opgave toe te voegen"),
-				//m("img", {src: "images/arrow-ins_preview.png"})
-			]);
+			return [
+				ArrayFromRange(0,3).map(function(i){
+					return m(".selectorlist-item-grey",[
+						m(".selectorlist-item-number-grey", ""),
+						m(".selectorlist-item-content", [
+							m(".selectorlist-item-line-grey", ""),
+							m(".selectorlist-item-line-short-grey", ""),
+							m(".selectorlist-item-line-grey", ""),
+							m(".selectorlist-item-line-short-grey", ""),
+						]),
+
+					]);
+				}),
+				m(".selectorlist-emptystate",[
+					m(".selectorlist-emptystate-message-header", "Oh, hallo daar! 👋"),
+					m(".selectorlist-emptystate-message", [m("em",vm.program().value())," heeft nog geen opgaven."]),
+					m(".selectorlist-emptystate-button.button",{
+						onclick: function(){
+							createnew.task();
+						}
+					},"Nieuwe opgave"),
+					m(".selectorlist-emptystate-message", "Klik op de + in de rechterbovenhoek om een nieuwe opgave toe te voegen"),
+					//m("img", {src: "images/arrow-ins_preview.png"})
+				]),
+			];
 		}
 	};
 };

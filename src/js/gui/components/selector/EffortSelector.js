@@ -78,16 +78,30 @@ var EffortSelector = function(){
 var EffortSelectorEmptyState = function(){
 	return {
 		view: function(vnode){
-			return m(".selectorlist-emptystate",[
-				m(".selectorlist-emptystate-message-header", "Top! 👍"),
-				m(".selectorlist-emptystate-message", "Deze opgave heeft geen inspanningen. Is er dan écht niets te doen?"),
-				m(".selectorlist-emptystate-button.button",{
-					onclick: function(){
-						createnew.effort();
-					}
-				},"Nieuwe inspanning"),
-				m(".selectorlist-emptystate-message", "Klik op de + in de rechterbovenhoek om een nieuwe inspanning toe te voegen"),
-			]);
+			return [
+				ArrayFromRange(0,3).map(function(i){
+					return m(".selectorlist-item-grey",[
+						m(".selectorlist-item-number-grey", ""),
+						m(".selectorlist-item-content", [
+							m(".selectorlist-item-line-grey", ""),
+							m(".selectorlist-item-line-short-grey", ""),
+							m(".selectorlist-item-line-grey", ""),
+							m(".selectorlist-item-line-short-grey", ""),
+						]),
+
+					]);
+				}),
+				m(".selectorlist-emptystate",[
+					m(".selectorlist-emptystate-message-header", "Top! 👍"),
+					m(".selectorlist-emptystate-message", "Deze opgave heeft geen inspanningen. Is er dan écht niets te doen?"),
+					m(".selectorlist-emptystate-button.button",{
+						onclick: function(){
+							createnew.effort();
+						}
+					},"Nieuwe inspanning"),
+					m(".selectorlist-emptystate-message", "Klik op de + in de rechterbovenhoek om een nieuwe inspanning toe te voegen"),
+				])
+			];
 		}
 	};
 };

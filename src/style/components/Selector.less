@@ -346,9 +346,13 @@
 
 .selectorlist-emptystate {
 	width: 50%;
-	margin-left: 38%;
+	margin-left: 25%;
 	margin-top: 100px;
 	text-align: center;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	color: #ffa43d;
 }
 
 .selectorlist-emptystate-message-header {
@@ -403,4 +407,34 @@ input.selector-selected-title {
 .selector-inplace-editor-button-options:hover {
 	background-color: @color-background!important;
 	color: @color-selected!important;
+}
+
+//placeholder
+
+.selectorlist-item-grey {
+	width: 100%;
+	height: 150px;
+}
+
+.selectorlist-item-number-grey {
+	.selectorlist-item-number();
+	display: inline-block;
+	background-color: @color-emptyplaceholderdark;
+	width: @width-circle;
+	height: @width-circle;
+	border-radius: 50%;
+	text-align: center;
+	cursor: pointer;
+}
+
+.selectorlist-item-line-grey {
+	background-color: @color-emptyplaceholder;
+	width: 100%;
+	height: 10px;
+	margin-bottom: 10px;
+}
+
+.selectorlist-item-line-short-grey {
+	.selectorlist-item-line-grey();
+	width: 80%;
 }
