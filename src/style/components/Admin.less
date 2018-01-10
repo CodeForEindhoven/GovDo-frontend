@@ -33,7 +33,7 @@
 }
 
 .admin-users {
-	height: 100%;
+	height: calc(100% - 55px);
 	width: 100%;
 	overflow-y: scroll;
 	padding-bottom: 50px;
@@ -57,6 +57,14 @@
 	padding-bottom: 10px;
 }
 
+.admin-adduser {
+	cursor: pointer;
+	color: @color-selected;
+	margin-bottom: 50px;
+}
+
+
+
 .state-editing .admin-user {
 	color: @color-grey;
 }
@@ -64,6 +72,10 @@
 .state-editable .admin-user:hover {
 	background: @color-black;
 	color: @color-white;
+}
+
+.admin-adduser:hover{
+	background: @color-grey !important;
 }
 
 .admin-user-edit {

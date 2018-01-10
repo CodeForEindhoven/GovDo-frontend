@@ -52,13 +52,13 @@ var AdminUsers = function(){
 						m("span", "Gebruikers")
 					]),
 
-					m(".icons-header", [
-						m("i.material-icons", {
-							onclick: function(e){
-								adduser();
-							}
-						},"add")
-					]),
+					//m(".icons-header", [
+					//	m("i.material-icons", {
+					//		onclick: function(e){
+					//			adduser();
+					//		}
+					//	},"add")
+					//]),
 
 				]),
 				m(".admin-labels",[
@@ -74,23 +74,31 @@ var AdminUsers = function(){
 							scrolldown = false;
 						}
 					}
-				}, users.filter(function(user){
-					return user.node>-5;
-				}).map(function(user){
-					return m(AdminUser, {
-						editing: editing,
-						user: user,
-						onchange: function(){
-							editmode = false;
-							editing = -1;
-							redrawlist();
-						},
-						onedit: function(id){
-							editmode = true;
-							editing = id;
+				}, [
+					users.filter(function(user){
+						return user.node>-5;
+					}).map(function(user){
+						return m(AdminUser, {
+							editing: editing,
+							user: user,
+							onchange: function(){
+								editmode = false;
+								editing = -1;
+								redrawlist();
+							},
+							onedit: function(id){
+								editmode = true;
+								editing = id;
+							}
+						});
+					}),
+
+					m(".admin-user.admin-adduser", m(".admin-user-value", {
+						onclick: function(e){
+							adduser();
 						}
-					});
-				}))
+					}, "+ nieuwe gebruiker toevoegen"))
+				])
 			]);
 		}
 	};
