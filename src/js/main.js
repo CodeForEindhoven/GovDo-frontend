@@ -38,7 +38,8 @@ ptrn.onload(function(){
 
 	m.route(document.body, "/", {
 		"/": Page,
-		"/magic": MagicLogin
+		"/magic": MagicLogin,
+		"/help": HelpPage
 	});
 });
 
