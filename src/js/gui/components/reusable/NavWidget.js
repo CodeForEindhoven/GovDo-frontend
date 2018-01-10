@@ -9,6 +9,14 @@ var NavWidget = function(){
 
 		if(node.type()==="person"){
 			vm.person(node);
+			if(!vm.effort() || (vm.effort()("#"+node.id()).id() === -1)){
+				vm.taskClose();
+				vm.effortClose();
+			}
+
+			//vm.task(node("effort task"));
+			//vm.effort(node("effort task effort"));
+			//vm.effort(node("task effort"));
 			vm.focus(node);
 		}
 	}
