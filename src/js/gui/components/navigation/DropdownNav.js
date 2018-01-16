@@ -94,21 +94,24 @@ var DropdownNav = function(){
 							ptrn("domain", function(domain){
 								return m(".programnav-domain",[
 									m(".programnav-domain-name", domain.value()),
-									domain("program", function(program){
+									domain("program", function(program){return program;})
+										.sort(function(a,b){
+											return (parseInt(a("order").value())-parseInt(b("order").value()));
+										}).map(function(program){
 										//count++;
-										return m(".state-selectable.programnav-program.default", {
-											class: (ptrn.compare(vm.program(),program))?"state-selected":"",
-											onclick: function(){
-												vm.program(program);
-												vm.focus(program);
-												vm.page(0);
-												onpick();
-											}
-										},[
-											m(".programnav-program-number", m(Numbering, {node: program})),
-											m(".programnav-program-title", program.value()),
-											//m(".programbar-program-mission", program.mission)
-										]);
+											return m(".state-selectable.programnav-program.default", {
+												class: (ptrn.compare(vm.program(),program))?"state-selected":"",
+												onclick: function(){
+													vm.program(program);
+													vm.focus(program);
+													vm.page(0);
+													onpick();
+												}
+											},[
+												m(".programnav-program-number", m(Numbering, {node: program})),
+												m(".programnav-program-title", program.value()),
+												//m(".programbar-program-mission", program.mission)
+											]);
 									}),
 								]);
 							}),
