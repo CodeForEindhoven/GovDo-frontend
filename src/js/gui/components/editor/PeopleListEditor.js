@@ -8,7 +8,7 @@ var PeopleListEditor = function(){
 
 
 			return m(".editor-peoplelist", {
-					class: vnode.attrs.classname+" "+(vnode.attrs.state ? "":"state-hidden")
+					class: vnode.attrs.classname//+" "+(vnode.attrs.state ? "":"state-hidden")
 				}, [
 					vnode.attrs.state ? [
 						m("input.input.editor-peoplelist-searchbar", {
@@ -17,7 +17,8 @@ var PeopleListEditor = function(){
 								vnode.dom.focus();
 							},
 							placeholder: "Voornaam Achternaam",
-							oninput: m.withAttr("value", function(v) {value = v;}),
+							onkeydown: m.withAttr("value", function(v) {value = v;}),
+							onkeyup: m.withAttr("value", function(v) {value = v;}),
 							value: value,
 						}),
 						m("i.material-icons.editor-peoplelist-searchbar-icon", "search"),

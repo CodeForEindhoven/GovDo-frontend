@@ -67,13 +67,13 @@ var Editor = function(){
 				(function(){
 					if(vm.edit()) {
 						return m(".editor-content",{
-							onbeforeupdate: function(vnode, old){
-								scrollstore = old.dom.scrollTop;
-								console.log("scrollstore", scrollstore);
-							},
-							onupdate: function(vnode){
-								vnode.dom.scrollTop = scrollstore;
-							},
+							//onbeforeupdate: function(vnode, old){
+							//	scrollstore = old.dom.scrollTop;
+							//	console.log("scrollstore", scrollstore);
+							//},
+							//onupdate: function(vnode){
+							//	//vnode.dom.scrollTop = scrollstore;
+							//},
 							onbeforeremove: function(vnode){
 								return new Promise(function(resolve) {
 									setTimeout(resolve, 400);
