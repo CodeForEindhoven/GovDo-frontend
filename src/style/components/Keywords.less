@@ -1,0 +1,54 @@
+.keywords-wrapper {
+	overflow-y: scroll;
+    height: 100%;
+}
+
+.keywords {
+    column-count: 4;
+    padding: 40px;
+    width: 100%;
+	box-sizing: border-box;
+}
+
+.keywords-letter {
+    text-transform: capitalize;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.keywords-word {
+    font-size: 18px;
+    font-weight: 400;
+	cursor: pointer;
+}
+
+.keywords-word.selected {
+	border-bottom: 1px solid black;
+	margin-bottom: 10px;
+}
+
+.keywords-word:hover {
+	color: @color-selected;
+}
+
+.keywords-block {
+    margin-bottom: 50px;
+	-webkit-column-break-inside: avoid; /* Chrome, Safari */
+    page-break-inside: avoid;           /* Theoretically FF 20+ */
+    break-inside: avoid-column;         /* IE 11 */
+    display:table;
+}
+
+.keyword-relations {
+    white-space: normal;
+}
+
+.keyword-relation {
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.keyword-relation .numbering{
+	margin-right: 10px;
+}

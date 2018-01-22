@@ -20,13 +20,18 @@ var DashboardPage = function(){
 								onclick: function(){currentPage = 2;},
 								class: (currentPage===2)? "state-selected":""
 							}, "Overzicht"),
+							m(".optionbar-option", {
+								onclick: function(){currentPage = 3;},
+								class: (currentPage===3)? "state-selected":""
+							}, "Sleutel Woorden"),
 						]),
 					])
 				]),
 				m(".layout-workspace", [
 					(currentPage===0) ? m(Statistics) : [],
 					(currentPage===1) ? m(FeedbackResults) : [],
-					(currentPage===2) ? m(GeneralStatus) : []
+					(currentPage===2) ? m(GeneralStatus) : [],
+					(currentPage===3) ? m(KeywordOverview) : []
 				])
 			];
 		}

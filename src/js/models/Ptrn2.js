@@ -565,6 +565,10 @@ var ptrn = (function(){
 			}
 		}
 
+		pub.getatoms = function(){
+			return set();
+		};
+
 		pub.getatombyid = function(id, sub){
 			var s = set(sub);
 			var found = s.filter(function(atom){
@@ -634,8 +638,9 @@ var ptrn = (function(){
 
 			var selection = [];
 
-
-			if(first.charAt(0)==="#"){
+			if(first.length === 0) {
+				selection = selector.getatoms();
+			} else if(first.charAt(0)==="#") {
 				var id = parseInt(first.substring(1));
 				selection = selector.getatombyid(id, subset);
 			} else if(first.charAt(0)==="*") {
@@ -650,7 +655,6 @@ var ptrn = (function(){
 					var value = typevalue[1];
 					selection = selector.getatomsbytypevalue(type, value, subset);
 				}
-
 			}
 
 			if(words.length===1 || first.charAt(0)==="*"){
@@ -660,14 +664,14 @@ var ptrn = (function(){
 						return callback(atomfactory.produce(atom));
 					});
 				} else {
-					if(selection.length > 0){
+					if(selection.length > 0) {
 						return atomfactory.produce(selection[0]);
 					}
 					return atomfactory.produce({
 						aid: -1,
 						type: "",
 						value: [{
-							tid: -1,
+							tid  : -1,
 							value: ""
 						}]
 					});
@@ -680,7 +684,6 @@ var ptrn = (function(){
 
 		q.consume = transactor.consume;
 		q.dump = transactor.publish;
-
 
 		/*PUBLIC INTERFACE*/
 		q.transact = speculator.publish;
