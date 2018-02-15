@@ -1,12 +1,12 @@
 @import "variables/colors.less";
 @import "variables/fonts.less";
 
-::selection { 
-	background-color: @selection; 
+::selection {
+	background-color: @selection;
 }
 
-::-moz-selection { 
-	background-color: @selection; 
+::-moz-selection {
+	background-color: @selection;
 }
 
 body {
@@ -14,6 +14,15 @@ body {
 	font-size: @font-size;
 	font-variant-ligatures: common-ligatures;
 	background: @color-background;
+	text-rendering: optimizeLegibility;
+	font-feature-settings: "kern" 1;
+	-ms-font-feature-settings: "kern" 1;
+	-moz-font-feature-settings: "kern=1";
+}
+
+ul {
+	padding: 0;
+	margin: 0;
 }
 
 input, textarea, select {
@@ -21,6 +30,18 @@ input, textarea, select {
 	font-size: 0.95em;
 }
 
-div {
-	border-radius: 2px;
+textarea {
+	padding-left: 7px;
+	padding-right: 7px;
+}
+
+input {
+	border: none;
+	padding-left: 10px;
+	box-sizing: border-box;
+	font-size: @column-date-font-size;
+}
+
+.state-selectable {
+	cursor: pointer;
 }

@@ -1,0 +1,134 @@
+@import "variables/fonts.less";
+@import "variables/colors.less";
+
+.admin {
+	height: calc(100% - 35px);
+//	padding-left: 10px;
+}
+
+.admin-header {
+	padding-left: 10px;
+	display: inline-block;
+	width: 35%;
+	margin-bottom: 15px;
+}
+
+.admin-header .icons-header {
+	margin-top: -20px;
+}
+
+.admin-header::after{
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.admin-tasks-feedback{
+	cursor: pointer;
+	color: @color-selected;
+}
+
+.admin-tasks-feedback.state-done {
+	color: @color-black;
+}
+
+.admin-users {
+	height: calc(100% - 55px);
+	width: 100%;
+	overflow-y: scroll;
+	padding-bottom: 50px;
+	box-sizing: border-box;
+}
+
+.admin-labels {
+	.shadow-hover();
+}
+
+.admin-label {
+	.sub-navigation();
+	display: inline-block;
+	width: 20%;
+	margin-right: 83px;
+	padding-left: 11px;
+}
+
+.admin-user {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.admin-adduser {
+	cursor: pointer;
+	color: @color-selected;
+	margin-bottom: 50px;
+}
+
+
+
+.state-editing .admin-user {
+	color: @color-grey;
+}
+
+.state-editable .admin-user:hover {
+	background: @color-black;
+	color: @color-white;
+}
+
+.admin-adduser:hover{
+	background: @color-grey !important;
+}
+
+.admin-user-edit {
+	padding-top: 22px;
+	padding-bottom: 10px;
+}
+
+.admin-user-value {
+	display: inline-block;
+	width: 20%;
+	margin-right: 88px;
+	padding-left: 10px;
+}
+
+.admin-user-button {
+	visibility: hidden;
+	display: inline-block;
+	cursor: pointer;
+	color: @color-selected;
+}
+
+.state-editable .admin-user:hover > .admin-user-button, .admin-user-edit > .admin-user-button {
+	visibility: visible;
+}
+
+.admin-tasks-feedback {
+	margin-top: 10px;
+}
+
+.admin-title.subtitle {
+	margin-top: 30px;
+	margin-bottom: 4px;
+	white-space: normal;
+}
+
+.admin-title.subtitle + .admin-title.subtitle,
+.admin-tasks-approval + .admin-title.subtitle {
+	margin-top: 30px;
+}
+
+.admin-tasks-approval {
+	white-space: normal;
+	cursor: pointer;
+}
+
+.admin-tasks-approval:hover {
+	color: @color-selected;
+}
+
+.admin-tasks-approval + .admin-tasks-approval {
+	margin-top: 8px;
+}
+
+.logout:hover {
+	color: @color-red;
+}

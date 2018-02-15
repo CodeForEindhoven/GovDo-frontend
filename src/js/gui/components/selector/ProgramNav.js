@@ -1,16 +1,21 @@
 var ProgramNav = function(){
-	var state = true;
+	var state = false;
 
 	return {
 		view: function(vnode){
 			return m(".programnav", {},[
 				m(".programnav-topbar.state-selected",{
 					onclick: function(){
-						state = !state;
+						if(vm.page()!== 0 && vm.program()){
+							vm.page(0);
+						} else {
+							state = !state;
+						}
+
 					}
 				},[
-					vm.program() ? [
-						m(".programnav-program-number.button-number", vm.program()("order").value()),
+					(vm.page()=== 0 && vm.program()) ? [
+						m(".programnav-program-number", m(Numbering, {node: vm.program()})),
 						m(".programnav-program-title-top", vm.program().value())
 					] : [],
 					m("i.material-icons.programnav-dropdown", state ? "arrow_drop_up" : "arrow_drop_down"),
@@ -25,10 +30,11 @@ var ProgramNav = function(){
 									class: (ptrn.compare(vm.program(),program))?"state-selected":"",
 									onclick: function(){
 										vm.program(program);
+										vm.page(0);
 										state = false;
 									}
 								},[
-									m(".programnav-program-number.button-number", program("order").value()),
+									m(".programnav-program-number", m(Numbering, {node: program})),
 									m(".programnav-program-title", program.value()),
 									//m(".programbar-program-mission", program.mission)
 								]);

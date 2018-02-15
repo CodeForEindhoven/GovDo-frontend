@@ -1,4 +1,4 @@
-var ptrn =  (function(){
+var ptrnold =  (function(){
 
 	/*ATOM FACTORY*/
 	function produceAtom(atom){
@@ -46,41 +46,62 @@ var ptrn =  (function(){
 	/*STORE*/
 	var atoms = [];
 	var relations = [];
+	var storageAge = 0;
+
 	//type map
 	var typemap = {};
 	var relationmap = {};
 
 	function createRelation(aid, bid, tid){
-		var newrel = {
-			value: [
-				{
-					tid: tid,
-					aid: aid,
-					bid: bid,
-				}
-			]
-		};
-		relations.push(newrel);
 
-		if(!relationmap[aid]){relationmap[aid] = [];}
-		relationmap[aid].push(newrel);
-		if(!relationmap[bid]){relationmap[bid] = [];}
-		relationmap[bid].push(newrel);
+		var found = relations.filter(function(relation){
+			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
+		});
+
+
+		if(found.length === 0){
+			var newrel = {
+				value: [
+					{
+						tid: tid,
+						aid: aid,
+						bid: bid,
+					}
+				]
+			};
+			relations.push(newrel);
+
+			if(!relationmap[aid]){relationmap[aid] = [];}
+			relationmap[aid].push(newrel);
+			if(!relationmap[bid]){relationmap[bid] = [];}
+			relationmap[bid].push(newrel);
+
+		} else {
+			found[0].tid = tid;
+		}
+
+	}
+
+	function deleteRelation(aid, bid){
+
+		relations = relations.filter(function(relation){
+			return !(((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid)));
+		});
+
+		relationmap[aid] = relationmap[aid].filter(function(o){
+			return (o.value[0].bid!==bid);
+		});
+
+		relationmap[bid] = relationmap[bid].filter(function(o){
+			return (o.value[0].aid!==aid);
+		});
 	}
 
 	function speculativeRelate(a,b){
 		var aid = a.id();
 		var bid = b.id();
 
-		var found = relations.filter(function(relation){
-			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
-		});
-		console.log("relate");
-		console.log(found);
-
-		if(found.length === 0){
-			createRelation(aid, bid, -1);
-		}
+		createRelation(aid, bid, -1);
 	}
 
 	function speculativeUnrelate(a,b){
@@ -88,7 +109,7 @@ var ptrn =  (function(){
 		var bid = b.id();
 
 		var found = relations.filter(function(relation){
-			return (!relation.value[0].drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
+			return (!relation.drop) && ((relation.value[0].aid === aid && relation.value[0].bid === bid) || (relation.value[0].aid === bid && relation.value[0].bid === aid));
 		});
 		console.log("unrelate");
 		console.log(found);
@@ -101,6 +122,14 @@ var ptrn =  (function(){
 				bid: bid,
 			});
 		}
+
+		relationmap[aid] = relationmap[aid].filter(function(id){
+			return (id!==bid);
+		});
+
+		relationmap[bid] = relationmap[bid].filter(function(id){
+			return (id!==aid);
+		});
 	}
 
 	//builds a list of atoms based on matches
@@ -111,7 +140,32 @@ var ptrn =  (function(){
 			subset = atoms;
 		}
 		return subset.filter(function(atom){
-			return (!atom.value[0].drop) && ((type==="?" || type===atom.type) && (value==="?" || value===atom.value[0].value));
+			return (atom) && (!atom.drop) && ((type==="?" || type===atom.type) && (value==="?" || value===atom.value[0].value));
+		});
+	}
+
+	//builds a list of atoms from a searchterm
+	function find(value, subset){
+		if(!subset){
+			subset = atoms;
+		}
+
+		//optimised for speed
+		//var results = [];
+		//for(var i=0; i<subset.length; i++){
+		//	var atom = subset[i];
+		//	if ((!atom.value && !atom.drop) && (atom.value[0].value.toLowerCase().indexOf(value.toLowerCase())>-1)) {
+		//		results.push(atom);
+		//	}
+
+		//	if (results.length>20){
+		//		i = subset.length;
+		//	}
+		//}
+		//return results;
+
+		return subset.filter(function(atom){
+			return (!atom.drop) && (atom.value[0].value.toLowerCase().indexOf(value.toLowerCase())>-1);
 		});
 	}
 
@@ -131,7 +185,7 @@ var ptrn =  (function(){
 		return results;
 		/*
 		var results = relations.filter(function(relation){
-			return (!relation.value[0].drop) && (relation.value[0].aid === id || relation.value[0].bid === id);
+			return (!relation.drop) && (relation.value[0].aid === id || relation.value[0].bid === id);
 		}).map(function(relation){
 			if(relation.value[0].aid === id){
 				return atoms[relation.value[0].bid];
@@ -155,14 +209,8 @@ var ptrn =  (function(){
 			return (rel.value[0].tid===-1);
 		});
 
-		relations = relations.filter(function(rel){
-			return (rel.value[0].tid!==-1);
-		});
-
-		updaterelations.filter(function(rel){
-			return (rel.value[0].tid===-1);
-		}).map(function(rel){
-			if(rel.value[0].drop){
+		updaterelations.map(function(rel){
+			if(rel.value[0].drop===true){
 				unrelate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
 			} else {
 				relate(produceAtom(atoms[rel.value[0].aid]), produceAtom(atoms[rel.value[0].bid]));
@@ -181,6 +229,10 @@ var ptrn =  (function(){
 	function query(q, callback, subset){
 		var selection;
 
+		if(!subset){
+			subset = atoms;
+		}
+
 		var words = q.split(/ (.+)/);
 		var first = words[0];
 
@@ -188,9 +240,12 @@ var ptrn =  (function(){
 			var id = parseInt(first.substring(1));
 			selection = [];
 			var found = subset.find(function(a){
-				return a.oid === id;
-			})	;
+				return a && a.oid === id;
+			});
 			if(found) selection.push(found);
+		} else if(first.charAt(0)==="*") {
+			var search = first.substring(1);
+			selection = find(search, subset);
 		} else {
 			var type = first.split(":");
 			var value = "?";
@@ -261,6 +316,8 @@ var ptrn =  (function(){
 					]
 				};
 
+				if(elem.tid > storageAge){storageAge = elem.tid;}
+
 				if(!typemap[elem.type]){typemap[elem.type] = [];}
 				typemap[elem.type].push(elem.id);
 
@@ -268,8 +325,66 @@ var ptrn =  (function(){
 
 			data.relations.map(function(rel){
 				createRelation(rel.aid, rel.bid, rel.tid);
+				if(rel.tid > storageAge){storageAge = rel.tid;}
 			});
 
+			function runupdatedump(){
+				window.setTimeout(function(){
+					updatedump(runupdatedump);
+				}, 2000);
+			}
+			updatedump(runupdatedump);
+
+			callback();
+		});
+	}
+
+	function updatedump(callback){
+		request("GET", "dump/"+storageAge, {}, function(data){
+			data.nodes.map(function(elem){
+				if(elem.tid > storageAge){storageAge = elem.tid;}
+
+				if(elem.del === 1){
+					atoms.splice(elem.id, 1);
+					relations = relations.filter(function(relation){
+						return !((relation.value[0].aid === elem.id) || (relation.value[0].aid === elem.id));
+					});
+				} else {
+					atoms[elem.id] = {
+						oid: elem.id,
+						type: elem.type,
+						value: [
+							{
+								tid: elem.tid,
+								value: elem.value
+							}
+						],
+					};
+
+
+
+					if(!typemap[elem.type]){typemap[elem.type] = [];}
+					if(!typemap[elem.type].find(function(o){
+						return o === elem.id;
+					})){
+						typemap[elem.type].push(elem.id);
+					}
+				}
+			});
+
+			data.relations.map(function(rel){
+
+				if(rel.del>0){
+					deleteRelation(rel.aid, rel.bid);
+					if(rel.del > storageAge){storageAge = rel.del;}
+				} else {
+					createRelation(rel.aid, rel.bid, rel.tid);
+					if(rel.tid > storageAge){storageAge = rel.tid;}
+				}
+
+			});
+			m.redraw();
+			console.log(storageAge);
 			callback();
 		});
 	}
@@ -347,8 +462,8 @@ var ptrn =  (function(){
 	}
 
 	function drop(id){
-		request("DELETE", "drop/"+id, {}, function(elem){
-			atoms[elem.id].value.unshift({
+		request("POST", "drop/"+id, {}, function(elem){
+			atoms[elem.tid].value.unshift({
 				tid: elem.tid,
 				drop: true
 			});
@@ -394,14 +509,17 @@ var ptrn =  (function(){
 	function request(type, url, data, callback){
 		var api = config.api_endpoint;
 		var xhttp = new XMLHttpRequest();
+		vm.connecting(true);
 
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
+				vm.connecting(false);
 				callback(JSON.parse(this.responseText));
 			}
 		};
 		xhttp.open(type, api+url, true);
 		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.setRequestHeader("Authorization", "Basic "+btoa(":"+vm.user().pass));
 		xhttp.send(JSON.stringify(data));
 
 		//if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -409,13 +527,55 @@ var ptrn =  (function(){
 		//}
 	}
 
+	function addUser(userid, callback){
+		request("POST", "user/add", {
+			id: userid
+		}, function(resp){
+			if(callback) callback(resp);
+		});
+	}
+
+	function updateUser(userid, name, role, callback){
+		request("POST", "user/set", {
+			id: userid,
+			name: name,
+			role: role,
+		}, function(resp){
+			if(callback) callback(resp);
+		});
+	}
+
+	function loginUser(user, callback){
+		request("POST", "user/hash", {
+			name: user
+		}, function(resp){
+			callback(resp.succes);
+		});
+	}
+
+	function loginPass(user, pass, callback){
+		request("POST", "user/check", {
+			name: user,
+			pass: pass
+		}, function(resp){
+			callback(resp.succes, resp.node, resp.role);
+		});
+	}
+
+	function getusers(callback){
+		request("GET", "users", {
+		}, function(resp){
+			userlist = resp;
+			callback(resp);
+		});
+	}
+
 
 	/*PUBLIC INTERFACE*/
 	query.transact = transact;
-
+	query.find = find;
 	query.compare = compare;
 	query.log = log;
-
 
 	query.create = create;
 	query.findorcreate = findorcreate;
@@ -424,6 +584,14 @@ var ptrn =  (function(){
 	query.speculativeRelate = speculativeRelate;
 	query.speculativeUnrelate = speculativeUnrelate;
 	query.loadall = pulldump;
+
+	//quey login
+	query.adduser = addUser;
+	query.updateuser = updateUser;
+	query.loginuser = loginUser;
+	query.loginpass = loginPass;
+	query.getusers = getusers;
+
 	//query.push = push;
 	return query;
 })();

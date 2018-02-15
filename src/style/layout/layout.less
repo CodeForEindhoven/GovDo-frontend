@@ -1,6 +1,6 @@
 @import "variables/fonts.less";
 @import "components/NavBar.less";
-@import "templates/Buttons.less";
+@import "components/Buttons.less";
 @top-window-margin: 110px;
 
 .debugborders {
@@ -17,18 +17,32 @@ html, body {
 
 .layout-nav-top {
 	.debugborders();
-	height: 55px;
+	height: 38px;
 	padding: 10px;
 	//line-height: 40px;
 	//width: calc(100% - 20px);
 }
+
+.layout-optionbar {
+	.debugborders();
+	//height: 38px;
+	//padding-left: (@width-circle + 20px);
+	//padding-bottom: 40px;
+	//padding-top: 10px;
+	height: 38px;
+//	padding-left: 190px;
+	padding-left: 10px;
+	padding-bottom: 25px;
+	padding-top: 25px;
+}
+
 
 .layout-workspace {
 	.debugborders();
 	position: relative;
 	//margin: 10px;
 	width: calc(100% - 5px);
-	height: calc(100% - 75px);
+	height: calc(100% - 146px);
 
 	white-space: nowrap;
 	overflow: hidden;
@@ -49,13 +63,26 @@ html, body {
 
 }
 
+.layout-thincolumn {
+	.debugborders();
+	.layout-column();
+	width: calc(33% - 10px);
+	margin-right: 0px;
+}
+
+.layout-thickcolumn {
+	.debugborders();
+	.layout-column;
+	width: calc(67% - 5px);
+}
+
 .layout-right {
-	position: absolute;
+	position: fixed;
 	box-sizing: border-box;
 	//right: 0px;
 	top: 0px;
 	width: 100%;
-	height: 100%;
+	height: calc(100% - 10px);
 	pointer-events: none;
 }
 .layout-right * {
@@ -87,4 +114,10 @@ html, body {
 	.debugborders();
 	margin-top: (@programbarWidth + 11px);
 	height: calc(100% - (@programbarWidth + 11px));
+}
+
+.layout-overlay {
+    position: absolute;
+	top: 0px;
+	left: 0px;
 }

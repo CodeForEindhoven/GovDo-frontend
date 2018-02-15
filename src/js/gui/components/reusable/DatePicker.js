@@ -2,86 +2,16 @@ var DatePicker = function(){
 	var date = [{value: false},{value: false},{value: false}];
 	var state = false;
 
-	function years(){
-		var y = [{label:"Geen",value: false, p: false}, {splitter: true}];
-		var d = new Date().getFullYear();
-		for(var i=0; i<10; i++){
-			y.push({label:d,value: ""+d, p: true});
-			d++;
-		}
-		return y.concat([{splitter: true},{label:"+10 jaar",value: "future", p: false}]);
-	}
-
-	function months(){
-		return [
-			{value: false},
-
-			{splitter: true},
-
-			{label: "1e kwartaal", value: "1k", p: false},
-			{label: "2e kwartaal", value: "2k", p: false},
-			{label: "3e kwartaal", value: "3k", p: false},
-			{label: "4e kwartaal", value: "4k", p: false},
-
-			{splitter: true},
-
-			{label: "januari", 	value: "1", p: true},
-			{label: "februari", value: "2", p: true},
-			{label: "maart", 	value: "3", p: true},
-			{label: "april", 	value: "4", p: true},
-			{label: "mei", 		value: "5", p: true},
-			{label: "juni", 	value: "6", p: true},
-			{label: "juli", 	value: "7", p: true},
-			{label: "augustus", value: "8", p: true},
-			{label: "september",value: "9", p: true},
-			{label: "october", 	value: "10", p: true},
-			{label: "november", value: "11", p: true},
-			{label: "december", value: "12", p: true}
-		];
-	}
-
-	function days(){
-		var d = [
-			{value: false},
-
-			{splitter: true},
-
-			{label: "Begin", value: "1k", p: false},
-			{label: "Midden", value: "2k", p: false},
-			{label: "Eind", value: "3k", p: false},
-		];
-		for(var i=1; i<32; i++){
-			d.push({label: ""+i, value: ""+i, p: true});
-		}
-		return d;
-	}
-
 	function finish(){
 		state = false;
 	}
 
 	function update(vnode){
-		var y = date[0].value || "_";
-		var m = date[1].value || "_";
-		var d = date[2].value || "_";
-		vnode.attrs.onchange(y+"/"+m+"/"+d);
+		vnode.attrs.onchange(FuzzyDate.toString(date));
 	}
 
 	function parseValue(input){
-		var d = input.split("/");
-		date[0] = years().find(function(e){
-			return (!e.splitter) && (e.value === d[0]);
-		});
-		date[1] = months().find(function(e){
-			return (!e.splitter) && (e.value === d[1]);
-		});
-		date[2] = days().find(function(e){
-			return (!e.splitter) && (e.value === d[2]);
-		});
-
-		date[0] = date[0] || {value: false};
-		date[1] = date[1] || {value: false};
-		date[2] = date[2] || {value: false};
+		date = FuzzyDate.toArray(input);
 	}
 
 	function getLabel(e){
@@ -99,20 +29,20 @@ var DatePicker = function(){
 					onclick: function(){state=!state;}
 				},[
 					m(".datepicker-navigation",[
-						m(".datepicker-section.editor-small-label", "Jaar"),
-						m(".datepicker-section.editor-small-label", "Maand/Kwartaal"),
-						m(".datepicker-section.editor-small-label", "Dag/Periode"),
+						m(".datepicker-section.year.sub-navigation-label", "Jaar"),
+						m(".datepicker-section.sub-navigation-label", "Maand/Kwartaal"),
+						m(".datepicker-section.sub-navigation-label", "Dag/Periode"),
 					]),
 					m(".datepicker-date",[
-						m(".datepicker-section", getLabel(date[0])),
+						m(".datepicker-section.year", getLabel(date[0])),
 						m(".datepicker-section", getLabel(date[1])),
 						m(".datepicker-section", getLabel(date[2])),
 					])
 				]),
-				state ? m(".datepicker-menu",[
-					m(".datepicker-column", [
-						years().map(function(e){
-							if(!e.splitter) return m(".datepicker-option", {
+				state ? m(".datepicker-menu.box-editor-style",[
+					m(".datepicker-column.year", [
+						FuzzyDate.years.map(function(e){
+							if(!e.splitter) return m(".datepicker-option.item-list", {
 								class: (date[0].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									date[0] = e;
@@ -130,8 +60,8 @@ var DatePicker = function(){
 					m(".datepicker-column", {
 						class: (date[0].p) ? "active" : "disabled",
 					},[
-						months().map(function(e){
-							if(!e.splitter) return m(".datepicker-option", {
+						FuzzyDate.months.map(function(e){
+							if(!e.splitter) return m(".datepicker-option.item-list", {
 								class: (date[1].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									if(date[0].p){
@@ -150,8 +80,8 @@ var DatePicker = function(){
 					m(".datepicker-column", {
 						class: (date[1].p) ? "active": "disabled",
 					}, [
-						days().map(function(e){
-							if(!e.splitter) return m(".datepicker-option", {
+						FuzzyDate.days.map(function(e){
+							if(!e.splitter) return m(".datepicker-option.item-list", {
 								class: (date[2].value===e.value) ? "state-selected":"",
 								onclick: function(){
 									if(date[1].p){

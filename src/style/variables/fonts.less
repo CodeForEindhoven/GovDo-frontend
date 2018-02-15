@@ -1,3 +1,5 @@
+@import "variables/colors.less";
+
 @font-base: 'Graphik', sans-serif;
 @font-number: 'Space Mono', monospace;
 @font-size: 15px;
@@ -7,10 +9,21 @@
 @light: 300;
 @uppercase: uppercase;
 
-@main-text: (@font-size * 0.875);
+@main-text: @font-size;
+@sub-navigation-type-size: (@font-size - 5px);
 @button-number: @font-size;
-@line-height-main-text: (@font-size * 1.250);
+@button-number-small: 12.4px;
+@line-height: (@main-text + 9px);
+@letter-spacing: 0.001em;
+@letter-spacing-selector-selected-title: 0.005em;
+@word-spacing: 0.035em;
+
 @icon-size: (@font-size * 1.125);
+// The typesize of the arrow in the Opgaven column is 24px
+
+@main-letter-spacing: 1px;
+
+
 // The typesize of the arrow in the Opgaven column is 24px
 
 @main-letter-spacing: 1px;
@@ -28,18 +41,91 @@
 
 // Title
 // Variable
-@var-selected-title: 1.25;
-@var-selected-title-line-height: 1.85;
+//@var-selected-title: 1.25;
+//@var-selected-title-line-height: 1.85;
 
-@size-selected: (@font-size * @var-selected-title); // 1.25 .selected-text
-@line-height-size-selected: (@font-size * @var-selected-title-line-height);
 
 @word-space-size-selected: (@font-size / 22.35);
 
 // Main-text
-// Variable
-@var-selected-main-text: 1.15; // Included subheader
-@var-selected-line-height-main-text: 1.20;
 
-@size-selected-main-text: (@main-text * @var-selected-main-text);
-@line-height-size-selected-main-text: (@line-height-main-text * @var-selected-line-height-main-text);
+// Selected Text
+@selected-text-title: (@main-text + 3px); //for the selector
+@selected-text-title-line-height: (@main-text + 10px); //for the selector
+//@selected-text-title-word-spacing: (@main-text / 22.35); //for the selector
+
+.default-text-light {
+	font-weight: @light;
+	font-size: @main-text;
+	line-height: @line-height;
+	letter-spacing: @letter-spacing;
+	word-spacing: @word-spacing;
+}
+
+.default-text-regular {
+	font-size: @main-text;
+	font-weight: @regular;
+	line-height: @line-height;
+	letter-spacing: @letter-spacing;
+	word-spacing: @word-spacing;
+}
+
+.default-text-monospace {
+	font-family: @font-number;
+	font-size: 12.5px;
+	line-height: 20px;
+	font-weight: @regular;
+}
+
+.sub-navigation {
+	font-size: @sub-navigation-type-size;
+	font-weight: @regular;
+	letter-spacing: @letter-spacing;
+	word-spacing: @word-spacing;
+	color: @color-editable;
+}
+
+// Typographic elements and status
+.title {
+	.default-text-regular ();
+	font-size: 20px;
+}
+
+.subtitle {
+	.default-text-regular ();
+	color: @color-selected;
+}
+
+.body-text {
+	.default-text-light ();
+	color: @color-black;
+}
+
+// State empty
+.state-empty {
+ 	color: @color-sketch;
+ 	.default-text-light ();
+}
+
+.state-empty:before {
+  	content: '– ';
+ 	color: @color-sketch;
+ 	.default-text-light ();
+}
+
+// kpi
+.kpi {
+	.default-text-light ();
+}
+
+
+// Over write part of .default-text in order to have smaller type
+// Also used for the sub-navigation
+.over-calendar-type-size {
+	font-size: 13px;
+	letter-spacing: 0.01em;
+}
+
+.list-item-small {
+	margin-bottom: 40px;
+}

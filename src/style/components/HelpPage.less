@@ -1,0 +1,35 @@
+.help-content {
+    margin-left: 20%;
+    width: 40%;
+}
+
+.help-section-title {
+    font-size: 20px;
+    color: blue;
+    margin-bottom: 10px;
+}
+
+
+.help-section-text {
+	font-size: 16px;
+	margin-bottom: 40px;
+}
+
+
+ol {
+  list-style: none;
+  counter-reset: item;
+  padding: 0px;
+}
+
+li.help-section-listelem {
+	font-size: 14px;
+	counter-increment: item;
+	line-height: 25px;
+}
+
+li.help-section-listelem:before {
+   margin-right: 20px;
+   content: counter(item);
+   display: inline-block;
+ }

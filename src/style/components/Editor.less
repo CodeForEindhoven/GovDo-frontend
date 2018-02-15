@@ -1,15 +1,16 @@
 @import "variables/colors.less";
-@import "templates/Inputs.less";
+@import "components/Inputs.less";
 @margin-bottom-editor-items: 75px;
 @margin-status-button: 1%;
 
 .editor {
-	width: calc(55% - 10px);
+	width: calc(100% - 10px);
 	height: 100%;
 	font-size: @main-text;
 	background-color: @color-background;
 	position: absolute;
 	right: 0px;
+	padding-top: 10px;
 }
 
 .editor-right {
@@ -45,6 +46,17 @@
 .editor-header .icons-header {
 	cursor: pointer;
 	margin-right: -2px;
+	text-transform: none;
+}
+
+.icons-header .button, .icons-header .close-button {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.editor-header .icons-header {
+	cursor: pointer;
+	margin-right: -2px;
 }
 
 .editor-subtitle-header .material-icons {
@@ -66,7 +78,7 @@
 .editor-buttons {
 	margin-top: 70px;
 	margin-bottom: 30px;
-	margin-right: 16px;
+	margin-right: 60px;
 	padding-bottom: 40px;
 }
 
@@ -88,17 +100,13 @@
 	margin-top: -37px;
 }
 
-.editor-small-label {
-	font-size: 0.8em;
-	color: @color-editable;
-}
-
 .editor-typeselect-type, .toggle .status-labels {
-	padding: 10px;
-	border: @border-box solid @color-editable;
+	.button();
+//	padding: 10px;
+//	border: @border-box-1 solid @color-editable;
 	margin-bottom: 8px;
 	cursor: pointer;
-	width: 45%;
+//	width: 45%;
 	text-align: center;
 }
 
@@ -119,7 +127,7 @@
 }
 
 .editor-typeselect-type-name {
-	font-weight: @semibold;
+	.default-text-regular ();
 }
 
 .editor-typeselect-type-timespan-subtitle {
@@ -138,8 +146,6 @@
 }
 
 .editor-subtitle {
-	font-weight: @semibold;
-	color: @color-selected;
 	margin-bottom: 20px;
 }
 
@@ -162,15 +168,14 @@
 }
 
 .editor-section-title {
-	font-weight: @regular;
-	font-size: 20px;
 	margin-bottom: 40px;
 }
 
 .editor-section {
 	border-right: 3px @color-selected solid;
-	padding-right: 40px;
-	padding-bottom: 180px;
+	padding-right: 25%;
+	padding-left: 25%;
+	padding-bottom: 80px;
 	position: relative;
 }
 
@@ -199,25 +204,92 @@
 	margin-bottom: 16px;
 }
 
+.editor-peoplelist-person-hours {
+	margin-left: 35%;
+}
 
+.editor-hours-week {
+	display: inline-block;
+	right: 30%;
+}
 
+.switch-frequency {
+	margin-left: 10px;
+	display: inline-block;
+//	margin-left: 40px;
+	cursor: pointer;
+	color: @color-selected;
+}
 
+.total-hours {
+	margin-top: 30px;
+	//color: @color-selected;
+}
+
+.title-total, .total-hours-counting {
+	display: inline;
+}
+
+.total-hours-counting {
+	position: absolute;
+	left: 43.5%;
+}
+
+// People
+.editor-peoplelist-navigation {
+	padding-left: 35%;
+	margin-bottom: 15px;
+}
+
+.editor-peoplelist-section.sub-navigation-label {
+	display: inline-block;
+}
+
+.editor-peoplelist-section.sub-navigation-label +
+.editor-peoplelist-section.sub-navigation-label {
+	margin-left: 213px;
+}
+
+.editor-peoplelist-finder {
+	width: 100%;
+}
+
+.editor-peoplelist.client-editor .dropdown {
+	margin-left: 0;
+}
+
+//.editor-peoplelist.client-editor .box-editor-style {
+//	margin-left: 35%;
+//}
+
+.editor-title-editor .box-editor-style {
+	height: 80px;
+}
 
 //Dropdown
 
 .dropdown {
 	display: inline;
-	position: relative;
-	cursor: pointer;
+	margin-left: 130px;
+}
+
+.dashboard-query {
+	margin-left: 10px;
+}
+
+.dashboard-query .dropdown-value {
+	width: 8%;
 }
 
 .dropdown-value {
-	margin: 5px;
-	color: @color-selected;
-	padding-bottom: 1px;
-	padding-left: 3px;
-	padding-right: 3px;
-	border-bottom: 2px solid blue;
+//	width: 33%;
+	display: inline-block;
+	padding-left: 7px;
+	padding-right: 7px;
+}
+
+span + .dropdown {
+	margin-right: 80px;
 }
 
 .dropdown-value.novalue {
@@ -225,19 +297,20 @@
 }
 
 .dropdown-options {
-	border: 2px solid blue;
-	background-color: @color-background;
 	display: inline-block;
 	position: absolute;
-	left: 3px;
-	top: 20px;
+	left: 0px;
+	top: 30px;
 	z-index: 99999999;
 	max-height: 200px;
-	overflow-y: scroll;
-}
+//	width: 100%;
+	//overflow-y: scroll;
+} // Box style is .box-editor-style
 
 .dropdown-option {
 	padding: 3px;
+	padding-left: 7px;
+	padding-right: 7px;
 	border-radius: 0px
 }
 
@@ -248,14 +321,7 @@
 
 // Sketch
 .status-labels {
-	font-weight: @semibold;
-	box-sizing: border-box;
-	width: calc(50% - @margin-status-button);
-	display: inline-block;
-}
-
-.status-labels {
-	font-weight: @semibold;
+	font-weight: @regular;
 	box-sizing: border-box;
 	width: calc(50% - @margin-status-button);
 	display: inline-block;
@@ -277,4 +343,128 @@
 .toggle .state-on {
 	background-color: @color-selected;
 	color: @color-white;
+}
+
+input.input.kpi-input {
+	width: calc(100% - 30px);
+}
+
+i.material-icons.editor-peoplelist-searchbar-icon {
+	margin-left: -21px;
+	color: grey;
+}
+
+.editor-peoplelist-person-switch-planning {
+	color: @color-selected;
+	cursor: pointer;
+	font-weight: @regular;
+}
+
+.editor-peoplelist-person-switch-planning i {
+	margin-left: 10px;
+}
+
+.editor-peoplehours {
+	vertical-align: top;
+	margin-bottom: 40px;
+    margin-top: -10px;
+}
+
+//hours
+.editor-peoplehours-week {
+	display: inline-block;
+	width: 8.25%;
+	border-left: 1px solid white;
+	box-sizing: border-box;
+	height: 150px;
+	background-color: white;
+	position: relative;
+}
+
+.editor-peoplehours-label {
+	position: absolute;
+	position: absolute;
+	top: 100%;
+	margin-top: 5px;
+	font-family: @font-number;
+	font-size: 10px;
+	color: @color-selected;
+}
+
+.editor-peoplehours-hours {
+	background-color: darkgrey;
+	bottom: 0px;
+	position: absolute;
+	width: 100%;
+}
+
+.editor-peoplehours-currenthours {
+	background-color: blue;
+	bottom: 0px;
+	position: absolute;
+	width: 100%;
+}
+
+.editor-peoplehours-hours-overflow {
+	background-color: orange;
+}
+
+//editor empty list
+.button-empty-list {
+	width: 40%;
+	position: absolute;
+	left: 30%;
+	top: calc(50% - 35px);
+}
+
+.editor-empty-list {
+	position: relative;
+	padding: 10px;
+	padding-bottom: 20px;
+}
+
+.editor-empty-list-item {
+	width: 100%;
+	height: 15px;
+	margin-bottom: 18px;
+}
+
+.editor-empty-list-item-item {
+	background-color: @color-emptyplaceholderdark;
+	display: inline-block;
+	height: 14px;
+}
+
+.editor-empty-list-item-name {
+	.editor-empty-list-item-item();
+	width: 40%;
+	margin-right: 50px;
+}
+
+.editor-empty-list-item-name-short {
+	.editor-empty-list-item-item();
+	width: calc(40% - 40px);
+	margin-right: 90px;
+}
+
+.editor-empty-list-item-label {
+	.editor-empty-list-item-item();
+	width: 12%;
+	margin-right: 50px;
+}
+
+.editor-empty-list-item-delete {
+	.editor-empty-list-item-item();
+	width: 15px;
+	margin-right: -4px;
+	float: right;
+}
+
+.editor-empty-list-item-number {
+	.editor-empty-list-item-item();
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 4px;
+	vertical-align: top;
 }

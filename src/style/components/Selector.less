@@ -1,0 +1,445 @@
+@import "Buttons.less";
+@import "variables/fonts.less";
+@import "variables/colors.less";
+
+.selector {
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+.programdetails-title {
+	font-size: @selected-text-title;
+	font-weight: @semibold;
+}
+
+.selector-header, .editor-header, .searchbar-popup-header {
+	// font-size: @size-selected;
+	font-weight: @regular;
+	letter-spacing: @var-05;
+
+	// All uppercase
+	font-size: @main-text;
+	text-transform: @uppercase;
+
+	.editor-header {
+		margin-bottom: 20px;
+	}
+}
+
+.selector-header div.icons-header {
+	margin-right: 24px;
+}
+
+.selector-tooltip {
+	.sub-navigation();
+	text-transform: none;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.2s 0.5s;
+}
+
+.selector-tooltip-bottom {
+	.selector-tooltip();
+	position: absolute;
+	top: 33px;
+	left: 0px;
+	width: 200%;
+}
+
+:hover > .selector-tooltip, :hover > .selector-tooltip-bottom {
+	visibility: visible;
+	opacity: 1;
+}
+
+.selector .selector-header, .programdetails {
+	margin-left: (@width-circle + 9px);
+}
+
+.selectorlist {
+	position: absolute;
+	top: 32px;
+	bottom: 0px;
+	width: 100%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.selectorlist-back {
+	margin-left: 50px;
+	min-height: 100%;
+	box-sizing: border-box;
+	background-color: @color-white;
+	padding-top: (@width-circle / 4);
+	padding-bottom: (@width-circle / 4);
+	padding-right: 20%;
+}
+
+.selectorlist-back-nostretch {
+	min-height: unset;
+}
+
+.selectorlist-related {
+	margin-left: 50px;
+	box-sizing: border-box;
+	padding-top: 9.5px;
+	padding-bottom: 9.5px;
+	padding-right: 20%;
+}
+
+.selectorlist-related .selectorlist-item-content {
+	min-width: calc(100% - 80px);
+}
+
+.selectorlist-related .selector-hidden {
+	margin-left: 65px!important;
+}
+
+.selectorlist-item {
+	position: relative;
+}
+
+.selectorlist-item.state-editing, .selectorlist-item.effortselector-title {
+	color: @color-editable !important;
+}
+
+.selectorlist-item.mode-sketch {
+	color: @color-sketch;
+}
+
+.state-selected .selectorlist-item-content {
+	margin-bottom: 10px;
+}
+
+.selectorlist-item + .selectorlist-item {
+	margin-top: 30px;
+}
+
+.selectorlist-item-number {
+	vertical-align: top;
+	margin-left: -47px;
+	display: inline-block;
+}
+
+.selectorlist-item-content {
+	vertical-align: top;
+	display: inline-block;
+	margin-left: 20px;
+	min-width: calc(100% - 20px);
+	min-height: 40px;
+}
+
+.selector-devider .selector-subtitle {
+	padding-left: 12px;
+}
+
+.selector-subtitle {
+	background-color: @color-background;
+	width: 127%;
+	height: 0;
+	font-size: @main-text;
+	line-height: @line-height;
+	letter-spacing: @var-01;
+	color: @color-selected;
+	font-weight: @regular;
+	text-transform: @uppercase;
+
+	padding-bottom: 30px;
+	padding-top: 20px;
+	margin-top: -10px;
+	margin-bottom: 10px;
+}
+
+.selectorlist-item-label-position {
+	width: 25%;
+	position: absolute;
+	right: -29%;
+	color: @color-sketch;
+	top: 5px;
+}
+
+.state-selectable.selectorlist-item.state-selected .selectorlist-item-label-position {
+	top: 38px;
+}
+
+
+//Option buttons
+.selectorlist-item-options {
+	position: absolute;
+	top: 0;
+	right: -25%;
+	display: none;
+}
+
+.state-selected .selectorlist-item-options {
+	display: block
+}
+
+.selectorlist-item-option, .selectorlist-item-options-position {
+	display: inline-block;
+}
+
+.selectorlist-item-option:hover {
+	color: @color-selected;
+}
+
+.selectorlist-item-options-position {
+	margin-right: 10px;
+}
+
+.selectorlist-item-option-edit {
+	vertical-align: top;
+}
+
+// Program Mission
+.programdetails {
+	margin-bottom: 22px;
+}
+
+.programdetails-mission.state-hidden {
+	max-height: 0;
+}
+
+.programdetails-mission {
+	.default-text-light ();
+	font-size: @main-text;
+	margin-top: 15px;
+	transition: max-height 0.3s;
+	overflow: hidden;
+}
+
+.selectorlist-item:last-child {
+	padding-bottom: (@width-circle / 2);
+}
+
+
+.selector-hidden {
+	opacity: 0;
+	display: none;
+	transition: opacity 0.4s;
+}
+
+.state-selected .selector-hidden {
+	opacity: 1;
+	display: block;
+	margin-left: 10px;
+}
+
+.drag-over {
+	border-radius: 0px;
+	border-bottom: 2px dashed @color-editable;
+}
+
+
+
+.selector-selected-title {
+	.default-text-regular ();
+	cursor: pointer;
+}
+
+// The title is divided in two part: the first is .selector-selected-title
+// the second one is .selector-selected-title-means.
+// The class .selector-selected-title-means-label is the arrow in between
+.state-selected .selector-selected-title, .state-selected .selector-selected-title-means {
+	font-size: 	@selected-text-title;
+	line-height: @selected-text-title-line-height;
+	letter-spacing: @letter-spacing-selector-selected-title;
+	word-spacing: @word-spacing;
+	display: inline;
+}
+
+//.selector-selected-subheader:first-child, // valid for the opgaven
+.selector-selected-title-means + .selector-hidden,
+.selector-selected-type + .selector-selected-subheader { // valid for inspanningen
+	margin-top: 50px;
+}
+
+.selector-selected-subheader {
+	margin-bottom: 3px;
+}
+
+.selector-selected-description {
+	padding-right: 13px;
+	margin-bottom: 25px;
+}
+
+.selector-selected-description.kpi {
+	margin-bottom: 0px;
+}
+
+// Arrow
+.selector-selected-title-means-label, // Arrow
+.selector-selected-title-means { // Second part of the title
+	display: none;
+}
+
+.state-selected .selector-selected-title-means-label,
+.state-selected .selector-selected-title-means {
+	display: inline;
+}
+
+.selector-selected-title-means-label .selector-selected-arrow {
+	margin-left: 10px;
+	margin-right: 10px;
+	color: @color-selected;
+	font-size: 24px;
+}
+
+// List people
+.selector-selected-peoplelist + .selector-selected-peoplelist {
+	margin-top: 7px;
+}
+.selector-selected-peoplelist-person {
+	min-width: 40%;
+	display: inline-block;
+}
+
+.selector-selected-peoplelist-icons {
+	margin-left: 8px;
+	display: inline-block;
+}
+
+// Date
+.selector-selected-period-label {
+	margin-right: 6px;
+}
+
+.date-display + .selector-selected-period-label {
+	margin-left: 20px;
+}
+
+
+//Mission and teamlist
+.teamlist-person + .teamlist-person {
+	margin-top: 15px;
+}
+
+.teamlist-person-icons {
+	display: inline-block;
+}
+
+.teamlist-person-name {
+    min-width: 30%;
+    display: inline-block;
+}
+
+.mission {
+	width: 75%;
+}
+
+.mission .selectorlist-emptystate {
+	margin-left: 25%;
+}
+
+.mission-mission {
+	width: 45%;
+	margin-bottom: 30px;
+}
+
+.mission-title {
+    margin-bottom: 10px;
+}
+
+.mission-edit {
+    margin-left: 35%;
+}
+
+.selectorlist-emptystate {
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 100px;
+	text-align: center;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	color: #ffa43d;
+}
+
+.selectorlist-emptystate-message-header {
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+
+.selectorlist-emptystate-button.button {
+	display: inline-block;
+	margin: 20px;
+}
+
+//Inplace editor
+textarea.selector-selected-title {
+	width: 100%;
+	border: 0 none white;
+	border-bottom: 1px solid @color-selected;
+	margin-bottom: 10px;
+	padding: 5px;
+	padding-bottom: 0px;
+	overflow: hidden;
+    outline: none;
+	resize: none;
+	height: 1em;
+}
+
+.selector-inplace-editor-button {
+	width: 20%;
+	display: inline-block;
+	background-color: @color-white!important;
+}
+
+.selector-inplace-editor-button:hover {
+	background-color: @color-selected!important;
+}
+
+.selector-inplace-editor-button-cancel {
+	background-color: @color-selected!important;
+	color: @color-white!important;
+	float: right;
+}
+
+.selector-inplace-editor-button-cancel:hover {
+	background-color: @color-white!important;
+	color: @color-selected!important;
+}
+
+.selector-inplace-editor-button-options {
+	background-color: @color-white!important;
+	border: none!important;
+	width: auto!important;
+	margin-right: 10px;
+	padding-left: 10px!important;
+	padding-right: 10px!important;
+}
+
+.selector-inplace-editor-button-options:hover {
+	background-color: @color-background!important;
+	color: @color-selected!important;
+}
+
+//placeholder
+
+.selectorlist-item-grey {
+	width: 100%;
+	height: 150px;
+}
+
+.selectorlist-item-number-grey {
+	.selectorlist-item-number();
+	display: inline-block;
+	background-color: @color-emptyplaceholderdark;
+	width: @width-circle;
+	height: @width-circle;
+	border-radius: 50%;
+	text-align: center;
+	cursor: pointer;
+}
+
+.selectorlist-item-line-grey {
+	background-color: @color-emptyplaceholder;
+	width: 100%;
+	height: 10px;
+	margin-bottom: 10px;
+}
+
+.selectorlist-item-line-short-grey {
+	.selectorlist-item-line-grey();
+	width: 80%;
+}

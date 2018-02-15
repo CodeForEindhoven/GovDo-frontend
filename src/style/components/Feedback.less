@@ -1,0 +1,47 @@
+@import "variables/fonts.less";
+
+.admin-feedback {
+	height: 100%;
+}
+
+.feedback-section {
+	width: calc(100% - 50px);
+	margin-left: 20px;
+	margin-right: 40px;
+	margin-bottom: 80px;
+}
+
+.admin-feedback-questions {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 20px;
+}
+
+.admin-feedback-list {
+	overflow-y: scroll;
+	padding-bottom: 50px;
+}
+
+.admin-feedback-list-effort-name {
+	display: inline-block;
+	margin-left: 20px;
+	vertical-align: top;
+	width: 50%;
+}
+
+.admin-feedback-list-effort {
+	.list-item-small();
+	margin-bottom: 30px;
+}
+
+
+.admin-feedback-list-done {
+	color: @color-selected;
+	cursor: pointer;
+	margin-top: 45px;
+	margin-left: 110px;
+}
+
+.admin-feedback-list-done.state-selected {
+	color: blue;
+}

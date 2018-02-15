@@ -1,15 +1,26 @@
 .datepicker {
 	display: inline-block;
 	width: 100%;
-	padding-left: 40px;
+	padding-left: 8%; //40px
+	box-width: border-box;
+}
+
+.datepicker-navigation, .datepicker-date {
+	width:88%;
+	padding-left: 6px;
 }
 
 .datepicker-section {
 	display: inline-block;
-	width: 27%;
+	width: 38%;
 	vertical-align: top;
-	margin-right: 10px;
-//	background-color: red;
+//	margin-left: 9px;
+	margin-right: 13px;
+}
+
+.datepicker-section.year {
+	width: 20%;
+	margin-right: 13px;
 }
 
 .editor-selection-date {
@@ -20,10 +31,10 @@
 	position: relative;
 }
 
-.datepicker-navigation > .datepicker-section, 
-.datepicker-date > .datepicker-section {
-	padding-left: 2px;
-}
+//.datepicker-navigation > .datepicker-section,
+//.datepicker-date > .datepicker-section {
+//	padding-left: 2px;
+//}
 
 .editor-selection-date span {
 	margin-right: 29px;
@@ -32,16 +43,15 @@
 }
 
 .datepicker-menu {
-	border: 1px solid @color-selected;
 	border-radius: 2px;
-	width: 88%;
-}
+	width: 92%;
+	line-height: 30px;
+	margin-left: 6px;
+} // Box style is .box-editor-style
 
 .datepicker-column {
-	font-size: @column-date-font-size;
-	line-height: 30px;
 	display: inline-block;
-	width: 33.3%;
+	width: 39%;
 	vertical-align: top;
 	height: 250px;
 	overflow-y: scroll;
@@ -50,6 +60,12 @@
 
 .datepicker-column.disabled {
 	color: @color-grey;
+}
+
+// This class controls the year element in order to change the width which is, otherwise, too wide to be optically correctly aligned
+.year {
+	width: 22%;
+	margin-right: 0;
 }
 
 .datepicker-splitter {
@@ -69,14 +85,15 @@
 }
 
 .datepicker-date {
-//	background-color: blue;
+//	font-size: @column-date-font-size;
 	margin-bottom: 20px;
 }
 
-.datepicker-column.active .datepicker-option:hover {
-	cursor: pointer;
+.datepicker-option {
+	color: @color-selected;
+	padding-left: 6px;
 }
 
 .datepicker-date .datepicker-section, .datepicker-column {
-	font-family: @font-number;
+	.default-text-monospace ();
 }

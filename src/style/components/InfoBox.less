@@ -1,0 +1,44 @@
+@import "variables/colors.less";
+.info-box {
+	display: inline-block;
+	position: relative;
+	width: 14px;
+}
+
+.info-box:hover {
+	cursor: pointer;
+}
+
+.info-box i {
+	cursor: pointer;
+}
+
+.info-box-popup {
+	white-space: normal;
+	display: none;
+	position: absolute;
+	top: 2px;
+	left: 25px;
+	width: 240px;
+	min-height: 100px;
+	padding: 5px;
+	padding-right: 15px;
+	z-index: 1;
+} // Box style is .box-editor-style
+
+.info-box:hover .info-box-popup {
+	display: block;
+}
+
+.info-box-popup ul li {
+	list-style-type: none;
+} //check base.less to remove ul paddings and margins
+
+.info-box-popup ul li + li {
+	margin-top: 12px;
+}
+
+.info-box-popup div span + ul {
+	padding-left: 25px;
+	margin-top: 12px;
+}

@@ -1,0 +1,257 @@
+@import "variables/fonts.less";
+@import "variables/colors.less";
+
+.personal-efforts {
+    height: 100%;
+    overflow-y: scroll;
+	padding-bottom: 20%;
+    box-sizing: border-box;
+}
+
+.personal-efforts-effort {
+	height: 150px;
+	position: relative;
+}
+
+.personal-efforts-effort-name {
+	.default-text-regular ();
+	font-size: @font-size;
+	line-height: 20px;
+
+	display: inline-block;
+	vertical-align: top;
+}
+
+.state-selected .personal-efforts-effort-name {
+    color: @color-selected;
+}
+
+.personal-efforts-effort-date {
+    margin-bottom: 5px;
+}
+
+.personal-efforts-effort-date-add {
+    margin-bottom: 5px;
+    color: @color-selected;
+}
+
+//.personal-efforts-effort-name + .personal-efforts-effort-date {
+//	margin-top: 2px;
+//}
+
+.personal-efforts-effort-type {
+	margin-bottom: 5px;
+}
+
+.personal-efforts-effort-date, .personal-efforts-effort-type {
+	.default-text-regular ();
+	.over-calendar-type-size ();
+}
+
+.date-display + span {
+	margin-left: 10px;
+}
+
+span + .date-display {
+	margin-left: 7px;
+}
+
+.date-display {
+	color: @color-selected;
+}
+
+.date-display:hover {
+	color: @color-black;
+	cursor: pointer;
+}
+
+.personal-efforts-effort-details {
+	position: absolute;
+	left: 110px;
+	top: 0;
+}
+
+.calendar * {
+    animation: none;
+}
+
+.calendar {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.calendar svg {
+	width: 100%;
+	height: calc(100% - 100px);
+	margin-bottom: 5px;
+	overflow: hidden;
+}
+
+.calendar-grid {
+	fill: #d8d8d8;
+}
+
+.calendar-grid:hover {
+	fill: @color-selected;
+	cursor:pointer ;
+}
+
+.calendar-lines {
+	stroke-width: 1px;
+	stroke: #bbbbbb;
+}
+
+line.calendar-todayline {
+	stroke-width: 2px;
+	stroke: blue;
+}
+
+line.calendar-timeline {
+	stroke-width: 2px;
+	stroke: #333333;
+}
+
+line.calendar-timeline-dashed {
+	stroke-width: 2px;
+	stroke: #333333;
+    stroke-dasharray: 10,20;
+}
+
+circle.calendar-timeline {
+	stroke-width: 2px;
+	fill: @color-grey;
+}
+
+.calendar-labels {
+	user-select: none;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-o-user-select: none;
+
+	.default-text-monospace ();
+
+	cursor: ew-resize;
+	padding-bottom: 10px;
+}
+
+.calendar-label {
+	width: 8%;
+	display: inline-block;
+}
+
+.calendar-label-month, .calendar-label-date, .calendar-label-week {
+	padding-left: 5px;
+}
+
+.calendar-label-week {
+	margin-bottom: 17px;
+}
+
+.calendar-label-date {
+	margin-top: 5px;
+}
+
+.calendar-label-month.calendar-label-phase-a {
+	background-color: @color-selected;
+	color: @color-white;
+//	text-transform: @uppercase;
+}
+
+.calendar-label-month.calendar-label-phase-b {
+	background-color: @color-white;
+	color: @color-selected;
+//	text-transform: @uppercase;
+}
+
+.calendar-label-month:after {
+	content: '\200b';
+}
+
+.calendar-navbutton {
+	width: 2%;
+	display: inline-block;
+}
+
+.calendar-navbutton:hover {
+	color: @color-selected;
+	cursor: pointer;
+}
+
+.calendar-block.color-0 {
+    fill: #1F9DCF;
+}
+
+.calendar-block.color-1 {
+    fill: #FEDB03;
+}
+
+.calendar-block.color-2 {
+    fill: #F80386;
+}
+
+.calendar-block.color-3 {
+    fill: #83D900;
+}
+
+.calendar-block-overshoot {
+    fill: #FF0000;
+}
+
+.calendar-block.state-selected {
+    fill-opacity: 0.5;
+}
+
+
+
+//Dateweek selector
+.dateweek-selector-date {
+    .default-text-monospace ();
+	padding: 5px;
+	border-bottom: 1px solid @color-selected;
+}
+
+span.dateweek-selector {
+    position: relative;
+}
+
+.dateweek-selector-dropdown {
+    position: absolute;
+    width: 200px;
+    background: wheat;
+    padding: 20px;
+    word-wrap: break-word;
+}
+
+.dateweek-selector-dropdown {
+    position: absolute;
+    width: 320px;
+    background: @color-background;
+    padding: 20px;
+    z-index: 10000;
+    word-wrap: break-word;
+    border: 1px @color-selected solid;
+}
+
+.dateweek-selector-dropdown-week {
+    display: inline-block;
+    padding: 5px;
+    margin: 5px;
+    background: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    line-height: 21px;
+    text-align: center;
+}
+
+.dateweek-selector-dropdown-week.state-selected, .dateweek-selector-dropdown-week:hover {
+    background: @color-selected;
+    color: @color-white;
+}
+
+rect.calendar-todayline {
+    fill: white;
+    fill-opacity: 0.5;
+}

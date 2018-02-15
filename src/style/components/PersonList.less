@@ -1,0 +1,132 @@
+@import "variables/colors.less";
+@import "variables/fonts.less";
+
+//.state-hidden .personlist {
+//	max-height: 0px;
+//}
+//
+//.state-hidden .editor-peoplelist-searchbar, .state-hidden .editor-peoplelist-finder.box-editor-style {
+//	//display: none;
+//}
+//
+//.state-hidden .editor-peopelist-add {
+//	display: block;
+//}
+
+
+// List people
+.editor-peoplelist {
+	margin-bottom: @margin-bottom-editor-items;
+}
+
+.editor-peoplelist-person {
+	font-weight: @light;
+	margin-bottom: 8px;
+	position: relative;
+}
+
+.editor-peoplelist-person-name {
+	display: inline-block;
+	width: 35%;
+}
+
+.editor-peoplelist-person-name {
+	display: inline-block;
+	width: 30%;
+}
+
+.editor-peoplelist-person-remove {
+	cursor: pointer;
+	position: absolute;
+	right: -77px;
+	top: 1px;
+}
+
+// Add People to the list
+// Add People container
+.editor-peoplelist-finder {
+	padding-bottom: 1px;
+	margin-bottom: 5px;
+} // Box style is .box-editor-style
+
+.editor-peoplelist-finder.state-hidden {
+	//display: none;
+}
+
+// header
+.editor-peoplelist-add{
+//	background-color: red;
+}
+
+.editor-peopelist-add-button {
+
+}
+
+.editor-peoplelist-searchbar {
+	width: calc(90% + 5px);
+}
+
+.editor-peoplelist-searchbar + .personlist {
+	margin-top: 10px;
+}
+
+// Box list
+.personlist {
+	width: 100%;
+	height: 300px;
+	//max-height: 300px;
+	overflow-y: scroll;
+	transition: max-height 0.4s;
+	color: @color-selected;
+	position: relative;
+}
+
+// Team name
+.personlist-team {
+	margin-bottom: 40px;
+	padding-right: 5px;
+}
+
+.personlist-teamname {
+	font-weight: @semibold;
+	letter-spacing: 0.06em;
+}
+
+.personlist-teamname, .personlist-person {
+	margin-bottom: 8px;
+	padding-left: 10px;
+}
+
+// Single person in the box list
+.personlist-person {
+	font-weight: @light;
+	position: relative;
+}
+
+.personlist-person:hover {
+//	background-color: @color-selected;
+	color: #000000;
+	cursor: pointer;
+}
+
+.person-list-add-button {
+	display: none;
+	color: @color-white;
+	position: absolute;
+	top: 1px;
+	right: 15px;
+}
+
+.personlist-person:hover  > .person-list-add-button {
+	display: block;
+}
+
+.personlist-person-new {
+	margin-left: 5px;
+	margin-top: 78%
+}
+
+.personlist-person-new:hover {
+	color: @color-black;
+	cursor: pointer;
+}

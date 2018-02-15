@@ -1,0 +1,183 @@
+@import "variables/colors.less";
+@import "variables/fonts.less";
+
+@width-circle: 38px;
+
+//depricated
+/*
+.state-selectable:hover .button-number, .state-selected .button-number, .editor-connectionlist-item.item-list:hover > .button-number {
+	background-color: @color-selected;
+	color: @color-white;
+	-webkit-font-smoothing: subpixel-antialiased;
+  	-moz-osx-font-smoothing: grayscale;
+}
+*/
+.button {
+//	display: inline-block;
+	cursor: pointer;
+	background-color: @color-background;
+	color: @color-black;
+
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+
+	.default-text-regular ();
+//	line-height: 30px;
+	text-align: center;
+//	border-radius: 3px;
+
+	border: 1px solid #0000FF;
+
+//	width: 80px;
+//	height: 30px;
+}
+
+.button:hover {
+	background-color: @color-selected;
+	color: @color-white;
+}
+
+.button-edit {
+	.button();
+	background-color: @color-white;
+}
+
+.editor-buttons .button-edit {
+	margin-right: 9px;
+}
+
+.button-delete {
+	.button();
+	float: right;
+	background-color: @color-background;
+	color: @color-red;
+	border: @border-box-1 solid @color-red;
+}
+
+.button-delete:hover {
+	background-color: @color-red;
+	color: @color-white;
+}
+
+.save-button {
+	.button();
+	border: @border-box-1 solid @color-selected;
+	font-weight: @semibold;
+	background-color: @color-selected;
+	color: @color-white;
+}
+
+.save-button:hover {
+	background-color: @color-background;
+	color: @color-selected;
+}
+
+
+.button-edit-small {
+	background-color: @color-background;
+	padding: 10px;
+	border-radius: 50%;
+}
+
+// All Icons
+// Icon container headers
+.icons-header {
+	float: right;
+	vertical-align: top;
+}
+
+.material-icons {
+	vertical-align: middle;
+	font-size: @icon-size;
+	text-align: center;
+	margin-bottom: 2px;
+}
+
+.material-icons + img {
+	margin-left: 10px;
+}
+
+.icon {
+	width: 14px;
+	height: 14px;
+	//height: auto;
+}
+
+.icon:hover {
+	cursor: pointer;
+}
+
+// Program Mission
+.programdetails .material-icons {
+	margin-top: -24px;
+	cursor: pointer;
+}
+
+.programdetails .edit-button.state-hidden {
+	display: none;
+}
+
+.programdetails .material-icons.edit-button:hover {
+	color: @color-selected;
+}
+
+
+// Headers Icons
+.selector-header .material-icons {
+	cursor: pointer;
+	color:@color-selected;
+	padding: 2px;
+	border-radius: 50%;
+	padding: 5px;
+	margin-left: 5px;
+}
+
+.selector-header .material-icons:hover {
+	color: @color-black;
+	background-color: @color-white;
+}
+
+div.icons-header .material-icons + .material-icons {
+ 	margin-left: 10px;
+}
+
+.selector-header .material-icons + .material-icons, .editor-header .material-icons + .material-icons, .editor-header .save-button + .material-icons {
+ 	margin-left: 10px;
+}
+
+.icon-button i, .icon-button img, .icon-button-grey i, .icon-button-grey img {
+	padding: 5px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.icon-button:hover i,.icon-button:hover img {
+	background-color: white;
+}
+
+.icon-button-grey:hover i,.icon-button-grey:hover img {
+	background-color: @color-background;
+}
+
+.icon-button-hint {
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 0.2s 0.5s;
+
+	vertical-align: middle;
+	margin: 10px;
+
+	.sub-navigation();
+}
+
+.icon-button:hover .icon-button-hint {
+	visibility: visible;
+	opacity: 1;
+}
+
+ // To hide info
+/*.hide-icon {
+ 	display: none;
+}*/

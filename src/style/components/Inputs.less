@@ -1,0 +1,225 @@
+@import "variables/colors.less";
+@import "variables/fonts.less";
+@border-box-1: 1px;
+@border-radius-2: 2px;
+
+
+input, textarea, select, a {
+	outline: none;
+}
+
+input, textarea {
+	white-space: pre-wrap;
+}
+
+input {
+	color: @color-selected;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: @color-placeholder;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: @color-placeholder;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: @color-placeholder;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: @color-placeholder;
+}
+
+.textarea {
+	width: 100%;
+	height: 200px;
+	resize: vertical;
+} // Box style is .box-editor-style
+
+.typing-area {
+	background-color: @color-background;
+	padding-bottom: 5px;
+	border-bottom: @border-box-1 solid @color-selected;
+	margin-bottom: 20px;
+//	cursor: pointer;
+	.default-text-monospace ();
+}
+
+.input, .dropdown-value, .datepicker-date .datepicker-section {
+	.typing-area ();
+}
+
+.editor-peoplelist .input {
+	width: 100%;
+}
+
+//Connection list
+.editor-connectionlist {
+	height: 300px;
+	margin-bottom: 10px;
+//	padding-left: 7px;
+//	padding-right: 7px;
+} // Box style is .box-editor-style
+
+.editor-connectionlist-list {
+	overflow-x: hidden;
+	overflow-y: scroll;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.editor-connectionlist-item {
+	padding-left: 7px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.editor-connectionlist-item-number {
+	display: inline-block;
+}
+
+.editor-connectionlist-item-name, .editor-connections-parent-name {
+	display: inline-block;
+	margin-left: 16px;
+	white-space: normal;
+	width: calc(100% - 103px);
+	vertical-align: top;
+	padding-top: 3px;
+}
+
+.connectionlist-addbutton {
+	display: none;
+	top: 6px;
+	right: 10px;
+	position: absolute;
+}
+
+.editor-connections-parents {
+	margin-top: (@margin-bottom-editor-items / 7);
+	margin-bottom: 20px;
+
+	font-weight: @regular;
+	font-size: @main-text;
+	line-height: @line-height;
+	letter-spacing: @letter-spacing;
+	word-spacing: @word-spacing;
+}
+
+.editor-connections-parent {
+	margin-bottom: 15px;
+	position: relative;
+}
+
+.editor-connections-parent.state-selected:hover > .editor-connections-parent-remove{
+	display: block;
+	cursor: pointer;
+}
+
+.editor-connections-parent-number{
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.editor-connections-parent-remove{
+	font-weight: @medium;
+	color: @color-red;
+	vertical-align: middle;
+	cursor: pointer;
+	position: absolute;
+	top: 13px;
+	right: 0;
+	display: none;
+}
+
+
+:hover > .connectionlist-addbutton {
+	display: inline-block;
+}
+
+//.state-selected > .editor-connectionlist-item-name {
+//	font-weight: @semibold;
+//}
+
+.datepicker-day, .datepicker-month {
+	width: 2em;
+	display: inline-block;
+}
+
+.datepicker-dash {
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.datepicker-year {
+	width: 4em;
+	display: inline-block;
+}
+
+// Style all box including input
+.box-editor-style {
+	background-color: @color-background;
+	border: @border-box-1 solid @color-selected;
+	box-sizing: border-box;
+	border-radius: @border-radius-2;
+	margin-bottom: 20px;
+	//padding: 7px;
+
+	font-family: 'Space Mono', monospace;
+	font-size: @column-date-font-size;
+	line-height: 20px;
+	font-weight: @regular;
+}
+
+// style item list + mouse hover
+.item-list, .dropdown {
+	.default-text-monospace ();
+}
+
+.dropdown {
+	cursor: pointer;
+	position: relative;
+}
+
+.dropdown-options {
+	z-index: 999999999999;
+}
+
+.dropdown-outside{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	cursor: auto;
+	z-index: 999999999;
+}
+
+
+.item-list:hover {
+	color: @color-white;
+	background-color: @color-black;
+	cursor: pointer;
+}
+
+.numberroller {
+	.default-text-monospace ();
+    border-bottom: 1px solid #0000FF;
+    cursor: ns-resize;
+    padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+    display: inline-block;
+    text-align: center;
+    width: 35px;
+    background-color: @color-background;
+
+    margin-right: 8px;
+    margin-left: 4px;
+}
+
+.editor-peoplelist-person-hours span + .numberroller {
+	margin-left: 30px;
+}
