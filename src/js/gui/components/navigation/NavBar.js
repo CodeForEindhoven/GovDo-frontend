@@ -68,12 +68,17 @@ var NavBar = function(){
 							dropdownstate = !dropdownstate;
 						}
 					},[
-						(vm.focus()!==undefined) ? [
+						(vm.focus()!==undefined && vm.page()!==4) ? [
 							(vm.focus().type()!=="person") ? m(".nav-program-number", m(Numbering, {node: vm.focus(), selected: true})) : m(".nav-button", m(Icon, {name: "personal", selected: true})),
-							m(".nav-program-title-top", ((vm.page()===4) ? ptrn("#"+vm.user().node).value() : vm.focus().value()))
+							m(".nav-program-title-top", vm.focus().value())
 						] : [
-							m(".nav-program-number", m(".nav-button", m(Icon, {name: "personal", selected: true}))),
-							m(".nav-program-title-top", "Sociaal Domein")
+							(vm.page()===4) ? [
+								m(".nav-program-number", m(".nav-button", m(Icon, {name: "personal", selected: true}))),
+								m(".nav-program-title-top", ptrn("#"+vm.user().node).value())
+							] : [
+								m(".nav-program-number", m(".nav-button", m(Icon, {name: "personal", selected: true}))),
+								m(".nav-program-title-top", "Sociaal Domein")
+							]
 						],
 						//(vm.page()=== 1 && vm.person()) ? [
 							//,
