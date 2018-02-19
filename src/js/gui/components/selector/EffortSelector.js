@@ -151,7 +151,7 @@ var EffortSelectorItem = function(){
 
 					//Options
 					m(".selectorlist-item-options",[
-						(vm.focus().type()==="program") ? m(".selectorlist-item-options-position", [
+						(vm.focus().type()==="program" && vnode.attrs.related !== true) ? m(".selectorlist-item-options-position", [
 							m(".selectorlist-item-option.icon-button-grey",{
 								onclick: function(e){
 									e.stopPropagation();
