@@ -79,6 +79,12 @@ var AdminUsers = function(){
 				}, [
 					vm.userlist().filter(function(user){
 						return user.node>-5;
+					}).sort(function(a,b){
+						//return  - ptrn("#"+b.node).value();
+						var nameA=ptrn("#"+a.node).value().toLowerCase(), nameB=ptrn("#"+b.node).value().toLowerCase();
+						if(nameA < nameB) return -1;
+						if(nameA > nameB) return 1;
+						return 0;
 					}).map(function(user){
 						return m(AdminUser, {
 							editing: editing,
