@@ -171,10 +171,11 @@ var vm = (function(){
 		userlist: function(){
 			return currentUserList;
 		},
-		updateUserList: function(){
+		updateUserList: function(callback){
 			ptrn.getusers(function(resp){
 				currentUserList = resp;
 				m.redraw();
+				if(callback){callback();}
 			});
 		}
 	};

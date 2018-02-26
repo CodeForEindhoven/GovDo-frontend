@@ -810,6 +810,18 @@ var ptrn = (function(){
 		});
 	};
 
+	query.dropuser = function(userid, callback){
+		m.request({
+			method:"POST",
+			url: config.api_endpoint+"user/drop",
+			data: {
+				id: userid
+			}
+		}).then(function(resp){
+			if(callback) callback(resp);
+		});
+	};
+
 	query.updateuser = function(userid, name, role, callback){
 		m.request({
 			method:"POST",

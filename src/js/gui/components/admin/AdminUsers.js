@@ -13,10 +13,12 @@ var AdminUsers = function(){
 			ptrn.createrelate("plannable", "40", u);
 			ptrn.transact(function(){
 				ptrn.adduser(u.id(), function(){
-					editing = u.id();
-					editmode = true;
-					scrolldown = true;
-					redrawlist();
+					//editing = u.id();
+					//editmode = true;
+					//scrolldown = true;
+					vm.updateUserList(function(){
+						vm.edit(u);
+					});
 				});
 			});
 		});
@@ -90,13 +92,13 @@ var AdminUsers = function(){
 							editing: editing,
 							user: user,
 							onchange: function(){
-								editmode = false;
-								editing = -1;
-								redrawlist();
+								//editmode = false;
+								//editing = -1;
+								vm.updateUserList();
 							},
 							onedit: function(id){
-								editmode = true;
-								editing = id;
+								//editmode = true;
+								//editing = id;
 							}
 						});
 					}),
