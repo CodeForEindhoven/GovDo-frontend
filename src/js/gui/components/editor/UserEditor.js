@@ -7,7 +7,9 @@ var UserEditor = function(){
 	function save_edits(){
 		console.log("save", userdata);
 		if(admin && userdata){
-			ptrn.updateuser(userdata.node, userdata.name, userdata.role, vm.updateUserList);
+			ptrn.updateuser(userdata.node, userdata.name, userdata.role, function(){
+				vm.updateUserList();
+			});
 		}
 	}
 
