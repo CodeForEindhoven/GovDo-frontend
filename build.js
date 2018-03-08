@@ -11,6 +11,7 @@ compressor.minify({
 		"./src/js/polyfills/*.js",
 
 		"./src/js/models/Models.js",
+		"./src/js/models/keywords.js",
 		"./src/js/models/Ptrn.js",
 		"./src/js/models/Ptrn2.js",
 
