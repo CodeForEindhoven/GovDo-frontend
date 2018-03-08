@@ -102,40 +102,46 @@ var Editor = function(){
 	//							},(/*viewModels.editMode.savingState()*/false)?"Opslaan...":"Opslaan"),
 
 								//Delete item
-								(vm.edit().type()==="task" || vm.edit().type()==="effort") ? m(".button-delete", {
-									onclick: function(){
-										if (confirm("Weet je zeker dat je '"+vm.edit().value()+"' wil verwijderen?") === true) {
+								(vm.edit().type()==="task" || vm.edit().type()==="effort" || ((vm.edit().type()==="person") && (vm.user().role === 0))) ? m(".button-delete", {
+										onclick: function(){
+											if (confirm("Weet je zeker dat je '"+vm.edit().value()+"' wil verwijderen?") === true) {
 
-											var parent;
-											if(vm.edit().type()==="task"){
-												parent = vm.edit()("program");
-												vm.edit().drop();
-												parent("task", function(t){
-													return t;
-												}).sort(function(a,b){
-													return parseInt(a("order").value()) - parseInt(b("order").value());
-												}).map(function(t,c){
-													console.log(t("order").update(c+1));
-												});
+												var parent;
+												if(vm.edit().type()==="task"){
+													parent = vm.edit()("program");
+													vm.edit().drop();
+													parent("task", function(t){
+														return t;
+													}).sort(function(a,b){
+														return parseInt(a("order").value()) - parseInt(b("order").value());
+													}).map(function(t,c){
+														console.log(t("order").update(c+1));
+													});
+												}
+
+												if(vm.edit().type()==="effort"){
+													parent = vm.edit()("task");
+													vm.edit().drop();
+													parent("effort", function(t){
+														return t;
+													}).sort(function(a,b){
+														return parseInt(a("order").value()) - parseInt(b("order").value());
+													}).map(function(t,c){
+														console.log(t("order").update(c+1));
+													});
+												}
+
+												if(vm.edit().type()==="person"){
+													ptrn.dropuser(vm.edit().id(), function(){});
+													vm.edit().drop();
+													ptrn.transact();
+												}
+
+												vm.editClose();
+												ptrn.transact();
 											}
-
-											if(vm.edit().type()==="effort"){
-												parent = vm.edit()("task");
-												vm.edit().drop();
-												parent("effort", function(t){
-													return t;
-												}).sort(function(a,b){
-													return parseInt(a("order").value()) - parseInt(b("order").value());
-												}).map(function(t,c){
-													console.log(t("order").update(c+1));
-												});
-											}
-
-											vm.editClose();
-											ptrn.transact();
 										}
-									}
-								},"Verwijder") : [],
+									},"Verwijder") : [],
 							]),
 						]);
 					}

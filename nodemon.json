@@ -1,5 +1,9 @@
 {
 	"verbose": true,
+	"legacyWatch": true,
 	"ignore": ["*.min.js", "*.css"],
-	"ext": "*.less"
+	"ext": "js json less",
+	"watch": [
+    	"**/*"
+  	]
 }

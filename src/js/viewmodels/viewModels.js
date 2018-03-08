@@ -34,6 +34,7 @@ var vm = (function(){
 
 
 	var currentEditor;
+	var currentUserList = [];
 
 	return {
 		connecting: function(i){
@@ -166,6 +167,16 @@ var vm = (function(){
 		},
 		editClose: function(){
 			currentEditor = undefined;
+		},
+		userlist: function(){
+			return currentUserList;
+		},
+		updateUserList: function(callback){
+			ptrn.getusers(function(resp){
+				currentUserList = resp;
+				m.redraw();
+				if(callback){callback();}
+			});
 		}
 	};
 })();
