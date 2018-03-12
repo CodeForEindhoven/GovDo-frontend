@@ -39,24 +39,25 @@ function GetKeywords(){
 			}
 		}
 	});
-var alphabet = [{letter: "a", words: []},{letter: "b", words: []},{letter: "c", words: []},{letter: "d", words: []},{letter: "e", words: []},{letter: "f", words: []},{letter: "g", words: []},{letter: "h", words: []},{letter: "i", words: []},{letter: "j", words: []},{letter: "k", words: []},{letter: "l", words: []},{letter: "m", words: []},{letter: "n", words: []},{letter: "o", words: []},{letter: "p", words: []},{letter: "q", words: []},{letter: "r", words: []},{letter: "s", words: []},{letter: "t", words: []},{letter: "u", words: []},{letter: "v", words: []},{letter: "w", words: []},{letter: "x", words: []},{letter: "y", words: []},{letter: "z", words: []}];
+	var alphabet = [{letter: "a", words: []},{letter: "b", words: []},{letter: "c", words: []},{letter: "d", words: []},{letter: "e", words: []},{letter: "f", words: []},{letter: "g", words: []},{letter: "h", words: []},{letter: "i", words: []},{letter: "j", words: []},{letter: "k", words: []},{letter: "l", words: []},{letter: "m", words: []},{letter: "n", words: []},{letter: "o", words: []},{letter: "p", words: []},{letter: "q", words: []},{letter: "r", words: []},{letter: "s", words: []},{letter: "t", words: []},{letter: "u", words: []},{letter: "v", words: []},{letter: "w", words: []},{letter: "x", words: []},{letter: "y", words: []},{letter: "z", words: []}];
 
 	for(var i in keywords){
 		if(keywords[i].length > 1 && stopwoorden.indexOf(i) === -1){
 			var s = alphabet.find(function(l){
 				return l.letter === i.charAt(0);
 			});
+			if(s){
+				s.words.push({
+					word: i,
+					refs: keywords[i]
+				});
 
-			s.words.push({
-				word: i,
-				refs: keywords[i]
-			});
-
-			s.words = s.words.sort(function(a,b){
-				if(a.word < b.word) return -1;
-    			if(a.word > b.word) return 1;
-    			return 0;
-			});
+				s.words = s.words.sort(function(a,b){
+					if(a.word < b.word) return -1;
+					if(a.word > b.word) return 1;
+					return 0;
+				});
+			}
 		}
 	}
 
