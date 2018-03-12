@@ -15,11 +15,11 @@ var InplaceEditor = function(){
 						m("textarea.selector-selected-title", {
 							rows: 1,
 							value: task.value(),
-							onblur: function(){
+							/*onblur: function(){
 								if(task.value()===""){
 									vnode.attrs.onclose(task);
 								}
-							},
+							},*/
 							oninput: function(e){
 								task.update(e.target.value);
 							},
