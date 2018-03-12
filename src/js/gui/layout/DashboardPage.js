@@ -12,10 +12,10 @@ var DashboardPage = function(){
 								onclick: function(){currentPage = 0;},
 								class: (currentPage===0)? "state-selected":""
 							}, "Statistieken"),
-							m(".optionbar-option", {
+							/*m(".optionbar-option", {
 								onclick: function(){currentPage = 1;},
 								class: (currentPage===1)? "state-selected":""
-							}, "Voortgang"),
+							}, "Voortgang"),*/
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 2;},
 								class: (currentPage===2)? "state-selected":""
@@ -23,7 +23,7 @@ var DashboardPage = function(){
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 3;},
 								class: (currentPage===3)? "state-selected":""
-							}, "Sleutel Woorden"),
+							}, "Woordenboek"),
 						]),
 					])
 				]),
