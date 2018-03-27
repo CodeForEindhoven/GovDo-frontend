@@ -193,7 +193,9 @@ var EffortSelectorItem = function(){
 					m(".selector-selected-description.body-text", effort("endproduct").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen eindproduct"))),
 					m(".selector-selected-subheader.subtitle", "Mensen"),
 					m(".selector-selected-description.body-text", effort("person", function(person){
-						return m(".selector-selected-peoplelist.body-text", [
+						return m(".selector-selected-peoplelist.body-text",{
+							class: ptrn.compare(effort("role:leader person"), person) ? "selector-selected-peoplelist-person-leader" : ""
+						},[
 							m("span.selector-selected-peoplelist-person", person.value()),
 							m("span.selector-selected-peoplelist-icons", [m(NavWidget, {node: person})])
 						]);
