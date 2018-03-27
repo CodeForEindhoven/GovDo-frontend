@@ -31,16 +31,16 @@ var HoursCalendar = function(){
 
 	function refocus(){
 		if(vm.focus().type()==="person"){
-			p.gridheight = vm.focus()("contract").value();
+			p.gridheight = vm.focus()("plannable").value();
 		}
 		if(vm.focus().type()==="program"){
-			p.gridheight = vm.focus()("task effort person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+			p.gridheight = vm.focus()("task effort person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 		if(vm.focus().type()==="task"){
-			p.gridheight = vm.focus()("effort person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+			p.gridheight = vm.focus()("effort person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 		if(vm.focus().type()==="effort"){
-			p.gridheight = vm.focus()("person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+			p.gridheight = vm.focus()("person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 	}
 
@@ -80,12 +80,13 @@ var HoursCalendar = function(){
 					onDOMMouseScroll: function(e){
 						setDate(vnode, e.detail >= 0);
 					}
-				},[
+				},(p.gridheight > 0) ? [
+
 					m(CalendarGrid, {p: p}),
 					m(CalendarHours, {p: p}),
 					m(CalendarThisWeekLine, {p: p}),
 
-				]),
+				]:[]),
 				m(CalendarLabels, {
 					p: p,
 					ondrag: function(dx){
