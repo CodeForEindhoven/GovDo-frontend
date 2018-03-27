@@ -310,8 +310,17 @@
 
 
 //Mission and teamlist
+.teamlist {
+	overflow-y: scroll;
+	height: 100%;
+}
+
 .teamlist-person + .teamlist-person {
 	margin-top: 15px;
+}
+
+.teamlist-person-leader .teamlist-person-name{
+	text-decoration: underline;
 }
 
 .teamlist-person-icons {
@@ -332,8 +341,10 @@
 }
 
 .mission-mission {
-	width: 45%;
+	width: 100%;
 	margin-bottom: 30px;
+	font-size: 18pt;
+	position: relative;
 }
 
 .mission-title {
