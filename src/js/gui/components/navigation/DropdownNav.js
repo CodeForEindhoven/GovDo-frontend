@@ -91,6 +91,10 @@ var DropdownNav = function(){
 						]) : [],
 
 						(page===0) ? [
+							m(".programnav-domain",[
+								m(".programnav-domain-name", "CONTACT"),
+								m(".state-selectable.programnav-program", m("a.programnav-program-title",{href: "mailto:planlab@eindhoven.nl"},"planlab@eindhoven.nl"))
+							]),
 							ptrn("domain", function(domain){
 								return m(".programnav-domain",[
 									m(".programnav-domain-name", domain.value()),

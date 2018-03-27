@@ -109,7 +109,7 @@ var Login = function(){
 							];
 						}
 					})(),
-					m(".login-popup-forgotten", "Kan je niet inloggen? Neem contact op met de administrator..."),
+					m(".login-popup-forgotten", ["Kan je niet inloggen? Neem contact op met ", m("a", {href: "mailto:planlab@eindhoven.nl"},"planlab@eindhoven.nl")]),
 				])
 			]) : [];
 		}
