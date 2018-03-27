@@ -104,10 +104,7 @@ var CalendarHours = function(){
 			//starting date
 			var monday =  vnode.attrs.p.opentime;
 
-			//map hours to objects
-			//var hours = vm.focus()("effort hours", function(hourstring){
-			//	return HoursSpent.Parse(hourstring.value());
-			//});
+			//get all the hours
 			var hours;
 			if(vm.focus().type()==="person"){
 				hours = vm.focus()("hours", function(hourstring){
@@ -167,6 +164,7 @@ var CalendarHours = function(){
 			var mrg = vnode.attrs.p.margin;
 			var w = (vnode.attrs.p.w-mrg*2)/12;
 
+			//get all the hours per week
 			return ArrayFromRange(0, 11).map(function(week){
 				var startWeek = monday;
 				var offset = 0;
