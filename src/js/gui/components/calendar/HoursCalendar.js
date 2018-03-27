@@ -31,16 +31,16 @@ var HoursCalendar = function(){
 
 	function refocus(){
 		if(vm.focus().type()==="person"){
-			p.gridheight = vm.focus()("contract").value();
+			p.gridheight = vm.focus()("plannable").value();
 		}
 		if(vm.focus().type()==="program"){
-			p.gridheight = vm.focus()("task effort person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+			p.gridheight = vm.focus()("task effort person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 		if(vm.focus().type()==="task"){
-			p.gridheight = vm.focus()("effort person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+			p.gridheight = vm.focus()("effort person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 		if(vm.focus().type()==="effort"){
-			p.gridheight = vm.focus()("person contract", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+			p.gridheight = vm.focus()("person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 	}
 
@@ -66,6 +66,7 @@ var HoursCalendar = function(){
 			refocus();
 			setCurrentDate(vnode.attrs.currentDate, vnode.attrs.currentScale);
 			return m(".calendar",[
+				m(".calendar-hours-range", p.gridheight),
 				m("svg",{
 					oncreate: function(vnode) {
 						resize(vnode.dom);
@@ -79,12 +80,13 @@ var HoursCalendar = function(){
 					onDOMMouseScroll: function(e){
 						setDate(vnode, e.detail >= 0);
 					}
-				},[
+				},(p.gridheight > 0) ? [
+
 					m(CalendarGrid, {p: p}),
 					m(CalendarHours, {p: p}),
 					m(CalendarThisWeekLine, {p: p}),
 
-				]),
+				]:[]),
 				m(CalendarLabels, {
 					p: p,
 					ondrag: function(dx){
@@ -102,10 +104,7 @@ var CalendarHours = function(){
 			//starting date
 			var monday =  vnode.attrs.p.opentime;
 
-			//map hours to objects
-			//var hours = vm.focus()("effort hours", function(hourstring){
-			//	return HoursSpent.Parse(hourstring.value());
-			//});
+			//get all the hours
 			var hours;
 			if(vm.focus().type()==="person"){
 				hours = vm.focus()("hours", function(hourstring){
@@ -165,6 +164,7 @@ var CalendarHours = function(){
 			var mrg = vnode.attrs.p.margin;
 			var w = (vnode.attrs.p.w-mrg*2)/12;
 
+			//get all the hours per week
 			return ArrayFromRange(0, 11).map(function(week){
 				var startWeek = monday;
 				var offset = 0;

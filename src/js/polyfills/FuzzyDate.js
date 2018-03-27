@@ -64,7 +64,8 @@ FuzzyDate.days = (function(){
 
 FuzzyDate.toRange = function(string){
 	var date = FuzzyDate.toArray(string);
-	var a,b;
+	var a = new Date(-8640000000000000);
+	var b = new Date(8640000000000000);
 
 	if(!date){return [a,b];}
 
