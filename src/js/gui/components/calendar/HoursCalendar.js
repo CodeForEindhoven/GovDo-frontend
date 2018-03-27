@@ -66,6 +66,7 @@ var HoursCalendar = function(){
 			refocus();
 			setCurrentDate(vnode.attrs.currentDate, vnode.attrs.currentScale);
 			return m(".calendar",[
+				m(".calendar-hours-range", p.gridheight),
 				m("svg",{
 					oncreate: function(vnode) {
 						resize(vnode.dom);
