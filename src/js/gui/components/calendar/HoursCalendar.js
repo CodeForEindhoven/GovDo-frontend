@@ -37,10 +37,13 @@ var HoursCalendar = function(){
 			p.gridheight = vm.focus()("task effort person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 		if(vm.focus().type()==="task"){
-			p.gridheight = vm.focus()("effort person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+			p.gridheight = vm.focus()("effort hours", function(h){return parseInt(HoursSpent.Parse(h.value()).hours);}).reduce(function(o,c){return o+c;},0);
+			//p.gridheight = vm.focus()("effort person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 		if(vm.focus().type()==="effort"){
-			p.gridheight = vm.focus()("person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
+
+			p.gridheight = vm.focus()("hours", function(h){return parseInt(HoursSpent.Parse(h.value()).hours);}).reduce(function(o,c){return o+c;},0);
+			//p.gridheight = vm.focus()("person plannable", function(c){return parseInt(c.value());}).reduce(function(o,c){return o+c;},0);
 		}
 	}
 
