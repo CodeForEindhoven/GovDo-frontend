@@ -1,55 +1,10 @@
 var AdminUsers = function(){
-	//var users = [];
-	var editmode = false;
-	var editing = -1;
-	var scrolldown = false;
 
-	function adduser(){
-		ptrn.create("person", "", function(u){
-			ptrn.createrelate("role", "leader", u);
-			ptrn.createrelate("role", "aclient", u);
-			ptrn.createrelate("role", "bclient", u);
-			ptrn.createrelate("contract", "40", u);
-			ptrn.createrelate("plannable", "40", u);
-			ptrn.transact(function(){
-				ptrn.adduser(u.id(), function(){
-					//editing = u.id();
-					//editmode = true;
-					//scrolldown = true;
-					vm.updateUserList(function(){
-						vm.edit(u);
-					});
-				});
-			});
-		});
-
-//		ptrn.create("person", "", function(u){
-//			ptrn.adduser(u.id(), function(){
-//				ptrn.createrelate("role", "leader", u);
-//				ptrn.createrelate("role", "aclient", u);
-//				ptrn.createrelate("role", "bclient", u);
-//				ptrn.createrelate("contract", "40", u);
-//				ptrn.createrelate("plannable", "40", u);
-//				editing = u.id();
-//				editmode = true;
-//				scrolldown = true;
-//				redrawlist();
-//			});
-//		});
-	}
-
-	/*function redrawlist(){
-		ptrn.getusers(function(resp){
-			users = resp;
-			m.redraw();
-		});
-	}
-	redrawlist();*/
 	vm.updateUserList();
-
 
 	return {
 		view: function(vnode){
+			console.log("rendering");
 			return m(".admin",[
 				m(".admin-header",[
 					m(".admin-title.subtitle", [
@@ -70,42 +25,26 @@ var AdminUsers = function(){
 					m(".admin-label", "Email"),
 					m(".admin-label", "Rol"),
 				]),
-				m(".admin-users",{
-					class: editmode ? "state-editing": "state-editable",
-					onupdate: function(vnode){
-						if(scrolldown){
-							vnode.dom.scrollTop = vnode.dom.scrollHeight;
-							scrolldown = false;
-						}
-					}
-				}, [
-					vm.userlist().filter(function(user){
-						return user.node>-5;
-					}).sort(function(a,b){
-						//return  - ptrn("#"+b.node).value();
-						var nameA=ptrn("#"+a.node).value().toLowerCase(), nameB=ptrn("#"+b.node).value().toLowerCase();
-						if(nameA < nameB) return -1;
-						if(nameA > nameB) return 1;
-						return 0;
-					}).map(function(user){
-						return m(AdminUser, {
-							editing: editing,
-							user: user,
-							onchange: function(){
-								//editmode = false;
-								//editing = -1;
-								vm.updateUserList();
-							},
-							onedit: function(id){
-								//editmode = true;
-								//editing = id;
-							}
-						});
-					}),
+				m(".admin-users.state-editable", [
+					vm.userlist()
+						//.filter(function(user){
+						//	return user.node>-5;
+						//})
+						.sort(function(a,b){
+							var nameA=a.user.value().toLowerCase(), nameB=b.user.value().toLowerCase();
+							if(nameA < nameB) return -1;
+							if(nameA > nameB) return 1;
+							return 0;
+						})
+						.map(function(user){
+							return m(AdminUser, {
+								user: user
+							});
+						}),
 
 					m(".admin-user.admin-adduser", m(".admin-user-value", {
 						onclick: function(e){
-							adduser();
+							createnew.user();
 						}
 					}, "+ nieuwe gebruiker toevoegen"))
 				])
@@ -116,21 +55,17 @@ var AdminUsers = function(){
 
 
 var AdminUser = function(){
-	var edit = false;
-	var tempmail, temprole;
 
 	return {
 		view: function(vnode){
 			var user = vnode.attrs.user;
-			edit = (vnode.attrs.editing === user.node);
-
 			return m(".admin-user", [
-				m(".admin-user-value", ptrn("#"+user.node).value()),
+				m(".admin-user-value", user.user.value()),
 				m(".admin-user-value", user.name),
 				m(".admin-user-value", (user.role===0) ? "Beheerder":""),
 				m(".admin-user-button", {
 					onclick: function(){
-						vm.edit(ptrn("#"+user.node));
+						vm.edit(user.user);
 					}
 				}, m(Icon, {name: "edit-white"})),
 			]);
