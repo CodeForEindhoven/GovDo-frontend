@@ -19,7 +19,8 @@
 
 .dashboard-general-effort {
     display: inline-block;
-    background: #ffffff;
+    color: #ffffff;
+    background-color: #15ba15;
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -44,16 +45,87 @@
 
 
 .dashboard-general-program-name {
-	display: inline-block;
-	width: 200px;
+    display: inline-block;
+    width: 200px;
     vertical-align: top;
+    white-space: normal;
+    margin-right: 30px;
 }
 .dashboard-general-tasks {
     display: inline-block;
+}
+
+.dashboard-general-effort.mode-sketch {
+    background-color: #b9b9b9;
+}
+
+.dashboard-general-effort.mode-ready {
+    background-color: orange;
 }
 
 .dashboard-feedbacks {
     margin-left: 100px;
     overflow: scroll;
     height: 100%;
+}
+
+
+//Matrix
+.dashboard-matrix-task {
+    margin-bottom: 5px;
+}
+
+.dashboard-matrix-task-number {
+    display: inline-block;
+    margin-right: 10px;
+    width: 20px;
+}
+
+.dashboard-matrix-task-program {
+    display: inline-block;
+    background: lightgrey;
+    margin-right: 5px;
+    width: 74px;
+    vertical-align: top;
+    white-space: normal;
+}
+
+.dashboard-matrix-task-program-effort {
+    display: inline-block;
+    color: white;
+    background-color: blue;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    margin: 2px;
+    line-height: 22px;
+    font-size: 0.8em;
+    vertical-align: top;
+}
+
+.dashboard-general-top {
+    padding-left: 260px;
+    position: fixed;
+    height: 80px;
+    background: @color-background;
+}
+
+.dashboard-general-program-top {
+    display: inline-block;
+    margin-right: 5px;
+    width: 74px;
+    height: 80px;
+}
+.dashboard-general-bottom {
+    margin-top: 80px;
+}
+
+.dashboard-general-program-top-name {
+    .default-text-monospace();
+    transform: translateY(-23px) rotate(-45deg);
+    width: 200px;
+    white-space: normal;
+    height: 40px;
+    overflow: hidden;
 }

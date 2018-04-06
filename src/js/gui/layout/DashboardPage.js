@@ -19,7 +19,11 @@ var DashboardPage = function(){
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 2;},
 								class: (currentPage===2)? "state-selected":""
-							}, "Overzicht"),
+							}, "Voortgang"),
+							m(".optionbar-option", {
+								onclick: function(){currentPage = 4;},
+								class: (currentPage===4)? "state-selected":""
+							}, "Matrix"),
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 3;},
 								class: (currentPage===3)? "state-selected":""
@@ -31,7 +35,8 @@ var DashboardPage = function(){
 					(currentPage===0) ? m(Statistics) : [],
 					(currentPage===1) ? m(FeedbackResults) : [],
 					(currentPage===2) ? m(GeneralStatus) : [],
-					(currentPage===3) ? m(KeywordOverview) : []
+					(currentPage===3) ? m(KeywordOverview) : [],
+					(currentPage===4) ? m(MatrixStatus) : [],
 				])
 			];
 		}

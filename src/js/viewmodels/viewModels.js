@@ -172,8 +172,13 @@ var vm = (function(){
 			return currentUserList;
 		},
 		updateUserList: function(callback){
+			console.log("update users");
 			ptrn.getusers(function(resp){
-				currentUserList = resp;
+				console.log("update users - done");
+				currentUserList = resp.map(function(u){
+					u.user = ptrn("#"+u.node);
+					return u;
+				});
 				m.redraw();
 				if(callback){callback();}
 			});
@@ -211,5 +216,40 @@ var createnew = {
 				});});});});});});});
 			});
 		}
+	},
+	user: function(){
+		console.log("adduser");
+		ptrn.create("person", "", function(u){
+
+			console.log(u.id());
+			ptrn.createrelate("role", "leader", u);
+			ptrn.createrelate("role", "aclient", u);
+			ptrn.createrelate("role", "bclient", u);
+			ptrn.createrelate("contract", "40", u);
+			ptrn.createrelate("plannable", "40", u);
+			ptrn.transact(function(){
+				console.log(u.id());
+				ptrn.adduser(u.id(), function(){
+					vm.updateUserList(function(){
+						vm.edit(u);
+						console.log("update userlist");
+					});
+				});
+			});
+		});
+
+//		ptrn.create("person", "", function(u){
+//			ptrn.adduser(u.id(), function(){
+//				ptrn.createrelate("role", "leader", u);
+//				ptrn.createrelate("role", "aclient", u);
+//				ptrn.createrelate("role", "bclient", u);
+//				ptrn.createrelate("contract", "40", u);
+//				ptrn.createrelate("plannable", "40", u);
+//				editing = u.id();
+//				editmode = true;
+//				scrolldown = true;
+//				redrawlist();
+//			});
+//		});
 	}
 };
