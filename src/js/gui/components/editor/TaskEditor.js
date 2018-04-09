@@ -84,18 +84,23 @@ var KPIEditor = function(){
 			return vm.edit()("kpi", function(kpi){
 				return m(".kpiEdit",[
 					m("span","- "),
-					m("input.input kpi-input", {
-						placeholder: "Indicator titel invoeren",
-						oninput: function(e){
-							kpi.update(e.target.value);
-						},
-						onkeypress: function(e){
-							if(e.keyCode===13){
-								ptrn.createrelate("kpi", "", vm.edit());
-							}
-						},
-						value: kpi.value()
+					m(TextArea, {
+						value: kpi.value(),
+						onchange: function(v){
+							kpi.update(v);
+						}
 					}),
+					//m("input.input kpi-input", {
+					//	placeholder: "Indicator titel invoeren",
+					//	onkeydown: function(e) {kpi.update(e.target.value);},
+					//	onkeyup: function(e) {kpi.update(e.target.value);},
+					//	//onkeypress: function(e){
+					//	//	if(e.keyCode===13){
+					//	//		ptrn.createrelate("kpi", "", vm.edit());
+					//	//	}
+					//	//},
+					//	value: kpi.value()
+					//}),
 					m("span.icon-button", [
 						m("i.material-icons", {
 							onclick: function(e){
