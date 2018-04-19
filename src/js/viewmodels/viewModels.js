@@ -225,8 +225,8 @@ var createnew = {
 			ptrn.createrelate("role", "leader", u);
 			ptrn.createrelate("role", "aclient", u);
 			ptrn.createrelate("role", "bclient", u);
-			ptrn.createrelate("contract", "40", u);
-			ptrn.createrelate("plannable", "40", u);
+			ptrn.createrelate("contract", "36", u);
+			ptrn.createrelate("plannable", "36", u);
 			ptrn.transact(function(){
 				console.log(u.id());
 				ptrn.adduser(u.id(), function(){

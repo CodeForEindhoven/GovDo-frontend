@@ -16,7 +16,6 @@ var DashboardHistogram = function(){
 			});
 			return [
 				m(".dashboard-histogram", [
-					//m(".histogram-name", vnode.attrs.label),
 					vnode.attrs.series.map(function(set){
 						return m(".histogram-set",[
 							m(".histogram-set-value",
