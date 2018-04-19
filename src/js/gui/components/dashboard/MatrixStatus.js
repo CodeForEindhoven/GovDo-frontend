@@ -21,7 +21,7 @@ var MatrixStatus = function(){
 										task("related effort", function(e){return e;}).filter(function(e){
 											return ptrn.compare(other, e("task program"));
 										}).map(function(effort){
-											return m(".dashboard-matrix-task-program-effort", effort("order").value());
+											return m(".dashboard-matrix-task-program-effort", effort("task order").value());
 										})
 									]);
 								})
