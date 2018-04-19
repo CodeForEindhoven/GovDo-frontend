@@ -5,22 +5,22 @@ var Statistics = function(){
 	var query = [
 		{
 			list: "program",
-			count: ["program", "task", "task effort", "task effort person"],
+			count: ["program", "task", "task effort", "task effort person", "task effort person hours"],
 		},
 		{
 			list: "task",
-			count: ["program", "task", "effort", "effort person"],
+			count: ["program", "task", "effort", "effort person", "effort person hours"],
 		},
 		{
 			list: "effort",
-			count: ["task program", "task", "effort", "person"],
+			count: ["task program", "task", "effort", "person", "person hours"],
 		},
 		{
 			list: "person",
-			count: ["effort task program", "effort task", "effort", "person"],
+			count: ["effort task program", "effort task", "effort", "person", "hours"],
 		}
 	];
-	
+
 	return {
 		view: function(vnode){
 			return m(".dashboard-statistics", [
@@ -28,7 +28,7 @@ var Statistics = function(){
 					m("span", "Aantal "),
 					m(DropDown, {
 						value: count,
-						options: ["programma's", "opgaven", "inspanningen", "mensen"],
+						options: ["programma's", "opgaven", "inspanningen", "mensen", "uren"],
 						onchange: function(v){
 							count = v;
 						}
@@ -43,8 +43,25 @@ var Statistics = function(){
 					}),
 				]),
 				m(DashboardHistogram, {
-					series: ptrn(query[list].list, function(p){return [p.value(), p(query[list].count[count], function(e){return e;}).length];}).sort(function(a,b){return b[1]-a[1];}),
-					label: "Aantal personen per programma",
+					series: ptrn(query[list].list, function(p){
+						if(count === 4) { // if it's hours reduce in a different way
+							return [p.value(), p(query[list].count[count], function(e){
+								return e;
+							}).filter(function(e){
+								var effort = e("effort");
+								var monday = FuzzyDate.getMonday(new Date());
+								return FuzzyDate.inRange(effort("startdate").value(), effort("enddate").value(), monday);
+							}).map(function(e){
+								return parseInt(HoursSpent.Parse(e.value()).hours);
+							}).reduce(function(a,b){
+								return a+b;
+							},0)];
+						} else {
+							return [p.value(), p(query[list].count[count], function(e){return e;}).length];
+						}
+					}).sort(function(a,b){
+						return b[1]-a[1];
+					}),
 				}),
 			]);
 		}
