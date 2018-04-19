@@ -19,7 +19,7 @@ var DashboardPage = function(){
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 2;},
 								class: (currentPage===2)? "state-selected":""
-							}, "Voortgang"),
+							}, "Status"),
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 4;},
 								class: (currentPage===4)? "state-selected":""
