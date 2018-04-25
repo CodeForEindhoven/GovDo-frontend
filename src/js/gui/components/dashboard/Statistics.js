@@ -13,7 +13,7 @@ var Statistics = function(){
 		},
 		{
 			list: "effort",
-			count: ["task program", "task", "effort", "person", "person hours"],
+			count: ["task program", "task", "effort", "person", "hours"],
 		},
 		{
 			list: "person",
@@ -49,8 +49,12 @@ var Statistics = function(){
 								return e;
 							}).filter(function(e){
 								var effort = e("effort");
-								var monday = FuzzyDate.getMonday(new Date());
-								return FuzzyDate.inRange(effort("startdate").value(), effort("enddate").value(), monday);
+								var person = e("person");
+								if(effort.id() > -1 && person.id() > -1){
+									var monday = FuzzyDate.getMonday(new Date());
+									return FuzzyDate.inRange(effort("startdate").value(), effort("enddate").value(), monday);
+								}
+								return false;
 							}).map(function(e){
 								return parseInt(HoursSpent.Parse(e.value()).hours);
 							}).reduce(function(a,b){
