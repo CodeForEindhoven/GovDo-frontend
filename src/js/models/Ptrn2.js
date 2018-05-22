@@ -600,7 +600,7 @@ var ptrn = (function(){
 				return storage.getrelations()[atom.aid].map(function(rid){
 					return storage.getatoms()[rid];
 				}).filter(function(atom){
-					return (!atom.value[0].drop);
+					return (atom && !atom.value[0].drop);
 				});
 			}
 			return [];
