@@ -7,7 +7,7 @@ var DashboardPage = function(){
 				m(".layout-optionbar", [
 					m(".optionbar", [
 						m(".optionbar-section", [
-							m(".sub-navigation-label", "Visualizatie"),
+							m(".sub-navigation-label", "Visualisatie"),
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 0;},
 								class: (currentPage===0)? "state-selected":""
