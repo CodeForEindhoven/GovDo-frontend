@@ -1,4 +1,5 @@
 var ptrn = (function(){
+	var token;
 
 	//storage, is responsible for quickly storing and retreiving data
 	var storage = (function(){
@@ -749,11 +750,18 @@ var ptrn = (function(){
 		return pub;
 	})();
 
+	var xhrConfig = function(xhr){
+		if(token !== undefined){
+			xhr.setRequestHeader("x-access-token", token);
+		}
+	};
+
 	network.onpublish(function(transaction, callback){
 		m.request({
 			method: "POST",
 			url: config.api_endpoint+"/transact",
-			data: transaction
+			data: transaction,
+			config: xhrConfig
 		})
 		.then(function(result) {
 			speculator.reify(result);
@@ -765,6 +773,7 @@ var ptrn = (function(){
 		m.request({
 			method: "GET",
 			url: config.api_endpoint+"/dump",
+			config: xhrConfig
 		})
 		.then(function(result) {
 			transactor.consume(result);
@@ -777,6 +786,7 @@ var ptrn = (function(){
 		m.request({
 			method: "GET",
 			url: config.api_endpoint+"/",
+			config: xhrConfig
 		})
 		.then(function(result) {
 
@@ -784,6 +794,7 @@ var ptrn = (function(){
 				m.request({
 					method: "GET",
 					url: config.api_endpoint+"/dump",
+					config: xhrConfig
 				})
 				.then(function(result) {
 					transactor.sync(result);
@@ -802,8 +813,10 @@ var ptrn = (function(){
 		m.request({
 			method:"POST",
 			url: config.api_endpoint+"user/add",
+			config: xhrConfig,
 			data: {
-				id: userid
+				id: userid,
+				token: token
 			}
 		}).then(function(resp){
 			if(callback) callback(resp);
@@ -814,8 +827,10 @@ var ptrn = (function(){
 		m.request({
 			method:"POST",
 			url: config.api_endpoint+"user/drop",
+			config: xhrConfig,
 			data: {
-				id: userid
+				id: userid,
+				token: token
 			}
 		}).then(function(resp){
 			if(callback) callback(resp);
@@ -830,6 +845,7 @@ var ptrn = (function(){
 				id: userid,
 				name: name,
 				role: role,
+				config: xhrConfig
 			}
 		}).then(function(resp){
 			if(callback) callback(resp);
@@ -840,6 +856,7 @@ var ptrn = (function(){
 		m.request({
 			method:"POST",
 			url: config.api_endpoint+"user/hash",
+			config: xhrConfig,
 			data: {
 				name: user
 			}
@@ -851,13 +868,28 @@ var ptrn = (function(){
 	query.loginpass = function(user, pass, callback){
 		m.request({
 			method:"POST",
-			url: config.api_endpoint+"user/check",
+			url: config.api_endpoint+"user/login",
+			config: xhrConfig,
 			data: {
 				name: user,
 				pass: pass
 			}
 		}).then( function(resp){
-			callback(resp.succes, resp.node, resp.role);
+			token = resp.token;
+			callback(resp.succes, resp.node, resp.role, resp.token);
+		});
+	};
+
+	query.logintoken = function(t, callback){
+		token = t;
+		m.request({
+			method:"POST",
+			url: config.api_endpoint+"user/check",
+			data: {
+				token: t
+			}
+		}).then( function(resp){
+			callback(resp.success);
 		});
 	};
 
@@ -865,7 +897,7 @@ var ptrn = (function(){
 		m.request({
 			method:"GET",
 			url: config.api_endpoint+"users",
-			data: {},
+			config: xhrConfig
 		}).then( function(resp){
 			userlist = resp;
 			callback(resp);

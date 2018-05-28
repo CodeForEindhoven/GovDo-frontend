@@ -11,38 +11,39 @@ var MagicLogin = function(){
 				var username = hash[1];
 				var password = hash[2];
 
-				ptrn.loginpass(username, password, function(succes, node, role){
+				ptrn.loginpass(username, password, function(succes, node, role, token){
 					if(succes){
 						vm.login(0);
 						vm.user({
 							user:username,
-							pass:password,
 							node: node,
-							role: role
+							role: role,
+							token: token
 						});
 						location.href = "/";
+						ptrn.onload(function(){
+							vm.person(ptrn("person"));
+						});
 					}
-
+					location.href = "/";
 				});
 			}
-
-
 			return m(".magic-login", "Inloggen...");
 		}
 	};
 };
 
-//check for major updates
-ptrn.onload(function(){
-	vm.person(ptrn("person"));
-
+function loadgui(){
 	m.route(document.body, "/", {
 		"/": Page,
 		"/magic": MagicLogin,
 		"/help": HelpPage
 	});
-});
+}
 
+
+
+/*
 function cheatToCalendar(){
 	vm.program(ptrn("program"));
 	vm.person(ptrn("person"));
@@ -64,3 +65,4 @@ function cheatToLogin(){
 	vm.login(1);
 	m.redraw();
 }
+*/

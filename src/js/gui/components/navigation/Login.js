@@ -17,16 +17,21 @@ var Login = function(){
 	}
 
 	function verifyPass(){
-		ptrn.loginpass(username, password, function(succes, node, role){
+		ptrn.loginpass(username, password, function(succes, node, role, token){
 			if(succes){
 				error = false;
 				vm.login(0);
 				vm.user({
 					user:username,
-					pass:password,
 					node: node,
-					role: role
+					role: role,
+					token: token
 				});
+
+				ptrn.onload(function(){
+					vm.person(ptrn("person"));
+				});
+				
 			} else {
 				error = true;
 			}

@@ -10,8 +10,19 @@ var vm = (function(){
 		if (typeof(Storage) !== "undefined") {
 			var storedUser = localStorage.getItem('planlabuser');
 			if(storedUser){
-				currentUser = JSON.parse(storedUser);
-				loginPopup = 0;
+				var parsedUser = JSON.parse(storedUser);
+				if(parsedUser.token){
+					ptrn.logintoken(parsedUser.token, function(success){
+						console.log(success);
+						if(success){
+							loginPopup = 0;
+							ptrn.onload(function(){
+								vm.person(ptrn("person"));
+							});
+							m.redraw();
+						}
+					});
+				}
 			}
 		}
 	}
@@ -61,7 +72,7 @@ var vm = (function(){
 				if (typeof(Storage) !== "undefined") {
 					localStorage.removeItem('planlabuser');
 					currentUser = {user:"", pass:"", node: -1, role: 0};
-					loginPopup = -1;
+					loginPopup = 1;
 				} else {
 					console.log("no localstorage");
 				}

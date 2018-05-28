@@ -18,12 +18,9 @@ compressor.minify({
 		"./src/js/viewmodels/viewModels.js",
 		"./src/js/viewmodels/typeName.js",
 
-		"./src/js/gui/*.js",
-		"./src/js/gui/components/*.js",
-		"./src/js/gui/components/*/*.js",
-		"./src/js/gui/layout/*.js",
+		"./src/js/gui/**/*.js",
 
-		'./src/js/main.js'
+		"./src/js/main.js"
 	],
 	output: './src/js/main_01.min.js',
 	callback: function (err, min) {
