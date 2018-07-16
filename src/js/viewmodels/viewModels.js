@@ -4,7 +4,7 @@ var vm = (function(){
 	var loginPopup = 1;
 	var currentPage = 0;
 
-	var currentUser = {user:"", pass:"", node: -1, role: 0};
+	var currentUser = {user:"", pass:"", token: "", node: -1, role: 0};
 
 	try {
 		if (typeof(Storage) !== "undefined") {
@@ -18,6 +18,7 @@ var vm = (function(){
 							loginPopup = 0;
 							ptrn.onload(function(){
 								vm.person(ptrn("person"));
+								vm.user(parsedUser);
 							});
 							m.redraw();
 						}

@@ -184,7 +184,7 @@ var TaskSelectorItem = function(){
 					]:[],
 				]),
 				m(".selector-hidden",[
-					m(".selector-selected-subheader", "Indicator"),
+					m(".selector-selected-subheader.subtitle", "Indicator"),
 					task("kpi", function(kpi){
 						return m(".selector-selected-description.kpi", "- "+kpi.value());
 					}).emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator"))

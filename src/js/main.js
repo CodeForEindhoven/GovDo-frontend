@@ -20,12 +20,13 @@ var MagicLogin = function(){
 							role: role,
 							token: token
 						});
-						location.href = "/";
 						ptrn.onload(function(){
 							vm.person(ptrn("person"));
+							m.route.set("/");
 						});
+					} else {
+						m.route.set("/");
 					}
-					location.href = "/";
 				});
 			}
 			return m(".magic-login", "Inloggen...");

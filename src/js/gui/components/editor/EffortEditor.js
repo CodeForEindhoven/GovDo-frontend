@@ -6,6 +6,7 @@ var EffortEditor = function(){
 		view: function(vnode){
 			return m(".efforteditor",[
 
+				//Beschrijving
 				m(".editor-section",[
 					m(".editor-section-title.title", "Beschrijving"),
 
@@ -90,6 +91,33 @@ var EffortEditor = function(){
 								},
 							}),
 						]),
+					]),
+				]),
+
+				//KPIs
+				m(".editor-section",[
+					m(".editor-section-title.title", "Resultaten"),
+					m(".editor-row",[
+						//m(".editor-column",[
+							m(".editor-subtitle", [
+								m("span", "Indicator"),
+								m(InfoBox, {
+									content: "Een indicator geeft meetbaar aan of het doel gehaald wordt"
+								}),
+
+								m("span.icon-button.icons-header", [
+									m("span.icon-button-hint", "Nieuwe indicator toevoegen"),
+									m("i.material-icons", {
+										onclick: function(e){
+											ptrn.createrelate("kpi", "", vm.edit());
+										}
+									},"add"),
+								])
+							]),
+							m(KPIEditor, {onadd: function(e){
+								ptrn.createrelate("kpi", "", vm.edit());
+							}})
+						//]),
 					]),
 				]),
 

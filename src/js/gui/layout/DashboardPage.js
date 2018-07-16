@@ -27,7 +27,7 @@ var DashboardPage = function(){
 							m(".optionbar-option", {
 								onclick: function(){currentPage = 3;},
 								class: (currentPage===3)? "state-selected":""
-							}, "Woordenboek"),
+							}, "Trefwoorden"),
 						]),
 					])
 				]),

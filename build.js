@@ -22,7 +22,7 @@ compressor.minify({
 
 		"./src/js/main.js"
 	],
-	output: './src/js/main_01.min.js',
+	output: './src/js/main_02.min.js',
 	callback: function (err, min) {
 		if(err) console.log(err);
 		console.log("export main.min.js");

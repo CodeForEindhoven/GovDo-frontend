@@ -191,6 +191,12 @@ var EffortSelectorItem = function(){
 					m(".selector-selected-description.body-text", effort("description").value().emptyState(m(".effortselector-description-state.state-empty", "Nog geen beoogd effect"))),
 					m(".selector-selected-subheader.subtitle", "Eindproduct"),
 					m(".selector-selected-description.body-text", effort("endproduct").value().emptyState(m(".selector-selected-description.state-empty", "Nog geen eindproduct"))),
+
+					m(".selector-selected-subheader.subtitle", "Indicator"),
+					m(".selector-selected-description.body-text", effort("kpi", function(kpi){
+						return m(".selector-selected-description.kpi", "- "+kpi.value());
+					}).emptyState(m(".selector-selected-description.state-empty", "Nog geen indicator"))),
+
 					m(".selector-selected-subheader.subtitle", "Mensen"),
 					m(".selector-selected-description.body-text", effort("person", function(person){
 						return m(".selector-selected-peoplelist.body-text",{

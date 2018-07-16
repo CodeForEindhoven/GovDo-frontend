@@ -764,8 +764,13 @@ var ptrn = (function(){
 			config: xhrConfig
 		})
 		.then(function(result) {
-			speculator.reify(result);
-			if(callback){callback();}
+			if(result.succes === false) {
+				vm.logout();
+				m.redraw();
+			} else {
+				speculator.reify(result);
+				if(callback){callback();}
+			}
 		});
 	});
 
@@ -789,20 +794,24 @@ var ptrn = (function(){
 			config: xhrConfig
 		})
 		.then(function(result) {
-
-			if(result.transactions > storage.getage()){
-				m.request({
-					method: "GET",
-					url: config.api_endpoint+"/dump",
-					config: xhrConfig
-				})
-				.then(function(result) {
-					transactor.sync(result);
-					m.redraw();
-					window.setTimeout(query.sync, 5000);
-				});
+			if(result.succes === false) {
+				vm.logout();
+				m.redraw();
 			} else {
-				window.setTimeout(query.sync, 2000);
+				if(result.transactions > storage.getage()){
+					m.request({
+						method: "GET",
+						url: config.api_endpoint+"/dump",
+						config: xhrConfig
+					})
+					.then(function(result) {
+						transactor.sync(result);
+						m.redraw();
+						window.setTimeout(query.sync, 5000);
+					});
+				} else {
+					window.setTimeout(query.sync, 2000);
+				}
 			}
 		});
 	};
@@ -841,11 +850,11 @@ var ptrn = (function(){
 		m.request({
 			method:"POST",
 			url: config.api_endpoint+"user/set",
+			config: xhrConfig,
 			data: {
 				id: userid,
 				name: name,
 				role: role,
-				config: xhrConfig
 			}
 		}).then(function(resp){
 			if(callback) callback(resp);

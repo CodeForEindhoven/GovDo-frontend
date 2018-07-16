@@ -1,3 +1,55 @@
+
+
+//create new program
+
+var domain = ptrn("domain",e=>e)[0]
+
+ptrn.createrelate("program", "Jeugd – Wonen & Verblijf", domain, function(p){
+	ptrn.createrelate("mission", "", p, function(){
+	ptrn.createrelate("order", "1a", p, function(){
+	});});
+});
+
+ptrn.createrelate("program", "Jeugd – Ondersteuning Zelfstandig Leven", domain, function(p){
+	ptrn.createrelate("mission", "", p, function(){
+	ptrn.createrelate("order", "1b", p, function(){
+	});});
+});
+
+ptrn.createrelate("program", "Jeugd – Sociale Basis", domain, function(p){
+	ptrn.createrelate("mission", "", p, function(){
+	ptrn.createrelate("order", "1c", p, function(){
+	});});
+});
+
+ptrn.createrelate("program", "Jeugd – Veiligheid", domain, function(p){
+	ptrn.createrelate("mission", "", p, function(){
+	ptrn.createrelate("order", "1d", p, function(){
+	});});
+});
+
+
+var ozl = ptrn("#5010")
+var jeugd = ptrn("#2")
+var move = vm.task()
+
+ptrn.unrelate(jeugd, move)
+ptrn.relate(ozl, move)
+
+[4773, 4825, 4829, 4833, 4837, 4841]
+
+
+//set order
+
+var parent = vm.focus();
+parent("task", function(t){
+	return t;
+}).sort(function(a,b){
+	return parseInt(a("order").value()) - parseInt(b("order").value());
+}).map(function(t,c){
+	console.log(t("order").update(c+1));
+});
+
 ptrn("effort", function(e){
 	ptrn.create("startdate", "_/_/_", function(a){ptrn.relate(e,a);});
 	ptrn.create("enddate", "_/_/_", function(a){ptrn.relate(e,a);});
