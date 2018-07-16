@@ -147,6 +147,7 @@ var EffortSelectorItem = function(){
 					m(".selectorlist-item-labels",[
 						(effort('mode').value()==-1) ? m(".selectorlist-item-label-position", "Concept") : [],
 						(effort('mode').value()==-2) ? m(".selectorlist-item-label-position", "Voorgelegd") : [],
+						(effort('mode').value()==-3) ? m(".selectorlist-item-label-position", "Gearchiveerd") : [],
 					]),
 
 					//Options

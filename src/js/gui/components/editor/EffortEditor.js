@@ -334,9 +334,6 @@ var EffortEditor = function(){
 					m(".status-content",[
 						m(Toggle, {
 							value: vm.edit()("mode").value(),
-							label_sketch: "Concept",
-							label_submitted: "Voorleggen",
-							label_definitive: "Goedgekeurd",
 							onchange: function(v){
 								vm.edit()("mode").update(v);
 							}
