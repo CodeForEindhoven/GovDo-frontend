@@ -61,10 +61,37 @@ var Statistics = function(){
 								return a+b;
 							},0)];
 						} else {
-							return [p.value(), p(query[list].count[count], function(e){return e;}).length];
+							return {
+								link: function(){
+									console.log("click");
+									vm.page(0);
+									if(p.type()==="program"){
+										vm.program(p);
+										vm.focus(p);
+									}
+									if(p.type()==="task"){
+										vm.program(p("program"));
+										vm.task(p);
+										vm.focus(vm.program());
+									}
+									if(p.type()==="effort"){
+										vm.program(p("task program"));
+										vm.task(p("task"));
+										vm.effort(p);
+										vm.focus(vm.program());
+									}
+
+									if(p.type()==="person"){
+										vm.person(p);
+										vm.focus(p);
+									}
+								},
+								label: p.value(),
+								value: p(query[list].count[count], function(e){return e;}).length
+							};
 						}
 					}).sort(function(a,b){
-						return b[1]-a[1];
+						return b.value-a.value;
 					}),
 				}),
 			]);

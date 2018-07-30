@@ -11,22 +11,24 @@ var DashboardHistogram = function(){
 
 	return {
 		view: function(vnode){
-			var seriesTop = vnode.attrs.series.map(function(a){return a[1];}).reduce(function(a, b) {
+			var seriesTop = vnode.attrs.series.map(function(a){return a.value;}).reduce(function(a, b) {
 				return Math.max(a, b);
 			});
 			return [
 				m(".dashboard-histogram", [
 					vnode.attrs.series.map(function(set){
-						return m(".histogram-set",[
+						return m(".histogram-set",{
+							onclick: set.link
+						},[
 							m(".histogram-set-value",
-							(set[1]>0) ?
+							(set.value>0) ?
 								m(".histogram-set-value-bar", {
-									style: "width:"+((set[1]/seriesTop)*100)+"%;"
-								}, set[1] )
+									style: "width:"+((set.value/seriesTop)*100)+"%;"
+								}, set.value )
 							:
 								m(".histogram-set-value-bar-null", 0 )
 							),
-							m(".histogram-set-label", set[0]),
+							m(".histogram-set-label", set.label),
 						]);
 					})
 				]),

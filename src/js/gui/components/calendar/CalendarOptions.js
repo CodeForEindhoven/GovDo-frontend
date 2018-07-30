@@ -13,12 +13,12 @@ var CalendarOptions = function(){
 						}
 					}, "Uren per week"),
 
-					m(".optionbar-option", {
-						class: (vnode.attrs.currentView===2) ? "state-selected":"",
-						onclick: function(){
-							vnode.attrs.setView(2);
-						}
-					}, "Deadlines"),
+					//m(".optionbar-option", {
+					//	class: (vnode.attrs.currentView===2) ? "state-selected":"",
+					//	onclick: function(){
+					//		vnode.attrs.setView(2);
+					//	}
+					//}, "Deadlines"),
 				]),
 
 				m(".calendar-options",[
