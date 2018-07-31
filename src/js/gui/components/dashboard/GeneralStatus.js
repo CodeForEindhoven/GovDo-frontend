@@ -16,6 +16,7 @@ var GeneralStatus = function(){
 						}).map(function(task){
 							return m(".dashboard-general-task",[
 								m(".dashboard-general-task-number",{
+									title: task.value(),
 									onclick: function(){
 										vm.program(task("program"));
 										vm.task(task);
@@ -28,6 +29,7 @@ var GeneralStatus = function(){
 								}).map(function(effort){
 									return m(".dashboard-general-effort",{
 										class: effort('mode').value()==-1?"mode-sketch":"" + " " + effort('mode').value()==-2?"mode-ready":"",
+										title: effort.value(),
 										onclick: function(){
 											vm.program(effort("task program"));
 											vm.task(effort("task"));
